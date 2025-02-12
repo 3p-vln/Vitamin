@@ -1,0 +1,16 @@
+.btn {
+  font-family: Effra;
+  font-weight: 700;
+  width: fit-content;
+  padding: 17px 29px;
+  border-radius: 100px;
+  color: $fontColorTitleWjite;
+
+  &_orange {
+    background-color: $orangeMain;
+  }
+
+  &_purple {
+    background-color: $btnBackground;
+  }
+}

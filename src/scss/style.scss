@@ -1,0 +1,20 @@
+@import './config/media-breakpoints';
+@import './config/fonts';
+@import './config/reset';
+@import './config/vars';
+
+body {
+  background-color: $background;
+  color: $fontColorTitleBlack;
+  font-family: Effra;
+  font-size: 20px;
+}
+
+.container {
+  max-width: $containerWidth;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+@import './components/btn';
+@import './components/header';
