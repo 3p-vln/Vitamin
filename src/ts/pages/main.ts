@@ -1,4 +1,5 @@
-import { useApi } from '../composibles/useApi';
+import { header } from '../components/header';
+import { useApi } from '../composables/useApi';
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -7,4 +8,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   } catch (error) {
     console.error('Error fetching data:', error);
   }
+  header;
 });
