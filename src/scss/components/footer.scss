@@ -1,0 +1,160 @@
+.footer {
+  background-color: $cardBackground;
+  padding: 70px 0 73px;
+
+  @include media-breakpoint-down(sm) {
+    padding: 40px 0;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 234px 350px 233px 207px;
+    justify-content: space-between;
+
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: repeat(4, max-content);
+    }
+
+    @include media-breakpoint-down(sm) {
+      grid-template-columns: repeat(3, max-content);
+      row-gap: 40px;
+    }
+
+    @include media-breakpoint-down(xs) {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 11px;
+    }
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    font-size: 12px;
+    font-weight: 400;
+    max-width: 124px;
+    line-height: 15px;
+    letter-spacing: 0.3px;
+
+    &__img {
+      width: 85.5px;
+      height: 99px;
+
+      @include media-breakpoint-down(sm) {
+        width: 42px;
+        height: 50px;
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__prod {
+      opacity: 0.5;
+
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+    }
+  }
+
+  .shop,
+  .info,
+  .contact {
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 25px;
+      margin-top: 2px;
+
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 22px;
+      }
+    }
+
+    &__list {
+      opacity: 0.5;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 140px;
+      line-height: 21px;
+      letter-spacing: 0.5px;
+
+      @include media-breakpoint-down(md) {
+        max-width: 110px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        max-width: 140px;
+      }
+
+      @include media-breakpoint-down(xs) {
+        max-width: 100%;
+      }
+    }
+
+    &__lists {
+      display: flex;
+      gap: 45px;
+      max-width: 315px;
+
+      @include media-breakpoint-down(md) {
+        gap: 10px;
+      }
+
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  .shop {
+    @include media-breakpoint-down(sm) {
+      grid-column: 1 / 2;
+    }
+  }
+
+  .info {
+    &__list {
+      max-width: 205px;
+
+      @include media-breakpoint-down(md) {
+        max-width: 150px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .contact {
+    &__list {
+      max-width: 250px;
+
+      &-item {
+        svg {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+
+    &__facebook,
+    &__inst {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+
+      @include media-breakpoint-down(sm) {
+        margin-top: 0;
+      }
+    }
+  }
+}
