@@ -4,10 +4,12 @@ class Header {
   burgerBtn: HTMLElement | null;
   menuMain: HTMLElement | null;
   bagBtn: HTMLElement | null;
+  logoBtn: HTMLElement | null;
 
   constructor() {
     this.burgerBtn = getElement('.burger__btn');
     this.bagBtn = getElement('.header__bag');
+    this.logoBtn = getElement('.header__logo');
     this.menuMain = getElement('.burger__menu.main');
 
     this.init();
@@ -71,10 +73,12 @@ class Header {
   }
 
   hideBag() {
-    if (this.bagBtn && this.menuMain) {
+    if (this.bagBtn && this.logoBtn && this.menuMain) {
       if (this.menuMain.classList.contains('main_active')) {
+        this.logoBtn.style.opacity = '0';
         this.bagBtn.style.display = 'none';
       } else {
+        this.logoBtn.style.opacity = '1';
         this.bagBtn.style.display = 'block';
       }
     }
