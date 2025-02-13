@@ -2,6 +2,7 @@
   position: fixed;
   width: 100%;
   background-color: $background;
+  z-index: 20;
 
   &__container {
     max-width: $headerContainerWidth;

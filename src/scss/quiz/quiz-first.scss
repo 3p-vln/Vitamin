@@ -1,0 +1,191 @@
+.quiz {
+  display: flex;
+
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+  }
+
+  @include media-breakpoint-down(sm) {
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background-color: $cardBackground;
+    height: 100vh;
+    padding: 0 20px;
+  }
+
+  &__question {
+    height: 100vh;
+    width: 50vw;
+    background-color: $purpleBg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $fontColorTitleWjite;
+    font-size: clamp(24px, 4.5vw, 64px);
+
+    @include media-breakpoint-down(md) {
+      height: 40vh;
+      width: 100vw;
+    }
+
+    @include media-breakpoint-down(sm) {
+      height: auto;
+      background-color: transparent;
+      color: $fontColorTitleBlack;
+    }
+  }
+
+  &__title {
+    max-width: 496px;
+    letter-spacing: 0.5px;
+    line-height: 78px;
+    font-weight: 700;
+  }
+
+  &__answer {
+    height: 100vh;
+    overflow: hidden;
+    width: 50vw;
+    background-color: $cardBackground;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+
+    @include media-breakpoint-down(md) {
+      height: 60vh;
+      width: 100vw;
+    }
+
+    @include media-breakpoint-down(sm) {
+      height: auto;
+      background-color: transparent;
+    }
+  }
+
+  &__form {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    font-family: OpenSans;
+
+    &-label {
+      font-size: 18px;
+      font-weight: 400;
+      opacity: 0.5;
+
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+    }
+
+    .input {
+      width: 496px;
+      height: 105px;
+      background-color: $background;
+      border-radius: 15px;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px;
+
+      @include media-breakpoint-down(sm) {
+        max-width: 100%;
+        max-height: 56px;
+        width: 100%;
+        height: 100%;
+      }
+
+      &__holder {
+        width: 80%;
+        font-size: 19px;
+        margin-left: 22px;
+      }
+
+      &__next {
+        background-color: transparent;
+        width: 69px;
+        height: 69px;
+        transition:
+          width 0.3s ease-in-out,
+          height 0.3s ease-in-out;
+
+        @include media-breakpoint-down(sm) {
+          width: 32px;
+          height: 32px;
+        }
+
+        svg {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+
+          &.adapt {
+            display: none;
+
+            @include media-breakpoint-down(sm) {
+              display: block;
+            }
+          }
+
+          &.desk {
+            @include media-breakpoint-down(sm) {
+              display: none;
+            }
+          }
+        }
+
+        &:hover {
+          width: 79px;
+          height: 79px;
+
+          @include media-breakpoint-down(sm) {
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+    }
+  }
+
+  &__circle {
+    position: absolute;
+    width: 156px;
+    height: 156px;
+    top: 116px;
+    left: 46px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
+
+  &__s-line {
+    position: absolute;
+    width: 407px;
+    height: 308px;
+    bottom: 0;
+    right: 10px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
+}
