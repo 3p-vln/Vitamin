@@ -41,6 +41,12 @@
     letter-spacing: 0.5px;
     line-height: 78px;
     font-weight: 700;
+
+    @include media-breakpoint-down(md) {
+      line-height: normal;
+      text-align: center;
+      padding: 0 20px;
+    }
   }
 
   &__answer {
@@ -161,9 +167,53 @@
     gap: 20px;
     position: relative;
     z-index: 3;
+    max-height: calc(100vh - 120px);
+    padding-bottom: 10px;
+    overflow-y: auto;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px; /* Высота размытия */
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    @include media-breakpoint-down(md) {
+      max-height: calc(60vh - 40px);
+    }
 
     @include media-breakpoint-down(sm) {
-      flex-direction: row;
+      gap: 10px;
+      max-height: calc(100vh - 226px);
+    }
+
+    &_line {
+      @include media-breakpoint-down(sm) {
+        flex-direction: row;
+        gap: 20px;
+      }
+    }
+
+    &_grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 105px);
+      max-width: 683px;
+      gap: 20px;
+
+      .quiz__btn {
+        padding: 0 40px;
+
+        @include media-breakpoint-down(sm) {
+          padding: 0 8px;
+        }
+      }
     }
   }
 
@@ -176,9 +226,16 @@
     font-weight: 600;
     background-color: $fontColorTitleWjite;
     width: 100%;
+    color: $fontColorTitleBlack;
 
     &:hover {
       border: 1px solid $purpleBg;
+    }
+
+    &_in-down-line {
+      @include media-breakpoint-down(sm) {
+        padding: 19px 20px;
+      }
     }
 
     @include media-breakpoint-down(sm) {
@@ -208,6 +265,54 @@
       right: 98px;
     }
 
+    &_3 {
+      top: 106px;
+      left: auto;
+      right: 135px;
+    }
+
+    &_4 {
+      width: 178px;
+      height: 178px;
+      top: auto;
+      bottom: 108px;
+      left: 103px;
+    }
+
+    &_5 {
+      width: 300px;
+      height: 301px;
+      right: -189px;
+      left: auto;
+      top: auto;
+      bottom: 144px;
+    }
+
+    &_6 {
+      left: auto;
+      top: 161px;
+      right: 114px;
+      width: 155px;
+      height: 155px;
+    }
+
+    &_7 {
+      width: 114px;
+      height: 114px;
+      top: auto;
+      bottom: 81px;
+      left: 103px;
+    }
+
+    &_8 {
+      top: auto;
+      left: auto;
+      right: 59px;
+      bottom: 51px;
+      width: 148px;
+      height: 151px;
+    }
+
     @include media-breakpoint-down(sm) {
       display: none;
     }
@@ -231,6 +336,51 @@
       height: 162px;
       top: 108px;
       left: 71px;
+    }
+
+    &_3 {
+      right: auto;
+      left: 68px;
+      width: 251px;
+      height: 265px;
+    }
+
+    &_4 {
+      width: 211px;
+      height: 275px;
+      top: 0;
+      right: 116px;
+    }
+
+    &_5 {
+      top: 128px;
+      left: 74px;
+      width: 201px;
+      height: 202px;
+    }
+
+    &_6 {
+      left: 50px;
+      bottom: 64px;
+      width: 161px;
+      height: 161px;
+    }
+
+    &_7 {
+      width: 289px;
+      height: 272px;
+      rotate: 90deg;
+      transform: scaleY(-1);
+      top: 71px;
+      right: -66px;
+    }
+
+    &_8 {
+      transform: scaleX(-1);
+      top: 144px;
+      left: 38px;
+      width: 174px;
+      height: 180px;
     }
 
     @include media-breakpoint-down(sm) {
