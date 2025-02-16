@@ -5,9 +5,10 @@
   <link rel="icon" type="image/svg+xml" href="/Vitamin/logo.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vitamin. Quiz</title>
-  <script type="module" crossorigin src="/Vitamin/assets/main-CtfJFV6Q.js"></script>
-  <link rel="stylesheet" crossorigin href="/Vitamin/assets/main-Cc6vR3y6.css">
-  <link rel="stylesheet" crossorigin href="/Vitamin/assets/quiz-CVSmMad0.css">
+  <script type="module" crossorigin src="/Vitamin/assets/quiz-DuW3fzsc.js"></script>
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/useCallDom-FENyjlZf.js">
+  <link rel="stylesheet" crossorigin href="/Vitamin/assets/useCallDom-Dvou7mz8.css">
+  <link rel="stylesheet" crossorigin href="/Vitamin/assets/quiz-Cz8yn25k.css">
 </head>
 
   <body>
@@ -25,13 +26,13 @@
           <use href="#vitamin-logo"></use>
         </svg>
       </a>
-      <div class="header-quiz__count count">1<span class="count__current"></span>/9</div>
+      <div class="header-quiz__count count"><span class="count__current">1</span>/9</div>
     </div>
   </div>
 </header>
 
       <div class="page">
-        <div class="page-quiz quiz quiz_active">
+        <div class="page-quiz quiz">
   <div class="quiz__question">
     <h1 class="quiz__title title">What’s your first name?</h1>
   </div>
@@ -40,7 +41,7 @@
       <label class="quiz__form-label" for="firstName">First Name</label>
       <div class="quiz__form-inp input">
         <input class="input__holder" id="firstName" name="firstName" type="text" placeholder="" />
-        <button class="input__next"  type="submit">      
+        <button class="input__next" id="next-btn" type="button">      
           <svg class="desk">
             <use href="#next-question"></use>
           </svg>
@@ -65,14 +66,14 @@
 
 
 
-        <div class="page-quiz quiz quiz_active">
+        <div class="page-quiz quiz">
   <div class="quiz__question">
     <h1 class="quiz__title title">Do you smoke?</h1>
   </div>
   <div class="quiz__answer">
-    <div class="quiz__btns">
-      <button class="quiz__btn">Yes</button>
-      <button class="quiz__btn">No</button>      
+    <div class="quiz__btns quiz__btns_line">
+      <button class="quiz__btn" id="next-btn" type="submit">Yes</button>
+      <button class="quiz__btn" id="next-btn" type="submit">No</button>      
     </div>
     <div class="quiz__circle quiz__circle_2">
       <svg>
@@ -82,6 +83,193 @@
     <div class="quiz__s-line quiz__s-line_2">
       <svg>
         <use href="#line-yelow"></use>
+      </svg>
+    </div>
+  </div>
+</div>
+
+
+
+        <div class="page-quiz quiz">
+  <div class="quiz__question">
+    <h1 class="quiz__title title">What is your eating habits?</h1>
+  </div>
+  <div class="quiz__answer">
+    <div class="quiz__btns">
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">Vegan diet</button>
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">Vegetarian diet</button>      
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">My diet is generally healthy and includes animal protein, fish and veggies</button>
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">My diet includes fast food and soft drinks</button>      
+    </div>
+    <div class="quiz__circle quiz__circle_3">
+      <svg>
+        <use href="#circle-orange">
+      </svg>
+    </div>
+    <div class="quiz__s-line quiz__s-line_3">
+      <svg>
+        <use href="#hulf-curcle-yelow"></use>
+      </svg>
+    </div>
+  </div>
+</div>
+
+
+
+        <div class="page-quiz quiz">
+  <div class="quiz__question">
+    <h1 class="quiz__title title">How frequently do you consume alcoholic beverages?</h1>
+  </div>
+  <div class="quiz__answer">
+    <div class="quiz__btns">
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">≤ 3 times per week</button>
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">4 - 7 times per week</button>      
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">7+ times per week</button>
+    </div>
+    <div class="quiz__circle quiz__circle_4">
+      <svg>
+        <use href="#circle-yelow">
+      </svg>
+    </div>
+    <div class="quiz__s-line quiz__s-line_4">
+      <svg>
+        <use href="#hulf-curcle-orange"></use>
+      </svg>
+    </div>
+  </div>
+</div>
+
+
+
+        <div class="page-quiz quiz">
+  <div class="quiz__question">
+    <h1 class="quiz__title title">How frequently do you have cold/flu symptoms?</h1>
+  </div>
+  <div class="quiz__answer">
+    <div class="quiz__btns">
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">≤ 2 per year</button>
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">3 - 5 times per year</button>      
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">5+ times per week</button>
+    </div>
+    <div class="quiz__circle quiz__circle_5">
+      <svg>
+        <use href="#circle-orange">
+      </svg>
+    </div>
+    <div class="quiz__s-line quiz__s-line_5">
+      <svg>
+        <use href="#hulf-curcle-yelow-2"></use>
+      </svg>
+    </div>
+  </div>
+</div>
+
+
+
+        <div class="page-quiz quiz">
+  <div class="quiz__question">
+    <h1 class="quiz__title title">Describe your stress level</h1>
+  </div>
+  <div class="quiz__answer">
+    <div class="quiz__btns ">
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">I feel calm and relaxed most of the time</button>
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">I get nerevous from time to time</button>      
+      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">I’m under a lot of stress most of the time</button>
+    </div>
+    <div class="quiz__circle quiz__circle_6">
+      <svg>
+        <use href="#circle-yelow">
+      </svg>
+    </div>
+    <div class="quiz__s-line quiz__s-line_6">
+      <svg>
+        <use href="#hulf-curcle-orange-2"></use>
+      </svg>
+    </div>
+  </div>
+</div>
+
+
+
+        <div class="page-quiz quiz">
+  <div class="quiz__question">
+    <h1 class="quiz__title title">Have you ever been diagnosted with high blood glucose level?</h1>
+  </div>
+  <div class="quiz__answer">
+    <div class="quiz__btns quiz__btns_line">
+      <button class="quiz__btn" id="next-btn" type="submit">Yes</button>
+      <button class="quiz__btn" id="next-btn" type="submit">No</button>      
+    </div>
+    <div class="quiz__circle quiz__circle_7">
+      <svg>
+        <use href="#circle-orange">
+      </svg>
+    </div>
+    <div class="quiz__s-line quiz__s-line_7">
+      <svg>
+        <use href="#hulf-curcle-yelow"></use>
+      </svg>
+    </div>
+  </div>
+</div>
+
+
+
+        <div class="page-quiz quiz">
+  <div class="quiz__question">
+    <h1 class="quiz__title title">Tell us what you want to focus on</h1>
+  </div>
+  <div class="quiz__answer">
+    <div class="quiz__btns quiz__btns_grid">
+      <button class="quiz__btn" id="next-btn" type="submit">Weight managment</button>
+      <button class="quiz__btn" id="next-btn" type="submit">Stress relief</button>      
+      <button class="quiz__btn" id="next-btn" type="submit">Immune boost</button>      
+      <button class="quiz__btn" id="next-btn" type="submit">Need to solve a sprcific problem</button>
+      <button class="quiz__btn" id="next-btn" type="submit">I need a bassic kit for a daily intake</button>      
+      <button class="quiz__btn" id="next-btn" type="submit">All in one</button>
+    </div>
+    <div class="quiz__circle quiz__circle_8">
+      <svg>
+        <use href="#circle-yelow">
+      </svg>
+    </div>
+    <div class="quiz__s-line quiz__s-line_8">
+      <svg>
+        <use href="#hulf-curcle-orange-2"></use>
+      </svg>
+    </div>
+  </div>
+</div>
+
+
+
+        <div class="page-quiz quiz">
+  <div class="quiz__question">
+    <h1 class="quiz__title title">What’s your email address?</h1>
+  </div>
+  <div class="quiz__answer">
+    <form class="quiz__form" id="emailQuestion">
+      <label class="quiz__form-label" for="email">Email</label>
+      <div class="quiz__form-inp input">
+        <input class="input__holder" id="email" name="email" type="text" placeholder="" />
+        <button class="input__next" id="next-btn" type="submit">      
+          <svg class="desk">
+            <use href="#next-question"></use>
+          </svg>
+          <svg class="adapt">
+            <use href="#next-question-adapt"></use>
+          </svg>
+        </button>
+      </div>
+    </form>
+    <div class="quiz__circle">
+      <svg>
+        <use href="#circle-orange">
+      </svg>
+    </div>
+    <div class="quiz__s-line">
+      <svg>
+        <use href="#s-line-yelow"></use>
       </svg>
     </div>
   </div>
@@ -189,6 +377,22 @@
 
   <symbol id="line-yelow" viewBox="0 0 160 160" fill="none">
     <path d="M131 2.75517e-05C131 72.3493 72.3493 131 -2.55994e-05 131" stroke="#F6906E" stroke-width="58" />
+  </symbol>
+
+  <symbol id="hulf-curcle-yelow" viewBox="0 0 210 264" fill="none">
+    <path d="M3.0146e-05 29C99.9636 29 181 109.589 181 209C181 308.411 99.9635 389 -1.3262e-06 389" stroke="#FFCA78" stroke-width="58" />
+  </symbol>
+
+  <symbol id="hulf-curcle-yelow-2" viewBox="0 0 200 200" fill="none">
+    <path d="M171 1.36275e-05C171 94.4407 94.4407 171 -1.85116e-05 171" stroke="#FFCA78" stroke-width="58" />
+  </symbol>
+
+  <symbol id="hulf-curcle-orange" viewBox="0 0 210 275" fill="none">
+    <path d="M210 246C110.037 246 29 165.411 29 66C29 -33.4113 110.036 -114 210 -114" stroke="#F6906E" stroke-width="58" />
+  </symbol>
+
+  <symbol id="hulf-curcle-orange-2" viewBox="0 0 160 160" fill="none">
+    <path d="M160 131C87.6507 131 29 72.3493 29 -2.55994e-05" stroke="#F6906E" stroke-width="58" />
   </symbol>
 
   <symbol id="next-question" viewBox="0 0 69 69" fill="none">
