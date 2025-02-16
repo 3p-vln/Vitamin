@@ -90,6 +90,7 @@
     @include media-breakpoint-down(sm) {
       height: auto;
       background-color: transparent;
+      overflow: visible;
     }
 
     .just-validate-error-label {
@@ -98,7 +99,11 @@
       font-size: 16px;
       position: absolute;
       font-weight: 700;
-      // opacity: 0.75;
+
+      @include media-breakpoint-down(sm) {
+        top: 65px;
+        font-size: 14px;
+      }
     }
   }
 
