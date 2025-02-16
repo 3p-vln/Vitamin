@@ -1,4 +1,4 @@
-import { initQuestions } from '../quiz/quizCount';
+import { initQuestions } from '../quiz/quiz-count';
 
 document.addEventListener('DOMContentLoaded', async () => {
   initQuestions();
