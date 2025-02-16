@@ -1,0 +1,40 @@
+@import './config/media-breakpoints';
+@import './config/fonts';
+@import './config/reset';
+@import './config/vars';
+
+body {
+  background-color: $background;
+  color: $fontColorTitleBlack;
+  font-family: Effra;
+  font-size: 20px;
+}
+
+.container {
+  max-width: $containerWidth;
+  padding: 0 15px;
+  margin: 0 auto;
+
+  @include media-breakpoint-down(sm) {
+    padding: 0 20px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.page {
+  flex: 1 1 auto;
+  margin-top: 110px;
+
+  @include media-breakpoint-down(sm) {
+    margin-top: 70px;
+  }
+}
+
+@import './components/btn';
+@import './components/header';
+@import './components/footer';

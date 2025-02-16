@@ -1,10 +1,16 @@
-import { useApi } from '../composibles/useApi';
+import { initHeader } from '../components/header';
+import { register } from '../composables/useApi';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    const catalogList = await useApi.getCatalogList();
-    console.log('Catalog List:', catalogList);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
+  console.log(
+    register({
+      first_name: 'Test',
+      last_name: 'Test',
+      email: 'novkvlaa@gmail.com',
+      password: 'qwerty123Shjgkg',
+      role_type: 'regular',
+    })
+  );
+
+  initHeader();
 });
