@@ -20,7 +20,7 @@
     margin-bottom: 60px;
 
     @include media-breakpoint-down(sm) {
-      padding-right: 128px;
+      padding-right: 115px;
       line-height: 29px;
       margin-bottom: 27px;
     }
@@ -112,11 +112,16 @@
       top: 316px;
       right: 481px;
 
+      @include media-breakpoint-down(md) {
+        left: 419px;
+      }
+
       @include media-breakpoint-down(sm) {
         width: 62px;
         height: 62px;
         top: 335px;
         right: 35px;
+        left: auto;
       }
 
       svg {
