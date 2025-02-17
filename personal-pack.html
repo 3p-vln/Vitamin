@@ -4,290 +4,249 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/Vitamin/logo.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vitamin. Quiz</title>
-  <script type="module" crossorigin src="/Vitamin/assets/quiz-CbLmWp0G.js"></script>
+  <title>Vitamin. Your personal pack</title>
+  <script type="module" crossorigin src="/Vitamin/assets/personal-pack-CAhSRukc.js"></script>
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/useCallDom-Hkvgm-JB.js">
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/header-DM63EjsI.js">
   <link rel="stylesheet" crossorigin href="/Vitamin/assets/useCallDom-CHpCBiwS.css">
-  <link rel="stylesheet" crossorigin href="/Vitamin/assets/quiz-VV2kBGBh.css">
+  <link rel="stylesheet" crossorigin href="/Vitamin/assets/personal-pack-DvuiEitt.css">
 </head>
 
   <body>
     <div class="wrapper">
-      <header class="header-quiz">
-  <div class="header-quiz__container">
-    <div class="header-quiz__content">
-      <a href="index.html" class="header-quiz__logo">
-        <svg>
-          <use href="#vitamin-logo-white"></use>
-        </svg>
-      </a>
-      <a href="index.html" class="header-quiz__logo header-quiz__logo_adapt">
+      <header class="header">
+  <div class="header__container">
+    <div class="header__content">
+      <div class="burger__btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <a href="index.html" class="header__logo">
         <svg>
           <use href="#vitamin-logo"></use>
         </svg>
       </a>
-      <div class="header-quiz__count count"><span class="count__current">1</span>/9</div>
+
+      <div class="header__btns header__btns_bag">
+        <a href="#" class="header__profile">
+          <svg>
+            <use href="#profile"></use>
+          </svg>
+        </a>
+        <a href="#" class="header__bag">
+          <svg>
+            <use href="#bag"></use>
+          </svg>
+        </a>
+        <a href="quiz.html" class="header__take-quze btn btn_orange">Take the quiz</a>
+      </div>
+
+      <div class="header__menu burger__menu main">
+        <div class="header__profile header__profile_adapt">
+          <svg>
+            <use href="#profile"></use>
+          </svg>
+        </div>
+        <ul class="menu menu_main">
+          <li class="menu__item menu__item_shop">
+            <div class="menu__shop">Shop</div>
+            <div class="menu__arrow">
+              <svg>
+                <use href="#next-arrow"></use>
+              </svg>
+            </div>
+          </li>
+          <li class="menu__item menu__item_info">
+            <div class="menu__info">Information</div>
+            <div class="menu__arrow">
+              <svg>
+                <use href="#next-arrow"></use>
+              </svg>
+            </div>
+          </li>
+          <li class="menu__item orrange"><a class="menu__quiz" href="quiz.html">Take the quiz</a></li>
+        </ul>
+        <div class="header__support support">
+          <a href="mailto:support@medstogo.com" class="support__mail">support@medstogo.com</a>
+          <p class="support__prod">© 2020 Vitamins.com / All rights reserved</p>
+        </div>
+      </div>
+
+      <div class="header__menu burger__menu profile">
+        <div class="profile__title">
+          <div class="back-btn">
+            <svg>
+              <use href="#back-arrow"></use>
+            </svg>
+          </div>
+          <p>Profile</p>
+        </div>
+        <ul class="menu menu_profile">
+          <li class="menu__item"><a href="" class="menu__sub">Subscriptions</a></li>
+          <li class="menu__item"><a href="" class="menu__orders">Orders</a></li>
+          <li class="menu__item"><a href="" class="menu__acc-overwiew">Account Overview</a></li>
+          <li class="menu__item"><a href="" class="menu__pay">Payment methods</a></li>
+          <li class="menu__item"><a href="" class="menu__change-pass">Change Password</a></li>
+          <li class="menu__item red"><a href="" class="menu__sign-out">Sign Out</a></li>
+        </ul>
+      </div>
+
+      <div class="header__menu burger__menu info">
+        <div class="info__title">
+          <div class="back-btn">
+            <svg>
+              <use href="#back-arrow"></use>
+            </svg>
+          </div>
+          <p>Information</p>
+        </div>
+        <ul class="menu menu_info">
+          <li class="menu__item"><a href="" class="menu__sub-and-billing">Subscription Cycle & Billing</a></li>
+          <li class="menu__item"><a href="" class="menu__terms">Terms & Conditions</a></li>
+          <li class="menu__item"><a href="" class="menu__pr-policy">Privacy Policy</a></li>
+          <li class="menu__item"><a href="" class="menu__shopping">Shipping & Delivery</a></li>
+          <li class="menu__item"><a href="" class="menu__return-policy">Return Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="header__menu burger__menu shop">
+        <div class="shop__title">
+          <div class="back-btn">
+            <svg>
+              <use href="#back-arrow"></use>
+            </svg>
+          </div>
+          <p>Shop</p>
+        </div>
+        <ul class="menu menu_shop">
+          <li class="menu__item"><a href="" class="menu__all">All categories</a></li>
+          <li class="menu__item"><a href="" class="menu__vitamins">Vitamins & Dietary Supplements</a></li>
+          <li class="menu__item"><a href="" class="menu__weidht">Weight Loss</a></li>
+          <li class="menu__item"><a href="" class="menu__minerals">Minerals</a></li>
+          <li class="menu__item"><a href="" class="menu__antiox">Antioxidants</a></li>
+          <li class="menu__item"><a href="" class="menu__prob">Probiotics</a></li>
+          <li class="menu__item"><a href="" class="menu__pain">Pain Relief</a></li>
+          <li class="menu__item"><a href="" class="menu__prenatial">Prenatal Vitamins</a></li>
+          <li class="menu__item red"><a href="" class="menu__sale">Sale%</a></li>
+        </ul>
+        <div class="shop__chose chose">
+          <p class="chose__title">Don’t know what vitamins your body needs?</p>
+          <p class="chose__text">Answer a few simple questions and automatically get a personalazed list of vitamins in minutes</p>
+          <a href="quiz.html" class="chose__take-quze btn btn_orange">Take the quiz</a>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
       <div class="page">
-        <div class="page-quiz quiz">
-  <div class="quiz__question">
-    <h1 class="quiz__title title">What’s your first name?</h1>
-  </div>
-  <div class="quiz__answer">
-    <form class="quiz__form" id="firstQuestion">
-      <label class="quiz__form-label" for="firstName">First Name</label>
-      <div class="quiz__form-inp input">
-        <input class="input__holder" id="firstName" name="firstName" type="text" placeholder="" />
-        <button class="input__next" id="next-btn" type="button">      
-          <svg class="desk">
-            <use href="#next-question"></use>
-          </svg>
-          <svg class="adapt">
-            <use href="#next-question-adapt"></use>
-          </svg>
-        </button>
-      </div>
-    </form>
-    <div class="quiz__circle">
-      <svg>
-        <use href="#circle-orange">
-      </svg>
-    </div>
-    <div class="quiz__s-line">
-      <svg>
-        <use href="#s-line-yelow"></use>
-      </svg>
+        <div class="pack-info">
+  <div class="container">
+    <div class="pack-info__content">
+      <h1 class="pack-info__title"><span></span>, we made personalized pack for you!</h1>
+      <h2 class="pack-info__rec">Recommenadation</h2>
+      <p class="pack-info__rec-info">Your recommendation is based on your answers and our database of clinical research. This health plan, made just for you, is recommended for you to feel your best today while supporting long-term health.</p>
     </div>
   </div>
-</div>
-
-
-
-        <div class="page-quiz quiz">
-  <div class="quiz__question">
-    <h1 class="quiz__title title">Do you smoke?</h1>
-  </div>
-  <div class="quiz__answer">
-    <div class="quiz__btns quiz__btns_line">
-      <button class="quiz__btn" id="next-btn" type="submit">Yes</button>
-      <button class="quiz__btn" id="next-btn" type="submit">No</button>      
-    </div>
-    <div class="quiz__circle quiz__circle_2">
-      <svg>
-        <use href="#circle-yelow">
-      </svg>
-    </div>
-    <div class="quiz__s-line quiz__s-line_2">
-      <svg>
-        <use href="#line-yelow"></use>
-      </svg>
-    </div>
-  </div>
-</div>
-
-
-
-        <div class="page-quiz quiz">
-  <div class="quiz__question">
-    <h1 class="quiz__title title">What is your eating habits?</h1>
-  </div>
-  <div class="quiz__answer">
-    <div class="quiz__btns">
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">Vegan diet</button>
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">Vegetarian diet</button>      
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">My diet is generally healthy and includes animal protein, fish and veggies</button>
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">My diet includes fast food and soft drinks</button>      
-    </div>
-    <div class="quiz__circle quiz__circle_3">
-      <svg>
-        <use href="#circle-orange">
-      </svg>
-    </div>
-    <div class="quiz__s-line quiz__s-line_3">
-      <svg>
-        <use href="#hulf-curcle-yelow"></use>
-      </svg>
-    </div>
-  </div>
-</div>
-
-
-
-        <div class="page-quiz quiz">
-  <div class="quiz__question">
-    <h1 class="quiz__title title">How frequently do you consume alcoholic beverages?</h1>
-  </div>
-  <div class="quiz__answer">
-    <div class="quiz__btns">
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">≤ 3 times per week</button>
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">4 - 7 times per week</button>      
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">7+ times per week</button>
-    </div>
-    <div class="quiz__circle quiz__circle_4">
-      <svg>
-        <use href="#circle-yelow">
-      </svg>
-    </div>
-    <div class="quiz__s-line quiz__s-line_4">
-      <svg>
-        <use href="#hulf-curcle-orange"></use>
-      </svg>
-    </div>
-  </div>
-</div>
-
-
-
-        <div class="page-quiz quiz">
-  <div class="quiz__question">
-    <h1 class="quiz__title title">How frequently do you have cold/flu symptoms?</h1>
-  </div>
-  <div class="quiz__answer">
-    <div class="quiz__btns">
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">≤ 2 per year</button>
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">3 - 5 times per year</button>      
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">5+ times per week</button>
-    </div>
-    <div class="quiz__circle quiz__circle_5">
-      <svg>
-        <use href="#circle-orange">
-      </svg>
-    </div>
-    <div class="quiz__s-line quiz__s-line_5">
-      <svg>
-        <use href="#hulf-curcle-yelow-2"></use>
-      </svg>
-    </div>
-  </div>
-</div>
-
-
-
-        <div class="page-quiz quiz">
-  <div class="quiz__question">
-    <h1 class="quiz__title title">Describe your stress level</h1>
-  </div>
-  <div class="quiz__answer">
-    <div class="quiz__btns ">
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">I feel calm and relaxed most of the time</button>
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">I get nerevous from time to time</button>      
-      <button class="quiz__btn quiz__btn_in-down-line" id="next-btn" type="submit">I’m under a lot of stress most of the time</button>
-    </div>
-    <div class="quiz__circle quiz__circle_6">
-      <svg>
-        <use href="#circle-yelow">
-      </svg>
-    </div>
-    <div class="quiz__s-line quiz__s-line_6">
-      <svg>
-        <use href="#hulf-curcle-orange-2"></use>
-      </svg>
-    </div>
-  </div>
-</div>
-
-
-
-        <div class="page-quiz quiz">
-  <div class="quiz__question">
-    <h1 class="quiz__title title">Have you ever been diagnosted with high blood glucose level?</h1>
-  </div>
-  <div class="quiz__answer">
-    <div class="quiz__btns quiz__btns_line">
-      <button class="quiz__btn" id="next-btn" type="submit">Yes</button>
-      <button class="quiz__btn" id="next-btn" type="submit">No</button>      
-    </div>
-    <div class="quiz__circle quiz__circle_7">
-      <svg>
-        <use href="#circle-orange">
-      </svg>
-    </div>
-    <div class="quiz__s-line quiz__s-line_7">
-      <svg>
-        <use href="#hulf-curcle-yelow"></use>
-      </svg>
-    </div>
-  </div>
-</div>
-
-
-
-        <div class="page-quiz quiz">
-  <div class="quiz__question">
-    <h1 class="quiz__title title">Tell us what you want to focus on</h1>
-  </div>
-  <div class="quiz__answer">
-    <div class="quiz__btns quiz__btns_grid">
-      <button class="quiz__btn" id="next-btn" type="submit">Weight managment</button>
-      <button class="quiz__btn" id="next-btn" type="submit">Stress relief</button>      
-      <button class="quiz__btn" id="next-btn" type="submit">Immune boost</button>      
-      <button class="quiz__btn" id="next-btn" type="submit">Need to solve a sprcific problem</button>
-      <button class="quiz__btn" id="next-btn" type="submit">I need a bassic kit for a daily intake</button>      
-      <button class="quiz__btn" id="next-btn" type="submit">All in one</button>
-    </div>
-    <div class="quiz__circle quiz__circle_8">
-      <svg>
-        <use href="#circle-yelow">
-      </svg>
-    </div>
-    <div class="quiz__s-line quiz__s-line_8">
-      <svg>
-        <use href="#hulf-curcle-orange-2"></use>
-      </svg>
-    </div>
-  </div>
-</div>
-
-
-
-        <div class="page-quiz quiz">
-  <div class="quiz__question">
-    <h1 class="quiz__title title">What’s your email address?</h1>
-  </div>
-  <div class="quiz__answer">
-    <form class="quiz__form" id="emailQuestion">
-      <label class="quiz__form-label" for="email">Email</label>
-      <div class="quiz__form-inp input">
-        <input class="input__holder" id="email" name="email" type="text" placeholder="" />
-        <button class="input__next" id="next-btn" type="submit">      
-          <svg class="desk">
-            <use href="#next-question"></use>
-          </svg>
-          <svg class="adapt">
-            <use href="#next-question-adapt"></use>
-          </svg>
-        </button>
-      </div>
-    </form>
-    <div class="quiz__circle">
-      <svg>
-        <use href="#circle-orange">
-      </svg>
-    </div>
-    <div class="quiz__s-line">
-      <svg>
-        <use href="#s-line-yelow"></use>
-      </svg>
-    </div>
-  </div>
-</div>
-
-
-
-      </div>
-      <footer class="footer-quiz back">
-  <div class="back__img">
-    <svg class="desk">
-      <use href="#back-arrow-white"></use>
-    </svg>
-    <svg class="adapt">
-      <use href="#back-arrow-purple"></use>
+  <div class="pack-info__bg pack-info__bg_hulf-circle">
+    <svg>
+      <use href="#hulf-curcle-yelow-3"></use>
     </svg>
   </div>
-  Back
+  <div class="pack-info__bg pack-info__bg_hulf-circle-2">
+    <svg>
+      <use href="#hulf-curcle-orange-3"></use>
+    </svg>
+  </div>
+  <div class="pack-info__bg pack-info__bg_hulf-circle-2 pack-info__bg_hulf-circle-2-adapt">
+    <svg>
+      <use href="#hulf-curcle-orange-4"></use>
+    </svg>
+  </div>
+</div>
+
+        <div class="your-pack">
+  <div class="container">
+    <div class="your-pack__content">
+      <h2 class="your-pack__title">Your Personalized Pack</h2>
+
+      <div class="your-pack__cards"></div>
+
+      <a href="#" class="your-pack__continue btn btn_orange">Continue</a>
+
+      <div class="your-pack__bg your-pack__bg_circle">
+        <svg>
+          <use href="#circle-yelow"></use>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      <footer class="footer">
+  <div class="container">
+    <div class="footer__content">
+      <div class="footer__logo logo">
+        <div class="logo__img">
+          <svg>
+            <use href="#vitamin-logo"></use>
+          </svg>
+        </div>
+        <div class="logo__prod">© 2020 Vitamins.com / All rights reserved</div>
+      </div>
+      <div class="footer__shop shop">
+        <p class="shop__title">Shop</p>
+        <div class="shop__lists">
+          <ul class="shop__list shop__list-first">
+            <li class="shop__list-item"><a href="" class="shop__vitamins">Vitamins & Dietary Supplements</a></li>
+            <li class="shop__list-item"><a href="" class="shop__weidht">Weight Loss</a></li>
+            <li class="shop__list-item"><a href="" class="shop__minerals">Minerals</a></li>
+            <li class="shop__list-item"><a href="" class="shop__antiox">Antioxidants</a></li>
+          </ul>
+          <ul class="shop__list shop__list-second">
+            <li class="shop__list-item"><a href="" class="shop__prob">Probiotics</a></li>
+            <li class="shop__list-item"><a href="" class="shop__pain">Pain Relief</a></li>
+            <li class="shop__list-item"><a href="" class="shop__prenatial">Prenatal Vitamins</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__info info">
+        <p class="info__title">Information</p>
+        <ul class="info__list">
+          <li class="info__list-item"><a href="" class="info__terms">Terms & Conditions</a></li>
+          <li class="info__list-item"><a href="" class="info__pr-policy">Privacy Policy</a></li>
+          <li class="info__list-item"><a href="" class="info__shopping">Shipping & Delivery</a></li>
+          <li class="info__list-item"><a href="" class="info__sub-and-billing">Subscription Cycle & Billing</a></li>
+          <li class="info__list-item"><a href="" class="info__return-policy">Return Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact contact">
+        <div class="contact__title">Contact</div>
+        <ul class="contact__list">
+          <li class="contact__list-item"><a href="mailto:support@medstogo.com" class="contact__mail">support@medstogo.com</a></li>
+          <li class="contact__list-item">
+            <a href="" class="contact__facebook">
+              <svg>
+                <use href="#facebook"></use>
+              </svg>
+              Facebook
+            </a>
+          </li>
+          <li class="contact__list-item">
+            <a href="" class="contact__inst">
+              <svg>
+                <use href="#inst"></use>
+              </svg>
+              Instagram
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <svg style="width: 0; height: 0; position: absolute" xmlns="http://www.w3.org/2000/svg">
