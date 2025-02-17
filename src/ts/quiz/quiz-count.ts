@@ -1,5 +1,5 @@
 import { getElement, getElements } from '../composables/useCallDom';
-import { validateEmailForm, validateNameForm } from './quizValidate';
+import { validateEmailForm, validateNameForm } from './quiz-validate';
 
 const countCurrent = getElement('.count__current');
 const questions = getElements('.quiz');
@@ -32,31 +32,39 @@ function changeQuestion(step: number) {
 export function initQuestions() {
   showQuestion(currentQuestionIndex);
 
-  // validateNameForm();
-  // validateEmailForm();
-
   if (!nextQuestionBtns) {
     return;
   }
 
+  validateNameForm();
+  validateEmailForm();
+
   nextQuestionBtns.forEach((button: HTMLElement) => {
-    button.addEventListener('click', (event) => {
+    button.addEventListener('click', async (event) => {
       event.preventDefault();
       if (currentQuestionIndex === 0) {
-        console.log(0);
-        validateNameForm(() => changeQuestion(1));
+        const isValid = await validateNameForm();
+        if (!isValid) {
+          return;
+        }
+
+        changeQuestion(1);
+
         return;
       }
-      // if (currentQuestionIndex === 8) {
-      //   const formIsValid = validateEmailForm();
-      //   if (formIsValid) {
-      //     changeQuestion(1);
-      //   }
 
-      //   return;
-      // }
+      if (currentQuestionIndex === 8) {
+        const isValid = await validateEmailForm();
+        if (!isValid) {
+          return;
+        }
 
-      // changeQuestion(1);
+        window.location.href = '/Vitamin/personal-pack.html';
+
+        return;
+      }
+
+      changeQuestion(1);
     });
   });
 
@@ -64,5 +72,5 @@ export function initQuestions() {
     return;
   }
 
-  // prevBtn.addEventListener('click', () => changeQuestion(-1));
+  prevBtn.addEventListener('click', () => changeQuestion(-1));
 }

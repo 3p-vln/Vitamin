@@ -37,6 +37,7 @@ function burgerToggle(clickBtn: string, elActive: string) {
           el.classList.toggle(`${elActive}_active`);
           hideBag();
           btn.classList.toggle(`${clickBtn}_active`);
+          scrollLock();
 
           return;
         }
@@ -76,4 +77,20 @@ function hideBag() {
     logoBtn.style.opacity = '1';
     bagBtn.style.display = 'block';
   }
+}
+
+function scrollLock() {
+  if (!burgerBtn) return;
+
+  const body = getElement('body');
+
+  if (!body) return;
+
+  if (burgerBtn.classList.contains('burger__btn_active')) {
+    body.style.overflow = 'hidden';
+
+    return;
+  }
+
+  body.style.overflow = 'auto';
 }
