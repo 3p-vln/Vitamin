@@ -4,6 +4,7 @@ const burgerBtn = getElement('.burger__btn');
 const menuMain = getElement('.burger__menu.main');
 const bagBtn = getElement('.header__bag');
 const logoBtn = getElement('.header__logo');
+const personalPackBg = getElement('.pack-info__bg_hulf-circle');
 
 export function initHeader() {
   if (!menuMain) return;
@@ -66,14 +67,16 @@ function burgerBack(clickBtn: string, elActive: string) {
 }
 
 function hideBag() {
-  if (bagBtn && logoBtn && menuMain) {
+  if (bagBtn && logoBtn && menuMain && personalPackBg) {
     if (menuMain.classList.contains('main_active')) {
       logoBtn.style.opacity = '0';
       bagBtn.style.display = 'none';
+      personalPackBg.style.zIndex = '1';
 
       return;
     }
 
+    personalPackBg.style.zIndex = '20';
     logoBtn.style.opacity = '1';
     bagBtn.style.display = 'block';
   }

@@ -10,7 +10,7 @@ export function getElement(selector: string, target: HTMLElement | Document = do
   return target.querySelector(selector);
 }
 
-function classManipulator(element: HTMLElement, action: 'add' | 'remove', className: string) {
+export function classManipulator(element: HTMLElement, action: 'add' | 'remove', className: string) {
   if (action === 'add') {
     element.classList.add(className);
   } else if (action === 'remove') {
