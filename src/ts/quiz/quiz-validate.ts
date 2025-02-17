@@ -41,6 +41,10 @@ export function validateNameForm(): Promise<boolean> {
 
     if (document.readyState === 'complete') {
       validator.revalidate().then((isValid: boolean) => {
+        if (isValid) {
+          localStorage.setItem('firstName', firstNameInput.value);
+        }
+
         resolve(isValid);
       });
 
