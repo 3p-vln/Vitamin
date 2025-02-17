@@ -1,5 +1,5 @@
 import { initHeader } from '../components/header';
-import { register } from '../composables/useApi';
+
 
 document.addEventListener('DOMContentLoaded', async () => {
   // console.log(
