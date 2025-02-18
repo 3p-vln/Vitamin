@@ -15,6 +15,11 @@
     background-color: $btnBackground;
   }
 
+  &_white {
+    background-color: $fontColorTitleWjite;
+    color: $fontColorTitleBlack;
+  }
+
   &:hover {
     transform: scale(1.05);
   }
