@@ -52,7 +52,7 @@
     &_fixed {
       max-width: calc(100% - 40px);
       position: fixed;
-      z-index: 20;
+      z-index: 2;
       bottom: 15px;
     }
   }
@@ -69,6 +69,7 @@
       height: 124px;
       top: -123px;
       right: 279px;
+      animation: scale 10s linear infinite;
 
       @include media-breakpoint-down(sm) {
         width: 62px;

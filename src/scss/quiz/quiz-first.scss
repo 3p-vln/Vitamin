@@ -2,13 +2,13 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 100vh; /* Высота экрана */
+  height: 100vh;
 }
 
 .quiz {
   position: absolute;
   width: 100%;
-  height: 100vh; /* Высота экрана */
+  height: 100vh;
   transition:
     transform 0.5s ease-in-out,
     opacity 0.5s ease-in-out;
@@ -285,6 +285,7 @@
     height: 156px;
     top: 116px;
     left: 46px;
+    animation: scale 10s linear infinite;
 
     svg {
       width: 100%;
@@ -367,11 +368,22 @@
       overflow: hidden;
     }
 
+    &_2,
+    &_3,
+    &_4,
+    &_5,
+    &_6,
+    &_7,
+    &_8 {
+      animation: spin 5s linear infinite;
+    }
+
     &_2 {
       width: 161px;
       height: 162px;
       top: 108px;
       left: 71px;
+      transform-origin: 0 0;
     }
 
     &_3 {
@@ -379,6 +391,7 @@
       left: 68px;
       width: 251px;
       height: 265px;
+      transform-origin: 0px 80%;
     }
 
     &_4 {
@@ -386,6 +399,7 @@
       height: 275px;
       top: 0;
       right: 116px;
+      transform-origin: 150% 0;
     }
 
     &_5 {
@@ -393,6 +407,7 @@
       left: 74px;
       width: 201px;
       height: 202px;
+      transform-origin: 0 0;
     }
 
     &_6 {
@@ -400,6 +415,7 @@
       bottom: 64px;
       width: 161px;
       height: 161px;
+      transform-origin: 100% 0;
     }
 
     &_7 {
@@ -407,16 +423,18 @@
       height: 272px;
       rotate: 90deg;
       transform: scaleY(-1);
-      top: 71px;
-      right: -66px;
+      bottom: 743px;
+      left: 918px;
+      transform-origin: 0 85%;
     }
 
     &_8 {
       transform: scaleX(-1);
-      top: 144px;
-      left: 38px;
-      width: 174px;
-      height: 180px;
+      top: 142px;
+      right: 860px;
+      width: 172px;
+      height: 172px;
+      transform-origin: 100% 0;
     }
 
     @include media-breakpoint-down(sm) {
