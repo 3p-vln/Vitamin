@@ -61,6 +61,8 @@
     top: 20px;
     left: -40px;
     z-index: -1;
+    width: 279px;
+    height: 279px;
 
     @include media-breakpoint-down(md) {
       display: none;

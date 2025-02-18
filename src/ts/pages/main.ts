@@ -1,4 +1,5 @@
 import { initHeader } from '../components/header';
+import { recommendationsProductsSlider } from '../home/recommendations-products-home-slider.ts';
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -13,4 +14,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   // );
 
   initHeader();
+  recommendationsProductsSlider()
+
 });
