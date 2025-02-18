@@ -1,11 +1,11 @@
 $breakpoints: (
-  xxs: 375px,
-  xs: 576px,
-  sm: 768px,
-  md: 1024px,
-  lg: 1440px,
-  l: 1650px,
-  xl: 1920px,
+        xxs: 375px,
+        xs: 576px,
+        sm: 768px,
+        md: 1024px,
+        lg: 1440px,
+        l: 1650px,
+        xl: 1920px,
 );
 
 @mixin media-breakpoint-up($breakpoint) {
