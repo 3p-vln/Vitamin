@@ -5,6 +5,7 @@ const menuMain = getElement('.burger__menu.main');
 const bagBtn = getElement('.header__bag');
 const logoBtn = getElement('.header__logo');
 const personalPackBg = getElement('.pack-info__bg_hulf-circle');
+const header = getElement('.header');
 
 export function initHeader() {
   if (!menuMain) return;
@@ -15,6 +16,8 @@ export function initHeader() {
   const shopMenu = getElement('.burger__menu.shop');
   const infoMenu = getElement('.burger__menu.info');
   const profileMenu = getElement('.burger__menu.profile');
+
+  addBgScroll();
 
   if (burgerBtn && shopBtn && shopMenu && infoBtn && infoMenu && profileBtn && profileMenu) {
     burgerToggle('burger__btn', 'main');
@@ -71,12 +74,12 @@ function hideBag() {
     if (menuMain.classList.contains('main_active')) {
       logoBtn.style.opacity = '0';
       bagBtn.style.display = 'none';
-      personalPackBg.style.zIndex = '1';
+      personalPackBg.style.display = 'none';
 
       return;
     }
 
-    personalPackBg.style.zIndex = '20';
+    personalPackBg.style.display = 'block';
     logoBtn.style.opacity = '1';
     bagBtn.style.display = 'block';
   }
@@ -88,6 +91,7 @@ function scrollLock() {
   const body = getElement('body');
 
   if (!body) return;
+  if (!header) return;
 
   if (burgerBtn.classList.contains('burger__btn_active')) {
     body.style.overflow = 'hidden';
@@ -96,4 +100,20 @@ function scrollLock() {
   }
 
   body.style.overflow = 'auto';
+  header.style.backgroundColor = 'white';
+}
+
+function addBgScroll() {
+  if (!header) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.style.backgroundColor = 'white';
+      header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+      header.style.transition = 'background-color 0.3s ease, box-shadow 0.3s ease';
+    } else {
+      header.style.backgroundColor = 'transparent';
+      header.style.boxShadow = 'none';
+    }
+  });
 }

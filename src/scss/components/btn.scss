@@ -5,6 +5,7 @@
   padding: 17px 29px;
   border-radius: 100px;
   color: $fontColorTitleWjite;
+  transition: transform 0.3s;
 
   &_orange {
     background-color: $orangeMain;
@@ -13,6 +14,15 @@
   &_purple {
     background-color: $btnBackground;
   }
+
+
+  &_white {
+    background-color: $fontColorTitleWjite;
+    color: $fontColorTitleBlack;
+  }
+
+  &:hover {
+    transform: scale(1.05);
 
   &_small-button {
     font-family: OpenSans, sans-serif;

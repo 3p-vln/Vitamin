@@ -51,13 +51,15 @@
 
   &__bg {
     position: absolute;
+    animation: spin 5s linear infinite;
 
     &_hulf-circle {
       width: 156px;
       height: 156px;
       top: -145px;
       right: 653px;
-      z-index: 20;
+      // z-index: 20;
+      transform-origin: 0 100%;
 
       @include media-breakpoint-down(md) {
         left: 215px;
@@ -83,6 +85,7 @@
       height: 141px;
       top: 82px;
       right: 0;
+      transform-origin: 80% 0;
 
       svg {
         width: 100%;
@@ -103,31 +106,6 @@
         @include media-breakpoint-down(sm) {
           display: block;
         }
-      }
-    }
-
-    &_circle {
-      width: 124px;
-      height: 124px;
-      top: 316px;
-      right: 481px;
-
-      @include media-breakpoint-down(md) {
-        left: 419px;
-      }
-
-      @include media-breakpoint-down(sm) {
-        width: 62px;
-        height: 62px;
-        top: 335px;
-        right: 35px;
-        left: auto;
-      }
-
-      svg {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
       }
     }
   }
