@@ -1,0 +1,1 @@
+import"./useCallDom-ChkglLL9.js";import{i as e}from"./header-C0uDaRQo.js";import{S as o}from"./swiper-core-BRUX3Itv.js";function r(){new o(".choose-products__products-slider",{speed:500,spaceBetween:33,loop:!0,slidesPerView:2})}document.addEventListener("DOMContentLoaded",async()=>{e(),r()});
