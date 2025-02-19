@@ -13,6 +13,10 @@ const pages = [
     name: 'personal-pack',
     path: resolve(__dirname, 'personal-pack.html'),
   },
+  {
+    name: 'shop',
+    path: resolve(__dirname, 'shop.html'),
+  },
 ];
 
 export default pages;

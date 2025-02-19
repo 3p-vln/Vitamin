@@ -1,4 +1,4 @@
-@import '/node_modules/swiper/swiper-bundle.css';
+@import 'swiper/swiper-bundle.css';
 
 .baner {
   max-width: 1396px;
@@ -249,6 +249,10 @@
 
   .swiper {
     width: 100%;
+
+    &-wrapper {
+      display: flex;
+    }
 
     &-slide {
       max-width: 1396px;
