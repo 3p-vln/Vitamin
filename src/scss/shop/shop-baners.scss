@@ -22,11 +22,13 @@
 
     @include media-breakpoint-down(sm) {
       height: calc(100% - 28px);
-      display: flex;
-      flex-direction: column-reverse;
+      // display: flex;
+      // flex-direction: column-reverse;
       background-position: top;
-      padding: 29px 20px 68px;
+      padding: 0 20px 68px;
       border-radius: 0;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, auto);
     }
 
     &_first {
@@ -54,6 +56,7 @@
           display: none;
           width: calc(100% + 40px);
           height: 52vw;
+          margin-top: 30px;
         }
 
         img {
@@ -99,6 +102,17 @@
       @include media-breakpoint-down(sm) {
         background-image: url('/src/img/shop/baner-3-bg-adapt.jpg');
       }
+
+      .baner__img {
+        @include media-breakpoint-down(sm) {
+          height: 61vw;
+          margin-top: calc(5px + (-68 - 5) * ((100vw - 320px) / (765 - 320)));
+        }
+
+        // @include media-breakpoint-down(xxs) {
+        //   height: 63vw;
+        // }
+      }
     }
   }
 
@@ -118,6 +132,7 @@
       text-align: center;
       margin: 0 auto;
       max-width: 100%;
+      grid-row: 2/3;
     }
   }
 
@@ -199,6 +214,15 @@
     @include media-breakpoint-down(sm) {
       height: 52vw;
       width: calc(100% + 40px);
+      grid-row: 1/2;
+      align-self: flex-start;
+      justify-self: center;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @include media-breakpoint-down(xxs) {
+      height: 53vw;
     }
 
     img {
@@ -238,7 +262,7 @@
 
     &-pagination {
       --swiper-pagination-bullet-horizontal-gap: 12px;
-      bottom: 54px !important;
+      bottom: 29px !important;
 
       @include media-breakpoint-up(sm) {
         display: none;
