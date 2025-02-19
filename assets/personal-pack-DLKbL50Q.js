@@ -1,4 +1,4 @@
-import{g as d,r as t,c as o}from"./useCallDom-ChkglLL9.js";import{i as u}from"./header-C0uDaRQo.js";import{g as y}from"./useApi-3DVxER6a.js";async function m(a){const i=d(a);if(!i)return;const n=await y(!1);if(console.log(n),n.errors)return;const c=n.data;await C(c,i)}async function C(a,i){a.forEach(n=>{const c=t("a",["prod-card",`${n.id}`]),s=t("div","prod-card__content"),p=t("div","prod-card__img");p.innerHTML=`
+import{g as d,r as t,c as o}from"./useCallDom-ChkglLL9.js";import{i as u}from"./header-Cz0VfHGd.js";import{g as y}from"./useApi-3DVxER6a.js";async function m(a){const i=d(a);if(!i)return;const n=await y(!1);if(console.log(n),n.errors)return;const c=n.data;await C(c,i)}async function C(a,i){a.forEach(n=>{const c=t("a",["prod-card",`${n.id}`]),s=t("div","prod-card__content"),p=t("div","prod-card__img");p.innerHTML=`
         <picture>
           <img src="${n.img}" />
         </picture>
