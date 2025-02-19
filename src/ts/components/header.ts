@@ -39,8 +39,8 @@ function burgerToggle(clickBtn: string, elActive: string) {
       btn.addEventListener('click', () => {
         if (el.classList.contains('main')) {
           el.classList.toggle(`${elActive}_active`);
-          hideBag();
           btn.classList.toggle(`${clickBtn}_active`);
+          hideBag();
           scrollLock();
 
           return;
@@ -70,16 +70,17 @@ function burgerBack(clickBtn: string, elActive: string) {
 }
 
 function hideBag() {
-  if (bagBtn && logoBtn && menuMain && personalPackBg) {
+  if (bagBtn && logoBtn && menuMain) {
     if (menuMain.classList.contains('main_active')) {
       logoBtn.style.opacity = '0';
       bagBtn.style.display = 'none';
-      personalPackBg.style.display = 'none';
+
+      if (personalPackBg) personalPackBg.style.display = 'none';
 
       return;
     }
 
-    personalPackBg.style.display = 'block';
+    if (personalPackBg) personalPackBg.style.display = 'block';
     logoBtn.style.opacity = '1';
     bagBtn.style.display = 'block';
   }
