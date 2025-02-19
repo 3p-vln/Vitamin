@@ -19,7 +19,7 @@ export async function renderProdCard(container: string) {
   const prodContainer = getElement(container);
   if (!prodContainer) return;
 
-  const response = (await getRecommendations(true)) as RecommendationResponse;
+  const response = (await getRecommendations(false)) as RecommendationResponse;
 
   console.log(response);
 

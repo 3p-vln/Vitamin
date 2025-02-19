@@ -1,0 +1,122 @@
+.healthy-happy {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+  &__text-block {
+    max-width: 670px;
+    color: #000;
+  }
+
+  &__icon {
+    margin-top: 44px;
+    margin-bottom: 38px;
+
+    @include media-breakpoint-down(sm) {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    svg {
+      width: 86px;
+      height: 98px;
+      @include media-breakpoint-down(xs) {
+        width: 50px;
+        height: 56px;
+      }
+    }
+  }
+
+  &__title {
+    font-family: Effra, sans-serif;
+    font-weight: 500;
+    font-size: 56px;
+    margin-bottom: 30px;
+    line-height: 1.2;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 26px;
+      text-align: center;
+    }
+
+    @include media-breakpoint-down(xs) {
+      font-size: 20px;
+
+    }
+  }
+
+  &__description {
+    font-family: OpenSans, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.63418;
+    color: $fontColorText;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 15px;
+      text-align: center;
+    }
+  }
+
+  &__img-block {
+    position: relative;
+    top: -117px;
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+}
+
+
+.feedback {
+  padding-top: 75px;
+
+  &__slider {
+    width: 100%;
+    overflow: hidden;
+  }
+
+
+  &__slide {
+    width: 444px;
+    padding: 40px 34px 30px 30px;
+    color: #000;
+    font-family: Effra, sans-serif;
+  }
+
+  &__grade {
+    margin-bottom: 20px;
+
+    svg {
+      width: 20px;
+      height: 19px;
+    }
+  }
+
+  &__title-feedback {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.75;
+    margin-bottom: 78px;
+    word-spacing: 0.2em;
+
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__person-block {
+    display: flex;
+    align-items: center;
+    column-gap: 13px;
+  }
+}
