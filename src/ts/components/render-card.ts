@@ -29,17 +29,10 @@ export async function renderProdCard(container: string) {
 
   const prodList = response.data;
 
-  // if (Array.isArray(prodList)) {
-  //   console.log(prodList);
-  // }
-
   await card(prodList, prodContainer);
 }
 
 async function card(data: RecommendationData[], container: HTMLElement) {
-  // if (Array.isArray(data)) {
-  // console.log(prodList);
-
   data.forEach((prodItem) => {
     const card = renderElement('a', ['prod-card', `${prodItem.id}`]);
     const cardContainer = renderElement('div', 'prod-card__content');
@@ -50,6 +43,9 @@ async function card(data: RecommendationData[], container: HTMLElement) {
           <img src="${prodItem.img}" />
         </picture>
       `;
+
+    const cardDiscount = renderElement('div', 'prod-card__discount');
+    cardDiscount.innerText = `-${prodItem.discount}%`;
 
     const cardInfo = renderElement('div', ['prod-card__info', 'info']);
     const category = renderElement('p', 'info__category');
@@ -82,19 +78,33 @@ async function card(data: RecommendationData[], container: HTMLElement) {
       classManipulator(category, 'add', 'info__category_red');
     }
 
+    if (prodItem.type === 'Sale%') {
+      classManipulator(category, 'add', 'info__category_red');
+    }
+
     category.innerText = prodItem.type;
 
     const name = renderElement('p', 'info__name');
     name.innerText = prodItem.name;
 
+    const priceDiscount = getDiscountedPrice(prodItem.price, prodItem.discount);
     const price = renderElement('p', 'info__price');
-    price.innerText = `$${prodItem.price}`;
+    if (prodItem.type === 'Sale%') {
+      price.innerHTML = `
+      <span>$${prodItem.price}</span> $${priceDiscount}
+      `;
+
+      classManipulator(price, 'add', 'info__price_sale');
+    } else price.innerText = `$${prodItem.price}`;
 
     cardInfo.appendChild(category);
     cardInfo.appendChild(name);
     cardInfo.appendChild(price);
 
     cardContainer.appendChild(cardImg);
+    if (prodItem.type === 'Sale%') {
+      cardContainer.appendChild(cardDiscount);
+    }
     cardContainer.appendChild(cardInfo);
 
     card.appendChild(cardContainer);
@@ -102,5 +112,12 @@ async function card(data: RecommendationData[], container: HTMLElement) {
     container.appendChild(card);
     console.log(prodItem.id);
   });
-  // }
+}
+
+function getDiscountedPrice(price: string, discount: number): number {
+  const originalPrice = parseFloat(price);
+  if (isNaN(originalPrice)) {
+    throw new Error('Invalid price format');
+  }
+  return +(originalPrice * (1 - discount / 100)).toFixed(2);
 }
