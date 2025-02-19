@@ -2,6 +2,8 @@ import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 export async function shopBaners() {
+  removeDuplicate();
+
   new Swiper('.shop-baners__swiper', {
     modules: [Navigation, Pagination, Autoplay],
     navigation: {
@@ -30,8 +32,6 @@ export async function shopBaners() {
       },
     },
   });
-
-  removeDuplicate();
 }
 
 function removeDuplicate() {
