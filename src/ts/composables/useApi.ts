@@ -99,7 +99,10 @@ export const setNewPassword = (data: SetNewPasswordData) => handleRequest(api.po
 export const getCatalogList = () => handleRequest(api.get('/catalog/all-list'));
 export const getCatalogItem = (id: string) => handleRequest(api.get(`/catalog/${id}/info`));
 export const createOrder = (data: OrderData) => handleRequest(api.post('/catalog/create-order', data));
-export const getRecommendations = (_isMain: boolean) => handleRequest(api.get('/catalog/recommendations'));
+
+export const getRecommendations = (_isMain: boolean) =>
+
+  handleRequest(api.get(`${_isMain ? '/catalog/recommendations?is_main=true' : '/catalog/recommendations'}`));
 
 //Profile
 export const getProfileInfo = () => handleRequest(api.get('/profile/info'));
