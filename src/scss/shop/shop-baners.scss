@@ -21,14 +21,16 @@
     background-position: right;
 
     @include media-breakpoint-down(sm) {
-      height: calc(100% - 28px);
-      // display: flex;
-      // flex-direction: column-reverse;
+      height: calc(476px + (664 - 476) * ((100vw - 374px) / (767 - 374)));
       background-position: top;
       padding: 0 20px 68px;
       border-radius: 0;
       grid-template-columns: 1fr;
       grid-template-rows: repeat(2, auto);
+    }
+
+    @include media-breakpoint-down(xxs) {
+      height: calc(464px + (476 - 464) * ((100vw - 320px) / (373 - 320)));
     }
 
     &_first {
@@ -255,6 +257,7 @@
     }
 
     &-slide {
+      align-items: stretch;
       max-width: 1396px;
       width: calc(100% - 184px);
 
