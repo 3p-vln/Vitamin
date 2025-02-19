@@ -1,6 +1,6 @@
 .tell-us {
   padding-bottom: 150px;
-
+position: relative;
 
   @include media-breakpoint-down(xs) {
     overflow-x: hidden;
@@ -64,8 +64,55 @@
     width: 279px;
     height: 279px;
 
+    &_alt{
+      svg{
+        transform: rotate(90deg);
+      }
+    }
+
     @include media-breakpoint-down(md) {
       display: none;
+    }
+  }
+
+  &__rotating-segment3 {
+    position: absolute;
+    top: 20px;
+    left: -40px;
+    z-index: -1;
+    width: 279px;
+    height: 279px;
+      svg{
+        width: 279px;
+        height: 141px;
+        transform: rotate(180deg);
+      }
+
+
+    @include media-breakpoint-down(xs) {
+      top: auto;
+      left: auto;
+      bottom: -100px;
+      right: 0;
+    }
+  }
+
+  &__rotating-segment4 {
+    position: absolute;
+    top: 20px;
+    right: -130px;
+    z-index: -1;
+    width: 279px;
+    height: 279px;
+    svg{
+      width: 141px;
+      height: 279px;
+    }
+
+    @include media-breakpoint-down(xs) {
+      top: 0;
+      right: auto;
+      left: -130px;
     }
   }
 
@@ -80,6 +127,21 @@
 
     @include media-breakpoint-down(xs) {
       right: -60px;
+    }
+  }
+
+  &__link{
+    font-family: Effra, sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: #f27e58;
+    margin-top: 32px;
+
+    svg{
+      width: 10px;
+      height: 15px;
+      position: relative;
+      top: 4px;
     }
   }
 

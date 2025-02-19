@@ -1,6 +1,7 @@
 .choose-products {
   position: relative;
   color: #fff;
+  padding-bottom: 100px;
 
   &__layer {
     position: absolute;
@@ -86,7 +87,7 @@
 
   &__products-slider {
     margin-top: 150px;
-    width: 833px;
+    width: 866px;
     height: 494px;
     overflow: hidden;
 
@@ -95,7 +96,7 @@
     }
 
     @include media-breakpoint-down(xs) {
-      width: 680px;
+      width: 690px;
       height: 352px;
     }
 
@@ -121,16 +122,22 @@
     width: 400px !important;
     margin-right: 33px;
 
-    &:nth-child(odd) {
+    &:nth-child(2n+1) {
       background-color: $greenMintBg;
     }
 
-    &:nth-child(even) {
+    &:nth-child(2n+2) {
       background-color: $purpleBg;
     }
 
     @include media-breakpoint-down(xs) {
-      width: 335px;
+      width: 335px !important;
+      margin-right: 10px;
+    }
+
+    @include media-breakpoint-down(xxs) {
+      width: 280px !important;
+
     }
   }
 
@@ -138,11 +145,12 @@
     width: 265px;
     height: 245px;
     margin-bottom: 40px;
-    object-fit: contain;
     @include media-breakpoint-down(xs) {
       width: 143px;
       height: 159px;
+      margin-bottom: 27px;
     }
+
   }
 
   &__img {
@@ -154,15 +162,19 @@
     font-family: OpenSans, sans-serif;
     font-weight: 600;
     font-size: 14px;
-
     opacity: 0.5;
     margin-bottom: 12px;
+
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 9px;
+    }
   }
 
   &__product-title {
     font-family: Effra, sans-serif;
     font-weight: 500;
-    font-size: 24px;
+    //font-size: 24px;
+    font-size: clamp(18px, 2.5vw, 24px);
     margin-bottom: 20px;
   }
 
@@ -175,7 +187,7 @@
     opacity: 0.7;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
   }
 }

@@ -14,9 +14,9 @@ interface Response {
 
 export async function renderCards(): Promise<void> {
   try {
-    const response   = await getRecommendations(true) as Response;
+    const response = (await getRecommendations(true)) as Response;
     if (!response?.data || !Array.isArray(response.data)) {
-      console.error("Invalid response format", response);
+      console.error('Invalid response format', response);
       return;
     }
 
@@ -26,66 +26,57 @@ export async function renderCards(): Promise<void> {
       return;
     }
 
-    container.innerHTML = "";
+    container.innerHTML = '';
 
     const fragment = document.createDocumentFragment();
 
     response.data.forEach((item: CardData) => {
-      if (!item.name || !item.description) return; // Пропускаем некорректные данные
+      if (!item.name || !item.description) return;
 
-      const card = document.createElement("div");
-      card.className = "swiper-slide choose-products__slide";
+      const card = document.createElement('div');
+      card.className = 'swiper-slide choose-products__slide';
 
-      const imgWrapper = document.createElement("div");
-      imgWrapper.className = "choose-products__img-wrapper";
+      const imgWrapper = document.createElement('div');
+      imgWrapper.className = 'choose-products__img-wrapper';
 
-      const img = document.createElement("img");
-      img.className = "choose-products__img";
+      const img = document.createElement('img');
+      img.className = 'choose-products__img';
       img.src = item.img;
       img.alt = item.name;
-      img.loading = "lazy";
+      img.loading = 'lazy';
 
       imgWrapper.append(img);
 
       card.appendChild(imgWrapper);
 
-      const descriptionBlock = document.createElement("div");
-      descriptionBlock.className = "choose-products__description-block";
+      const descriptionBlock = document.createElement('div');
+      descriptionBlock.className = 'choose-products__description-block';
 
-      const type = document.createElement("div");
-      type.className = "choose-products__type";
+      const type = document.createElement('div');
+      type.className = 'choose-products__type';
       type.textContent = item.type;
 
       descriptionBlock.appendChild(type);
 
-      const title = document.createElement("div");
-      title.className = "choose-products__product-title";
+      const title = document.createElement('div');
+      title.className = 'choose-products__product-title';
       title.textContent = item.name;
 
-      descriptionBlock.appendChild(title)
+      descriptionBlock.appendChild(title);
 
-      const description = document.createElement("div");
-      description.className = "choose-products__product-description";
+      const description = document.createElement('div');
+      description.className = 'choose-products__product-description';
       description.textContent = item.description;
 
       descriptionBlock.appendChild(description);
 
       card.appendChild(descriptionBlock);
 
-
-
-
-
-
       fragment.appendChild(card);
     });
 
     container.appendChild(fragment);
-
   } catch (error) {
-    console.error("Error fetching or rendering cards:", error);
+    console.error('Error fetching or rendering cards:', error);
   }
 }
-
-
-
