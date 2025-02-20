@@ -45,7 +45,6 @@ function onItemClick(item: HTMLElement) {
   if (!dropdownActiveItem) return;
 
   dropdownActiveItem.textContent = selectedValue;
-  console.log('Setting dropdown text:', selectedValue);
 
   toggleDropdown(event as Event);
 }

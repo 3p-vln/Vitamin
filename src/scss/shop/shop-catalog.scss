@@ -29,7 +29,6 @@
       @include media-breakpoint-down(sm) {
         height: 0;
         opacity: 0;
-        visibility: hidden;
         position: absolute;
         z-index: 0;
         background-color: $background;
@@ -41,14 +40,12 @@
         transition:
           height 0.3s ease-in-out,
           opacity 0.3s ease-in-out,
-          visibility 0.3s ease-in-out,
           z-index 0.3s ease-in-out;
       }
 
       &_active {
         height: auto;
         opacity: 1;
-        visibility: visible;
         z-index: 2;
       }
     }
@@ -60,7 +57,7 @@
       font-size: clamp(16px, 2.5vw, 22px);
       text-align: left;
 
-      &_orange {
+      &_active {
         color: $orangeMain;
       }
 

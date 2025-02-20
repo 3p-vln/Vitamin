@@ -35,21 +35,51 @@ export async function renderRecCard(container: string) {
   await card(prodList, prodContainer, 'white');
 }
 
-export async function renderAllCard(container: string, page: number = 1) {
+export async function renderAllCard(container: string, page: number = 1, category?: string) {
+  // const prodContainer = getElement(container);
+  // if (!prodContainer) return;
+
+  // let response: RecommendationResponse = {
+  //   data: [],
+  // };
+
+  // if (!category) response = (await getCatalogList(page, itemsPerPage)) as RecommendationResponse;
+
+  // if (category) response = (await getCatalogList(page, itemsPerPage, category)) as RecommendationResponse;
+
+  // if (response.errors) {
+  //   return;
+  // }
+
+  // const prodList = response.data;
+
+  // await card(prodList, prodContainer, 'gray');
+
+  // updatePagination(page, container);
+
+  // if (windowWidth < 768) {
+  //   handleViewMoreButtonVisibility();
+  // }
+
   const prodContainer = getElement(container);
   if (!prodContainer) return;
 
-  const response = (await getCatalogList(page, itemsPerPage)) as RecommendationResponse;
+  let response: RecommendationResponse = {
+    data: [],
+  };
 
-  if (response.errors) {
+  response = (await getCatalogList(page, itemsPerPage, category)) as RecommendationResponse;
+
+  if (response.errors || response.data.length === 0) {
+    prodContainer.innerHTML = '<p>Нет товаров в данной категории</p>';
     return;
   }
 
   const prodList = response.data;
 
-  // totalProducts = response.data.length;
-
-  await card(prodList, prodContainer, 'gray');
+  // Ограничиваем количество рендеримых товаров
+  const maxItems = Math.min(prodList.length, itemsPerPage);
+  await card(prodList.slice(0, maxItems), prodContainer, 'gray');
 
   updatePagination(page, container);
 
@@ -68,8 +98,6 @@ async function card(data: RecommendationData[], container: HTMLElement, colour: 
   if (windowWidth < 375) {
     cardsToShow = 4;
   }
-
-  // totalProducts = cardsToShow;
 
   const productsToRender = data.slice(0, cardsToShow);
 
@@ -161,11 +189,47 @@ function getDiscountedPrice(price: string, discount: number): number {
   return +(originalPrice * (1 - discount / 100)).toFixed(2);
 }
 
-function updatePagination(page: number, container: string) {
+export function updatePagination(page: number, container: string) {
+  // const paginationContainer = getElement('.catalog-list__pagination');
+  // if (!paginationContainer) return;
+
+  // const pages = Math.ceil(100 / itemsPerPage);
+
+  // const containerElement = getElement(container);
+  // if (!containerElement) return;
+
+  // paginationContainer.innerHTML = '';
+
+  // const prevButton = renderElement('button', ['catalog-list__btn', 'catalog-list__btn_prew']);
+  // prevButton.innerHTML = `<svg><use href="#back-arrow"></use></svg>`;
+  // prevButton.onclick = () => handlePageChange(page - 1, containerElement);
+  // paginationContainer.appendChild(prevButton);
+
+  // for (let i = 1; i <= pages; i++) {
+  //   const pageButton = renderElement('button', ['catalog-list__btn', 'catalog-list__btn_page']);
+
+  //   if (page === i) {
+  //     classManipulator(pageButton, 'add', 'catalog-list__btn_active');
+  //   }
+
+  //   pageButton.innerText = `${i}`;
+  //   pageButton.onclick = () => handlePageChange(i, containerElement);
+  //   paginationContainer.appendChild(pageButton);
+  // }
+
+  // const nextButton = renderElement('button', ['catalog-list__btn', 'catalog-list__btn_next']);
+  // nextButton.innerHTML = `<svg><use href="#back-arrow"></use></svg>`;
+  // nextButton.onclick = () => handlePageChange(page + 1, containerElement);
+  // paginationContainer.appendChild(nextButton);
   const paginationContainer = getElement('.catalog-list__pagination');
   if (!paginationContainer) return;
 
-  const pages = Math.ceil(100 / itemsPerPage);
+  const urlParams = new URLSearchParams(window.location.search);
+  let selectedCategory = urlParams.get('category') || undefined;
+
+  // Здесь подставляем актуальное количество страниц для каждой категории
+  const totalItems = selectedCategory ? 20 : 100; // Примерно, в зависимости от категории
+  const pages = Math.ceil(totalItems / itemsPerPage);
 
   const containerElement = getElement(container);
   if (!containerElement) return;
@@ -174,7 +238,7 @@ function updatePagination(page: number, container: string) {
 
   const prevButton = renderElement('button', ['catalog-list__btn', 'catalog-list__btn_prew']);
   prevButton.innerHTML = `<svg><use href="#back-arrow"></use></svg>`;
-  prevButton.onclick = () => handlePageChange(page - 1, containerElement);
+  prevButton.onclick = () => handlePageChange(page - 1, containerElement, selectedCategory);
   paginationContainer.appendChild(prevButton);
 
   for (let i = 1; i <= pages; i++) {
@@ -185,25 +249,49 @@ function updatePagination(page: number, container: string) {
     }
 
     pageButton.innerText = `${i}`;
-    pageButton.onclick = () => handlePageChange(i, containerElement);
+    pageButton.onclick = () => handlePageChange(i, containerElement, selectedCategory);
     paginationContainer.appendChild(pageButton);
   }
 
   const nextButton = renderElement('button', ['catalog-list__btn', 'catalog-list__btn_next']);
   nextButton.innerHTML = `<svg><use href="#back-arrow"></use></svg>`;
-  nextButton.onclick = () => handlePageChange(page + 1, containerElement);
+  nextButton.onclick = () => handlePageChange(page + 1, containerElement, selectedCategory);
   paginationContainer.appendChild(nextButton);
 }
 
-function handlePageChange(newPage: number, container: HTMLElement) {
+// function handlePageChange(newPage: number, container: HTMLElement) {
+//   if (newPage < 1 || newPage > Math.ceil(100 / itemsPerPage)) return;
+//   currentPage = newPage;
+
+//   const urlParams = new URLSearchParams(window.location.search);
+//   let selectedCategory = urlParams.get('category') || undefined;
+
+//   urlParams.set('page', newPage.toString());
+//   window.history.pushState({}, '', `?${urlParams.toString()}`);
+
+//   container.innerHTML = '';
+
+//   renderAllCard(`.${container.className}`, currentPage, selectedCategory);
+// }
+
+function handlePageChange(newPage: number, container: HTMLElement, category?: string) {
   if (newPage < 1 || newPage > Math.ceil(100 / itemsPerPage)) return;
   currentPage = newPage;
 
-  window.history.pushState({}, '', `?page=${newPage}`);
+  const urlParams = new URLSearchParams(window.location.search);
+  urlParams.set('page', newPage.toString());
+  if (category) {
+    urlParams.set('category', category);
+  } else {
+    urlParams.delete('category');
+  }
+
+  window.history.pushState({}, '', `?${urlParams.toString()}`);
 
   container.innerHTML = '';
 
-  renderAllCard(`.${container.className}`, currentPage);
+  renderAllCard(`.${container.className}`, currentPage, category);
+  updatePagination(currentPage, `.${container.className}`);
 }
 
 function handleViewMoreButtonVisibility() {
