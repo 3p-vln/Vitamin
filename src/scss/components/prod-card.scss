@@ -1,7 +1,14 @@
 .prod-card {
   padding: 40px 30px 30px;
   border-radius: 16px;
-  background-color: $background;
+
+  &_white {
+    background-color: $background;
+  }
+
+  &_gray {
+    background-color: $cardBackground;
+  }
 
   @include media-breakpoint-down(sm) {
     padding: 10px 15px 20px;
