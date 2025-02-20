@@ -1,4 +1,4 @@
-import { renderAllCard, updatePagination } from '../components/render-card';
+import { handleViewMoreButtonVisibility, renderAllCard, setupLazyLoading } from '../components/render-card';
 import { classManipulator, getElement, getElements } from '../composables/useCallDom';
 
 const filterParametrs = getElements('.filter__item');
@@ -24,8 +24,7 @@ export async function filterList(container: string) {
     }
   });
 
-  renderAllCard(container, page, selectedCategory);
-  updatePagination(page, container);
+  await renderAllCard(container, page, selectedCategory);
 
   filterParametrs.forEach((filter) => {
     filter.addEventListener('click', async () => {
@@ -57,7 +56,6 @@ export async function filterList(container: string) {
       classManipulator(filter, 'add', 'filter__item_active');
 
       await renderAllCard(container, page, selectedCategory);
-      updatePagination(page, container);
     });
   });
 }
