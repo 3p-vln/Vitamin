@@ -1,9 +1,11 @@
 import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 export async function shopBaners() {
+  removeDuplicate();
+
   new Swiper('.shop-baners__swiper', {
-    modules: [Navigation, Pagination],
+    modules: [Navigation, Pagination, Autoplay],
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
@@ -12,24 +14,33 @@ export async function shopBaners() {
       el: '.swiper-pagination',
       clickable: true,
     },
-    mousewheel: {
-      invert: true,
+    autoplay: {
+      delay: 5000,
     },
     loop: true,
     slidesPerView: 1,
     spaceBetween: 20,
     centeredSlides: true,
     breakpoints: {
-      // when window width is >= 650px
-      651: {
+      768: {
         slidesPerView: 'auto',
         spaceBetween: 35,
       },
-      // when window width is >= 1025px
       1440: {
         slidesPerView: 'auto',
         spaceBetween: 50,
       },
     },
   });
+}
+
+function removeDuplicate() {
+  const swiperSlides = document.querySelectorAll('.swiper-slide.swiper-slide-duplicate');
+  const screenWidth = window.innerWidth;
+
+  if (screenWidth < 768) {
+    swiperSlides.forEach((slide) => {
+      slide.remove();
+    });
+  }
 }

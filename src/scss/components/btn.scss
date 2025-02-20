@@ -15,7 +15,6 @@
     background-color: $btnBackground;
   }
 
-
   &_white {
     background-color: $fontColorTitleWjite;
     color: $fontColorTitleBlack;
@@ -25,6 +24,7 @@
     transform: scale(1.05);
   }
 
+  //??
   &_small-button {
     font-family: OpenSans, sans-serif;
     font-weight: 700;

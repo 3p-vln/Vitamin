@@ -1,0 +1,109 @@
+.catalog {
+  &__items {
+    max-width: 1039px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @include media-breakpoint-down(sm) {
+      gap: 30px;
+    }
+  }
+
+  &-list {
+    &__content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+
+      @include media-breakpoint-down(sm) {
+        grid-template-columns: repeat(auto-fit, minmax(233px, 1fr));
+        gap: 15px;
+      }
+
+      @include media-breakpoint-down(xs) {
+        grid-template-columns: repeat(auto-fit, minmax(calc(160px + (228 - 160) * ((100vw - 375px) / (576 - 375))), 1fr));
+      }
+    }
+
+    &__pagination {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+    }
+
+    &__btn {
+      width: 40px;
+      height: 40px;
+      font-size: clamp(14px, 2.5vw, 20px);
+      background-color: $cardBackground;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $fontColorText;
+      transition:
+        color 0.3s ease-in-out,
+        width 0.3s ease-in-out,
+        height 0.3s ease-in-out;
+
+      &:hover {
+        color: $fontColorTitleBlack;
+        width: 50px;
+        height: 50px;
+      }
+
+      &_active {
+        width: 50px;
+        height: 50px;
+        color: $fontColorTitleBlack;
+        background-color: $orangeLink-hover;
+      }
+
+      svg {
+        width: 60%;
+        height: 60%;
+      }
+
+      &_prew,
+      &_next {
+        background-color: transparent;
+      }
+
+      &_next {
+        svg {
+          rotate: 180deg;
+        }
+      }
+    }
+
+    &__view-more {
+      display: none;
+      font-size: 16px;
+      font-weight: 700;
+      background-color: $cardBackground;
+      gap: 12px;
+      padding: 15px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 40px;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+
+      @include media-breakpoint-down(sm) {
+        display: flex;
+      }
+
+      svg {
+        width: 13px;
+        height: 13px;
+      }
+    }
+  }
+}

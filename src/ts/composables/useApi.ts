@@ -96,13 +96,10 @@ export const checkResetToken = (token: string) => handleRequest(api.get(`/auth/c
 export const setNewPassword = (data: SetNewPasswordData) => handleRequest(api.post('/auth/set-new-password', data));
 
 //Catalog
-export const getCatalogList = () => handleRequest(api.get('/catalog/all-list'));
+export const getCatalogList = (page: number, limit: number, type?: string) => handleRequest(api.get('/catalog/all-list', { params: { type, page, limit } }));
 export const getCatalogItem = (id: string) => handleRequest(api.get(`/catalog/${id}/info`));
 export const createOrder = (data: OrderData) => handleRequest(api.post('/catalog/create-order', data));
-
-export const getRecommendations = (_isMain: boolean) =>
-
-  handleRequest(api.get(`${_isMain ? '/catalog/recommendations?is_main=true' : '/catalog/recommendations'}`));
+export const getRecommendations = (isMain: boolean) => handleRequest(api.get(`${isMain ? '/catalog/recommendations?is_main=true' : '/catalog/recommendations'}`));
 
 //Profile
 export const getProfileInfo = () => handleRequest(api.get('/profile/info'));
