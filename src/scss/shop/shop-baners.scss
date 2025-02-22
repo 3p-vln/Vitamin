@@ -245,6 +245,13 @@
 }
 
 .shop-baners {
+  padding-top: 30px;
+  overflow: hidden;
+
+  @include media-breakpoint-down(sm) {
+    padding-top: 0;
+  }
+
   &__content {
     position: relative;
   }

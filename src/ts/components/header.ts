@@ -50,7 +50,6 @@ function burgerToggle(clickBtn: string, elActive: string) {
 
       return;
     }
-    console.log('Кнопка или нужное меню не найдено');
   }
 }
 
@@ -65,7 +64,6 @@ function burgerBack(clickBtn: string, elActive: string) {
 
       return;
     }
-    console.log('Кнопка или нужное меню не найдено');
   }
 }
 

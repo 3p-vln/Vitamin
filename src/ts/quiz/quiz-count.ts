@@ -27,6 +27,10 @@ function changeQuestion(step: number) {
     currentQuestionIndex = newIndex;
     showQuestion(currentQuestionIndex);
   }
+
+  if (newIndex < 0) {
+    window.history.back();
+  }
 }
 
 export function initQuestions() {
