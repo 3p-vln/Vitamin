@@ -118,12 +118,15 @@ function applyCategoryClass(type: string, categoryElement: HTMLElement) {
   }
 }
 
-function getDiscountedPrice(price: string, discount: number): number {
+function getDiscountedPrice(price: string, discount: number): string {
   const originalPrice = parseFloat(price);
   if (isNaN(originalPrice)) {
     throw new Error('Invalid price format');
   }
-  return +(originalPrice * (1 - discount / 100)).toFixed(2);
+
+  const discountedPrice = originalPrice * (1 - discount / 100);
+
+  return discountedPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 export function setupLazyLoading(container: string, category?: string) {
