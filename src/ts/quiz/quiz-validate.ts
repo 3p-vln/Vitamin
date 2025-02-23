@@ -34,8 +34,8 @@ export function validateNameForm(): Promise<boolean> {
       },
       {
         rule: 'customRegexp',
-        value: /^[A-Za-z]+$/,
-        errorMessage: 'Only English letters are allowed',
+        value: /^[\p{L}]+$/u,
+        errorMessage: 'Only letters are allowed',
       },
     ]);
 

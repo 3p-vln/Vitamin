@@ -110,10 +110,6 @@
           height: 61vw;
           margin-top: calc(5px + (-68 - 5) * ((100vw - 320px) / (765 - 320)));
         }
-
-        // @include media-breakpoint-down(xxs) {
-        //   height: 63vw;
-        // }
       }
     }
   }
@@ -245,6 +241,13 @@
 }
 
 .shop-baners {
+  padding-top: 30px;
+  overflow: hidden;
+
+  @include media-breakpoint-down(sm) {
+    padding-top: 0;
+  }
+
   &__content {
     position: relative;
   }
@@ -376,6 +379,39 @@
 
       @include media-breakpoint-down(md) {
         left: 50%;
+      }
+    }
+  }
+}
+
+.shope-one-baner {
+  margin-top: 82px;
+
+  @include media-breakpoint-down(sm) {
+    margin-top: 61px;
+  }
+
+  .baner {
+    &__content {
+      @include media-breakpoint-down(sm) {
+        height: 100%;
+        padding: 0 20px 18px;
+        row-gap: 21px;
+      }
+
+      @include media-breakpoint-down(xxs) {
+        padding: 0 20px 30px;
+      }
+    }
+
+    &__img {
+      @include media-breakpoint-down(sm) {
+        margin-top: 17px;
+        height: 60vw;
+      }
+
+      @include media-breakpoint-down(xxs) {
+        height: 70vw;
       }
     }
   }
