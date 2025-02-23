@@ -1,0 +1,54 @@
+.social-sign-up {
+  font-family: Effra, sans-serif;
+  color: $font-color-black;
+
+  &__title {
+    font-weight: 500;
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+
+    @include media-breakpoint-down(xs) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      row-gap: 45px;
+    }
+  }
+
+  &__item{
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+      max-width: 576px;
+      padding: 0 21px;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+
+
+    span {
+      width: 142px;
+      text-align: center;
+
+      @include media-breakpoint-down(xs) {
+        width: 100%;
+      }
+    }
+
+    svg{
+      width: 32px;
+    }
+
+  }
+}

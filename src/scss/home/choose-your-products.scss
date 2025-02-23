@@ -9,6 +9,11 @@
     right: 0;
     z-index: -1;
 
+    @include media-breakpoint-up(xl) {
+      right: 40%;
+      transform: translateX(60%);
+    }
+
     @include media-breakpoint-down(lg) {
       right: auto;
       left: 0;
@@ -47,6 +52,9 @@
     width: 100%;
     margin-top: 234px;
     margin-bottom: 234px;
+
+
+
     @include media-breakpoint-down(lg) {
       margin-bottom: 100px;
       margin-top: 100px;
@@ -67,6 +75,7 @@
     font-size: clamp(24px, 2.5vw, 56px);
     font-family: Effra, sans-serif;
     margin-bottom: 33px;
+
   }
 
   &__description {
@@ -83,6 +92,7 @@
     font-weight: 500;
     font-size: 20px;
     color: #fff;
+
   }
 
   &__products-slider {

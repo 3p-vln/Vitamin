@@ -1,0 +1,93 @@
+
+.field {
+  position: relative;
+  width: 444px;
+
+
+  &_file{
+    display: flex;
+    justify-content: space-between;
+
+    @include media-breakpoint-down(xs) {
+    flex-wrap: wrap;
+      width: auto;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 17px 24px;
+    font-size: 18px;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+  }
+
+
+  &__label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8px;
+    font-size: 18px;
+    color: $font-color-black;
+    transition: 0.3s ease;
+    cursor: text;
+    opacity: 0.3;
+  }
+
+  &__file-button{
+    border-radius: 12px;
+    padding: 10px 30px;
+  }
+
+  &__file-name{
+    display: none;
+    font-weight: 400;
+    font-size: 18px;
+    color: #000;
+    opacity: 0.3;
+    margin-right: 26px;
+
+    @include media-breakpoint-down(xs) {
+      display: flex;
+    }
+  }
+
+  &__file-description{
+    font-weight: 400;
+    font-size: 18px;
+    color: $font-color-black;
+    opacity: 0.3;
+    &_mobile{
+      display: none;
+
+      @include media-breakpoint-down(xs) {
+        display: flex;
+      }
+    }
+
+    &_pc{
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
+    }
+  }
+}
+
+.field__input:not(:placeholder-shown) + .field__label,
+.field__input:focus + .field__label {
+  color: #000;
+  font-size: 12px;
+  top: 7px;
+  left: 8px;
+  background: #fff;
+  padding: 0 3px;
+}
+
+.just-validate-error-label{
+  position: absolute;
+  font-size: 12px;
+  left: 10px;
+  bottom: 0;
+}

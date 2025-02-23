@@ -1,6 +1,12 @@
 .tell-us {
+
   padding-bottom: 150px;
-position: relative;
+  position: relative;
+
+  &_bottom{
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
 
   @include media-breakpoint-down(xs) {
     overflow-x: hidden;
@@ -35,6 +41,10 @@ position: relative;
     line-height: 1.2;
     padding-bottom: 32px;
 
+    &_padding{
+      padding-top: 40px;
+    }
+
     @include media-breakpoint-down(xs) {
       font-size: 24px;
     }
@@ -64,8 +74,8 @@ position: relative;
     width: 279px;
     height: 279px;
 
-    &_alt{
-      svg{
+    &_alt {
+      svg {
         transform: rotate(90deg);
       }
     }
@@ -77,34 +87,36 @@ position: relative;
 
   &__rotating-segment3 {
     position: absolute;
-    top: 20px;
-    left: -40px;
+    top: 86px;
+    left: -60px;
     z-index: -1;
     width: 279px;
     height: 279px;
-      svg{
-        width: 279px;
-        height: 141px;
-        transform: rotate(180deg);
-      }
+
+    svg {
+      width: 279px;
+      height: 141px;
+      transform: rotate(180deg);
+    }
 
 
     @include media-breakpoint-down(xs) {
       top: auto;
       left: auto;
-      bottom: -100px;
-      right: 0;
+      bottom: -130px;
+      right: -120px;
     }
   }
 
   &__rotating-segment4 {
     position: absolute;
-    top: 20px;
+    top: -64px;
     right: -130px;
     z-index: -1;
     width: 279px;
     height: 279px;
-    svg{
+
+    svg {
       width: 141px;
       height: 279px;
     }
@@ -130,14 +142,14 @@ position: relative;
     }
   }
 
-  &__link{
+  &__link {
     font-family: Effra, sans-serif;
     font-weight: 500;
     font-size: 20px;
     color: #f27e58;
     margin-top: 32px;
 
-    svg{
+    svg {
       width: 10px;
       height: 15px;
       position: relative;
