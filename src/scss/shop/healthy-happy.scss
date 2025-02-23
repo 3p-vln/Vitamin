@@ -8,11 +8,11 @@
   }
 
   &__title {
-    font-size: clamp(20px, 2.5vw, 30px);
-    font-weight: 700;
     max-width: 331px;
+    font-weight: bold;
     line-height: 37px;
     letter-spacing: -0.4px;
+    font-size: clamp(20px, 2.5vw, 30px);
 
     @include media-breakpoint-down(sm) {
       max-width: 228px;

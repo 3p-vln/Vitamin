@@ -1,29 +1,28 @@
-
 .find-vitamins {
-
   position: relative;
   padding-top: 151px;
   padding-bottom: 269px;
+
   @include media-breakpoint-down(sm) {
+    overflow: hidden;
     padding-top: 40px;
     padding-bottom: 10px;
-    overflow: hidden;
   }
 
   &__container {
-    max-width: $containerWidth;
-    padding: 0 15px;
     margin: 0 auto;
+    padding: 0 15px;
+    max-width: $containerWidth;
   }
 
   &__title {
-    font-family: Effra, sans-serif; //???? нужно ли выводить шрифты в переменную
+    margin-bottom: 36px;
+    max-width: 660px;
+    font-family: Effra, sans-serif;
     font-weight: 500;
+    line-height: 1.2;
     font-size: 56px;
     color: $fontColorTitleBlack;
-    max-width: 660px;
-    line-height: 1.2;
-    margin-bottom: 36px;
 
     span {
       color: $fontColorSpan;
@@ -35,10 +34,10 @@
     }
 
     @include media-breakpoint-down(sm) {
-      font-size: 34px;
-      text-align: center;
+      margin: 0 auto 34px;
       max-width: 500px;
-      margin: 0 auto 34px auto;
+      text-align: center;
+      font-size: 34px;
     }
 
     @include media-breakpoint-down(xs) {
@@ -47,13 +46,13 @@
   }
 
   &__description {
-    font-family: OpenSans, sans-serif;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.63;
-    color: $fontColorText;
-    max-width: 465px;
     margin-bottom: 49px;
+    max-width: 465px;
+    font-family: OpenSans, sans-serif;
+    font-weight: normal;
+    line-height: 1.63;
+    font-size: 20px;
+    color: $fontColorText;
 
     @include media-breakpoint-down(md) {
       max-width: 400px;
@@ -61,10 +60,10 @@
     }
 
     @include media-breakpoint-down(sm) {
-      font-size: 14px;
+      margin: 0 auto 40px;
       max-width: 500px;
-      margin: 0 auto 40px auto;
       text-align: center;
+      font-size: 14px;
     }
   }
 
@@ -73,19 +72,17 @@
     align-items: center;
 
     @include media-breakpoint-down(md) {
-      max-width: 500px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: start;
+      justify-content: center;
+      max-width: 500px;
     }
 
     @include media-breakpoint-down(sm) {
-      margin: 0 auto;
       align-items: center;
+      margin: 0 auto;
     }
-
-
   }
 
   &__quiz-link {
@@ -97,18 +94,17 @@
   }
 
   &__shop-link {
+    position: relative;
     font-family: Effra, sans-serif;
     font-weight: 500;
+    transition: transform 0.3s;
     font-size: 20px;
     color: $orangeLink;
-    position: relative;
-
-    transition: transform 0.3s;
 
     svg {
       position: relative;
-      top: 2px;
       left: 2px;
+      top: 2px;
       width: 10px;
       height: 15px;
     }
@@ -126,28 +122,26 @@
     }
 
     @include media-breakpoint-down(sm) {
-      margin: 10px 0 0 0;
+      margin: 10px 0 0;
     }
-
   }
 
   &__image-block {
     position: absolute;
-    top: 19px;
     right: 0;
+    top: 19px;
     z-index: 10;
 
-
     &::before {
-      content: "";
+      content: '';
+      position: absolute;
+      right: 188px;
+      top: 89px;
       display: block;
+      border-radius: 50%;
       width: 523px;
       height: 523px;
       background: #8172dd;
-      border-radius: 50%;
-      position: absolute;
-      top: 89px;
-      right: 188px;
 
       @include media-breakpoint-down(lg) {
         right: 146px;
@@ -158,18 +152,16 @@
       @include media-breakpoint-down(md) {
         right: 120px;
       }
-
-
     }
 
     @include media-breakpoint-down(lg) {
-      max-width: 750px;
       top: 122px;
+      max-width: 750px;
     }
 
     @include media-breakpoint-down(md) {
-      max-width: 750px;
       right: -80px;
+      max-width: 750px;
     }
 
     @include media-breakpoint-down(sm) {
@@ -179,12 +171,13 @@
 
   &__image {
     position: relative;
-    z-index: 11;
     width: 100%;
+    z-index: 11;
   }
 
   &__wrapper-image-mobile {
     display: none;
+
     @include media-breakpoint-down(sm) {
       display: block;
       max-width: 100%;
@@ -197,22 +190,21 @@
 
   &__rotating-segment1 {
     position: absolute;
-    bottom: 40px;
     left: 42.3%;
-    z-index: 11;
-    height: 279px;
+    bottom: 40px;
     width: 279px;
+    height: 279px;
+    z-index: 11;
 
     svg {
-      transform: rotate(180deg);
       width: 279px;
       height: 141px;
+      transform: rotate(180deg);
     }
 
     @include media-breakpoint-down(l) {
-      bottom: 0;
       left: 390px;
-
+      bottom: 0;
     }
 
     @include media-breakpoint-down(lg) {
@@ -226,36 +218,34 @@
     @include media-breakpoint-down(xs) {
       bottom: 90px;
     }
-
   }
 
   &__rotating-segment2 {
     position: absolute;
-    top: -223px;
     left: 425px;
-    z-index: 22;
-    height: 279px;
+    top: -223px;
     width: 279px;
+    height: 279px;
+    z-index: 22;
 
     svg {
-      transform: rotate(180deg);
       width: 158px;
       height: 158px;
+      transform: rotate(180deg);
     }
 
     @include media-breakpoint-down(l) {
       left: 300px;
     }
 
-
     @include media-breakpoint-down(sm) {
-      top: 200px;
       left: auto;
       right: -30px;
-      height: 80px;
+      top: 200px;
       width: 80px;
-      scale: 0.4;
+      height: 80px;
       z-index: -1;
+      scale: 0.4;
 
       svg {
         transform: rotate(0deg);
@@ -265,8 +255,8 @@
 
   &__rotating-segment3 {
     position: absolute;
-    top: 61px;
     right: 74px;
+    top: 61px;
     z-index: 11;
 
     svg {
@@ -275,33 +265,31 @@
     }
 
     @include media-breakpoint-down(lg) {
-      top: 20px;
       right: 30px;
+      top: 20px;
     }
 
     @include media-breakpoint-down(sm) {
-      top: auto;
       right: 20px;
+      top: auto;
     }
+
     @include media-breakpoint-down(sm) {
       display: none;
     }
   }
-
-
 }
-
-
 
 @keyframes scale {
   0% {
     transform: scale(0.7);
   }
+
   50% {
     transform: scale(1.3);
   }
+
   100% {
     transform: scale(0.7);
   }
 }
-
