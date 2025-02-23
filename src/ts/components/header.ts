@@ -37,15 +37,18 @@ function burgerToggle(clickBtn: string, elActive: string) {
 
     if (btn && el) {
       btn.addEventListener('click', () => {
+        const isOpening = !el.classList.contains(`${elActive}_active`);
         if (el.classList.contains('main')) {
           el.classList.toggle(`${elActive}_active`);
           btn.classList.toggle(`${clickBtn}_active`);
           hideBag();
           scrollLock();
+          animateMenu(el, isOpening);
 
           return;
         }
         el.classList.add(`${elActive}_active`);
+        animateMenu(el, isOpening);
       });
 
       return;
@@ -59,7 +62,10 @@ function burgerBack(clickBtn: string, elActive: string) {
     const el = getElement(`.${elActive}`);
     if (btn && el) {
       btn.addEventListener('click', () => {
+        const isOpening = !el.classList.contains(`${elActive}_active`);
+
         el.classList.remove(`${elActive}_active`);
+        animateMenu(el, isOpening);
       });
 
       return;
@@ -113,6 +119,55 @@ function addBgScroll() {
     } else {
       header.style.backgroundColor = 'transparent';
       header.style.boxShadow = 'none';
+    }
+  });
+}
+
+function animateMenu(element: HTMLElement, isOpening: boolean) {
+  const duration = 300;
+
+  function timing(timeFraction: number) {
+    return timeFraction < 0.5 ? 2 * timeFraction * timeFraction : -1 + (4 - 2 * timeFraction) * timeFraction; // ease-in-out
+  }
+
+  function draw(progress: number) {
+    const maxHeight = 100;
+    const currentProgress = isOpening ? progress : 1 - progress;
+
+    element.style.height = `${currentProgress * maxHeight}vh`;
+    element.style.opacity = `${currentProgress}`;
+  }
+
+  if (isOpening) {
+    element.style.visibility = 'visible';
+  }
+
+  animate({
+    timing,
+    draw,
+    duration,
+  });
+
+  if (!isOpening) {
+    setTimeout(() => {
+      element.style.visibility = 'hidden';
+      element.style.height = '0';
+    }, duration);
+  }
+}
+
+function animate({ timing, draw, duration }: { timing: (t: number) => number; draw: (p: number) => void; duration: number }) {
+  let start = performance.now();
+
+  requestAnimationFrame(function animate(time) {
+    let timeFraction = (time - start) / duration;
+    if (timeFraction > 1) timeFraction = 1;
+
+    let progress = timing(timeFraction);
+    draw(progress);
+
+    if (timeFraction < 1) {
+      requestAnimationFrame(animate);
     }
   });
 }

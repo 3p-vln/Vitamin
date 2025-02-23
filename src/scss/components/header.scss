@@ -138,13 +138,10 @@
       position: fixed;
       top: 70px;
       left: 0;
-      background: white;
+      background: $background;
       width: 100%;
       height: 100%;
       padding: 40px 20px;
-      transition:
-        opacity 0.3s ease-in-out,
-        visibility 0.3s ease-in-out;
 
       &.main,
       &.profile,
@@ -152,10 +149,7 @@
       &.shop {
         opacity: 0;
         visibility: hidden;
-        &_active {
-          opacity: 1;
-          visibility: visible;
-        }
+        height: 0;
       }
 
       .header__profile {
@@ -174,8 +168,6 @@
         font-family: Effra;
         font-weight: 500;
         font-size: 20px;
-        // max-height: calc(100vh - 375px);
-        // overflow-y: auto;
 
         &__item {
           display: flex;
@@ -202,17 +194,6 @@
           }
         }
 
-        // &::after {
-        //   position: absolute;
-        //   content: '';
-        //   background-color: $fontColorTitleBlack;
-        //   opacity: 7%;
-        //   width: 100%;
-        //   height: 2px;
-        //   left: 0;
-        //   bottom: -45px;
-        // }
-
         &_profile,
         &_info {
           &::after {
@@ -238,7 +219,6 @@
       .info {
         &__title {
           display: flex;
-          // max-width: 50%;
           width: 100%;
           justify-content: space-between;
           align-items: center;
@@ -279,44 +259,6 @@
           }
         }
       }
-
-      // .info {
-      //   &__title {
-      //     display: flex;
-      //     max-width: 66%;
-      //     justify-content: space-between;
-      //     align-items: center;
-      //     font-weight: 500;
-      //     font-size: 20px;
-      //     position: fixed;
-      //     left: 0;
-      //     top: 0;
-      //     padding: 20px;
-      //     background-color: white;
-      //     z-index: 2;
-
-      //     &::before {
-      //       display: none;
-      //       position: absolute;
-      //       content: '';
-      //       background-color: $fontColorTitleBlack;
-      //       opacity: 7%;
-      //       width: 100%;
-      //       height: 2px;
-      //       bottom: 0;
-      //       left: 0;
-
-      //       @include media-breakpoint-down(sm) {
-      //         display: block;
-      //       }
-      //     }
-
-      //     svg {
-      //       width: 11px;
-      //       height: 20px;
-      //     }
-      //   }
-      // }
 
       .back-btn {
         width: 30px;
@@ -389,13 +331,6 @@
       margin-top: 9px;
       width: 100%;
       font-size: 16px;
-    }
-  }
-
-  .shop {
-    .menu {
-      // max-height: calc(100vh - 375px);
-      // overflow-y: auto;
     }
   }
 }
