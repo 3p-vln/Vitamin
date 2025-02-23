@@ -76,7 +76,7 @@
 
   &__slider {
     width: 100%;
-    overflow: hidden;
+    //overflow: hidden;
   }
 
 
@@ -85,6 +85,8 @@
     padding: 40px 34px 30px 30px;
     color: #000;
     font-family: Effra, sans-serif;
+    border-radius: 16px;
+    background:$cardBackground;
   }
 
   &__grade {
