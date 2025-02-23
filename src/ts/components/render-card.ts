@@ -156,7 +156,7 @@ async function loadMoreCards(container: string, category?: string) {
   const prodContainer = getElement(container);
   if (!prodContainer) return;
 
-  const prevScrollTop = prodContainer.scrollTop; // Запоминаем текущую прокрутку
+  const prevScrollTop = prodContainer.scrollTop;
 
   if (category !== currentCategory) {
     currentPage = 1;
@@ -174,7 +174,7 @@ async function loadMoreCards(container: string, category?: string) {
 
   await card(response.data, prodContainer, 'gray');
 
-  prodContainer.scrollTop = prevScrollTop; // Восстанавливаем прокрутку
+  prodContainer.scrollTop = prevScrollTop;
 }
 
 export async function handleViewMoreButtonVisibility(container: string, category?: string) {
