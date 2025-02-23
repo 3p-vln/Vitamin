@@ -1,0 +1,91 @@
+@import 'swiper/swiper-bundle.css';
+
+.feedback {
+  max-width: $containerWidth;
+  padding: 0 15px;
+  padding-top: 50px;
+  margin: 0 auto;
+
+  @include media-breakpoint-down(sm) {
+    padding: 0 20px;
+    padding-top: 30px;
+  }
+
+  &__slider {
+    width: 100%;
+  }
+
+  &__wrapper-slider {
+    display: flex;
+    align-items: stretch;
+  }
+
+  &__slide {
+    padding: 40px 34px 30px 30px;
+    color: #000;
+    border-radius: 16px;
+    background: $cardBackground;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: auto;
+
+    @include media-breakpoint-down(sm) {
+      max-width: calc(100vw - 40px);
+      padding: 28px 19px 20px;
+    }
+  }
+
+  &__grade {
+    margin-bottom: 22px;
+    display: flex;
+    gap: 5px;
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 18px;
+    }
+
+    svg {
+      width: 20px;
+      height: 19px;
+    }
+  }
+
+  &__title-feedback {
+    font-weight: 500;
+    font-size: clamp(16px, 2.5vw, 20px);
+    margin-bottom: 17px;
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: clamp(14px, 2.5vw, 16px);
+    line-height: 1.75;
+    margin-bottom: 52px;
+    letter-spacing: 0.6px;
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 97px;
+      line-height: 1.7;
+      letter-spacing: 0.5px;
+    }
+
+    @include media-breakpoint-down(xxs) {
+      margin-bottom: 58px;
+    }
+  }
+
+  &__person-block {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: clamp(14px, 2.5vw, 16px);
+    letter-spacing: -0.9px;
+    font-weight: 500;
+    margin-top: auto;
+
+    @include media-breakpoint-down(sm) {
+      letter-spacing: 0.5px;
+    }
+  }
+}
