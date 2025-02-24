@@ -1,8 +1,8 @@
 .header {
   position: fixed;
   width: 100%;
-  background-color: transparent;
   z-index: 23;
+  background-color: transparent;
 
   &__container {
     margin: 0 auto;
@@ -73,27 +73,29 @@
 
   &__profile {
     display: flex;
-    max-width: 100px;
     width: 100%;
+    max-width: 100px;
 
     @include media-breakpoint-down(sm) {
       display: none;
     }
   }
+
   &__user-name{
-    font-size: 12px;
-    width: 200px;
-    line-height: 1.3;
-    font-family: Effra, sans-serif;
     position: absolute;
+    width: 200px;
+    font-family: Effra, sans-serif;
+    line-height: 1.3;
+    font-size: 12px;
 
     &_pc{
-      top: 17px;
       right: 225px;
+      top: 17px;
     }
+
     &_mobile{
-      top: -40px;
       right: 0;
+      top: -40px;
     }
   }
 

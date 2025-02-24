@@ -8,9 +8,9 @@
 
   .ilustrate {
     position: relative;
-    height: 100%;
     overflow: hidden;
     padding: 110px;
+    height: 100%;
 
     @include media-breakpoint-down(sm) {
       padding: 35px;
@@ -51,22 +51,22 @@
     }
 
     &__content {
-      max-width: max-content;
-      width: 100%;
+      position: relative;
       margin: auto;
       margin-top: 30px;
       margin-right: 100px;
-      position: relative;
+      width: 100%;
+      max-width: max-content;
       z-index: 2;
 
       @include media-breakpoint-down(md) {
-        margin-right: auto;
         margin-top: 0;
+        margin-right: auto;
       }
 
       @include media-breakpoint-down(sm) {
-        max-width: fit-content;
         height: 75vw;
+        max-width: fit-content;
       }
 
       img {
@@ -80,8 +80,8 @@
 
     &__hulf-circle {
       position: absolute;
-      top: 34px;
       right: 0;
+      top: 34px;
       width: 149px;
       height: 151px;
       animation: spin 5s linear infinite;
@@ -108,8 +108,8 @@
     }
 
     @include media-breakpoint-down(md) {
-      max-width: 100%;
       padding: 60px 20px;
+      max-width: 100%;
     }
 
     @include media-breakpoint-down(sm) {
@@ -118,29 +118,29 @@
 
     &__backbtn {
       position: fixed;
-      z-index: 20;
-      display: flex;
       top: 48px;
-      font-size: 16px;
-      gap: 16px;
+      display: flex;
       align-items: center;
       letter-spacing: 0.9px;
+      z-index: 20;
+      font-size: 16px;
+      gap: 16px;
 
       @include media-breakpoint-down(md) {
         display: none;
       }
 
       svg {
-        height: 15px;
         width: 9px;
+        height: 15px;
       }
     }
 
     &__category {
+      margin-bottom: 16px;
       font-family: OpenSans;
       font-weight: 600;
       font-size: clamp(14px, 2.5vw, 16px);
-      margin-bottom: 16px;
 
       &_purple {
         color: $purpleBg;
@@ -172,9 +172,9 @@
     }
 
     &__name {
-      font-size: clamp(24px, 2.5vw, 40px);
       font-weight: 500;
       line-height: 1.2;
+      font-size: clamp(24px, 2.5vw, 40px);
     }
 
     .count-and-buy {
@@ -185,8 +185,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 100%;
         padding: 42px 0 40px;
+        width: 100%;
         gap: 30px;
 
         @include media-breakpoint-down(sm) {
@@ -198,8 +198,8 @@
         &::before {
           content: '';
           position: absolute;
-          top: 0;
           left: 0;
+          top: 0;
           width: 100%;
           height: 2px;
           background-color: $fontColorTitleBlack;
@@ -208,9 +208,9 @@
 
         &__info {
           display: flex;
+          flex-wrap: wrap;
           align-items: center;
           gap: 20px;
-          flex-wrap: wrap;
 
           @include media-breakpoint-down(xxs) {
             gap: 24px;
@@ -235,8 +235,8 @@
 
         &__capsules {
           font-family: OpenSans;
-          font-size: 16px;
           font-weight: 600;
+          font-size: 16px;
         }
 
         &__mg {
@@ -248,25 +248,25 @@
         &__counter {
           display: flex;
           align-items: center;
-          margin-right: 30px;
-          max-width: 177px;
-          width: 100%;
           justify-content: space-between;
+          margin-right: 30px;
+          width: 100%;
+          max-width: 177px;
 
           @include media-breakpoint-down(sm) {
             margin-right: 0;
-            max-width: 150px;
             margin-bottom: -7px;
+            max-width: 150px;
           }
         }
 
         &__minus,
         &__plus {
-          background-color: $cardBackground;
+          border-radius: 50%;
+          padding: 13px;
           width: 50px;
           height: 50px;
-          padding: 13px;
-          border-radius: 50%;
+          background-color: $cardBackground;
 
           svg {
             width: 100%;
@@ -276,10 +276,10 @@
       }
 
       .buy {
+        border: 2px solid $border-color;
+        border-radius: 16px;
         padding: 27px;
         width: 100%;
-        border-radius: 16px;
-        border: 2px solid $border-color;
 
         @include media-breakpoint-down(md) {
           padding: 22px 18px;
@@ -293,10 +293,10 @@
         }
 
         .autoship {
+          position: relative;
           display: flex;
           justify-content: space-between;
           padding-bottom: 30px;
-          position: relative;
 
           @include media-breakpoint-down(sm) {
             padding-top: 26px;
@@ -306,8 +306,8 @@
           &::before {
             content: '';
             position: absolute;
-            bottom: 0;
             left: 0;
+            bottom: 0;
             width: 100%;
             height: 2px;
             background-color: $fontColorTitleBlack;
@@ -320,9 +320,9 @@
 
           &__dropdown {
             display: flex;
+            align-items: center;
             font-size: 15px;
             gap: 18px;
-            align-items: center;
 
             @include media-breakpoint-down(sm) {
               gap: 6px;
@@ -334,10 +334,10 @@
               &__box {
                 display: flex;
                 align-items: center;
-                max-width: 68px;
-                background-color: $cardBackground;
                 border-radius: 8px;
                 padding: 8px 14px;
+                max-width: 68px;
+                background-color: $cardBackground;
                 gap: 14px;
 
                 @include media-breakpoint-down(sm) {
@@ -346,8 +346,8 @@
               }
 
               &__arrow {
-                height: 10px;
                 width: 6px;
+                height: 10px;
                 rotate: -90deg;
 
                 svg {
@@ -360,58 +360,58 @@
                 position: absolute;
                 display: flex;
                 flex-direction: column;
-                width: 100%;
-                border-radius: 8px;
-                background-color: $cardBackground;
-                margin-top: 5px;
-                padding: 8px 14px;
-                gap: 5px;
-                height: 0;
-                opacity: 0;
-                visibility: hidden;
                 overflow: hidden;
-                z-index: 2;
+                margin-top: 5px;
+                border-radius: 8px;
+                padding: 8px 14px;
+                width: 100%;
+                height: 0;
+                visibility: hidden;
                 transition:
                   height 0.5s ease-in-out,
                   opacity 0.5s ease-in-out,
                   visibility 0.5s ease-in-out;
+                z-index: 2;
+                background-color: $cardBackground;
+                gap: 5px;
+                opacity: 0;
 
                 &_active {
                   height: 149px;
-                  opacity: 1;
                   visibility: visible;
+                  opacity: 1;
                 }
               }
 
               &__item {
+                text-align: left;
                 background-color: transparent;
                 font-size: 15px;
-                text-align: left;
               }
             }
           }
 
           &__on-off {
+            position: relative;
+            border: 2px solid $border-color;
+            border-radius: 30px;
+            padding: 3px;
             width: 62px;
             height: 36px;
-            border-radius: 30px;
-            border: 2px solid $border-color;
-            padding: 3px;
-            position: relative;
           }
 
           &__circle {
-            aspect-ratio: 1/1;
-            height: 100%;
-            background-color: $border-color;
             border-radius: 50%;
+            height: 100%;
+            aspect-ratio: 1/1;
+            background-color: $border-color;
           }
         }
 
         .add-to-cart {
           display: flex;
-          justify-content: space-between;
           align-items: center;
+          justify-content: space-between;
           margin-top: 30px;
           gap: 34px;
 
@@ -427,14 +427,14 @@
           }
 
           &__btn {
-            font-size: clamp(16px, 2.5vw, 20px);
-            max-width: 330px;
-            width: 100%;
             padding: 21px 29px;
+            width: 100%;
+            max-width: 330px;
+            font-size: clamp(16px, 2.5vw, 20px);
 
             @include media-breakpoint-down(md) {
-              max-width: 190px;
               padding: 19px;
+              max-width: 190px;
             }
           }
         }
@@ -445,17 +445,17 @@
       margin-top: 93px;
 
       @include media-breakpoint-down(sm) {
+        position: relative;
         margin-top: 60px;
         padding-top: 62px;
-        position: relative;
       }
 
       &::before {
         content: '';
         position: absolute;
-        display: none;
-        top: 0;
         left: 0;
+        top: 0;
+        display: none;
         width: 100%;
         height: 2px;
         background-color: $fontColorTitleBlack;
@@ -467,24 +467,24 @@
       }
 
       &__title {
-        font-size: clamp(20px, 2.5vw, 26px);
         margin-bottom: 30px;
         letter-spacing: 0.2px;
+        font-size: clamp(20px, 2.5vw, 26px);
       }
 
       &__info {
-        font-family: OpenSans;
-        font-size: clamp(14px, 2.5vw, 16px);
-        line-height: 1.78;
         margin-bottom: 30px;
+        font-family: OpenSans;
+        line-height: 1.78;
+        font-size: clamp(14px, 2.5vw, 16px);
       }
 
       &__list {
-        font-family: OpenSans;
-        font-size: clamp(14px, 2.5vw, 16px);
-        line-height: 1.58;
         display: flex;
         flex-direction: column;
+        font-family: OpenSans;
+        line-height: 1.58;
+        font-size: clamp(14px, 2.5vw, 16px);
         gap: 20px;
 
         @include media-breakpoint-down(sm) {
@@ -492,8 +492,8 @@
         }
 
         &-item {
-          padding-left: 50px;
           position: relative;
+          padding-left: 50px;
 
           @include media-breakpoint-down(sm) {
             padding-left: 40px;
@@ -502,11 +502,11 @@
           &::before {
             content: '';
             position: absolute;
-            width: 30px;
-            background-color: $orangeMain;
-            height: 2px;
             left: 0;
             top: 11px;
+            width: 30px;
+            height: 2px;
+            background-color: $orangeMain;
 
             @include media-breakpoint-down(sm) {
               width: 20px;
@@ -524,9 +524,9 @@
       }
 
       &__title {
-        font-size: clamp(20px, 2.5vw, 26px);
         margin-bottom: 11px;
         letter-spacing: 0.2px;
+        font-size: clamp(20px, 2.5vw, 26px);
 
         @include media-breakpoint-down(sm) {
           margin-bottom: 1px;
@@ -534,10 +534,10 @@
       }
 
       .info-table {
+        border-collapse: collapse;
+        width: 100%;
         font-family: OpenSans;
         font-size: clamp(14px, 2.5vw, 16px);
-        width: 100%;
-        border-collapse: collapse;
 
         &__row {
           position: relative;
@@ -545,15 +545,15 @@
           @include media-breakpoint-down(sm) {
             display: flex;
             flex-direction: column;
-            gap: 8px;
             padding: 30px 0;
+            gap: 8px;
           }
 
           &::after {
             content: '';
             position: absolute;
-            bottom: 0;
             left: 0;
+            bottom: 0;
             width: 100%;
             height: 2px;
             background-color: $fontColorTitleBlack;
@@ -568,8 +568,8 @@
         }
 
         td {
-          padding: 30px 0;
           vertical-align: top;
+          padding: 30px 0;
           line-height: 1.75;
 
           @include media-breakpoint-down(sm) {
@@ -578,8 +578,8 @@
           }
 
           &:first-child {
-            font-weight: 600;
             width: 42.5%;
+            font-weight: 600;
 
             @include media-breakpoint-down(sm) {
               width: auto;

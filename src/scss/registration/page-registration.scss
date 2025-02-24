@@ -78,8 +78,8 @@
   }
 
   &__error-message{
-    color: $redText;
     position: relative;
     top: 20px;
+    color: $redText;
   }
 }
