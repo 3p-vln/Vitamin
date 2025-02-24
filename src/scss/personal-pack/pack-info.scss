@@ -1,6 +1,6 @@
 .pack-info {
-  margin-top: 71px;
   position: relative;
+  margin-top: 71px;
 
   @include media-breakpoint-down(sm) {
     margin-top: 50px;
@@ -12,25 +12,25 @@
   }
 
   &__title {
-    font-size: clamp(24px, 3.5vw, 50px);
-    font-weight: 600;
+    margin-bottom: 60px;
     max-width: 682px;
+    font-weight: 600;
     line-height: 60px;
     letter-spacing: -0.35px;
-    margin-bottom: 60px;
+    font-size: clamp(24px, 3.5vw, 50px);
 
     @include media-breakpoint-down(sm) {
+      margin-bottom: 27px;
       padding-right: 115px;
       line-height: 29px;
-      margin-bottom: 27px;
     }
   }
 
   &__rec {
-    font-size: clamp(20px, 2.5vw, 26px);
+    margin-bottom: 25px;
     font-weight: 500;
     line-height: 30px;
-    margin-bottom: 25px;
+    font-size: clamp(20px, 2.5vw, 26px);
 
     @include media-breakpoint-down(sm) {
       margin-bottom: 16px;
@@ -38,11 +38,11 @@
   }
 
   &__rec-info {
-    font-family: OpenSans;
     max-width: 875px;
-    font-size: clamp(14px, 2.5vw, 18px);
+    font-family: OpenSans;
     line-height: 28px;
     letter-spacing: 0.02px;
+    font-size: clamp(14px, 2.5vw, 18px);
 
     @include media-breakpoint-down(sm) {
       line-height: 24px;
@@ -54,11 +54,10 @@
     animation: spin 5s linear infinite;
 
     &_hulf-circle {
+      right: 653px;
+      top: -145px;
       width: 156px;
       height: 156px;
-      top: -145px;
-      right: 653px;
-      // z-index: 20;
       transform-origin: 0 100%;
 
       @include media-breakpoint-down(md) {
@@ -66,11 +65,11 @@
       }
 
       @include media-breakpoint-down(sm) {
+        left: auto;
+        right: 52px;
+        top: -65px;
         width: 75px;
         height: 78px;
-        left: auto;
-        top: -65px;
-        right: 52px;
       }
 
       svg {
@@ -81,10 +80,10 @@
     }
 
     &_hulf-circle-2 {
+      right: 0;
+      top: 82px;
       width: 183px;
       height: 141px;
-      top: 82px;
-      right: 0;
       transform-origin: 80% 0;
 
       svg {
@@ -98,10 +97,10 @@
       }
 
       &-adapt {
+        top: 75px;
         display: none;
         width: 53px;
         height: 71px;
-        top: 75px;
 
         @include media-breakpoint-down(sm) {
           display: block;

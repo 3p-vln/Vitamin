@@ -1,11 +1,11 @@
 .your-pack {
-  max-width: 1516px;
   margin: 0 auto;
   margin-top: 88px;
   margin-bottom: 100px;
   border-radius: 16px;
-  background-color: $cardBackground;
   padding: 60px 0 50px;
+  max-width: 1516px;
+  background-color: $cardBackground;
 
   @include media-breakpoint-down(sm) {
     margin-top: 60px;
@@ -14,11 +14,11 @@
   }
 
   &__title {
-    font-size: clamp(20px, 2.5vw, 36px);
-    font-weight: 700;
+    margin-bottom: 50px;
+    font-weight: bold;
     line-height: 42px;
     letter-spacing: -0.3px;
-    margin-bottom: 50px;
+    font-size: clamp(20px, 2.5vw, 36px);
 
     @include media-breakpoint-down(sm) {
       margin-bottom: 25px;
@@ -42,18 +42,18 @@
 
   &__continue {
     display: flex;
-    max-width: 330px;
-    width: 100%;
     align-items: center;
     justify-content: center;
     margin-top: 50px;
     padding: 23px 29px;
+    width: 100%;
+    max-width: 330px;
 
     &_fixed {
-      max-width: calc(100% - 40px);
       position: fixed;
-      z-index: 2;
       bottom: 15px;
+      max-width: calc(100% - 40px);
+      z-index: 2;
     }
   }
 
@@ -65,17 +65,17 @@
     position: absolute;
 
     &_circle {
+      right: 279px;
+      top: -123px;
       width: 124px;
       height: 124px;
-      top: -123px;
-      right: 279px;
       animation: scale 10s linear infinite;
 
       @include media-breakpoint-down(sm) {
+        right: 14px;
+        top: -81px;
         width: 62px;
         height: 62px;
-        top: -81px;
-        right: 14px;
       }
 
       svg {

@@ -1,4 +1,4 @@
-import { handleViewMoreButtonVisibility, renderAllCard, setupLazyLoading } from '../components/render-card';
+import { renderAllCard } from '../components/render-card';
 import { classManipulator, getElement, getElements } from '../composables/useCallDom';
 
 const filterParametrs = getElements('.filter__item');
@@ -14,8 +14,6 @@ export async function filterList(container: string) {
 
   filterParametrs.forEach((filter) => {
     const category = filter.innerText.trim();
-    console.log(category);
-
     if ((!selectedCategory && category === 'All categories') || category === selectedCategory) {
       classManipulator(filter, 'add', 'filter__item_active');
       dropdownActiveItem.innerText = category;
@@ -39,10 +37,7 @@ export async function filterList(container: string) {
         selectedCategory = category;
       }
 
-      urlParams.set('page', page.toString());
       window.history.pushState({}, '', `?${urlParams.toString()}`);
-
-      console.log(`Фильтрация: ${selectedCategory}`);
 
       const prodContainer = getElement(container);
       if (prodContainer) {

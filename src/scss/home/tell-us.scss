@@ -1,7 +1,6 @@
 .tell-us {
-
-  padding-bottom: 150px;
   position: relative;
+  padding-bottom: 150px;
 
   &_bottom{
     padding-top: 100px;
@@ -9,19 +8,19 @@
   }
 
   @include media-breakpoint-down(xs) {
-    overflow-x: hidden;
     padding-bottom: 60px;
+    overflow-x: hidden;
   }
 
 
   &__container {
-    max-width: $containerWidth;
-    padding: 0 15px;
-    margin: 0 auto;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    margin: 0 auto;
+    padding: 0 15px;
+    max-width: $containerWidth;
   }
 
   &__logo {
@@ -33,13 +32,13 @@
 
   &__title {
     padding-top: 50px;
-    font-weight: 500;
-    font-size: 56px;
-    text-align: center;
-    color: #000;
-    max-width: 840px;
-    line-height: 1.2;
     padding-bottom: 32px;
+    max-width: 840px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    font-size: 56px;
+    color: #000;
 
     &_padding{
       padding-top: 40px;
@@ -51,15 +50,15 @@
   }
 
   &__text {
-    font-family: Effra, sans-serif;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.63;
-    color: #808080;
+    margin-bottom: 51px;
     max-width: 770px;
+    font-family: Effra, sans-serif;
+    font-weight: normal;
+    line-height: 1.63;
     text-align: center;
     word-spacing: 0.2em;
-    margin-bottom: 51px;
+    font-size: 20px;
+    color: #808080;
 
     @include media-breakpoint-down(xs) {
       font-size: 14px;
@@ -68,11 +67,11 @@
 
   &__rotating-segment1 {
     position: absolute;
-    top: 20px;
     left: -40px;
-    z-index: -1;
+    top: 20px;
     width: 279px;
     height: 279px;
+    z-index: -1;
 
     &_alt {
       svg {
@@ -87,11 +86,11 @@
 
   &__rotating-segment3 {
     position: absolute;
-    top: 86px;
     left: -60px;
-    z-index: -1;
+    top: 86px;
     width: 279px;
     height: 279px;
+    z-index: -1;
 
     svg {
       width: 279px;
@@ -101,20 +100,20 @@
 
 
     @include media-breakpoint-down(xs) {
-      top: auto;
       left: auto;
-      bottom: -130px;
       right: -120px;
+      top: auto;
+      bottom: -130px;
     }
   }
 
   &__rotating-segment4 {
     position: absolute;
-    top: -64px;
     right: -130px;
-    z-index: -1;
+    top: -64px;
     width: 279px;
     height: 279px;
+    z-index: -1;
 
     svg {
       width: 141px;
@@ -122,19 +121,19 @@
     }
 
     @include media-breakpoint-down(xs) {
-      top: 0;
-      right: auto;
       left: -130px;
+      right: auto;
+      top: 0;
     }
   }
 
   &__scale-segment {
     position: absolute;
-    top: 7px;
     right: 40px;
+    top: 7px;
+    border-radius: 50%;
     width: 95px;
     height: 95px;
-    border-radius: 50%;
     background: #8172dd;
 
     @include media-breakpoint-down(xs) {
@@ -143,17 +142,17 @@
   }
 
   &__link {
+    margin-top: 32px;
     font-family: Effra, sans-serif;
     font-weight: 500;
     font-size: 20px;
     color: #f27e58;
-    margin-top: 32px;
 
     svg {
-      width: 10px;
-      height: 15px;
       position: relative;
       top: 4px;
+      width: 10px;
+      height: 15px;
     }
   }
 

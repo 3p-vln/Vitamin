@@ -9,8 +9,6 @@ export function unfixBtn() {
   if (window.innerWidth <= 768) {
     window.addEventListener('scroll', () => {
       const containerRect = container.getBoundingClientRect();
-      console.log('containerRect.top = ' + containerRect.top);
-      console.log('containerRect.bottom = ' + containerRect.bottom);
 
       if (containerRect.top <= 0 && containerRect.bottom <= 920) {
         button.classList.remove('your-pack__continue_fixed');

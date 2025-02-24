@@ -1,13 +1,13 @@
 .header-quiz {
   position: fixed;
-  top: 0;
   left: 0;
+  top: 0;
   width: 100%;
   z-index: 10;
 
   &__container {
-    max-width: 100%;
     padding: 30px 35px;
+    max-width: 100%;
 
     @include media-breakpoint-down(sm) {
       padding: 15px 20px;
@@ -16,8 +16,8 @@
 
   &__content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
   }
 
   &__logo {
@@ -47,7 +47,7 @@
 
   &__count {
     font-family: OpenSans;
-    font-size: clamp(20px, 2.5vw, 30px);
     font-weight: 600;
+    font-size: clamp(20px, 2.5vw, 30px);
   }
 }

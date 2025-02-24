@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { CardInfoData, LogInData, OrderData, PasswordData, ProfileUpdateData, RefreshTokenData, RegisterData, ResetPasswordData, SetNewPasswordData } from '../components/interfaces';
 
 const API_BASE_URL = 'https://www.mku-journal.online';
 
@@ -28,64 +29,6 @@ const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T | { er
     return { errors: [{ message: 'An unexpected error occurred.' }] };
   }
 };
-
-// Interfaces
-interface LogInData {
-  email: string;
-  password: string;
-}
-
-export interface RegisterData extends LogInData {
-  first_name: string;
-  last_name: string;
-  role_type: string;
-}
-
-interface RefreshTokenData {
-  refreshToken: string;
-}
-
-interface ResetPasswordData {
-  email: string;
-}
-
-interface SetNewPasswordData {
-  resetToken: string;
-  newPassword: string;
-}
-
-interface OrderData {
-  order: [
-    {
-      product_id: number;
-      quantity: number;
-    },
-  ];
-  user_id: string;
-}
-
-interface ProfileUpdateData {
-  email: string;
-  first_name: string;
-  last_name: string;
-  address_one: string;
-  address_two: string;
-  city: string;
-  phone: string;
-  postal_code: string;
-  state_province: string;
-}
-
-interface CardInfoData {
-  card_number: string;
-  card_cvv: string;
-  card_date: string;
-}
-
-interface PasswordData {
-  old_password: string;
-  new_password: string;
-}
 
 // Auth
 export const register = (data: RegisterData) => handleRequest(api.post('/auth/register', data));

@@ -1,23 +1,6 @@
 import { getCatalogList, getRecommendations } from '../composables/useApi';
 import { classManipulator, getElement, renderElement } from '../composables/useCallDom';
-
-interface RecommendationData {
-  id: number;
-  name: string;
-  price: string;
-  img: string;
-  discount: number;
-  type: string;
-}
-
-interface RecommendationResponse {
-  data: RecommendationData[];
-  meta: {
-    totalItems: number;
-    totalPages: number;
-  };
-  errors?: { message: string }[];
-}
+import { RecommendationData, RecommendationResponse } from './interfaces';
 
 let currentPage = 1;
 let itemsPerPage = 10;
@@ -66,8 +49,6 @@ export async function renderAllCard(container: string, page: number = 1, categor
     return;
   }
 
-  console.log(response);
-
   const prodList = response.data;
   await card(prodList, prodContainer, 'gray');
 
@@ -77,7 +58,8 @@ export async function renderAllCard(container: string, page: number = 1, categor
 
 async function card(data: RecommendationData[], container: HTMLElement, colour: string) {
   data.forEach((prodItem) => {
-    const card = renderElement('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`]);
+    const card = renderElement('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`]) as HTMLAnchorElement;
+    card.href = `one-product.html?id=${prodItem.id}`;
     const cardContainer = renderElement('div', 'prod-card__content');
 
     const cardImg = renderElement('div', 'prod-card__img');
@@ -137,12 +119,15 @@ function applyCategoryClass(type: string, categoryElement: HTMLElement) {
   }
 }
 
-function getDiscountedPrice(price: string, discount: number): number {
+function getDiscountedPrice(price: string, discount: number): string {
   const originalPrice = parseFloat(price);
   if (isNaN(originalPrice)) {
     throw new Error('Invalid price format');
   }
-  return +(originalPrice * (1 - discount / 100)).toFixed(2);
+
+  const discountedPrice = originalPrice * (1 - discount / 100);
+
+  return discountedPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 export function setupLazyLoading(container: string, category?: string) {
@@ -155,8 +140,6 @@ export function setupLazyLoading(container: string, category?: string) {
 
       if (lastCard.isIntersecting) {
         obs.disconnect();
-        console.log(lastCard.isIntersecting);
-
         await loadMoreCards(container, category);
         setupLazyLoading(container, category);
       }
@@ -174,6 +157,8 @@ async function loadMoreCards(container: string, category?: string) {
   const prodContainer = getElement(container);
   if (!prodContainer) return;
 
+  const prevScrollTop = prodContainer.scrollTop;
+
   if (category !== currentCategory) {
     currentPage = 1;
     currentCategory = category;
@@ -185,15 +170,15 @@ async function loadMoreCards(container: string, category?: string) {
   const response: RecommendationResponse = (await getCatalogList(currentPage, itemsViewMore, category)) as RecommendationResponse;
 
   if (response.errors || response.data.length === 0) {
-    console.log(response.data.length);
     return;
   }
 
   await card(response.data, prodContainer, 'gray');
+
+  prodContainer.scrollTop = prevScrollTop;
 }
 
 export async function handleViewMoreButtonVisibility(container: string, category?: string) {
-  console.log(`Обновление кнопки: container=${container}, category=${category}`);
   const viewMoreButton = getElement('.catalog-list__view-more');
   if (!viewMoreButton) return;
 
@@ -201,8 +186,6 @@ export async function handleViewMoreButtonVisibility(container: string, category
   currentPage = 1;
 
   let totalItemsResponse = await getCatalogList(1, 1, category);
-
-  console.log(totalItemsResponse);
 
   if (!isRecommendationResponse(totalItemsResponse) || totalItemsResponse.errors) {
     return;
@@ -223,15 +206,10 @@ export async function handleViewMoreButtonVisibility(container: string, category
   newViewMoreButton.addEventListener('click', async () => {
     if (remainingItems > 0) {
       await loadMoreCards(container, currentCategory);
-
-      console.log(`Загрузка для категории: ${currentCategory}`);
-
       currentItemCount = prodContainer.children.length;
       remainingItems = totalItems - currentItemCount;
 
       newViewMoreButton.style.display = remainingItems > 0 ? 'flex' : 'none';
-
-      console.log(`Осталось карточек: ${remainingItems}`);
     }
   });
 }

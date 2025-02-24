@@ -1,16 +1,5 @@
+import { CardData, Response } from './../components/interfaces';
 import { getRecommendations } from '../composables/useApi.ts';
-
-interface CardData {
-  id: number;
-  name: string;
-  description: string;
-  img: string;
-  type: string;
-}
-
-interface Response {
-  data: CardData[];
-}
 
 export async function renderCards(): Promise<void> {
 

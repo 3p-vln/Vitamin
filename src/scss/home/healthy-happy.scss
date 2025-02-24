@@ -4,7 +4,6 @@
     justify-content: space-between;
   }
 
-
   &__text-block {
     max-width: 670px;
     color: #000;
@@ -15,13 +14,14 @@
     margin-bottom: 38px;
 
     @include media-breakpoint-down(sm) {
-      text-align: center;
       margin-top: 0;
+      text-align: center;
     }
 
     svg {
       width: 86px;
       height: 98px;
+
       @include media-breakpoint-down(xs) {
         width: 50px;
         height: 56px;
@@ -30,33 +30,32 @@
   }
 
   &__title {
+    margin-bottom: 30px;
     font-family: Effra, sans-serif;
     font-weight: 500;
-    font-size: 56px;
-    margin-bottom: 30px;
     line-height: 1.2;
+    font-size: 56px;
 
     @include media-breakpoint-down(sm) {
-      font-size: 26px;
       text-align: center;
+      font-size: 26px;
     }
 
     @include media-breakpoint-down(xs) {
       font-size: 20px;
-
     }
   }
 
   &__description {
     font-family: OpenSans, sans-serif;
-    font-weight: 400;
-    font-size: 20px;
+    font-weight: normal;
     line-height: 1.63418;
+    font-size: 20px;
     color: $fontColorText;
 
     @include media-breakpoint-down(sm) {
-      font-size: 15px;
       text-align: center;
+      font-size: 15px;
     }
   }
 
@@ -70,23 +69,20 @@
   }
 }
 
-
 .feedback {
   padding-top: 75px;
 
   &__slider {
     width: 100%;
-    //overflow: hidden;
   }
 
-
   &__slide {
-    width: 444px;
-    padding: 40px 34px 30px 30px;
-    color: #000;
-    font-family: Effra, sans-serif;
     border-radius: 16px;
-    background:$cardBackground;
+    padding: 40px 34px 30px 30px;
+    width: 444px;
+    font-family: Effra, sans-serif;
+    color: #000;
+    background: $cardBackground;
   }
 
   &__grade {
@@ -99,17 +95,17 @@
   }
 
   &__title-feedback {
+    margin-bottom: 20px;
     font-weight: 500;
     font-size: 20px;
-    margin-bottom: 20px;
   }
 
   &__text {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.75;
     margin-bottom: 78px;
+    font-weight: normal;
+    line-height: 1.75;
     word-spacing: 0.2em;
+    font-size: 16px;
 
     @include media-breakpoint-down(xs) {
       margin-bottom: 30px;
@@ -118,7 +114,7 @@
 
   &__person-block {
     display: flex;
-    align-items: center;
     column-gap: 13px;
+    align-items: center;
   }
 }
