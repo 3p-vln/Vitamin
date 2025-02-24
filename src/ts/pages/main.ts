@@ -5,7 +5,7 @@ import { feedbackSlider } from '../home/feedback-slider.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   initHeader();
-  recommendationsProductsSlider();
-  await renderCards();
-  feedbackSlider();
+  recommendationsProductsSlider()
+  await renderCards()
+  feedbackSlider()
 });

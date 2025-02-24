@@ -3,12 +3,13 @@ import Cookies from 'js-cookie';
 
 const API_BASE_URL = 'https://www.mku-journal.online';
 const ACCESS_TOKEN_KEY = 'accessToken'; // Ключ для хранения accessToken в куках
-const REFRESH_URL = '/auth/refresh';
+const REFRESH_TOKEN_KEY = 'refreshToken'; // Ключ для хранения refreshToken в куках
+const REFRESH_URL = '/auth/refresh-token'; // URL для обновления токенов
 
-// Создаём экземпляр axios
+// Создаём экземпляр axios с базовым URL и настройкой передачи куков
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true, // Позволяет передавать куки (accessToken и refreshToken хранятся в куках)
+  withCredentials: true, // Позволяет передавать куки при запросах
 });
 
 // Функция получения accessToken из куков
@@ -16,21 +17,28 @@ const getAccessToken = (): string | null => {
   return Cookies.get(ACCESS_TOKEN_KEY) || null;
 };
 
-// Функция сохранения accessToken в куки
-const setAccessToken = (token: string): void => {
-  Cookies.set(ACCESS_TOKEN_KEY, token, { secure: true, sameSite: 'strict', path: '/' });
+// Функция получения refreshToken из куков
+const getRefreshToken = (): string | null => {
+  return Cookies.get(REFRESH_TOKEN_KEY) || null;
 };
 
-// Очистка accessToken при выходе из системы или истечении refreshToken
-const clearAuthData = (): void => {
-  Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
+// Функция сохранения accessToken и refreshToken в куки
+const setTokens = (accessToken: string, refreshToken: string): void => {
+  Cookies.set(ACCESS_TOKEN_KEY, accessToken, {  path: '/' });
+  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, {  path: '/' ,expires: 1});
 };
 
-// Перехватчик запросов
+// Очистка токенов при выходе из системы или истечении refreshToken
+// const clearAuthData = (): void => {
+//   Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
+//   Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
+// };
+
+// Перехватчик запросов: добавляет заголовок Authorization с токеном, если он есть
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = getAccessToken();
   if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.authorization = `${token}`;
   }
   return config;
 }, (error) => Promise.reject(error));
@@ -39,16 +47,18 @@ apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 let isRefreshing = false;
 let refreshSubscribers: ((token: string) => void)[] = [];
 
+// Функция подписки на обновление токена (используется при ожидании обновления токена)
 const subscribeTokenRefresh = (cb: (token: string) => void) => {
   refreshSubscribers.push(cb);
 };
 
+// Функция, вызываемая после успешного обновления токена (уведомляет всех подписчиков)
 const onRefreshed = (token: string) => {
-  refreshSubscribers.forEach(cb => cb(token));
-  refreshSubscribers = [];
+  refreshSubscribers.forEach(cb => cb(token)); // Вызываем все подписанные коллбеки с новым токеном
+  refreshSubscribers = []; // Очищаем массив подписчиков
 };
 
-// Перехватчик ответов
+// Перехватчик ответов: обрабатывает 401 ошибки и обновляет токен
 apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
@@ -59,7 +69,7 @@ apiClient.interceptors.response.use(
         return new Promise(resolve => {
           subscribeTokenRefresh((token) => {
             if (originalRequest.headers) {
-              originalRequest.headers.Authorization = `Bearer ${token}`;
+              originalRequest.headers.authorization = `${token}`;
             }
             resolve(apiClient(originalRequest));
           });
@@ -70,16 +80,23 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await apiClient.post<{ accessToken: string }>(REFRESH_URL);
-        setAccessToken(data.accessToken);
-        onRefreshed(data.accessToken);
+        const refreshToken = getRefreshToken();
+        if (!refreshToken) {
+          throw new Error('No refresh token available');
+        }
+
+        const { data } = await apiClient.post<{ accessToken: string; refreshToken: string }>(REFRESH_URL, {
+          [REFRESH_TOKEN_KEY]: refreshToken,
+        });
+        setTokens(data.accessToken, data.refreshToken); // Сохраняем новые токены в куки
+        onRefreshed(data.accessToken); // Уведомляем подписчиков о новом токене
 
         if (originalRequest.headers) {
-          originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+          originalRequest.headers.authorization = `${data.accessToken}`;
         }
         return apiClient(originalRequest);
       } catch (refreshError) {
-        clearAuthData(); // Очистка данных, если refreshToken невалиден
+         // clearAuthData(); // Очистка данных, если refreshToken невалиден
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
@@ -90,3 +107,4 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
+

@@ -1,4 +1,5 @@
 import { getElement } from '../composables/useCallDom';
+import { renderUserName } from '../registration/render-user-name.ts';
 
 const burgerBtn = getElement('.burger__btn');
 const menuMain = getElement('.burger__menu.main');
@@ -28,6 +29,8 @@ export function initHeader() {
     burgerBack('info__title', 'info');
     burgerBack('profile__title', 'profile');
   }
+//если есть в localStorage данные о юзере то выведет имя юзера в хедер
+  renderUserName()
 }
 
 function burgerToggle(clickBtn: string, elActive: string) {

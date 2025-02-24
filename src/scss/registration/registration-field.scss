@@ -90,5 +90,10 @@
   position: absolute;
   left: 10px;
   bottom: 0;
-  font-size: 12px;
+}
+
+/* Для большинства браузеров */
+input:-webkit-autofill {
+  background-color: red!important;
+
 }
