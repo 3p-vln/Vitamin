@@ -77,7 +77,7 @@ export function validateEmailForm(): Promise<boolean> {
       },
       {
         rule: 'customRegexp',
-        value: /^[-\w.]+@([а-яёa-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/,
+        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})$/,
         errorMessage: 'Write correct email',
       },
     ]);
