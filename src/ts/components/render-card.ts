@@ -58,7 +58,8 @@ export async function renderAllCard(container: string, page: number = 1, categor
 
 async function card(data: RecommendationData[], container: HTMLElement, colour: string) {
   data.forEach((prodItem) => {
-    const card = renderElement('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`]);
+    const card = renderElement('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`]) as HTMLAnchorElement;
+    card.href = `one-product.html?id=${prodItem.id}`;
     const cardContainer = renderElement('div', 'prod-card__content');
 
     const cardImg = renderElement('div', 'prod-card__img');
