@@ -1,9 +1,134 @@
 .catalog {
+  margin-top: 60px;
+
+  @include media-breakpoint-down(sm) {
+    margin-top: 0;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 30px;
+
+    @include media-breakpoint-down(sm) {
+      grid-template-columns: auto;
+    }
+  }
+
+  .filter,
+  .dropdown {
+    position: relative;
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+      gap: 45px;
+      margin-top: 31px;
+
+      @include media-breakpoint-down(sm) {
+        height: 0;
+        opacity: 0;
+        position: absolute;
+        z-index: 0;
+        background-color: $background;
+        gap: 20px;
+        width: 100vw;
+        left: -20px;
+        padding: 20px;
+        margin-top: 60px;
+        transition:
+          height 0.3s ease-in-out,
+          opacity 0.3s ease-in-out,
+          z-index 0.3s ease-in-out;
+      }
+
+      &_active {
+        height: auto;
+        opacity: 1;
+        z-index: 2;
+      }
+    }
+
+    &__item,
+    &__text {
+      background-color: transparent;
+      display: flex;
+      font-size: clamp(16px, 2.5vw, 22px);
+      text-align: left;
+
+      &_active {
+        color: $orangeMain;
+      }
+
+      &_red {
+        color: $redText;
+      }
+    }
+  }
+
+  .dropdown {
+    &__box {
+      display: none;
+      justify-content: space-between;
+      width: 100vw;
+      padding: 20px;
+      position: absolute;
+      left: -20px;
+      background-color: $background;
+      z-index: 2;
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: $lineBackground;
+        left: 0;
+        bottom: 0;
+      }
+
+      &_active {
+        svg {
+          rotate: 180deg;
+        }
+      }
+
+      @include media-breakpoint-down(sm) {
+        display: flex;
+      }
+    }
+
+    &__arrow {
+      width: 20px;
+      height: 20px;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        transition: rotate 0.3s ease-in-out;
+      }
+    }
+
+    &__text {
+      line-height: 20px;
+    }
+
+    // &__menu {
+    //   @include media-breakpoint-down(sm) {
+    //     display: none;
+    //   }
+    // }
+  }
+
   &__items {
     max-width: 1039px;
+    min-width: 200px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 40px;
+    margin-left: auto;
 
     @include media-breakpoint-down(sm) {
       gap: 30px;
@@ -11,6 +136,10 @@
   }
 
   &-list {
+    @include media-breakpoint-down(sm) {
+      margin-top: 60px;
+    }
+
     &__content {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

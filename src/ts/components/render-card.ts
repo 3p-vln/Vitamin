@@ -12,13 +12,18 @@ interface RecommendationData {
 
 interface RecommendationResponse {
   data: RecommendationData[];
+  meta: {
+    totalItems: number;
+    totalPages: number;
+  };
   errors?: { message: string }[];
 }
 
 let currentPage = 1;
-const itemsPerPage = 10;
-const itemsViewMore = 6;
+let itemsPerPage = 10;
+let itemsViewMore = 6;
 const windowWidth = window.innerWidth;
+let currentCategory: string | undefined = undefined;
 
 export async function renderRecCard(container: string) {
   const prodContainer = getElement(container);
@@ -31,96 +36,59 @@ export async function renderRecCard(container: string) {
   }
 
   const prodList = response.data;
-
   await card(prodList, prodContainer, 'white');
 }
 
-export async function renderAllCard(container: string, page: number = 1) {
-  const prodContainer = getElement(container);
-  if (!prodContainer) return;
+function updateItemsPerPage() {
+  const newWindowWidth = window.innerWidth;
 
-  const response = (await getCatalogList(page, itemsPerPage)) as RecommendationResponse;
-
-  if (response.errors) {
-    return;
-  }
-
-  const prodList = response.data;
-
-  // totalProducts = response.data.length;
-
-  await card(prodList, prodContainer, 'gray');
-
-  updatePagination(page, container);
-
-  if (windowWidth < 768) {
-    handleViewMoreButtonVisibility();
+  if (newWindowWidth < 375) {
+    itemsPerPage = 4;
+    itemsViewMore = 2;
+  } else if (newWindowWidth < 768) {
+    itemsPerPage = 6;
+    itemsViewMore = 6;
+  } else {
+    itemsPerPage = 10;
+    itemsViewMore = 10;
   }
 }
 
+export async function renderAllCard(container: string, page: number = 1, category?: string) {
+  updateItemsPerPage();
+  const prodContainer = getElement(container);
+  if (!prodContainer) return;
+
+  let response: RecommendationResponse = (await getCatalogList(page, itemsPerPage, category)) as RecommendationResponse;
+
+  if (response.errors || response.data.length === 0) {
+    prodContainer.innerHTML = '<p>Нет товаров в данной категории</p>';
+    return;
+  }
+
+  console.log(response);
+
+  const prodList = response.data;
+  await card(prodList, prodContainer, 'gray');
+
+  if (windowWidth >= 768) setupLazyLoading(container, category);
+  if (windowWidth < 768) handleViewMoreButtonVisibility(container, category);
+}
+
 async function card(data: RecommendationData[], container: HTMLElement, colour: string) {
-  let cardsToShow = 10;
-
-  if (windowWidth < 768) {
-    cardsToShow = 6;
-  }
-
-  if (windowWidth < 375) {
-    cardsToShow = 4;
-  }
-
-  // totalProducts = cardsToShow;
-
-  const productsToRender = data.slice(0, cardsToShow);
-
-  productsToRender.forEach((prodItem) => {
+  data.forEach((prodItem) => {
     const card = renderElement('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`]);
     const cardContainer = renderElement('div', 'prod-card__content');
 
     const cardImg = renderElement('div', 'prod-card__img');
-    cardImg.innerHTML = `
-        <picture>
-          <img src="${prodItem.img}" />
-        </picture>
-      `;
+    cardImg.innerHTML = `<picture><img src="${prodItem.img}" /></picture>`;
 
     const cardDiscount = renderElement('div', 'prod-card__discount');
     cardDiscount.innerText = `-${prodItem.discount}%`;
 
     const cardInfo = renderElement('div', ['prod-card__info', 'info']);
     const category = renderElement('p', 'info__category');
-
-    if (prodItem.type === 'Vitamins & Dietary Supplements') {
-      classManipulator(category, 'add', 'info__category_purple');
-    }
-
-    if (prodItem.type === 'Minerals') {
-      classManipulator(category, 'add', 'info__category_green-mint');
-    }
-
-    if (prodItem.type === 'Prenatal Vitamins') {
-      classManipulator(category, 'add', 'info__category_purple');
-    }
-
-    if (prodItem.type === 'Pain Relief') {
-      classManipulator(category, 'add', 'info__category_blue');
-    }
-
-    if (prodItem.type === 'Antioxidants') {
-      classManipulator(category, 'add', 'info__category_orange');
-    }
-
-    if (prodItem.type === 'Weight Loss') {
-      classManipulator(category, 'add', 'info__category_dark-blue');
-    }
-
-    if (prodItem.type === 'Probiotics') {
-      classManipulator(category, 'add', 'info__category_red');
-    }
-
-    if (prodItem.type === 'Sale%') {
-      classManipulator(category, 'add', 'info__category_red');
-    }
+    applyCategoryClass(prodItem.type, category);
 
     category.innerText = prodItem.type;
 
@@ -129,13 +97,13 @@ async function card(data: RecommendationData[], container: HTMLElement, colour: 
 
     const priceDiscount = getDiscountedPrice(prodItem.price, prodItem.discount);
     const price = renderElement('p', 'info__price');
-    if (prodItem.type === 'Sale%') {
-      price.innerHTML = `
-      <span>$${prodItem.price}</span> $${priceDiscount}
-      `;
 
+    if (prodItem.type === 'Sale%') {
+      price.innerHTML = `<span>$${prodItem.price}</span> $${priceDiscount}`;
       classManipulator(price, 'add', 'info__price_sale');
-    } else price.innerText = `$${prodItem.price}`;
+    } else {
+      price.innerText = `$${prodItem.price}`;
+    }
 
     cardInfo.appendChild(category);
     cardInfo.appendChild(name);
@@ -148,9 +116,25 @@ async function card(data: RecommendationData[], container: HTMLElement, colour: 
     cardContainer.appendChild(cardInfo);
 
     card.appendChild(cardContainer);
-
     container.appendChild(card);
   });
+}
+
+function applyCategoryClass(type: string, categoryElement: HTMLElement) {
+  const categoryClasses: { [key: string]: string } = {
+    'Vitamins & Dietary Supplements': 'info__category_purple',
+    Minerals: 'info__category_green-mint',
+    'Prenatal Vitamins': 'info__category_purple',
+    'Pain Relief': 'info__category_blue',
+    Antioxidants: 'info__category_orange',
+    'Weight Loss': 'info__category_dark-blue',
+    Probiotics: 'info__category_red',
+    'Sale%': 'info__category_red',
+  };
+
+  if (categoryClasses[type]) {
+    classManipulator(categoryElement, 'add', categoryClasses[type]);
+  }
 }
 
 function getDiscountedPrice(price: string, discount: number): number {
@@ -161,67 +145,97 @@ function getDiscountedPrice(price: string, discount: number): number {
   return +(originalPrice * (1 - discount / 100)).toFixed(2);
 }
 
-function updatePagination(page: number, container: string) {
-  const paginationContainer = getElement('.catalog-list__pagination');
-  if (!paginationContainer) return;
+export function setupLazyLoading(container: string, category?: string) {
+  const prodContainer = getElement(container);
+  if (!prodContainer || prodContainer.children.length === 0) return;
 
-  const pages = Math.ceil(100 / itemsPerPage);
+  const observer = new IntersectionObserver(
+    async (entries, obs) => {
+      const lastCard = entries[0];
 
-  const containerElement = getElement(container);
-  if (!containerElement) return;
+      if (lastCard.isIntersecting) {
+        obs.disconnect();
+        console.log(lastCard.isIntersecting);
 
-  paginationContainer.innerHTML = '';
+        await loadMoreCards(container, category);
+        setupLazyLoading(container, category);
+      }
+    },
+    { threshold: 1.0 }
+  );
 
-  const prevButton = renderElement('button', ['catalog-list__btn', 'catalog-list__btn_prew']);
-  prevButton.innerHTML = `<svg><use href="#back-arrow"></use></svg>`;
-  prevButton.onclick = () => handlePageChange(page - 1, containerElement);
-  paginationContainer.appendChild(prevButton);
+  const lastCardElement = prodContainer.lastElementChild;
+  if (lastCardElement) {
+    observer.observe(lastCardElement);
+  }
+}
 
-  for (let i = 1; i <= pages; i++) {
-    const pageButton = renderElement('button', ['catalog-list__btn', 'catalog-list__btn_page']);
+async function loadMoreCards(container: string, category?: string) {
+  const prodContainer = getElement(container);
+  if (!prodContainer) return;
 
-    if (page === i) {
-      classManipulator(pageButton, 'add', 'catalog-list__btn_active');
-    }
-
-    pageButton.innerText = `${i}`;
-    pageButton.onclick = () => handlePageChange(i, containerElement);
-    paginationContainer.appendChild(pageButton);
+  if (category !== currentCategory) {
+    currentPage = 1;
+    currentCategory = category;
+    prodContainer.innerHTML = '';
+  } else {
+    currentPage++;
   }
 
-  const nextButton = renderElement('button', ['catalog-list__btn', 'catalog-list__btn_next']);
-  nextButton.innerHTML = `<svg><use href="#back-arrow"></use></svg>`;
-  nextButton.onclick = () => handlePageChange(page + 1, containerElement);
-  paginationContainer.appendChild(nextButton);
+  const response: RecommendationResponse = (await getCatalogList(currentPage, itemsViewMore, category)) as RecommendationResponse;
+
+  if (response.errors || response.data.length === 0) {
+    console.log(response.data.length);
+    return;
+  }
+
+  await card(response.data, prodContainer, 'gray');
 }
 
-function handlePageChange(newPage: number, container: HTMLElement) {
-  if (newPage < 1 || newPage > Math.ceil(100 / itemsPerPage)) return;
-  currentPage = newPage;
-
-  window.history.pushState({}, '', `?page=${newPage}`);
-
-  container.innerHTML = '';
-
-  renderAllCard(`.${container.className}`, currentPage);
-}
-
-function handleViewMoreButtonVisibility() {
+export async function handleViewMoreButtonVisibility(container: string, category?: string) {
+  console.log(`Обновление кнопки: container=${container}, category=${category}`);
   const viewMoreButton = getElement('.catalog-list__view-more');
   if (!viewMoreButton) return;
 
-  const totalPages = Math.ceil(20 / itemsViewMore);
+  currentCategory = category;
+  currentPage = 1;
 
-  if (currentPage < totalPages) {
-    viewMoreButton.style.display = 'flex';
-  } else {
-    viewMoreButton.style.display = 'none';
+  let totalItemsResponse = await getCatalogList(1, 1, category);
+
+  console.log(totalItemsResponse);
+
+  if (!isRecommendationResponse(totalItemsResponse) || totalItemsResponse.errors) {
+    return;
   }
 
-  viewMoreButton.onclick = () => {
-    if (currentPage < totalPages) {
-      currentPage += 1;
-      renderAllCard('.catalog-list__content', currentPage);
+  const totalItems = totalItemsResponse.meta.totalItems;
+  const prodContainer = getElement(container);
+  if (!prodContainer) return;
+
+  let currentItemCount = prodContainer.children.length;
+  let remainingItems = totalItems - currentItemCount;
+
+  viewMoreButton.style.display = remainingItems > 0 ? 'flex' : 'none';
+
+  viewMoreButton.replaceWith(viewMoreButton.cloneNode(true));
+  const newViewMoreButton = getElement('.catalog-list__view-more') as HTMLButtonElement;
+
+  newViewMoreButton.addEventListener('click', async () => {
+    if (remainingItems > 0) {
+      await loadMoreCards(container, currentCategory);
+
+      console.log(`Загрузка для категории: ${currentCategory}`);
+
+      currentItemCount = prodContainer.children.length;
+      remainingItems = totalItems - currentItemCount;
+
+      newViewMoreButton.style.display = remainingItems > 0 ? 'flex' : 'none';
+
+      console.log(`Осталось карточек: ${remainingItems}`);
     }
-  };
+  });
+}
+
+function isRecommendationResponse(response: unknown): response is RecommendationResponse {
+  return typeof response === 'object' && response !== null && 'data' in response && Array.isArray((response as RecommendationResponse).data);
 }
