@@ -91,3 +91,10 @@
   left: 10px;
   bottom: 0;
 }
+
+/* Для большинства браузеров */
+input:-webkit-autofill {
+  background-color: red!important;
+
+}
+

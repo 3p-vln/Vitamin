@@ -35,7 +35,7 @@ interface LogInData {
   password: string;
 }
 
-interface RegisterData extends LogInData {
+export interface RegisterData extends LogInData {
   first_name: string;
   last_name: string;
   role_type: string;

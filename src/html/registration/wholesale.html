@@ -1,22 +1,22 @@
 <form class="registration-form side back"  id="wholesale-registration">
 
   <div class="registration-form__field field">
-    <input class="field__input" id="wholesale-registration-email" placeholder=" " type="email" autocomplete="username">
+    <input class="field__input" id="wholesale-registration-email" placeholder=" " type="email" autocomplete="username" name="email">
     <label class="field__label" for="wholesale-registration-email" >Email</label>
   </div>
 
   <div class="registration-form__field field">
-    <input class="field__input" id="wholesale-registration-first-name" placeholder=" " autoComplete="username">
+    <input class="field__input" id="wholesale-registration-first-name" placeholder=" "  name="first_name">
     <label class="field__label" for="wholesale-registration-first-name" >First Name</label>
   </div>
 
   <div class="registration-form__field field">
-    <input class="field__input" id="wholesale-registration-last-name" placeholder=" ">
+    <input class="field__input" id="wholesale-registration-last-name" placeholder=" " name="last_name">
     <label class="field__label" for="wholesale-registration-last-name" >Last Name</label>
   </div>
 
   <div class="registration-form__field field">
-    <input class="field__input" id="wholesale-registration-password" type="password" placeholder=" " autocomplete="new-password">
+    <input class="field__input" id="wholesale-registration-password" type="password" placeholder=" " autocomplete="new-password" name="password">
     <label class="field__label" for="wholesale-registration-password">Password</label>
   </div>
   <div class="registration-form__field field field_file">
@@ -32,4 +32,5 @@
   </div>
 
   <button class="btn btn_orange btn_registration registration-form__submit registration-form__submit_disabled" id="wholesale-registration-submit-btn" disabled type="submit">Create my account</button>
+  <span class="registration-form__error-message registration-form__regular-error-message"></span>
 </form>

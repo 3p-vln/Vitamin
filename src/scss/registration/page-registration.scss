@@ -60,8 +60,6 @@
 
 
   &__field {
-
-
     &:not(:last-child) {
       margin-bottom: 20px;
     }
@@ -78,5 +76,11 @@
       color: $font-color-white;
     }
 
+  }
+
+  &__error-message{
+    color: $redText;
+    position: relative;
+    top: 20px;
   }
 }

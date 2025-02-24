@@ -65,8 +65,8 @@ export function validateRegularForm() {
       },
       {
         rule: 'minLength',
-        value: 6,
-        errorMessage: 'Password must contain a minimum of 6 characters',
+        value: 8,
+        errorMessage: 'Password must contain a minimum of 8 characters',
       },
       {
         rule: 'maxLength',
@@ -80,7 +80,7 @@ export function validateRegularForm() {
       },
     ])
     .onSuccess( async () => {
-      console.log('Форма успешно отправлена!');
+
       const form = document.getElementById('regular-registration') as HTMLFormElement | undefined;
       const formData: FormData = new FormData(form);
       const data: any = {
@@ -90,7 +90,7 @@ export function validateRegularForm() {
       for (let [key, value] of formData.entries()) {
         data[key] = value ;
       }
-      console.log(data);
+
       await registrationRequest(data)
     });
 }
@@ -188,7 +188,18 @@ export function validateWholesaleForm() {
         errorMessage: 'Only image files (JPG, JPEG, PNG, webp) are allowed',
       },
     ])
-    .onSuccess(() => {
-      console.log('Form submitted successfully!');
+    .onSuccess( async () => {
+      const form = document.getElementById('wholesale-registration') as HTMLFormElement | undefined;
+
+      const formData: FormData = new FormData(form);
+      const data: any = {
+        role_type: 'whosale',
+      };
+
+      for (let [key, value] of formData.entries()) {
+        data[key] = value ;
+      }
+
+      await registrationRequest(data)
     });
 }

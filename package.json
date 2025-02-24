@@ -43,9 +43,11 @@
     "vite-plugin-html-inject": "^1.0.4"
   },
   "dependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/nouislider": "^15.0.0",
     "air-datepicker": "^3.4.0",
     "axios": "^1.7.9",
+    "js-cookie": "^3.0.5",
     "just-validate": "^4.3.0",
     "libphonenumber-js": "^1.10.56",
     "nouislider": "^15.8.1",

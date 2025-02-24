@@ -11,4 +11,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   recommendationsProductsSlider()
   await renderCards()
   feedbackSlider()
+
 });
