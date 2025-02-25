@@ -21,6 +21,10 @@ const pages = [
     name: 'registration',
     path: resolve(__dirname, 'registration.html'),
   },
+  {
+    name: 'login',
+    path: resolve(__dirname, 'login.html'),
+  },
 ];
 
 export default pages;
