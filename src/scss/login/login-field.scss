@@ -1,0 +1,105 @@
+
+.field {
+  position: relative;
+  max-width: 444px;
+  width: 100%;
+
+&:not(:last-child) {
+  margin-bottom: 18px;
+}
+
+  &_file{
+    display: flex;
+    justify-content: space-between;
+
+    @include media-breakpoint-down(xs) {
+    flex-wrap: wrap;
+      width: auto;
+    }
+  }
+
+  &__input {
+    outline: none;
+    border-radius: 4px;
+    padding: 17px 24px;
+    width: 279px;
+
+    font-size: 18px;
+    background: transparent;
+  }
+
+
+  &__label {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    cursor: text;
+    transform: translateY(-50%);
+    transition: 0.3s ease;
+    font-size: 18px;
+    color: $font-color-black;
+    opacity: 0.3;
+  }
+
+  &__file-button{
+    border-radius: 12px;
+    padding: 10px 30px;
+  }
+
+  &__file-name{
+    display: none;
+    margin-right: 26px;
+    font-weight: normal;
+    font-size: 18px;
+    color: #000;
+    opacity: 0.3;
+
+    @include media-breakpoint-down(xs) {
+      display: flex;
+    }
+  }
+
+  &__file-description{
+    font-weight: normal;
+    font-size: 18px;
+    color: $font-color-black;
+    opacity: 0.3;
+
+    &_mobile{
+      display: none;
+
+      @include media-breakpoint-down(xs) {
+        display: flex;
+      }
+    }
+
+    &_pc{
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
+    }
+  }
+}
+
+.field__input:not(:placeholder-shown) + .field__label,
+.field__input:focus + .field__label {
+  left: 8px;
+  top: 7px;
+  padding: 0 3px;
+  color: #000;
+  font-size: 12px;
+  background: #fff;
+}
+
+.just-validate-error-label{
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+  font-size: 12px;
+}
+
+/* Для большинства браузеров */
+input:-webkit-autofill {
+  background-color: red!important;
+
+}
