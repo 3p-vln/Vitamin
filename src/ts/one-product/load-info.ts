@@ -48,29 +48,38 @@ function showInfo(prodInfo: Product) {
   img.src = prodInfo.img;
 
   const catgory = getElement('.info__category');
+  const svgIco = getElement('.count__svg svg use');
 
   if (!catgory) return;
+  if (!svgIco) return;
 
   if (prodInfo.type === 'Vitamins & Dietary Supplements') {
     classManipulator(catgory, 'add', 'info__category_purple');
+    svgIco.setAttribute('href', '#can');
   }
   if (prodInfo.type === 'Minerals') {
     classManipulator(catgory, 'add', 'info__category_green-mint');
+    svgIco.setAttribute('href', '#bottle');
   }
   if (prodInfo.type === 'Prenatal Vitamins') {
     classManipulator(catgory, 'add', 'info__category_pink');
+    svgIco.setAttribute('href', '#kit');
   }
   if (prodInfo.type === 'Pain Relief') {
     classManipulator(catgory, 'add', 'info__category_blue');
+    svgIco.setAttribute('href', '#box');
   }
   if (prodInfo.type === 'Antioxidants') {
     classManipulator(catgory, 'add', 'info__category_orange');
+    svgIco.setAttribute('href', '#can');
   }
   if (prodInfo.type === 'Weight Loss') {
     classManipulator(catgory, 'add', 'info__category_dark-blue');
+    svgIco.setAttribute('href', '#bottle');
   }
   if (prodInfo.type === 'Probiotics' || prodInfo.type === 'Sale%') {
     classManipulator(catgory, 'add', 'info__category_red');
+    svgIco.setAttribute('href', '#kit');
   }
 
   catgory.innerText = prodInfo.type;
