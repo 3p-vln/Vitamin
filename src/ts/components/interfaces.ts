@@ -84,3 +84,21 @@ export interface CardData {
 export interface Response {
   data: CardData[];
 }
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  directions: string;
+  disabled_subscribe: boolean;
+  discount: number;
+  img: string;
+  indications: string;
+  ingradients: string;
+  legal_disclaimer: string;
+  price: string;
+  satefy_information: string;
+  type: string;
+  weight_mg: number;
+  capsules: number;
+}

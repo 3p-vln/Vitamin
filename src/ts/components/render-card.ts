@@ -119,7 +119,7 @@ function applyCategoryClass(type: string, categoryElement: HTMLElement) {
   }
 }
 
-function getDiscountedPrice(price: string, discount: number): string {
+export function getDiscountedPrice(price: string, discount: number): string {
   const originalPrice = parseFloat(price);
   if (isNaN(originalPrice)) {
     throw new Error('Invalid price format');

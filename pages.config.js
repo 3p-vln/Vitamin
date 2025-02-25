@@ -18,6 +18,10 @@ const pages = [
     path: resolve(__dirname, 'shop.html'),
   },
   {
+    name: 'one-product',
+    path: resolve(__dirname, 'one-product.html'),
+  },
+  {
     name: 'registration',
     path: resolve(__dirname, 'registration.html'),
   },
