@@ -1,5 +1,6 @@
 import { getElement } from '../composables/useCallDom';
 import { renderUserName } from '../registration/render-user-name.ts';
+import { logout } from './logout.ts';
 
 const burgerBtn = getElement('.burger__btn');
 const menuMain = getElement('.burger__menu.main');
@@ -31,6 +32,8 @@ export function initHeader() {
   }
 //если есть в localStorage данные о юзере то выведет имя юзера в хедер
   renderUserName()
+
+  logout()
 }
 
 function burgerToggle(clickBtn: string, elActive: string) {
@@ -174,3 +177,5 @@ function animate({ timing, draw, duration }: { timing: (t: number) => number; dr
     }
   });
 }
+
+

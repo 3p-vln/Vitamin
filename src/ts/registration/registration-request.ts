@@ -17,13 +17,13 @@ interface userInfo {
 
 type userInfoRequest = userNotFoundInfo | userInfo;
 
-interface userInfoResponseData {
+export interface userInfoResponseData {
   data: userInfoRequest;
 }
 
 export async function registrationRequest(data: RegisterData) {
   try {
-    // const res: any = await register(data);
+
     const res: any = await apiClient.post('/auth/register', data);
 
     if (res.status === 201) {
