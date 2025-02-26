@@ -2,12 +2,15 @@
 <html lang="en">
 <load
 ="./src/html/components/head.htm" title="Vitamin. Login" styles="login" />
+<script type="module" src="./src/ts/pages/login.ts"></script>
 <body>
 
 <div class="wrapper">
+
   <header class="auth-header">
 
     <a class="auth-header__link" href="/">
+
       <svg width="42" height="50" viewBox="0 0 42 50" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
               d="M15.3281 21.1655H26.6712V28.9876C26.6712 32.1164 24.1267 34.6625 20.9997 34.6625C17.8727 34.6625 15.3281 32.1164 15.3281 28.9876V21.1655Z"
@@ -68,13 +71,14 @@
 
       </form>
       <load
-      ="./src/html/registration/social-sign-up.html" title="or sign in with..." />
-      <p class="login-page__reg">Don't have an account? <a href="/Vitamin/registration.html"
-                                                           class="login-page__registration-link">Create one</a></p>
+      ="./src/html/registration/social-sign-up.html" title-modification="social-sign-up__title_reg" title="or sign in with..." />
+
     </div>
+    <p class="login-page__reg">Don't have an account? <a href="/Vitamin/registration.html"
+                                                         class="login-page__registration-link">Create one</a></p>
   </main>
 </div>
 </body>
 
-<script type="module" src="./src/ts/pages/login.ts"></script>
+
 </html>

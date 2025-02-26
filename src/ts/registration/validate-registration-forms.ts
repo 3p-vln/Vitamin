@@ -12,8 +12,9 @@ export function validateRegularForm() {
         errorMessage: 'Email is required',
       },
       {
-        rule: 'email',
-        errorMessage: 'Enter a valid email address',
+        rule: 'customRegexp',
+        value: /^[a-zA-Z0-9а-яА-Я."_%+-]+@[a-zA-Zа-яА-Я0-9-.]+\.[a-zA-Zа-яА-Я]{2,}$/u,
+        errorMessage: 'Enter a valid email address!',
       },
     ])
     .addField('#regular-registration-first-name', [
@@ -76,7 +77,7 @@ export function validateRegularForm() {
       {
         rule: 'customRegexp',
         value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-        errorMessage: 'The password must contain at least one uppercase letter, one lowercase letter, and one number',
+        errorMessage: 'Must contain uppercase ,lowercase letter, and number',
       },
     ])
     .onSuccess( async () => {
@@ -105,8 +106,9 @@ export function validateWholesaleForm() {
         errorMessage: 'Email is required',
       },
       {
-        rule: 'email',
-        errorMessage: 'Invalid email format',
+        rule: 'customRegexp',
+        value: /^[a-zA-Z0-9а-яА-Я."_%+-]+@[a-zA-Zа-яА-Я0-9-.]+\.[a-zA-Zа-яА-Я]{2,}$/u,
+        errorMessage: 'Enter a valid email address!',
       },
     ])
     .addField('#wholesale-registration-first-name', [
@@ -158,8 +160,8 @@ export function validateWholesaleForm() {
       },
       {
         rule: 'minLength',
-        value: 6,
-        errorMessage: 'Password must be at least 6 characters',
+        value: 8,
+        errorMessage: 'Password must be at least 8 characters',
       },
       {
         rule: 'maxLength',
@@ -169,7 +171,7 @@ export function validateWholesaleForm() {
       {
         rule: 'customRegexp',
         value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-        errorMessage: 'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+        errorMessage: 'Must contain uppercase ,lowercase letter, and number',
       },
     ])
     .addField('#wholesale-registration-file', [
@@ -185,7 +187,7 @@ export function validateWholesaleForm() {
           const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
           return allowedTypes.includes(fileInput.files[0].type);
         },
-        errorMessage: 'Only image files (JPG, JPEG, PNG, webp) are allowed',
+        errorMessage: 'Only image(JPG, PNG, webp) are allowed',
       },
     ])
     .onSuccess( async () => {

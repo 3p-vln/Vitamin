@@ -3,6 +3,7 @@ export function flipFormCard() {
   const buttonRegular = document.getElementById('regular-reg') as HTMLButtonElement | null;
   const buttonWholesale = document.getElementById('wholesale-reg') as HTMLButtonElement | null;
   const errorContainer = document.querySelector('.registration-form__error-message');
+  const registrationContainer = document.querySelector('.registration__container');
 
   if (card && buttonRegular && buttonWholesale) {
     buttonRegular.addEventListener('click', () => {
@@ -23,6 +24,10 @@ export function flipFormCard() {
         errorLabel.forEach((label) => {
           label.remove();
         });
+      }
+
+      if(registrationContainer instanceof HTMLDivElement) {
+        registrationContainer.style.height = '890px';
       }
     });
 
@@ -57,12 +62,19 @@ export function flipFormCard() {
       if (errorContainer instanceof HTMLSpanElement) {
         errorContainer.innerText = '';
       }
+
+      if(registrationContainer instanceof HTMLDivElement) {
+        registrationContainer.style.height = '950px';
+      }
+
     });
     const errorLabel = document.querySelectorAll('.just-validate-error-label');
     if (errorLabel) {
       errorLabel.forEach((label) => {
         label.remove();
       });
+
+
     }
   }
 }

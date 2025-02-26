@@ -1,12 +1,14 @@
 
 .field {
   position: relative;
-  width: 444px;
-
+  max-width: 444px;
+  background: #FAF8F6;
+  border-radius: 14px;
 
   &_file{
     display: flex;
     justify-content: space-between;
+    padding: 10px;
 
     @include media-breakpoint-down(xs) {
     flex-wrap: wrap;
@@ -26,7 +28,7 @@
 
   &__label {
     position: absolute;
-    left: 8px;
+    left: 25px;
     top: 50%;
     cursor: text;
     transform: translateY(-50%);
@@ -39,6 +41,10 @@
   &__file-button{
     border-radius: 12px;
     padding: 10px 30px;
+    @include media-breakpoint-down(xs) {
+      margin: 10px;
+    }
+
   }
 
   &__file-name{
@@ -48,6 +54,8 @@
     font-size: 18px;
     color: #000;
     opacity: 0.3;
+    position: relative;
+    top: 5px;
 
     @include media-breakpoint-down(xs) {
       display: flex;
@@ -65,10 +73,14 @@
 
       @include media-breakpoint-down(xs) {
         display: flex;
+        position: relative;
+        top: -10px;
       }
     }
 
     &_pc{
+      position: relative;
+      top: 10px;
       @include media-breakpoint-down(xs) {
         display: none;
       }
@@ -90,6 +102,12 @@
   position: absolute;
   left: 10px;
   bottom: 0;
+  font-size: 14px;
+
+  @include media-breakpoint-down(xxs) {
+    font-size: 12px;
+    bottom: -5px;
+  }
 }
 
 /* Для большинства браузеров */

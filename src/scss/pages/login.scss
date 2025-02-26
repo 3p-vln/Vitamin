@@ -2,11 +2,26 @@
 @import '../registration/social-sign-up';
 @import '../login/login-field.scss';
 
+body{
+  background: #faf8f6;
+  @include media-breakpoint-down(xs) {
+    background: transparent;
+  }
+}
 .auth-header {
-  margin: 0 auto;
+  width: 100%;
   padding-top: 30px;
-  padding-bottom: 90px;
+  padding-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  background: #faf8f6;
+  @include media-breakpoint-down(xs) {
+    background: transparent;
+  }
 
+  @include media-breakpoint-down(md) {
+    background: transparent;
+  }
   @include media-breakpoint-down(xs) {
     margin: 0;
     padding-right: 15px;
@@ -36,18 +51,24 @@
         text-align: center;
       }
     }
-
-
   }
-
 }
 
 .login-page {
-  padding-top: 52px;
+
 
   &__container {
-    max-width: 650px;
+    max-width: 920px;
     margin: 0 auto;
+    background: $background;
+    padding-top: 52px;
+    padding-bottom: 60px;
+    padding-left: 120px;
+    padding-right: 120px;
+
+    @include media-breakpoint-down(md) {
+      padding: 60px 15px;
+    }
   }
 
   &__title {
@@ -88,7 +109,7 @@
 
   &__reg {
     text-align: center;
-    margin-top: 150px;
+    margin-top: 100px;
     margin-bottom: 80px;
   }
 }
