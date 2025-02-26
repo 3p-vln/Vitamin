@@ -2,9 +2,10 @@ import { Product } from '../components/interfaces';
 import { getDiscountedPrice } from '../components/render-card';
 import { getCatalogItem } from '../composables/useApi';
 import { classManipulator, getElement } from '../composables/useCallDom';
+import { autoshipCreate } from './autoship';
 
 const urlParams = new URLSearchParams(window.location.search);
-let prodId = urlParams.get('id') || undefined;
+const prodId = urlParams.get('id') || undefined;
 
 export async function loadInfo() {
   if (!prodId) return;
@@ -13,6 +14,7 @@ export async function loadInfo() {
 
   showInfo(prod);
   backToShop();
+  autoshipBtn(prod);
 }
 
 function showInfo(prodInfo: Product) {
@@ -147,4 +149,23 @@ function backToShop() {
   backBtn.addEventListener('click', () => {
     window.location.href = 'shop.html';
   });
+}
+
+function autoshipBtn(prodInfo: Product) {
+  const autoship = getElement('.autoship__on-off');
+  if (!autoship) return;
+
+  const autoshipCircle = getElement('.autoship__circle', autoship);
+  if (!autoshipCircle) return;
+
+  const userInfo = localStorage.getItem('userInfo');
+
+  if (prodInfo.disabled_subscribe === true && userInfo) {
+    autoship.addEventListener('click', async () => {
+      autoship.classList.toggle('autoship__on-off_active');
+      autoshipCircle.classList.toggle('autoship__circle_active');
+
+      // await autoshipCreate();
+    });
+  }
 }
