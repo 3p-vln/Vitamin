@@ -3,6 +3,8 @@
   position: relative;
   max-width: 444px;
   width: 100%;
+  background: #faf8f6;
+  border-radius: 14px;
 
 &:not(:last-child) {
   margin-bottom: 18px;
@@ -31,7 +33,7 @@
 
   &__label {
     position: absolute;
-    left: 8px;
+    left: 25px;
     top: 50%;
     cursor: text;
     transform: translateY(-50%);

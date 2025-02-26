@@ -14,8 +14,9 @@ export function validateRegisterForm() {
           errorMessage: 'Email is required',
         },
         {
-          rule: 'email',
-          errorMessage: 'Please enter a valid email address',
+          rule: 'customRegexp',
+          value: /^[a-zA-Z0-9а-яА-Я."_%+-]+@[a-zA-Zа-яА-Я0-9-.]+\.[a-zA-Zа-яА-Я]{2,}$/u,
+          errorMessage: 'Enter a valid email address!',
         },
       ])
       .addField('#login-password', [

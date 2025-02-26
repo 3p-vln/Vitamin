@@ -1,6 +1,7 @@
 import { fileUpload } from '../registration/file-upload.ts';
 import { flipFormCard } from '../registration/fllip-form-card.ts';
 import { validateRegularForm, validateWholesaleForm } from '../registration/validate-registration-forms.ts';
+import { checkAuth } from '../registration/check-auth.ts';
 
 
 
@@ -10,6 +11,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   flipFormCard()
   validateRegularForm()
   validateWholesaleForm()
-
-
+  checkAuth()
 });

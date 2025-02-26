@@ -9,9 +9,21 @@ export function fileUpload() {
     fileInput.addEventListener('change', () => {
       if (fileInput.files && fileInput.files.length > 0) {
         if (window.innerWidth >= 567 && fileNameSpanPc) {
-          fileNameSpanPc.textContent = fileInput.files[0].name;
+          const fileName = fileInput.files[0].name;
+          const maxLength = 30;
+          const truncatedFileName = fileName.length > maxLength
+            ? fileName.slice(0, maxLength) + '...'
+            : fileName;
+
+          fileNameSpanMobile!.textContent = truncatedFileName;
         } else {
-          fileNameSpanMobile!.textContent = fileInput.files[0].name;
+          const fileName = fileInput.files[0].name;
+          const maxLength = 30;
+          const truncatedFileName = fileName.length > maxLength
+            ? fileName.slice(0, maxLength) + '...'
+            : fileName;
+
+          fileNameSpanMobile!.textContent = truncatedFileName;
           fileNameSpanMobile!.style.opacity = '1'
         }
       }
