@@ -13,13 +13,14 @@ const cartBtn = getElement('.header__bag');
 const cart = getElement('.cart');
 const cartCloseBtn = getElement('.cart__close');
 const cartBg = getElement('.cart__bg');
+const cartContainer = getElement('.cart__items');
 
 let prodList = getElements('.prod');
 
 const backToShopBtn = getElement('.info__backbtn');
 
 export async function initCart() {
-  if (!cartBtn || !cartCloseBtn || !cartBg) return;
+  if (!cartBtn || !cartCloseBtn || !cartBg || !cartContainer) return;
 
   cartBtn.addEventListener('click', (event) => {
     cartActive(event);
@@ -40,6 +41,24 @@ export async function initCart() {
 
     changeAutoshipText(prodAutoshipText);
   });
+
+  if (prodList.length === 0) {
+    const empty = renderElement('p', 'cart__empty');
+    empty.innerText = 'Your cart is empty';
+
+    classManipulator(cartContainer, 'add', 'empty');
+
+    cartContainer.appendChild(empty);
+
+    return;
+  }
+
+  if (prodList.length > 0) {
+    if (cartContainer.classList.contains('empty')) {
+      cartContainer.innerHTML = '';
+      classManipulator(cartContainer, 'remove', 'empty');
+    }
+  }
 
   cartBg.addEventListener('click', () => {
     cartClose();
@@ -110,8 +129,6 @@ function changeAutoshipText(textEl: HTMLElement) {
 }
 
 export function renderProdCard(prod: Product, autoshipChecked: boolean = false, autoshipDays: string = '30', counts: number = 1) {
-  const cartContainer = getElement('.cart__items');
-
   if (!cartContainer) return;
 
   const prodCard = renderElement('div', ['cart__item', 'prod', `prod_${prod.id}`]);
@@ -236,7 +253,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
 
   saveProductToLocalStorage(prod);
 
-  prodList = getElements(`.prod_${prod.id}`);
+  prodList = getElements(`.prod`);
   removeProd(prod.id);
 
   updateInfoInLocal(prod);

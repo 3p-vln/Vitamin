@@ -8,7 +8,7 @@ let itemsViewMore = 6;
 const windowWidth = window.innerWidth;
 let currentCategory: string | undefined = undefined;
 
-export async function renderRecCard(container: string) {
+export async function renderRecCard(container: string, colour: string) {
   const prodContainer = getElement(container);
   if (!prodContainer) return;
 
@@ -19,7 +19,7 @@ export async function renderRecCard(container: string) {
   }
 
   const prodList = response.data;
-  await card(prodList, prodContainer, 'white');
+  await card(prodList, prodContainer, colour);
 }
 
 function updateItemsPerPage() {

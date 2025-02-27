@@ -447,6 +447,11 @@
               gap: 5px;
               color: $redText;
 
+              @include media-breakpoint-down(sm) {
+                flex-direction: column;
+                align-items: flex-start;
+              }
+
               span {
                 position: relative;
                 height: fit-content;
