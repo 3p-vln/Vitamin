@@ -3,6 +3,7 @@
 @import '../login/login-field.scss';
 
 body{
+  visibility: hidden;
   background: #faf8f6;
 
   @include media-breakpoint-down(xs) {

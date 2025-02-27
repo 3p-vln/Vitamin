@@ -29,10 +29,10 @@ const setTokens = (accessToken: string, refreshToken: string): void => {
 };
 
 // Очистка токенов при выходе из системы или истечении refreshToken
-// const clearAuthData = (): void => {
-//   Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
-//   Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
-// };
+const clearAuthData = (): void => {
+  Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
+  Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
+};
 
 // Перехватчик запросов: добавляет заголовок Authorization с токеном, если он есть
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
@@ -96,7 +96,7 @@ apiClient.interceptors.response.use(
         }
         return apiClient(originalRequest);
       } catch (refreshError) {
-         // clearAuthData(); // Очистка данных, если refreshToken невалиден
+         clearAuthData(); // Очистка данных, если refreshToken невалиден
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
