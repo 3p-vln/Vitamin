@@ -2,7 +2,7 @@ import { renderAllCard } from '../components/render-card';
 import { classManipulator, getElement, getElements } from '../composables/useCallDom';
 
 const filterParametrs = getElements('.filter__item');
-const dropdownActiveItem = getElement('.dropdown__text');
+const dropdownActiveItem = getElement('.catalog__content .dropdown__text');
 
 export async function filterList(container: string) {
   if (!filterParametrs) return;
