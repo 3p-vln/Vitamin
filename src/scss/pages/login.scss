@@ -4,17 +4,20 @@
 
 body{
   background: #faf8f6;
+
   @include media-breakpoint-down(xs) {
     background: transparent;
   }
 }
+
 .auth-header {
-  width: 100%;
-  padding-top: 30px;
-  padding-bottom: 30px;
   display: flex;
   justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 100%;
   background: #faf8f6;
+
   @include media-breakpoint-down(xs) {
     background: transparent;
   }
@@ -22,6 +25,7 @@ body{
   @include media-breakpoint-down(md) {
     background: transparent;
   }
+
   @include media-breakpoint-down(xs) {
     margin: 0;
     padding-right: 15px;
@@ -55,16 +59,14 @@ body{
 }
 
 .login-page {
-
-
   &__container {
-    max-width: 920px;
     margin: 0 auto;
-    background: $background;
     padding-top: 52px;
+    padding-right: 120px;
     padding-bottom: 60px;
     padding-left: 120px;
-    padding-right: 120px;
+    max-width: 920px;
+    background: $background;
 
     @include media-breakpoint-down(md) {
       padding: 60px 15px;
@@ -72,30 +74,30 @@ body{
   }
 
   &__title {
+    margin-bottom: 10px;
     font-family: Effra, sans-serif;
     font-weight: 500;
-    font-size: 26px;
     text-align: center;
+    font-size: 26px;
     color: $font-color-black;
-    margin-bottom: 10px;
   }
 
   &__subtitle {
+    margin-bottom: 20px;
     font-family: OpenSans, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: normal;
     line-height: 1.75;
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 16px;
   }
 
   &__registration {
     margin-top: 100px;
     margin-bottom: 50px;
-    font-weight: 400;
+    font-weight: normal;
+    text-align: center;
     font-size: 16px;
     color: #000;
-    text-align: center;
   }
 
   &__registration-link {
@@ -108,26 +110,26 @@ body{
   }
 
   &__reg {
-    text-align: center;
     margin-top: 100px;
     margin-bottom: 80px;
+    text-align: center;
   }
 }
 
 .login-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-left: 30px;
-  position: relative;
 
   &__submit {
-    padding: 20px;
-    width: 270px;
-    font-size: 20px;
     position: relative;
     right: 14px;
     top: 3px;
+    padding: 20px;
+    width: 270px;
+    font-size: 20px;
   }
 
   &__field{
@@ -135,22 +137,23 @@ body{
   }
 
   &__error-message {
-    color: $red;
     position: absolute;
     bottom: -30px;
+    color: $red;
   }
 }
+
 .forgot-password-link{
-  font-family: OpenSans, sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  text-align: center;
-  color: $font-color-black;
-  opacity: 0.5;
-  white-space: nowrap;
   position: absolute;
   right: 15px;
   top: 40%;
+  font-family: OpenSans, sans-serif;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 14px;
+  color: $font-color-black;
+  opacity: 0.5;
 }
 
 #login-password{

@@ -22,16 +22,17 @@
 }
 
 .auth-header {
-  width: 100%;
-  padding-top: 30px;
-  padding-bottom: 30px;
   display: flex;
   justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 100%;
   background: #faf8f6;
 
   @include media-breakpoint-down(md) {
     background: transparent;
   }
+
   @include media-breakpoint-down(xs) {
     margin: 0;
     padding-right: 15px;
