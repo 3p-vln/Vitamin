@@ -263,6 +263,39 @@
           }
         }
 
+        &__price {
+          &_sale {
+            font-size: clamp(16px, 2.5vw, 18px);
+            font-weight: 500;
+            display: flex;
+            align-items: end;
+            gap: 10px;
+            color: $redText;
+
+            @include media-breakpoint-down(sm) {
+              flex-direction: column;
+              gap: 0;
+            }
+
+            span {
+              position: relative;
+              color: $fontColorTitleBlack;
+              font-size: clamp(10px, 2.5vw, 12px);
+              height: fit-content;
+
+              &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 5px;
+                width: 100%;
+                height: 2px;
+                background-color: $fontColorTitleBlack;
+              }
+            }
+          }
+        }
+
         &__close {
           position: relative;
           display: flex;
@@ -447,7 +480,7 @@
               width: 11px;
               height: 8px;
               transform: translate(-50%, -50%) scale(0);
-              background-image: url("/src/img/svg/checkbox.svg");
+              background-image: url('/src/img/svg/checkbox.svg');
               background-repeat: no-repeat;
               background-position: center;
               background-size: contain;

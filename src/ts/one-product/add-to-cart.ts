@@ -1,4 +1,4 @@
-import { addAutoship, addProdToCart, removeAutoship } from '../components/cart';
+import { addBtn, addProdToCart } from '../components/cart';
 import { Product } from '../components/interfaces';
 import { getCatalogItem } from '../composables/useApi';
 import { getElement } from '../composables/useCallDom';
@@ -8,10 +8,10 @@ const prodId = urlParams.get('id') || undefined;
 
 const userInfo = localStorage.getItem('userInfo');
 
-const autoshipBtn = getElement('.autoship__on-off');
+const addProdBtn = getElement('.add-to-cart__btn');
 
-export async function autoshipCreate() {
-  if (!autoshipBtn) return;
+export async function addToCartBtn() {
+  if (!addProdBtn) return;
 
   if (userInfo) {
     if (prodId) {
@@ -22,22 +22,17 @@ export async function autoshipCreate() {
 }
 
 function addToCart(prod: Product) {
-  if (!autoshipBtn) return;
-
-  if (autoshipBtn.classList.contains('autoship__on-off_active')) {
+  if (!addProdBtn) return;
+  addProdBtn.addEventListener('click', () => {
     let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
     const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
     if (!productExists) {
       addProdToCart(prod);
-      addAutoship(prod);
       return;
     }
 
-    addAutoship(prod);
-    return;
-  }
-
-  removeAutoship(prod);
+    addBtn(prod);
+  });
 }
