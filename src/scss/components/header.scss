@@ -172,6 +172,7 @@
     &__items {
       padding: 30px;
       overflow: auto;
+      height: 100%;
 
       @include media-breakpoint-down(sm) {
         padding: 0;
@@ -352,6 +353,10 @@
           gap: 10px;
           font-size: 12px;
           font-family: OpenSans;
+
+          @include media-breakpoint-down(sm) {
+            gap: 7px;
+          }
 
           .dropdown {
             position: relative;

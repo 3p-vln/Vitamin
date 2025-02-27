@@ -1,30 +1,39 @@
 import { classManipulator, getElement, getElements } from '../composables/useCallDom';
 import { initCounter } from './counter';
+import { initDropdown } from './dropdown';
 
 const cartBtn = getElement('.header__bag');
 const cart = getElement('.cart');
 const cartCloseBtn = getElement('.cart__close');
 const cartBg = getElement('.cart__bg');
-const cardCounters = getElements('.prod__counter');
 
 const prodList = getElements('.prod');
 
 const backToShopBtn = getElement('.info__backbtn');
 
 export async function initCart() {
-  if (!cartBtn || !cartCloseBtn || !cartBg || !cardCounters) return;
+  if (!cartBtn || !cartCloseBtn || !cartBg) return;
 
   cartBtn.addEventListener('click', (event) => {
     cartActive(event);
     scrollLock();
   });
+
   cartCloseBtn.addEventListener('click', () => {
     cartClose();
     scrollLock();
   });
 
-  cardCounters.forEach((counter) => {
-    initCounter(counter);
+  prodList.forEach((prod) => {
+    const prodCounter = getElement('.prod__counter', prod);
+    const prodDropdown = getElement('.prod__autoship', prod);
+    const prodAutoshipText = getElement('.prod__autoship-text', prod);
+
+    if (!prodCounter || !prodDropdown || !prodAutoshipText) return;
+
+    initCounter(prodCounter);
+    initDropdown(prodDropdown);
+    changeAutoshipText(prodAutoshipText);
   });
 
   removeProd();
@@ -80,4 +89,10 @@ function scrollLock() {
   }
 
   body.style.overflow = 'auto';
+}
+
+function changeAutoshipText(textEl: HTMLElement) {
+  if (window.innerWidth < 768) {
+    textEl.innerText = 'Deliver every';
+  }
 }

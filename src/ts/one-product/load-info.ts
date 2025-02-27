@@ -1,20 +1,24 @@
+import { initDropdown } from '../components/dropdown';
 import { Product } from '../components/interfaces';
 import { getDiscountedPrice } from '../components/render-card';
 import { getCatalogItem } from '../composables/useApi';
 import { classManipulator, getElement } from '../composables/useCallDom';
-import { autoshipCreate } from './autoship';
 
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id') || undefined;
 
 export async function loadInfo() {
-  if (!prodId) return;
+  const autoshipDropdown = getElement('.autoship__dropdown');
+
+  if (!prodId || !autoshipDropdown) return;
 
   const prod = (await getCatalogItem(prodId)) as Product;
 
   showInfo(prod);
   backToShop();
   autoshipBtn(prod);
+
+  initDropdown(autoshipDropdown);
 }
 
 function showInfo(prodInfo: Product) {
@@ -164,8 +168,6 @@ function autoshipBtn(prodInfo: Product) {
     autoship.addEventListener('click', async () => {
       autoship.classList.toggle('autoship__on-off_active');
       autoshipCircle.classList.toggle('autoship__circle_active');
-
-      // await autoshipCreate();
     });
   }
 }

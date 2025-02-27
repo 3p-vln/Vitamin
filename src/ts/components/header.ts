@@ -134,7 +134,7 @@ function animateMenu(element: HTMLElement, isOpening: boolean) {
   const duration = 300;
 
   function timing(timeFraction: number) {
-    return timeFraction < 0.5 ? 2 * timeFraction * timeFraction : -1 + (4 - 2 * timeFraction) * timeFraction; // ease-in-out
+    return timeFraction < 0.5 ? 2 * timeFraction * timeFraction : -1 + (4 - 2 * timeFraction) * timeFraction;
   }
 
   function draw(progress: number) {

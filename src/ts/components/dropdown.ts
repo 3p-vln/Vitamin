@@ -1,26 +1,24 @@
 import { classManipulator, getElement, getElements } from '../composables/useCallDom';
 
-const dropdown = getElement('.dropdown');
-const dropdownBox = getElement('.dropdown__box');
-const dropdownActiveItem = getElement('.dropdown__text');
-const dropdownList = getElement('.dropdown__list');
-const dropdownItems = getElements('.dropdown__item');
+export function initDropdown(el: HTMLElement) {
+  const dropdown = getElement('.dropdown', el);
+  const dropdownBox = getElement('.dropdown__box', el);
+  const dropdownActiveItem = getElement('.dropdown__text', el);
+  const dropdownList = getElement('.dropdown__list', el);
+  const dropdownItems = getElements('.dropdown__item', el);
 
-export function initDropdown() {
-  if (!dropdown) return;
+  if (!dropdown || !dropdownBox || !dropdownActiveItem || !dropdownList || !dropdownItems) return;
 
-  dropdown.addEventListener('click', (event) => toggleDropdown(event));
-
-  if (!dropdownItems) return;
+  dropdown.addEventListener('click', (event) => toggleDropdown(event, dropdownBox, dropdownList));
 
   dropdownItems.forEach((item) => {
-    item.addEventListener('click', () => onItemClick(item));
+    item.addEventListener('click', () => onItemClick(item, dropdownActiveItem, dropdownBox, dropdownList));
   });
 
-  document.addEventListener('click', (event) => handleOutsideClick(event));
+  document.addEventListener('click', (event) => handleOutsideClick(event, dropdown, dropdownList, dropdownBox));
 }
 
-function toggleDropdown(event: Event) {
+function toggleDropdown(event: Event, dropdownBox: HTMLElement, dropdownList: HTMLElement) {
   event.stopPropagation();
 
   if (!dropdownBox) return;
@@ -30,7 +28,7 @@ function toggleDropdown(event: Event) {
   dropdownList.classList.toggle('dropdown__list_active');
 }
 
-function closeDropdown() {
+function closeDropdown(dropdownBox: HTMLElement, dropdownList: HTMLElement) {
   if (!dropdownBox) return;
   classManipulator(dropdownBox, 'remove', 'dropdown__box_active');
 
@@ -38,7 +36,7 @@ function closeDropdown() {
   classManipulator(dropdownList, 'remove', 'dropdown__list_active');
 }
 
-function onItemClick(item: HTMLElement) {
+function onItemClick(item: HTMLElement, dropdownActiveItem: HTMLElement, dropdownBox: HTMLElement, dropdownList: HTMLElement) {
   const selectedValue = item.textContent;
   if (!selectedValue) return;
 
@@ -46,12 +44,12 @@ function onItemClick(item: HTMLElement) {
 
   dropdownActiveItem.textContent = selectedValue;
 
-  toggleDropdown(event as Event);
+  toggleDropdown(event as Event, dropdownBox, dropdownList);
 }
 
-function handleOutsideClick(event: MouseEvent) {
+function handleOutsideClick(event: MouseEvent, dropdown: HTMLElement, dropdownList: HTMLElement, dropdownBox: HTMLElement) {
   if (dropdown && dropdownList)
     if (!dropdown.contains(event.target as Node) && !dropdownList.contains(event.target as Node)) {
-      closeDropdown();
+      closeDropdown(dropdownBox, dropdownList);
     }
 }
