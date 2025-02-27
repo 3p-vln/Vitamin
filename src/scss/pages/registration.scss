@@ -4,6 +4,10 @@
 @import '../registration/social-sign-up';
 @import '../registration/registration-field.scss';
 
+
+body{
+  visibility: hidden;
+}
 .registration {
   margin: 0;
 

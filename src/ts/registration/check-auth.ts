@@ -4,7 +4,7 @@ export function checkAuth() {
   const token = Cookies.get('accessToken');
   const path = window.location.pathname;
 
-
+//хорошо бы проверить валидность токена
 
   if (!token && !path.includes('/login.html') && !path.includes('/registration.html')) {
     window.location.href = '/Vitamin/login.html';
@@ -13,6 +13,11 @@ export function checkAuth() {
 
 
   if (token && (path.includes('/login.html') || path.includes('/registration.html'))) {
-    window.location.href = '/Vitamin';
+      window.location.href = '/Vitamin';
+
+  }else {
+    document.body.style.visibility = 'visible';
   }
+
+
 }
