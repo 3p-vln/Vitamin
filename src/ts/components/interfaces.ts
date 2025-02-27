@@ -102,3 +102,7 @@ export interface Product {
   weight_mg: number;
   capsules: number;
 }
+
+export interface OrderResponse {
+  data: string;
+}

@@ -1,5 +1,6 @@
 import { getElement } from '../composables/useCallDom';
 import { renderUserName } from '../registration/render-user-name.ts';
+import { initCart } from './cart.ts';
 import { logout } from './logout.ts';
 
 const burgerBtn = getElement('.burger__btn');
@@ -30,10 +31,10 @@ export function initHeader() {
     burgerBack('info__title', 'info');
     burgerBack('profile__title', 'profile');
   }
-//если есть в localStorage данные о юзере то выведет имя юзера в хедер
-  renderUserName()
 
-  logout()
+  renderUserName();
+  initCart();
+  logout();
 }
 
 function burgerToggle(clickBtn: string, elActive: string) {
@@ -133,7 +134,7 @@ function animateMenu(element: HTMLElement, isOpening: boolean) {
   const duration = 300;
 
   function timing(timeFraction: number) {
-    return timeFraction < 0.5 ? 2 * timeFraction * timeFraction : -1 + (4 - 2 * timeFraction) * timeFraction; // ease-in-out
+    return timeFraction < 0.5 ? 2 * timeFraction * timeFraction : -1 + (4 - 2 * timeFraction) * timeFraction;
   }
 
   function draw(progress: number) {
@@ -177,5 +178,3 @@ function animate({ timing, draw, duration }: { timing: (t: number) => number; dr
     }
   });
 }
-
-
