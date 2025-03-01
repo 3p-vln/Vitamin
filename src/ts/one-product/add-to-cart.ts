@@ -6,18 +6,14 @@ import { getElement } from '../composables/useCallDom';
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id') || undefined;
 
-const userInfo = localStorage.getItem('userInfo');
-
 const addProdBtn = getElement('.add-to-cart__btn');
 
 export async function addToCartBtn() {
   if (!addProdBtn) return;
 
-  if (userInfo) {
-    if (prodId) {
-      const prod = (await getCatalogItem(prodId)) as Product;
-      addToCart(prod);
-    }
+  if (prodId) {
+    const prod = (await getCatalogItem(prodId)) as Product;
+    addToCart(prod);
   }
 }
 

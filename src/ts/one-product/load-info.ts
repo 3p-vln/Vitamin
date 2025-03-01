@@ -163,9 +163,7 @@ function autoshipBtn(prodInfo: Product) {
   const autoshipCircle = getElement('.autoship__circle', autoship);
   if (!autoshipCircle) return;
 
-  const userInfo = localStorage.getItem('userInfo');
-
-  if (prodInfo.disabled_subscribe === true && userInfo) {
+  if (prodInfo.disabled_subscribe === true) {
     autoship.addEventListener('click', async () => {
       autoship.classList.toggle('autoship__on-off_active');
       autoshipCircle.classList.toggle('autoship__circle_active');
