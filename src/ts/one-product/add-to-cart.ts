@@ -1,4 +1,4 @@
-import { addBtn, addProdToCart } from '../components/cart';
+import { addBtn } from '../components/cart';
 import { Product } from '../components/interfaces';
 import { getCatalogItem } from '../composables/useApi';
 import { getElement } from '../composables/useCallDom';
@@ -20,15 +20,6 @@ export async function addToCartBtn() {
 function addToCart(prod: Product) {
   if (!addProdBtn) return;
   addProdBtn.addEventListener('click', () => {
-    let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-
-    const productExists = cartItems.some((item: Product) => item.id === prod.id);
-
-    if (!productExists) {
-      addProdToCart(prod);
-      return;
-    }
-
     addBtn(prod);
   });
 }
