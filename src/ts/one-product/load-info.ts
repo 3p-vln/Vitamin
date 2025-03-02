@@ -1,9 +1,9 @@
 import { initDropdown } from '../components/dropdown';
 import { Product } from '../components/interfaces';
-import { getDiscountedPrice } from '../components/render-card';
 import { getCatalogItem } from '../composables/useApi';
 import { classManipulator, getElement } from '../composables/useCallDom';
 import { autoshipCreate } from './autoship';
+import { initCounter } from '../components/counter.ts';
 
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id') || undefined;
@@ -14,6 +14,8 @@ export async function loadInfo() {
   if (!prodId || !autoshipDropdown) return;
 
   const prod = (await getCatalogItem(prodId)) as Product;
+
+  initCounter('.count__counter');
 
   showInfo(prod);
   backToShop();
@@ -116,10 +118,12 @@ function showInfo(prodInfo: Product) {
 
   if (prodInfo.type === 'Sale%') {
     classManipulator(price, 'add', 'add-to-cart__price_sale');
-    price.innerHTML = `<span>$${prodInfo.price}</span> $${priceDiscount}`;
+    price.innerHTML = `<span><span class="price">$${prodInfo.price}</span> <span class="discount">-${prodInfo.discount}%</span></span> $${priceDiscount}`;
   } else {
     price.innerText = `$${prodInfo.price}`;
   }
+
+  updatePrice(price, prodInfo);
 
   const description = getElement('.descripton__info');
   if (!description) return;
@@ -163,9 +167,7 @@ function autoshipBtn(prodInfo: Product) {
   const autoshipCircle = getElement('.autoship__circle', autoship);
   if (!autoshipCircle) return;
 
-  const userInfo = localStorage.getItem('userInfo');
-
-  if (prodInfo.disabled_subscribe === true && userInfo) {
+  if (prodInfo.disabled_subscribe === true) {
     autoship.addEventListener('click', async () => {
       autoship.classList.toggle('autoship__on-off_active');
       autoshipCircle.classList.toggle('autoship__circle_active');
@@ -173,4 +175,61 @@ function autoshipBtn(prodInfo: Product) {
       autoshipCreate();
     });
   }
+}
+
+function getDiscountedPrice(price: string, discount: number, count: number = 1): string {
+  const originalPrice = parseFloat(price);
+  if (isNaN(originalPrice)) {
+    throw new Error('Invalid price format');
+  }
+
+  const discountedPrice = originalPrice * (1 - discount / 100) * count;
+
+  return discountedPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function getTotalPrice(price: string, count: number = 1): string {
+  const originalPrice = parseFloat(price);
+  if (isNaN(originalPrice)) {
+    throw new Error('Invalid price format');
+  }
+
+  const totalPrice = originalPrice * count;
+
+  return totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function updatePrice(el: HTMLElement, prod: Product) {
+  const minusBtn = getElement('.count__minus');
+  const plusBtn = getElement('.count__plus');
+
+  if (!el || !plusBtn || !minusBtn) return;
+
+  let count = Number(getElement('.count__items')?.innerText);
+  let totalPrice = '';
+  let discountPrice = '';
+
+  plusBtn.addEventListener('click', () => {
+    count = Number(getElement('.count__items')?.innerText);
+    totalPrice = getTotalPrice(prod.price, count);
+    discountPrice = getDiscountedPrice(prod.price, prod.discount, count);
+
+    if (prod.type === 'Sale%') {
+      el.innerHTML = `<span>$${totalPrice} <span class="discount">-${prod.discount}%</span></span> $${discountPrice}`;
+    } else {
+      el.innerText = `$${totalPrice}`;
+    }
+  });
+
+  minusBtn.addEventListener('click', () => {
+    count = Number(getElement('.count__items')?.innerText);
+    totalPrice = getTotalPrice(prod.price, count);
+    discountPrice = getDiscountedPrice(prod.price, prod.discount, count);
+
+    if (prod.type === 'Sale%') {
+      el.innerHTML = `<span>$${totalPrice} <span class="discount">-${prod.discount}%</span></span> $${discountPrice}`;
+    } else {
+      el.innerText = `$${totalPrice}`;
+    }
+  });
 }

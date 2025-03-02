@@ -22,13 +22,14 @@ export async function initCounter(countClass: string | HTMLElement) {
   styleBtns(plusBtn, minusBtn, count);
 
   minusBtn.addEventListener('click', () => {
-    count = Number(counterTotal?.innerText);
     decrement(counterTotal, count);
+    count = Number(counterTotal?.innerText);
     styleBtns(plusBtn, minusBtn, count);
   });
+
   plusBtn.addEventListener('click', () => {
-    count = Number(counterTotal?.innerText);
     increment(counterTotal, count);
+    count = Number(counterTotal?.innerText);
     styleBtns(plusBtn, minusBtn, count);
   });
 
@@ -55,7 +56,7 @@ function increment(counterTotal: HTMLElement, count: number) {
 }
 
 function styleBtns(plusBtn: HTMLElement, minusBtn: HTMLElement, count: number) {
-  if (count < 999 && count > 1) {
+  if (count !== 999 && count !== 1) {
     plusBtn.style.opacity = '1';
     minusBtn.style.opacity = '1';
   }

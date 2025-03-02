@@ -16,6 +16,7 @@ const cartBg = getElement('.cart__bg');
 const cartContainer = getElement('.cart__items');
 
 let prodList = getElements('.prod');
+let empty: boolean;
 
 const backToShopBtn = getElement('.info__backbtn');
 
@@ -41,24 +42,6 @@ export async function initCart() {
 
     changeAutoshipText(prodAutoshipText);
   });
-
-  if (prodList.length === 0) {
-    const empty = renderElement('p', 'cart__empty');
-    empty.innerText = 'Your cart is empty';
-
-    classManipulator(cartContainer, 'add', 'empty');
-
-    cartContainer.appendChild(empty);
-
-    return;
-  }
-
-  if (prodList.length > 0) {
-    if (cartContainer.classList.contains('empty')) {
-      cartContainer.innerHTML = '';
-      classManipulator(cartContainer, 'remove', 'empty');
-    }
-  }
 
   cartBg.addEventListener('click', () => {
     cartClose();
@@ -104,6 +87,12 @@ function removeProductFromLocalStorage(prodId: number) {
   cartItems = cartItems.filter((item: Product) => item.id !== prodId);
 
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+  if (cartItems.length === 0) {
+    empty = true;
+    emptyBag(empty);
+    return;
+  }
 }
 
 function scrollLock() {
@@ -251,6 +240,9 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
 
   cartContainer.appendChild(prodCard);
 
+  empty = false;
+  emptyBag(empty);
+
   saveProductToLocalStorage(prod);
 
   prodList = getElements(`.prod`);
@@ -286,12 +278,15 @@ function saveProductToLocalStorage(prod: Product) {
 
   const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
+  const autoshipActive: boolean = getElement('autoship__on-off')?.classList.contains('autoship__on-off_active') || false;
+  const countsItems = Number(getElement(`.count__items`)?.innerText);
+
   if (!productExists) {
     cartItems.push({
       ...prod,
-      autoshipChecked: true,
+      autoshipChecked: autoshipActive,
       autoshipDays: '30',
-      counts: 1,
+      counts: countsItems,
     });
   }
 
@@ -369,6 +364,16 @@ function updateAutoshipInLocalStorage(prodId: string, autoshipChecked: boolean, 
 
 export function loadCartFromLocalStorage() {
   const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  if (cartItems.length === 0) {
+    empty = true;
+    emptyBag(empty);
+    return;
+  }
+
+  empty = false;
+  emptyBag(empty);
+
   cartItems.forEach((prod: ProductLocalStorge) => {
     renderProdCard(prod, prod.autoshipChecked, prod.autoshipDays, prod.counts);
     updateInfoInLocal(prod);
@@ -378,9 +383,16 @@ export function loadCartFromLocalStorage() {
 export function addProdToCart(prod: Product) {
   let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
+  if (cartItems.length === 0) {
+    empty = true;
+    emptyBag(empty);
+  }
+
   const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
-  if (!productExists) renderProdCard(prod);
+  if (!productExists) {
+    renderProdCard(prod);
+  }
 }
 
 export function addAutoship(prod: Product) {
@@ -419,9 +431,46 @@ export function addBtn(prod: Product) {
   const counterItems = getElement(`.prod_${prod.id} .counter__items`);
   const addItems = getElement(`.count__counter .counter__items`);
 
-  if (!addItems || !counterItems) return;
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  if (cartItems.length === 0) {
+    empty = true;
+    emptyBag(empty);
+  }
+
+  const productExists = cartItems.some((item: Product) => item.id === prod.id);
+
+  if (!addItems) return;
+
+  if (!productExists) {
+    renderProdCard(prod, false, '30', Number(addItems.innerText));
+    console.log(1);
+    return;
+  }
+
+  if (!counterItems) return;
 
   counterItems.innerText = (Number(counterItems.textContent) + Number(addItems.innerText)).toString();
 
   updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.innerText));
 }
+
+function emptyBag(isEmpty: boolean) {
+  if (!cartContainer) return;
+  if (!isEmpty) {
+    classManipulator(cartContainer, 'remove', 'empty');
+    const emptyText = getElements('.cart__empty');
+    emptyText.forEach(el => el.remove());
+  }
+
+  if (isEmpty) {
+    const empty = renderElement('p', 'cart__empty');
+    empty.innerText = 'Your cart is empty';
+
+    classManipulator(cartContainer, 'add', 'empty');
+
+    cartContainer.appendChild(empty);
+  }
+}
+
+// function totalCartPrice() {}
