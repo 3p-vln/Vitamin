@@ -34,6 +34,7 @@ export async function initCart() {
   });
 
   loadCartFromLocalStorage();
+  totalCartPrice();
 
   prodList.forEach((prod) => {
     const prodAutoshipText = getElement('.prod__autoship-text', prod);
@@ -91,6 +92,7 @@ function removeProductFromLocalStorage(prodId: number) {
   if (cartItems.length === 0) {
     empty = true;
     emptyBag(empty);
+    totalCartPrice();
     return;
   }
 }
@@ -324,6 +326,8 @@ export function updateInfoInLocal(prod: Product) {
 
     updatePriceDisplay(prod, Number(counterItems.textContent));
     updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent));
+
+    totalCartPrice();
   });
 
   plusButton.addEventListener('click', () => {
@@ -331,6 +335,8 @@ export function updateInfoInLocal(prod: Product) {
 
     updatePriceDisplay(prod, Number(counterItems.textContent));
     updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent));
+
+    totalCartPrice();
   });
 }
 
@@ -393,6 +399,8 @@ export function addProdToCart(prod: Product) {
   if (!productExists) {
     renderProdCard(prod);
   }
+
+  totalCartPrice();
 }
 
 export function addAutoship(prod: Product) {
@@ -444,7 +452,7 @@ export function addBtn(prod: Product) {
 
   if (!productExists) {
     renderProdCard(prod, false, '30', Number(addItems.innerText));
-    console.log(1);
+    totalCartPrice();
     return;
   }
 
@@ -453,6 +461,8 @@ export function addBtn(prod: Product) {
   counterItems.innerText = (Number(counterItems.textContent) + Number(addItems.innerText)).toString();
 
   updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.innerText));
+
+  totalCartPrice();
 }
 
 function emptyBag(isEmpty: boolean) {
@@ -460,7 +470,7 @@ function emptyBag(isEmpty: boolean) {
   if (!isEmpty) {
     classManipulator(cartContainer, 'remove', 'empty');
     const emptyText = getElements('.cart__empty');
-    emptyText.forEach(el => el.remove());
+    emptyText.forEach((el) => el.remove());
   }
 
   if (isEmpty) {
@@ -473,4 +483,28 @@ function emptyBag(isEmpty: boolean) {
   }
 }
 
-// function totalCartPrice() {}
+function totalCartPrice() {
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  let total: number = 0;
+  let totalProdPrice: string;
+
+  const totalPriceContent = getElement('#total-cart-price');
+
+  if (!totalPriceContent) return;
+
+  if (cartItems?.length === 0) {
+    totalPriceContent.innerText = `$0`;
+  }
+
+  cartItems.forEach((item: ProductLocalStorge) => {
+    if (item.type === 'Sale%') totalProdPrice = getDiscountedPrice(item.price, item.discount, item.counts);
+    else totalProdPrice = getTotalPrice(item.price, item.counts);
+
+    total += parseFloat(Number(totalProdPrice).toFixed(2));
+  });
+
+  console.log(total.toFixed(2));
+
+  totalPriceContent.innerText = `$${total.toFixed(2)}`;
+}
