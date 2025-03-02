@@ -32,13 +32,18 @@ export async function registrationRequest(data: RegisterData) {
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.response) {
-        const errorMessageContainer = document.querySelector('.registration-form__regular-error-message');
+        const errorMessageContainer: NodeListOf<HTMLSpanElement> = document.querySelectorAll('.registration-form__error-message');
 
         if (errorMessageContainer) {
           if (error.response.data.message === 'Користувач вже зареєстрований') {
-            errorMessageContainer.innerHTML = 'The user is already registered';
+            errorMessageContainer.forEach((item: HTMLSpanElement) =>{
+              item.innerHTML = 'The user is already registered';
+            })
           } else {
-            errorMessageContainer.innerHTML = 'Error, try again later';
+            errorMessageContainer.forEach((item: HTMLSpanElement) =>{
+              item.innerHTML = 'Error, try again later';
+            })
+
           }
         }
       }

@@ -1,7 +1,7 @@
 import JustValidate from 'just-validate';
 import { loginRequest } from './login-request.ts';
 
-export function validateRegisterForm() {
+export function validateLoginForm() {
 
 
 

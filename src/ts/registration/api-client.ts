@@ -45,7 +45,7 @@ apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
 // Флаг для предотвращения множественных запросов на refresh
 let isRefreshing = false;
-let refreshSubscribers: ((token: string) => void)[] = [];
+const refreshSubscribers: ((token: string) => void)[] = [];
 
 // Функция подписки на обновление токена (используется при ожидании обновления токена)
 const subscribeTokenRefresh = (cb: (token: string) => void) => {
@@ -55,7 +55,7 @@ const subscribeTokenRefresh = (cb: (token: string) => void) => {
 // Функция, вызываемая после успешного обновления токена (уведомляет всех подписчиков)
 const onRefreshed = (token: string) => {
   refreshSubscribers.forEach(cb => cb(token)); // Вызываем все подписанные коллбеки с новым токеном
-  refreshSubscribers = []; // Очищаем массив подписчиков
+  refreshSubscribers.splice(0,refreshSubscribers.length); // Очищаем массив подписчиков
 };
 
 // Перехватчик ответов: обрабатывает 401 ошибки и обновляет токен

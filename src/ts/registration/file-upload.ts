@@ -9,13 +9,14 @@ export function fileUpload() {
     fileInput.addEventListener('change', () => {
       if (fileInput.files && fileInput.files.length > 0) {
         if (window.innerWidth >= 567 && fileNameSpanPc) {
+
           const fileName = fileInput.files[0].name;
           const maxLength = 30;
           const truncatedFileName = fileName.length > maxLength
             ? fileName.slice(0, maxLength) + '...'
             : fileName;
 
-          fileNameSpanMobile!.textContent = truncatedFileName;
+          fileNameSpanPc!.textContent = truncatedFileName;
         } else {
           const fileName = fileInput.files[0].name;
           const maxLength = 30;

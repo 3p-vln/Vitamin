@@ -2,7 +2,7 @@ export function flipFormCard() {
   const card = document.getElementById('auth-card') as HTMLDivElement | null;
   const buttonRegular = document.getElementById('regular-reg') as HTMLButtonElement | null;
   const buttonWholesale = document.getElementById('wholesale-reg') as HTMLButtonElement | null;
-  const errorContainer = document.querySelector('.registration-form__error-message');
+  const errorContainer: NodeListOf<HTMLSpanElement> = document.querySelectorAll('.registration-form__error-message');
   const registrationContainer = document.querySelector('.registration__container');
 
   if (card && buttonRegular && buttonWholesale) {
@@ -16,8 +16,10 @@ export function flipFormCard() {
         regularForm.reset();
       }
 
-      if (errorContainer instanceof HTMLSpanElement) {
-        errorContainer.innerText = '';
+      if (errorContainer) {
+        errorContainer.forEach((item: HTMLSpanElement) =>{
+          item.innerText = '';
+        })
       }
       const errorLabel = document.querySelectorAll('.just-validate-error-label');
       if (errorLabel) {
@@ -59,8 +61,10 @@ export function flipFormCard() {
         submitBtn.classList.add('registration-form__submit_disabled');
       }
 
-      if (errorContainer instanceof HTMLSpanElement) {
-        errorContainer.innerText = '';
+      if (errorContainer) {
+        errorContainer.forEach((item: HTMLSpanElement) =>{
+          item.innerText = '';
+        })
       }
 
       if(registrationContainer instanceof HTMLDivElement) {
@@ -73,8 +77,6 @@ export function flipFormCard() {
       errorLabel.forEach((label) => {
         label.remove();
       });
-
-
     }
   }
 }

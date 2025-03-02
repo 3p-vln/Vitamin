@@ -29,6 +29,10 @@ const pages = [
     name: 'login',
     path: resolve(__dirname, 'login.html'),
   },
+  {
+    name: 'recover-password',
+    path: resolve(__dirname, 'recover.html'),
+  },
 ];
 
 export default pages;

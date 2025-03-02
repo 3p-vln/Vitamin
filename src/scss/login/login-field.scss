@@ -27,6 +27,13 @@
     width: 279px;
     font-size: 18px;
     background: transparent;
+
+    &:-webkit-autofill,
+    textarea:-webkit-autofill,
+    select:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px #FAF8F6 inset;
+      -webkit-text-fill-color: black;
+    }
   }
 
 
