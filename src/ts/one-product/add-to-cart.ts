@@ -1,4 +1,4 @@
-import { addBtn } from '../components/cart';
+import { addBtn, cartActive } from '../components/cart';
 import { Product } from '../components/interfaces';
 import { getCatalogItem } from '../composables/useApi';
 import { getElement } from '../composables/useCallDom';
@@ -19,7 +19,8 @@ export async function addToCartBtn() {
 
 function addToCart(prod: Product) {
   if (!addProdBtn) return;
-  addProdBtn.addEventListener('click', () => {
+  addProdBtn.addEventListener('click', (event) => {
     addBtn(prod);
+    cartActive(event);
   });
 }

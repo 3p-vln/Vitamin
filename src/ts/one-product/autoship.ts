@@ -1,4 +1,4 @@
-import { addAutoship, addProdToCart, removeAutoship } from '../components/cart';
+import { addAutoship, addProdToCart, cartActive, removeAutoship } from '../components/cart';
 import { Product } from '../components/interfaces';
 import { getCatalogItem } from '../composables/useApi';
 import { getElement } from '../composables/useCallDom';
@@ -8,16 +8,16 @@ const prodId = urlParams.get('id') || undefined;
 
 const autoshipBtn = getElement('.autoship__on-off');
 
-export async function autoshipCreate() {
+export async function autoshipCreate( event: Event ) {
   if (!autoshipBtn) return;
 
   if (prodId) {
     const prod = (await getCatalogItem(prodId)) as Product;
-    addToCart(prod);
+    addToCart(prod, event);
   }
 }
 
-function addToCart(prod: Product) {
+function addToCart(prod: Product, event: Event) {
   if (!autoshipBtn) return;
 
   if (autoshipBtn.classList.contains('autoship__on-off_active')) {
@@ -28,10 +28,12 @@ function addToCart(prod: Product) {
     if (!productExists) {
       addProdToCart(prod);
       addAutoship(prod);
+      cartActive(event);
       return;
     }
 
     addAutoship(prod);
+    cartActive(event);
     return;
   }
 

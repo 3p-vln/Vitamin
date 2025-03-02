@@ -168,11 +168,11 @@ function autoshipBtn(prodInfo: Product) {
   if (!autoshipCircle) return;
 
   if (prodInfo.disabled_subscribe === true) {
-    autoship.addEventListener('click', async () => {
+    autoship.addEventListener('click', async (event: Event) => {
       autoship.classList.toggle('autoship__on-off_active');
       autoshipCircle.classList.toggle('autoship__circle_active');
 
-      autoshipCreate();
+      autoshipCreate(event);
     });
   }
 }

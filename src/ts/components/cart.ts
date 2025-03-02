@@ -34,6 +34,7 @@ export async function initCart() {
   });
 
   loadCartFromLocalStorage();
+  totalCartPrice();
 
   prodList.forEach((prod) => {
     const prodAutoshipText = getElement('.prod__autoship-text', prod);
@@ -49,7 +50,7 @@ export async function initCart() {
   });
 }
 
-function cartActive(event: Event) {
+export function cartActive(event: Event) {
   event.stopPropagation();
 
   if (!cart) return;
@@ -88,9 +89,12 @@ function removeProductFromLocalStorage(prodId: number) {
 
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
+  totalCartPrice();
+
   if (cartItems.length === 0) {
     empty = true;
     emptyBag(empty);
+    totalCartPrice();
     return;
   }
 }
@@ -99,16 +103,43 @@ function scrollLock() {
   if (!cart) return;
 
   const body = getElement('body');
+  const header = getElement('header');
 
-  if (!body) return;
+  if (!body || !header) return;
+
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  const scrollY = window.scrollY;
+
+  const backBtn = getElement('.info__backbtn');
 
   if (cart.classList.contains('cart_active')) {
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.left = '0';
+    body.style.width = '100%';
     body.style.overflow = 'hidden';
+    body.style.paddingRight = `${scrollbarWidth}px`;
+    header.style.paddingRight = `${scrollbarWidth}px`;
+
+    if (scrollY > 50 && backBtn) backBtn.style.opacity = '0';
 
     return;
   }
 
-  body.style.overflow = 'auto';
+  const savedScrollY = Math.abs(parseInt(body.style.top, 10)) || 0;
+  body.style.position = '';
+  body.style.top = '';
+  body.style.left = '';
+  body.style.width = '';
+  body.style.overflow = '';
+  body.style.paddingRight = '';
+  header.style.paddingRight = '';
+
+  if (backBtn) {
+    backBtn.style.opacity = '';
+  }
+
+  window.scrollTo(0, savedScrollY);
 }
 
 function changeAutoshipText(textEl: HTMLElement) {
@@ -302,6 +333,9 @@ export function updateInfoInLocal(prod: Product) {
   const plusButton = getElement(`.prod_${prod.id} .counter__plus`);
   const counterItems = getElement(`.prod_${prod.id} .counter__items`);
 
+  // let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  // const productExists = cartItems.find((item: ProductLocalStorge) => item.id === prod.id);
+
   if (autoshipCheckbox) {
     autoshipCheckbox.addEventListener('change', () => {
       updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems?.textContent));
@@ -320,17 +354,17 @@ export function updateInfoInLocal(prod: Product) {
   if (!minusButton || !plusButton || !counterItems) return;
 
   minusButton.addEventListener('click', () => {
-    counterItems.textContent = counterItems.textContent;
-
     updatePriceDisplay(prod, Number(counterItems.textContent));
     updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent));
+
+    totalCartPrice();
   });
 
   plusButton.addEventListener('click', () => {
-    counterItems.textContent = counterItems.textContent;
-
     updatePriceDisplay(prod, Number(counterItems.textContent));
     updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent));
+
+    totalCartPrice();
   });
 }
 
@@ -373,6 +407,8 @@ export function loadCartFromLocalStorage() {
 
   empty = false;
   emptyBag(empty);
+  if(!cartContainer) return;
+  cartContainer.innerHTML = '';
 
   cartItems.forEach((prod: ProductLocalStorge) => {
     renderProdCard(prod, prod.autoshipChecked, prod.autoshipDays, prod.counts);
@@ -393,6 +429,8 @@ export function addProdToCart(prod: Product) {
   if (!productExists) {
     renderProdCard(prod);
   }
+
+  totalCartPrice();
 }
 
 export function addAutoship(prod: Product) {
@@ -444,7 +482,7 @@ export function addBtn(prod: Product) {
 
   if (!productExists) {
     renderProdCard(prod, false, '30', Number(addItems.innerText));
-    console.log(1);
+    totalCartPrice();
     return;
   }
 
@@ -453,6 +491,10 @@ export function addBtn(prod: Product) {
   counterItems.innerText = (Number(counterItems.textContent) + Number(addItems.innerText)).toString();
 
   updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.innerText));
+  updateInfoInLocal(prod);
+  loadCartFromLocalStorage()
+
+  totalCartPrice();
 }
 
 function emptyBag(isEmpty: boolean) {
@@ -460,7 +502,7 @@ function emptyBag(isEmpty: boolean) {
   if (!isEmpty) {
     classManipulator(cartContainer, 'remove', 'empty');
     const emptyText = getElements('.cart__empty');
-    emptyText.forEach(el => el.remove());
+    emptyText.forEach((el) => el.remove());
   }
 
   if (isEmpty) {
@@ -473,4 +515,29 @@ function emptyBag(isEmpty: boolean) {
   }
 }
 
-// function totalCartPrice() {}
+function totalCartPrice() {
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  let total: number = 0;
+  let totalProdPrice: string;
+
+  const totalPriceContent = getElement('#total-cart-price');
+
+  if (!totalPriceContent) return;
+
+  if (cartItems?.length === 0) {
+    totalPriceContent.innerText = `$0`;
+  }
+
+  cartItems.forEach((item: ProductLocalStorge) => {
+    if (item.type === 'Sale%') totalProdPrice = getDiscountedPrice(item.price, item.discount, item.counts);
+    else totalProdPrice = getTotalPrice(item.price, item.counts);
+
+    total += parseFloat(totalProdPrice.replace(/,/g, '').replace(/\s/g, ''));
+  });
+
+  totalPriceContent.innerText = `$${total.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
