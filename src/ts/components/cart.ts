@@ -333,6 +333,9 @@ export function updateInfoInLocal(prod: Product) {
   const plusButton = getElement(`.prod_${prod.id} .counter__plus`);
   const counterItems = getElement(`.prod_${prod.id} .counter__items`);
 
+  // let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  // const productExists = cartItems.find((item: ProductLocalStorge) => item.id === prod.id);
+
   if (autoshipCheckbox) {
     autoshipCheckbox.addEventListener('change', () => {
       updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems?.textContent));
@@ -351,8 +354,6 @@ export function updateInfoInLocal(prod: Product) {
   if (!minusButton || !plusButton || !counterItems) return;
 
   minusButton.addEventListener('click', () => {
-    counterItems.textContent = counterItems.textContent;
-
     updatePriceDisplay(prod, Number(counterItems.textContent));
     updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent));
 
@@ -360,8 +361,6 @@ export function updateInfoInLocal(prod: Product) {
   });
 
   plusButton.addEventListener('click', () => {
-    counterItems.textContent = counterItems.textContent;
-
     updatePriceDisplay(prod, Number(counterItems.textContent));
     updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent));
 
@@ -408,6 +407,8 @@ export function loadCartFromLocalStorage() {
 
   empty = false;
   emptyBag(empty);
+  if(!cartContainer) return;
+  cartContainer.innerHTML = '';
 
   cartItems.forEach((prod: ProductLocalStorge) => {
     renderProdCard(prod, prod.autoshipChecked, prod.autoshipDays, prod.counts);
@@ -491,6 +492,7 @@ export function addBtn(prod: Product) {
 
   updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.innerText));
   updateInfoInLocal(prod);
+  loadCartFromLocalStorage()
 
   totalCartPrice();
 }
@@ -534,5 +536,8 @@ function totalCartPrice() {
     total += parseFloat(totalProdPrice.replace(/,/g, '').replace(/\s/g, ''));
   });
 
-  totalPriceContent.innerText = `$${total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  totalPriceContent.innerText = `$${total.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 }
