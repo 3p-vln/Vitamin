@@ -333,7 +333,6 @@ export function updateInfoInLocal(prod: Product) {
   const plusButton = getElement(`.prod_${prod.id} .counter__plus`);
   const counterItems = getElement(`.prod_${prod.id} .counter__items`);
 
-  console.log(counterItems?.innerText);
   if (autoshipCheckbox) {
     autoshipCheckbox.addEventListener('change', () => {
       updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems?.textContent));
@@ -532,8 +531,8 @@ function totalCartPrice() {
     if (item.type === 'Sale%') totalProdPrice = getDiscountedPrice(item.price, item.discount, item.counts);
     else totalProdPrice = getTotalPrice(item.price, item.counts);
 
-    total += parseFloat(Number(totalProdPrice).toFixed(2));
+    total += parseFloat(totalProdPrice.replace(/,/g, '').replace(/\s/g, ''));
   });
 
-  totalPriceContent.innerText = `$${total.toFixed(2)}`;
+  totalPriceContent.innerText = `$${total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
