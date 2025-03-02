@@ -146,7 +146,7 @@ function animateMenu(element: HTMLElement, isOpening: boolean) {
     const maxHeight = 100;
     const currentProgress = isOpening ? progress : 1 - progress;
 
-    element.style.height = `${currentProgress * maxHeight}vh`;
+    element.style.height = `${currentProgress * maxHeight}dvh`;
     element.style.opacity = `${currentProgress}`;
   }
 
