@@ -1,4 +1,4 @@
-import { getElement } from '../composables/useCallDom';
+import { classManipulator, getElement } from '../composables/useCallDom';
 import { renderUserName } from '../registration/render-user-name.ts';
 import { initCart } from './cart.ts';
 import { logout } from './logout.ts';
@@ -30,6 +30,7 @@ export function initHeader() {
     burgerBack('shop__title', 'shop');
     burgerBack('info__title', 'info');
     burgerBack('profile__title', 'profile');
+    resize(shopMenu, infoMenu, profileMenu);
   }
 
   renderUserName();
@@ -116,18 +117,22 @@ function scrollLock() {
 }
 
 function addBgScroll() {
+  updateHeader();
+
+  window.addEventListener('scroll', updateHeader);
+}
+
+function updateHeader() {
   if (!header) return;
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.style.backgroundColor = 'white';
-      header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-      header.style.transition = 'background-color 0.3s ease, box-shadow 0.3s ease';
-    } else {
-      header.style.backgroundColor = 'transparent';
-      header.style.boxShadow = 'none';
-    }
-  });
+  if (window.scrollY > 50) {
+    header.style.backgroundColor = 'white';
+    header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+    header.style.transition = 'background-color 0.3s ease, box-shadow 0.3s ease';
+  } else {
+    header.style.backgroundColor = 'transparent';
+    header.style.boxShadow = 'none';
+  }
 }
 
 function animateMenu(element: HTMLElement, isOpening: boolean) {
@@ -175,6 +180,42 @@ function animate({ timing, draw, duration }: { timing: (t: number) => number; dr
 
     if (timeFraction < 1) {
       requestAnimationFrame(animate);
+    }
+  });
+}
+
+function resize(shopMenu: HTMLElement, infoMenu: HTMLElement, profileMenu: HTMLElement) {
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+      burgerBtn?.classList.remove('burger__btn_active');
+      if (!menuMain || !shopMenu || !infoMenu || !profileMenu) return;
+
+      classManipulator(menuMain, 'remove', 'main_active');
+      menuMain.style.visibility = 'hidden';
+      menuMain.style.height = '0vh';
+      menuMain.style.opacity = '0';
+
+      if (personalPackBg) personalPackBg.style.display = 'block';
+      if (bagBtn && logoBtn) {
+        logoBtn.style.opacity = '1';
+        bagBtn.style.display = 'block';
+      }
+
+      scrollLock();
+      addBgScroll();
+
+      classManipulator(shopMenu, 'remove', 'shop_active');
+      classManipulator(infoMenu, 'remove', 'info_active');
+      classManipulator(profileMenu, 'remove', 'profile_active');
+
+      const isOpeningShop = shopMenu.classList.contains(`shop_active`);
+      animateMenu(shopMenu, isOpeningShop);
+
+      const isOpeningInfo = infoMenu.classList.contains(`info_active`);
+      animateMenu(infoMenu, isOpeningInfo);
+
+      const isOpeningProfile = shopMenu.classList.contains(`profile_active`);
+      animateMenu(profileMenu, isOpeningProfile);
     }
   });
 }
