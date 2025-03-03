@@ -1,29 +1,27 @@
 <!doctype html>
 <html lang="en">
-
-  <head>
+<head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/Vitamin/logo.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <link rel="stylesheet" href="node_modules/swiper/" /> -->
-  <title>Vitamin. Main page</title>
-  <script type="module" crossorigin src="/Vitamin/assets/index-C79ux5h5.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vitamin. Profile</title>
+  <script type="module" crossorigin src="/Vitamin/assets/profile-BzPyhjFz.js"></script>
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/style-C406C8Tq.js">
-  <link rel="modulepreload" crossorigin href="/Vitamin/assets/useCallDom-DDNnwvp7.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/axios-BrcDDtdF.js">
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/check-auth-CvLvakMh.js">
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/useCallDom-DDNnwvp7.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/header-ajvWsB60.js">
-  <link rel="modulepreload" crossorigin href="/Vitamin/assets/swiper-core-Drop_04u.js">
-  <link rel="modulepreload" crossorigin href="/Vitamin/assets/index-CKL1PcRE.js">
-  <link rel="modulepreload" crossorigin href="/Vitamin/assets/useApi-UD5ZbRzq.js">
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/just-validate.es-C73wyOde.js">
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/api-client-DO6NzlH2.js">
   <link rel="stylesheet" crossorigin href="/Vitamin/assets/style-D0g_iEQC.css">
-  <link rel="stylesheet" crossorigin href="/Vitamin/assets/index-BRlq1ijC.css">
+  <link rel="stylesheet" crossorigin href="/Vitamin/assets/profile-D6GVWXO7.css">
 </head>
+'
+<body>
 
-  <body>
+<div class="wrapper">
 
-    <div class="wrapper">
-
-      <header class="header">
+  <header class="header">
   <div class="header__container">
     <div class="header__content">
       <div class="burger__btn">
@@ -177,459 +175,66 @@
 </header>
 
 
-      <div class="page">
+  <main class="page profile-page">
 
-        <section class="find-vitamins">
-  <div class="container">
-    <div class="find-vitamins__content">
-      <div class="find-vitamins__text">
-        <h1 class="find-vitamins__title">Find out what <span>vitamins</span> your body needs right now.</h1>
+    <div class="container">
+      <div class="profile-page__content">
+        <aside class="profile-page__side-bar">
+          <ul class="profile-page__menu">
+            <li class="profile-page__menu-item">
+              Change Password1
+            </li>
+            <li class="profile-page__menu-item">
+              Change Password2
+            </li>
+            <li class="profile-page__menu-item">
+              Change Password3
+            </li>
+            <li class="profile-page__menu-item">
+              Change Password4
+            </li>
+            <li class="profile-page__menu-item profile-page__menu-item_active">
+              Change Password
+            </li>
+            <li class="profile-page__menu-item profile-page__menu-item_sign-out">
+              Sign Out
+            </li>
 
-        <div class="find-vitamins__description">Answer a few simple questions and automatically get a personalazed list of vitamins in minutes</div>
+          </ul>
+        </aside>
+        <div class="profile-page__partition">
+          <section class="change-password profile-page__partition-item profile-page__partition-item_hidden">
 
-        <div class="find-vitamins__links-block">
-          <a class="find-vitamins__quiz-link btn_small-button" href="/Vitamin/quiz.html">Take the quiz</a>
+<div class="change-password__title">
+  Change Password
+</div>
+  <form class="change-password__form" id="change-password">
 
-          <a class="find-vitamins__shop-link" href="shop.html">
-            Go to the shop
-
-            <svg>
-              <use href="#orange-row"></use>
-            </svg>
-          </a>
-        </div>
-      </div>
-
-      <div class="find-vitamins__wrapper-image-mobile">
-        <img src="/Vitamin/assets/medication-packaging-KJn-gXRX.png" alt="medication packaging" class="find-vitamins__image-mobile" />
-      </div>
+    <div class="change-password__field field">
+      <input class="field__input" id="current-password" placeholder=" " name="current-password" type="password">
+      <label class="field__label" for="current-password" >Current Password</label>
     </div>
-  </div>
-  <div class="find-vitamins__image-block">
-    <img src="/Vitamin/assets/medication-packaging-KJn-gXRX.png" alt="medication packaging" class="find-vitamins__image" />
-  </div>
 
-  <div class="find-vitamins__rotating-segment1 spiner">
-    <svg>
-      <use href="#orange-elipse"></use>
-    </svg>
-  </div>
+    <div class="change-password__field field">
+      <input class="field__input" id="new-password" placeholder=" " name="new-password" type="password">
+      <label class="field__label" for="new-password" >New Password</label>
+    </div>
 
-  <div class="find-vitamins__rotating-segment2 spiner">
-    <svg>
-      <use href="#yellow-elipse"></use>
-    </svg>
-  </div>
+    <div class="change-password__field field">
+      <input class="field__input" id="repeat-new-password" type="password" placeholder=" "  name="password">
+      <label class="field__label" for="repeat-new-password">Confirm New Password</label>
+    </div>
 
-  <div class="find-vitamins__rotating-segment3 scaler">
-    <svg>
-      <use href="#orange-circle"></use>
-    </svg>
-  </div>
+    <button class="btn btn_orange change-password__submit-btn change-password__submit-btn_disabled" disabled type="submit">Save</button>
+    <span class="registration-form__error-message registration-form__regular-error-message"></span>
+  </form>
+<span class="change-password__message hidden"></span>
 </section>
-
-
-        <section class="healthy-have">
-
-  <div class="healthy-have__layer">
-
-    <img src="data:image/svg+xml,%3csvg%20width='904'%20height='968'%20viewBox='0%200%20904%20968'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cmask%20id='mask0_1064_1033'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='900'%20height='960'%3e%3crect%20width='900'%20height='960'%20fill='%238172DD'%20/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_1064_1033)'%3e%3crect%20x='-1'%20width='960'%20height='960'%20fill='%238172DD'%20/%3e%3cg%20opacity='0.05'%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M549.145%20326.384H955.034V598.725C955.034%20707.661%20863.983%20796.305%20752.089%20796.305C640.195%20796.305%20549.145%20707.661%20549.145%20598.725V326.384Z'%20fill='white'%20/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M1229.69%20326.384V597.828C1229.69%20853.304%201015.6%201060.88%20752.09%201060.88C488.584%201060.88%20274.485%20853.304%20274.485%20597.828V326.384H0V597.828C0%201000.2%20337.068%201327%20752.09%201327C1167.11%201327%201504.18%201000.2%201504.18%20597.828V326.384H1229.69Z'%20fill='white'%20/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M752.089%20-404C488.632%20-404%20274.572%20-197.587%20274.572%2056.4597V326.384H549.007V56.4597C549.007%20-51.5102%20640.12%20-139.368%20752.089%20-139.368C864.059%20-139.368%20955.172%20-51.5102%20955.172%2056.4597V326.384H1229.61V56.4597C1229.61%20-197.587%201015.55%20-404%20752.089%20-404Z'%20fill='white'%20/%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="background image" class="healthy-have__background">
-  </div>
-
-  <div class="container">
-
-    <div class="healthy-have__text-block">
-
-      <div class="healthy-have__title-wrapper">
-
-        <h2 class="healthy-have__title">
-          Healthy doesn’t have to be hard. We make it easy.
-        </h2>
-
-      </div>
-      <ul class="healthy-have__description">
-
-        <li class="healthy-have__description-item">
-
-          <svg class="healthy-have__drugs-purple" >
-            <use href="#drugs-purple"></use>
-          </svg>
-
-          <p class="healthy-have__item-text">Healthy doesn’t have to be hard. We make it easy.</p>
-        </li>
-
-        <li class="healthy-have__description-item">
-
-          <svg class="healthy-have__heal-yellow" >
-            <use href="#heal-yellow"></use>
-          </svg>
-
-          <p class="healthy-have__item-text">Healthy doesn’t have to be hard. We make it easy.</p>
-        </li>
-
-        <li class="healthy-have__description-item">
-
-          <svg class="healthy-have__shopping-orange" >
-            <use href="#shopping-orange"></use>
-          </svg>
-
-          <p class="healthy-have__item-text">Healthy doesn’t have to be hard. We make it easy.</p>
-        </li>
-      </ul>
-    </div>
-
-    <div class="healthy-have__img-block">
-
-      <div class="healthy-have__img-wrapper-packs">
-
-        <img src="/Vitamin/assets/pill-packs-DcDOJi-d.png" alt="tabs" class="healthy-have__image">
-      </div>
-
-      <div class="healthy-have__img-wrapper-pills">
-
-        <img src="/Vitamin/assets/tabs-CCo-lorr.png" alt="tabs" class="healthy-have__image">
-      </div>
-    </div>
-  </div>
-</section>
-
-        <section class="tell-us  ">
-
-  <div class="tell-us__container">
-
-    <svg class="tell-us__logo" width="99" height="99">
-      <use href="#heal-care"></use>
-    </svg>
-
-    <div class="tell-us__title">
-      Tell us a little about yourself. We’re good listeners.
-    </div>
-
-    <div class="tell-us__text">
-      We'll help you create a health plan with vitamins, supplements, and more that help you feel your best today and
-      support you long-term.
-    </div>
-
-    <a class="btn_small-button" href="/Vitamin/quiz.html">Take the quiz</a>
-
-    <div class="tell-us__rotating-segment1 spiner">
-
-      <svg  width="141" height="279">
-
-        <use href="#half-ring-yellow"></use>
-      </svg>
-    </div>
-    <div class="tell-us__scale-segment scaler">
-
-    </div>
-  </div>
-</section>
-
-        <section class="choose-products">
-  <div class="choose-products__layer">
-    <img class="choose-products__layer-img" src="data:image/svg+xml,%3csvg%20width='900'%20height='825'%20viewBox='0%200%20900%20825'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cmask%20id='mask0_1064_1049'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='900'%20height='825'%3e%3crect%20width='900'%20height='825'%20fill='%23F9FAFC'%20/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_1064_1049)'%3e%3crect%20width='900'%20height='825'%20fill='%23E99478'%20/%3e%3cg%20opacity='0.05'%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M867.562%20-194.321H1257.5V67.3156C1257.5%20171.97%201170.03%20257.13%201062.53%20257.13C955.035%20257.13%20867.562%20171.97%20867.562%2067.3156V-194.321Z'%20fill='white'%20/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M1521.36%20-194.321V66.4543C1521.36%20311.89%201315.68%20511.306%201062.53%20511.306C809.381%20511.306%20603.697%20311.89%20603.697%2066.4543V-194.321H340V66.4543C340%20453.015%20663.82%20766.968%201062.53%20766.968C1461.24%20766.968%201785.06%20453.015%201785.06%2066.4543V-194.321H1521.36Z'%20fill='white'%20/%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="background picture">
-  </div>
-
-  <div class="container">
-    <div class="choose-products__content">
-      <div class="choose-products__products-slider">
-
-        <div class="swiper-wrapper choose-products__slider-wrapper" id="choose-products-slider">
-
-          <div class="swiper-slide choose-products__slide">
-            <div class="choose-products__img-wrapper">
-              <img src="/Vitamin/assets/pill-packs-DcDOJi-d.png" alt="tabs" class="choose-products__img">
-            </div>
-
-            <div class="choose-products__description-block">
-              <div class="choose-products__type">Minerals</div>
-              <div class="choose-products__product-title">Reacted Zinc</div>
-              <div class="choose-products__product-description">B vitamins are essential for
-                your nervous system and proper brain functioning.
-              </div>
-            </div>
-
-          </div>
-          <div class="swiper-slide choose-products__slide">
-            <div class="choose-products__img-wrapper">
-              <img src="/Vitamin/assets/tabs-CCo-lorr.png" alt="tabs" class="choose-products__img">
-            </div>
-
-            <div class="choose-products__description-block">
-              <div class="choose-products__type">Vitamins & Dietary Supplements</div>
-              <div class="choose-products__product-title">Ortho B Complex</div>
-              <div class="choose-products__product-description">B vitamins are essential for your nervous system and proper brain functioning.
-              </div>
-            </div>
-
-          </div>
-          <div class="swiper-slide choose-products__slide">
-            <div class="choose-products__img-wrapper">
-              <img src="/Vitamin/assets/pill-packs-DcDOJi-d.png" alt="tabs" class="choose-products__img">
-            </div>
-
-            <div class="choose-products__description-block">
-              <div class="choose-products__type">Minerals</div>
-              <div class="choose-products__product-title">Reacted Zinc</div>
-              <div class="choose-products__product-description">"A premium product designed to help you stay active. This innovative supplement supports overall wellness. Engineered to deliver maximum benefits.
-              </div>
-            </div>
-
-          </div>
-          <div class="swiper-slide choose-products__slide">
-            <div class="choose-products__img-wrapper">
-              <img src="/Vitamin/assets/tabs-CCo-lorr.png" alt="tabs" class="choose-products__img">
-            </div>
-
-            <div class="choose-products__description-block">
-              <div class="choose-products__type">Vitamins & Dietary Supplements</div>
-              <div class="choose-products__product-title">Ortho B Complex</div>
-              <div class="choose-products__product-description">B vitamins are essential for your nervous system and proper brain functioning.
-              </div>
-            </div>
-
-          </div>
-
-
-
-
-        </div>
-
-      </div>
-
-      <div class="choose-products__text-block">
-        <h3 class="choose-products__title">Choose your products</h3>
-        <div class="choose-products__description">We'll help you create a
-          health plan with vitamins, supplements, and
-          more that help you feel your
-          best today and support you long-term.
-        </div>
-        <a href="#" class="choose-products__link">Go to the shop</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-        <section class="healthy-happy">
-  <div class="container healthy-happy__container">
-    <div class="healthy-happy__text-block">
-      <div class="healthy-happy__icon">
-        <svg>
-          <use href="#people-talk"></use>
-        </svg>
-      </div>
-      <h4 class="healthy-happy__title">
-        What healthy and happy customer says
-      </h4>
-      <p class="healthy-happy__description">We'll help you create a health plan with vitamins, supplements, and more
-        that help you feel your best today and support you long-term.</p>
-    </div>
-    <div class="healthy-happy__img-block">
-      <img src="/Vitamin/assets/health-heapy-C-ekbzAr.png" alt="health-happy" class="healthy-happy__img">
-    </div>
-  </div>
-
-  <article class="feedback">
-    <div class="feedback__container container">
-      <div class="feedback__slider">
-        <div class="swiper-wrapper feedback__wrapper-slider">
-
-          <div class="swiper-slide feedback__slide">
-            <div class="feedback__grade">
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-
-            </div>
-            <div class="feedback__title-feedback">
-              Easy monitoring your weight goal!
-            </div>
-            <div class="feedback__text">Love Vitamins! The individual packets make it so easy to remember you daily
-              vitamins and makes travelling easy!!! 👍🏽
-            </div>
-            <div class="feedback__person-block">
-              <img src="/Vitamin/assets/avatar1-D991J_Gi.png" alt="photo" class="feedback__avatar">
-              <div class="feedback__name">David S.</div>
-            </div>
-          </div>
-          <div class="swiper-slide feedback__slide">
-            <div class="feedback__grade">
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-
-            </div>
-            <div class="feedback__title-feedback">
-              Easy monitoring your weight goal!
-            </div>
-            <div class="feedback__text">Love Vitamins! The individual packets make it so easy to remember you daily
-              vitamins and makes travelling easy!!! 👍🏽
-            </div>
-            <div class="feedback__person-block">
-              <img src="/Vitamin/assets/avatar2-DWa9htqN.png" alt="photo" class="feedback__avatar">
-              <div class="feedback__name">David S.</div>
-            </div>
-          </div>
-          <div class="swiper-slide feedback__slide">
-            <div class="feedback__grade">
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-
-            </div>
-            <div class="feedback__title-feedback">
-              Easy monitoring your weight goal!
-            </div>
-            <div class="feedback__text">Love Vitamins! The individual packets make it so easy to remember you daily
-              vitamins and makes travelling easy!!! 👍🏽
-            </div>
-            <div class="feedback__person-block">
-              <img src="/Vitamin/assets/avatar3-dl-65P9G.png" alt="photo" class="feedback__avatar">
-              <div class="feedback__name">David S.</div>
-            </div>
-          </div>
-          <div class="swiper-slide feedback__slide">
-            <div class="feedback__grade">
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-
-            </div>
-            <div class="feedback__title-feedback">
-              Easy monitoring your weight goal!
-            </div>
-            <div class="feedback__text">Love Vitamins! The individual packets make it so easy to remember you daily
-              vitamins and makes travelling easy!!! 👍🏽
-            </div>
-            <div class="feedback__person-block">
-              <img src="/Vitamin/assets/avatar1-D991J_Gi.png" alt="photo" class="feedback__avatar">
-              <div class="feedback__name">David S.</div>
-            </div>
-          </div>
-          <div class="swiper-slide feedback__slide">
-            <div class="feedback__grade">
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-              <svg>
-                <use href="#gold-star"></use>
-              </svg>
-
-            </div>
-            <div class="feedback__title-feedback">
-              Easy monitoring your weight goal!
-            </div>
-            <div class="feedback__text">Love Vitamins! The individual packets make it so easy to remember you daily
-              vitamins and makes travelling easy!!! 👍🏽
-            </div>
-            <div class="feedback__person-block">
-              <img src="/Vitamin/assets/avatar1-D991J_Gi.png" alt="photo" class="feedback__avatar">
-              <div class="feedback__name">David S.</div>
-            </div>
-          </div>
-
-
-
         </div>
       </div>
     </div>
-  </article>
-</section>
-
-        <section class="tell-us tell-us_bottom">
-
-  <div class="tell-us__container">
-
-    <svg class="tell-us__logo " width="99" height="99">
-      <use href="#heart"></use>
-    </svg>
-
-    <div class="tell-us__title tell-us__title_padding">
-      Ready to get started?
-    </div>
-
-    <div class="tell-us__text">
-      We'll help you create a health plan with vitamins, supplements, and more that help you feel your best today and
-      support you long-term.
-    </div>
-
-    <a class="btn_small-button" href="/Vitamin/quiz.html">Take the quiz</a>
-    <a  class="tell-us__link" href="#">Go to the shop <svg>
-      <use href="#orange-row"></use>
-    </svg></a>
-
-    <div class="tell-us__rotating-segment3 spiner">
-      <svg  >
-        <use href="#orange-elipse"></use>
-      </svg>
-    </div>
-  </div>
-  <div class="tell-us__rotating-segment4 spiner">
-    <svg >
-      <use href="#half-ring-yellow"></use>
-    </svg>
-  </div>
-</section>
-      </div>
-
-      <footer class="footer">
+  </main>
+  <footer class="footer">
   <div class="container">
     <div class="footer__content">
       <div class="footer__logo logo">
@@ -1556,7 +1161,7 @@
 </svg>
 
 
-    </div>
-  </body>
-
+</div>
+
+</body>
 </html>
