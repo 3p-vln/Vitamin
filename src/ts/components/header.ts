@@ -2,6 +2,7 @@ import { getElement } from '../composables/useCallDom';
 import { renderUserName } from '../registration/render-user-name.ts';
 import { initCart } from './cart.ts';
 import { logout } from './logout.ts';
+import { authPopUp } from './auth-pop-up.ts';
 
 const burgerBtn = getElement('.burger__btn');
 const menuMain = getElement('.burger__menu.main');
@@ -35,6 +36,7 @@ export function initHeader() {
   renderUserName();
   initCart();
   logout();
+  authPopUp()
 }
 
 function burgerToggle(clickBtn: string, elActive: string) {

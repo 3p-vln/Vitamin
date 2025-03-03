@@ -32,6 +32,8 @@ const setTokens = (accessToken: string, refreshToken: string): void => {
 const clearAuthData = (): void => {
   Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
   Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
+  localStorage.removeItem('userInfo')
+  window.location.href = '/Vitamin/login.html';
 };
 
 // Перехватчик запросов: добавляет заголовок Authorization с токеном, если он есть

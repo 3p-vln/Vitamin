@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<load
+="./src/html/components/head-with-guard.html" title="Vitamin. Profile" styles="profile" />'
+<body>
+<script type="module" src="./src/ts/pages/profile.ts"></script>
+
+<div class="wrapper">
+
+  <load
+  ="./src/html/components/header.html" />
+
+  <main class="page profile-page">
+
+    <div class="container">
+      <div class="profile-page__content">
+        <aside class="profile-page__side-bar">
+          <ul class="profile-page__menu">
+            <li class="profile-page__menu-item">
+              Change Password1
+            </li>
+            <li class="profile-page__menu-item">
+              Change Password2
+            </li>
+            <li class="profile-page__menu-item">
+              Change Password3
+            </li>
+            <li class="profile-page__menu-item">
+              Change Password4
+            </li>
+            <li class="profile-page__menu-item profile-page__menu-item_active">
+              Change Password
+            </li>
+            <li class="profile-page__menu-item profile-page__menu-item_sign-out">
+              Sign Out
+            </li>
+
+          </ul>
+        </aside>
+        <div class="profile-page__partition">
+          <load
+          ="./src/html/profile/change-password.html" />
+        </div>
+      </div>
+    </div>
+  </main>
+  <load
+  ="./src/html/components/footer.html" />
+</div>
+
+</body>
+</html>

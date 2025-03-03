@@ -1,3 +1,5 @@
+@import "auth-pop-up";
+
 .header {
   position: fixed;
   width: 100%;
@@ -505,6 +507,7 @@
     display: flex;
     width: 100%;
     max-width: 32px;
+    background: transparent;
 
     @include media-breakpoint-down(sm) {
       display: none;

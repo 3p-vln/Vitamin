@@ -1,0 +1,63 @@
+/* CSS */
+.auth-pop-up {
+  position: fixed;
+  top: -100%; /* Начальная позиция выше экрана */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+
+  margin: 0;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  transition: top 0.3s ease-in-out; /* Плавная анимация */
+  z-index: 1000;
+}
+
+.auth-pop-up[open] {
+  top: 0;
+}
+
+.auth-pop-up__container {
+  position: relative;
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  display: flex;
+  gap: 10px;
+  background: $cardBackground;
+
+}
+
+.auth-pop-up__link {
+  display: block;
+  margin: 10px 10px;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+}
+
+.auth-pop-up__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  line-height: 1;
+}
+
+.auth-pop-up__close:hover {
+  color: #000;
+}
