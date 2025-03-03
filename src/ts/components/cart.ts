@@ -92,6 +92,9 @@ function removeProductFromLocalStorage(prodId: number) {
   totalCartPrice();
 
   if (cartItems.length === 0) {
+    const emptyText = getElement('.cart__empty');
+    if (emptyText) return;
+
     empty = true;
     emptyBag(empty);
     totalCartPrice();
@@ -334,9 +337,6 @@ export function updateInfoInLocal(prod: Product) {
   const plusButton = getElement(`.prod_${prod.id} .counter__plus`);
   const counterItems = getElement(`.prod_${prod.id} .counter__items`);
 
-  // let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-  // const productExists = cartItems.find((item: ProductLocalStorge) => item.id === prod.id);
-
   if (autoshipCheckbox) {
     autoshipCheckbox.addEventListener('change', () => {
       updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems?.textContent));
@@ -392,9 +392,10 @@ function updateAutoshipInLocalStorage(prodId: string, autoshipChecked: boolean, 
     cartItems[productIndex].autoshipChecked = autoshipChecked;
     cartItems[productIndex].autoshipDays = autoshipDays;
     cartItems[productIndex].counts = counts;
-
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    console.log(counts);
   }
+
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
 export function loadCartFromLocalStorage() {
@@ -414,6 +415,7 @@ export function loadCartFromLocalStorage() {
   cartItems.forEach((prod: ProductLocalStorge) => {
     renderProdCard(prod, prod.autoshipChecked, prod.autoshipDays, prod.counts);
     updateInfoInLocal(prod);
+    console.log(prod);
   });
 }
 
@@ -489,10 +491,9 @@ export function addBtn(prod: Product) {
 
   if (!counterItems) return;
 
-  counterItems.innerText = (Number(counterItems.textContent) + Number(addItems.innerText)).toString();
+  console.log(Number(counterItems.textContent) + Number(addItems.innerText));
 
-  updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.innerText));
-  updateInfoInLocal(prod);
+  updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent) + Number(addItems.innerText));
   loadCartFromLocalStorage();
 
   totalCartPrice();
