@@ -1,13 +1,7 @@
-import { classManipulator, getElement, getElements, renderElement } from '../composables/useCallDom';
+import { classManipulator, getElement, getElements, renderElement } from '../composables/use-call-dom.ts';
 import { initCounter } from './counter';
 import { initDropdown } from './dropdown';
-import { Product } from './interfaces';
-
-interface ProductLocalStorge extends Product {
-  autoshipChecked: boolean;
-  autoshipDays: string;
-  counts: number;
-}
+import { Product, ProductLocalStorge } from './interfaces';
 
 const cartBtn = getElement('.header__bag');
 const cart = getElement('.cart');
@@ -313,8 +307,13 @@ function saveProductToLocalStorage(prod: Product) {
 
   const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
-  const autoshipActive: boolean = getElement('autoship__on-off')?.classList.contains('autoship__on-off_active') || false;
-  const countsItems = Number(getElement(`.count__items`)?.innerText);
+  const autoshipEl = getElement('autoship__on-off');
+  const countsItemsEl = getElement(`.count__items`);
+
+  if (!autoshipEl || !countsItemsEl) return;
+
+  const autoshipActive: boolean = autoshipEl.classList.contains('autoship__on-off_active') || false;
+  const countsItems = Number(countsItemsEl.innerText);
 
   if (!productExists) {
     cartItems.push({
@@ -337,9 +336,11 @@ export function updateInfoInLocal(prod: Product) {
   const plusButton = getElement(`.prod_${prod.id} .counter__plus`);
   const counterItems = getElement(`.prod_${prod.id} .counter__items`);
 
+  if (!autoshipCheckbox || !autoshipDaysText || !autoshipDaysItem || !minusButton || !plusButton || !counterItems) return;
+
   if (autoshipCheckbox) {
     autoshipCheckbox.addEventListener('change', () => {
-      updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems?.textContent));
+      updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', Number(counterItems.textContent));
     });
   }
 
@@ -347,23 +348,21 @@ export function updateInfoInLocal(prod: Product) {
     autoshipDaysItem.forEach((item) => {
       item.addEventListener('click', (event) => {
         const selectedDay = (event.target as HTMLElement).textContent || '30';
-        updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox?.checked, selectedDay, Number(counterItems?.textContent));
+        updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, selectedDay, Number(counterItems.textContent));
       });
     });
   }
 
-  if (!minusButton || !plusButton || !counterItems) return;
-
   minusButton.addEventListener('click', () => {
     updatePriceDisplay(prod, Number(counterItems.textContent));
-    updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent));
+    updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', Number(counterItems.textContent));
 
     totalCartPrice();
   });
 
   plusButton.addEventListener('click', () => {
     updatePriceDisplay(prod, Number(counterItems.textContent));
-    updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent));
+    updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', Number(counterItems.textContent));
 
     totalCartPrice();
   });
@@ -392,7 +391,6 @@ function updateAutoshipInLocalStorage(prodId: string, autoshipChecked: boolean, 
     cartItems[productIndex].autoshipChecked = autoshipChecked;
     cartItems[productIndex].autoshipDays = autoshipDays;
     cartItems[productIndex].counts = counts;
-    console.log(counts);
   }
 
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -415,7 +413,6 @@ export function loadCartFromLocalStorage() {
   cartItems.forEach((prod: ProductLocalStorge) => {
     renderProdCard(prod, prod.autoshipChecked, prod.autoshipDays, prod.counts);
     updateInfoInLocal(prod);
-    console.log(prod);
   });
 }
 
@@ -441,15 +438,17 @@ export function addAutoship(prod: Product) {
 
   const autoshipCheckbox = getElement(`.prod_${prod.id} .prod__checkbox input`) as HTMLInputElement;
   const autoshipDays = getElement(`.prod_${prod.id} .dropdown__text`);
-  const autoshipDaysAdd = getElement('.autoship__dropdown .dropdown__text')?.textContent;
+  const autoshipDaysAddEl = getElement('.autoship__dropdown .dropdown__text');
+  if (!autoshipDaysAddEl) return;
+  const autoshipDaysAdd = autoshipDaysAddEl.textContent;
   const counterItems = getElement(`.prod_${prod.id} .counter__items`);
 
-  if (autoshipCheckbox && autoshipDays && autoshipDaysAdd) {
-    autoshipCheckbox.checked = true;
-    autoshipDays.innerText = autoshipDaysAdd;
-  }
+  if (!autoshipCheckbox || !autoshipDays || !autoshipDaysAdd || !counterItems) return;
 
-  updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDays?.textContent || '30', Number(counterItems?.textContent));
+  autoshipCheckbox.checked = true;
+  autoshipDays.innerText = autoshipDaysAdd;
+
+  updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDays.textContent || '30', Number(counterItems.textContent));
 }
 
 export function removeAutoship(prod: Product) {
@@ -459,11 +458,10 @@ export function removeAutoship(prod: Product) {
   const autoshipDays = getElement(`.prod_${prod.id} .dropdown__text`);
   const counterItems = getElement(`.prod_${prod.id} .counter__items`);
 
-  if (autoshipCheckbox) {
-    autoshipCheckbox.checked = false;
-  }
+  if (!autoshipCheckbox || !autoshipDays || !counterItems) return;
+  autoshipCheckbox.checked = false;
 
-  updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDays?.textContent || '30', Number(counterItems?.textContent));
+  updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDays.textContent || '30', Number(counterItems.textContent));
 }
 
 export function addBtn(prod: Product) {
@@ -481,7 +479,7 @@ export function addBtn(prod: Product) {
 
   const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
-  if (!addItems) return;
+  if(!addItems) return;
 
   if (!productExists) {
     renderProdCard(prod, false, '30', Number(addItems.innerText));
@@ -489,11 +487,9 @@ export function addBtn(prod: Product) {
     return;
   }
 
-  if (!counterItems) return;
+  if(!autoshipCheckbox || !autoshipDaysText || !counterItems) return;
 
-  console.log(Number(counterItems.textContent) + Number(addItems.innerText));
-
-  updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.textContent) + Number(addItems.innerText));
+  updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', Number(counterItems.textContent) + Number(addItems.innerText));
   loadCartFromLocalStorage();
 
   totalCartPrice();

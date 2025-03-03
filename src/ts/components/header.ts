@@ -1,4 +1,4 @@
-import { classManipulator, getElement } from '../composables/useCallDom';
+import { classManipulator, getElement } from '../composables/use-call-dom.ts';
 import { renderUserName } from '../registration/render-user-name.ts';
 import { initCart } from './cart.ts';
 import { logout } from './logout.ts';

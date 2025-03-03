@@ -1,4 +1,4 @@
-import { getElement } from '../composables/useCallDom';
+import { getElement } from '../composables/use-call-dom.ts';
 
 export async function initCounter(countClass: string | HTMLElement) {
   let counterContainer: HTMLElement | null = null;

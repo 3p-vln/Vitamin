@@ -1,5 +1,5 @@
-import { getCatalogList, getRecommendations } from '../composables/useApi';
-import { classManipulator, getElement, renderElement } from '../composables/useCallDom';
+import { getCatalogList, getRecommendations } from '../composables/use-api.ts';
+import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
 import { RecommendationData, RecommendationResponse } from './interfaces';
 
 let currentPage = 1;

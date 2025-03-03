@@ -1,4 +1,4 @@
-import { classManipulator, getElement, getElements } from '../composables/useCallDom';
+import { classManipulator, getElement, getElements } from '../composables/use-call-dom.ts';
 
 export function initDropdown(el: HTMLElement) {
   const dropdown = getElement('.dropdown', el);

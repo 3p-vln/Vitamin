@@ -1,11 +1,10 @@
-import { classManipulator, getElements } from '../composables/useCallDom';
+import { classManipulator, getElements } from '../composables/use-call-dom.ts';
 
 const forms = getElements('.quiz__btns');
 
 export function saveAnswers() {
   forms.forEach((form) => {
     const answers = getElements('.quiz__btn', form);
-    console.log(answers);
 
     answers.forEach((answer) => {
       answer.addEventListener('click', () => {

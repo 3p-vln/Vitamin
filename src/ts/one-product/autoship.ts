@@ -1,7 +1,7 @@
 import { addAutoship, addProdToCart, cartActive, removeAutoship } from '../components/cart';
 import { Product } from '../components/interfaces';
-import { getCatalogItem } from '../composables/useApi';
-import { getElement } from '../composables/useCallDom';
+import { getCatalogItem } from '../composables/use-api.ts';
+import { getElement } from '../composables/use-call-dom.ts';
 
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id') || undefined;
