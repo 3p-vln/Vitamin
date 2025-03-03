@@ -108,6 +108,7 @@ function scrollLock() {
   if (!body || !header) return;
 
   const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
   const scrollY = window.scrollY;
 
   const backBtn = getElement('.info__backbtn');
@@ -407,7 +408,7 @@ export function loadCartFromLocalStorage() {
 
   empty = false;
   emptyBag(empty);
-  if(!cartContainer) return;
+  if (!cartContainer) return;
   cartContainer.innerHTML = '';
 
   cartItems.forEach((prod: ProductLocalStorge) => {
@@ -492,7 +493,7 @@ export function addBtn(prod: Product) {
 
   updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText?.textContent || '30', Number(counterItems.innerText));
   updateInfoInLocal(prod);
-  loadCartFromLocalStorage()
+  loadCartFromLocalStorage();
 
   totalCartPrice();
 }
