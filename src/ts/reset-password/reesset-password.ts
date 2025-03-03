@@ -31,7 +31,6 @@ const formNewPassword: HTMLElement | null = document.getElementById('reset-passw
        case 400:
          messageContainer.innerText = `Incorrect reference. The password has not been changed.`
          messageContainer.style.color = 'red'
-
          break
        case 403:
          messageContainer.innerText = `The time for change has expired. The password has not been changed.`

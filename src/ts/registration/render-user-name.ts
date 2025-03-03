@@ -2,7 +2,6 @@ export function renderUserName() {
 
   const headerUserName = document.querySelectorAll('.header__user-name');
   const storedUserInfo = localStorage.getItem('userInfo');
-
   if (headerUserName && storedUserInfo) {
     const userInfo = JSON.parse(storedUserInfo);
     headerUserName.forEach((item:Element) => {
