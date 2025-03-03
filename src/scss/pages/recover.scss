@@ -52,13 +52,28 @@ body{
   font-size: 25px;
   font-family: OpenSans, sans-serif;
   text-align: center;
-  opacity: 0;
-  pointer-events: none;
+ transition: opacity 0.3s ;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  a{
+    display: block;
+    margin-top: 10px;
+  }
+
+  &_hidden{
+    opacity: 0;
+    pointer-events: none;
+  }
 }
+
+  &__link-login{
+    color: $orangeMain;
+  }
+
+
 
   &__title{
     font-weight: 500;
