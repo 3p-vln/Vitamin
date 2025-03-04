@@ -307,7 +307,7 @@ function saveProductToLocalStorage(prod: Product) {
 
   const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
-  const autoshipEl = getElement('autoship__on-off');
+  const autoshipEl = getElement('.autoship__on-off');
   const countsItemsEl = getElement(`.count__items`);
 
   if (!autoshipEl || !countsItemsEl) return;

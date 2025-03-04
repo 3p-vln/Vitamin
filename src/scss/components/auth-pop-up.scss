@@ -1,23 +1,22 @@
 /* CSS */
 .auth-pop-up {
-  position: fixed;
-  top: -100%; /* Начальная позиция выше экрана */
-  left: 0;
-  width: 100%;
+  position: absolute;
+  top: -160px;
+  left: auto;
+  right: 225px;
+  width: fit-content;
   height: 100%;
   background: transparent;
-
   margin: 0;
   border: none;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  transition: top 0.3s ease-in-out; /* Плавная анимация */
-  z-index: 1000;
+  transition: top 0.3s ease-in-out;
 }
 
 .auth-pop-up[open] {
-  top: 0;
+  top: 85px;
 }
 
 .auth-pop-up__container {
@@ -27,9 +26,9 @@
   border-radius: 5px;
   max-width: 400px;
   display: flex;
+  flex-direction: column;
   gap: 10px;
   background: $cardBackground;
-
 }
 
 .auth-pop-up__link {
