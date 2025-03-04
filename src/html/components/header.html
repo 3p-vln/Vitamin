@@ -123,6 +123,8 @@
           <a href="quiz.html" class="chose__take-quze btn btn_orange">Take the quiz</a>
         </div>
       </div>
+
+      <load ="/src/html/components/auth-pop-up.html" />
     </div>
   </div>
 
@@ -136,124 +138,10 @@
           <span></span>
         </div>
       </div>
-      <div class="cart__items">
-        <div class="cart__item prod">
-          <div class="prod__img prod__img_dark-blue">
-            <img src="https://firebasestorage.googleapis.com/v0/b/sporthub-sl.appspot.com/o/vitamin%2Fcatalog-1.png?alt=media&token=8c098ae9-1ef9-4af5-9e48-0689d80b1998}" alt="" />
-          </div>
-          <div class="prod__info">
-            <div class="prod__title-and-close">
-              <p class="prod__title">Ortho Molecular Products CereVive Capsules</p>
-              <div class="prod__close">
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-            <div class="prod__counter-and-price">
-              <div class="prod__counter">
-                <button class="counter__minus">
-                  <svg>
-                    <use href="#minus"></use>
-                  </svg>
-                </button>
-                <p class="counter__items">1</p>
-                <button class="counter__plus">
-                  <svg>
-                    <use href="#plus"></use>
-                  </svg>
-                </button>
-              </div>
-              <p class="prod__price">$84.00</p>
-            </div>
-            <div class="prod__autoship">
-              <div class="prod__checkbox">
-                <input type="checkbox" name="autoship" />
-                <span></span>
-              </div>
-              <p class="prod__autoship-text">Autoship every</p>
-              <div class="dropdown">
-                <div class="dropdown__box">
-                  <p class="dropdown__text">30</p>
-                  <div class="dropdown__arrow">
-                    <svg>
-                      <use href="#back-arrow"></use>
-                    </svg>
-                  </div>
-                </div>
-                <div class="dropdown__list">
-                  <button class="dropdown__item">10</button>
-                  <button class="dropdown__item">20</button>
-                  <button class="dropdown__item">30</button>
-                  <button class="dropdown__item">40</button>
-                  <button class="dropdown__item">50</button>
-                  <button class="dropdown__item">60</button>
-                </div>
-              </div>
-              days
-            </div>
-          </div>
-        </div>
-        <div class="cart__item prod">
-          <div class="prod__img prod__img_dark-blue">
-            <img src="https://firebasestorage.googleapis.com/v0/b/sporthub-sl.appspot.com/o/vitamin%2Fcatalog-1.png?alt=media&token=8c098ae9-1ef9-4af5-9e48-0689d80b1998}" alt="" />
-          </div>
-          <div class="prod__info">
-            <div class="prod__title-and-close">
-              <p class="prod__title">Ortho Molecular Products CereVive Capsules</p>
-              <div class="prod__close">
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-            <div class="prod__counter-and-price">
-              <div class="prod__counter">
-                <button class="counter__minus">
-                  <svg>
-                    <use href="#minus"></use>
-                  </svg>
-                </button>
-                <p class="counter__items">1</p>
-                <button class="counter__plus">
-                  <svg>
-                    <use href="#plus"></use>
-                  </svg>
-                </button>
-              </div>
-              <p class="prod__price">$84.00</p>
-            </div>
-            <div class="prod__autoship">
-              <div class="prod__checkbox">
-                <input type="checkbox" name="autoship" />
-                <span></span>
-              </div>
-              <p class="prod__autoship-text">Autoship every</p>
-              <div class="dropdown">
-                <div class="dropdown__box">
-                  <p class="dropdown__text">30</p>
-                  <div class="dropdown__arrow">
-                    <svg>
-                      <use href="#back-arrow"></use>
-                    </svg>
-                  </div>
-                </div>
-                <div class="dropdown__list">
-                  <button class="dropdown__item">10</button>
-                  <button class="dropdown__item">20</button>
-                  <button class="dropdown__item">30</button>
-                  <button class="dropdown__item">40</button>
-                  <button class="dropdown__item">50</button>
-                  <button class="dropdown__item">60</button>
-                </div>
-              </div>
-              days
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="cart__items"></div>
       <div class="cart__btn">
-        <button class="btn btn_orange">Check Out <span>•</span> $156.58</button>
+        <a class="btn btn_orange" href="create-order.html">Check Out <span>•</span> <span id="total-cart-price">$156.58</span></a>
       </div>
     </div>
   </div>
-  <load ="/src/html/components/auth-pop-up.html" />
 </header>

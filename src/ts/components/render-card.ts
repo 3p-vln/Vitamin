@@ -1,5 +1,5 @@
-import { getCatalogList, getRecommendations } from '../composables/useApi';
-import { classManipulator, getElement, renderElement } from '../composables/useCallDom';
+import { getCatalogList, getRecommendations } from '../composables/use-api.ts';
+import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
 import { RecommendationData, RecommendationResponse } from './interfaces';
 
 let currentPage = 1;
@@ -8,7 +8,7 @@ let itemsViewMore = 6;
 const windowWidth = window.innerWidth;
 let currentCategory: string | undefined = undefined;
 
-export async function renderRecCard(container: string) {
+export async function renderRecCard(container: string, colour: string) {
   const prodContainer = getElement(container);
   if (!prodContainer) return;
 
@@ -19,7 +19,7 @@ export async function renderRecCard(container: string) {
   }
 
   const prodList = response.data;
-  await card(prodList, prodContainer, 'white');
+  await card(prodList, prodContainer, colour);
 }
 
 function updateItemsPerPage() {

@@ -1,12 +1,11 @@
 import { renderAllCard } from '../components/render-card';
-import { classManipulator, getElement, getElements } from '../composables/useCallDom';
+import { classManipulator, getElement, getElements } from '../composables/use-call-dom.ts';
 
 const filterParametrs = getElements('.filter__item');
 const dropdownActiveItem = getElement('.catalog__content .dropdown__text');
 
 export async function filterList(container: string) {
-  if (!filterParametrs) return;
-  if (!dropdownActiveItem) return;
+  if (!filterParametrs || !dropdownActiveItem) return;
 
   const urlParams = new URLSearchParams(window.location.search);
   let page = 1;

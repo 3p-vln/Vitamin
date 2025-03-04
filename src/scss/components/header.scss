@@ -97,7 +97,7 @@
       position: absolute;
       left: 0;
       width: 100vw;
-      height: 100vh;
+      height: 100dvh;
       background-color: $fontColorTitleBlack;
       opacity: 0.2;
 
@@ -112,7 +112,7 @@
       display: flex;
       flex-direction: column;
       width: 500px;
-      height: 100vh;
+      height: 100dvh;
       background-color: $background;
 
       @include media-breakpoint-down(sm) {
@@ -178,6 +178,25 @@
 
       @include media-breakpoint-down(sm) {
         padding: 0;
+      }
+
+      &.empty {
+        background-image: url(/src/img/svg/empty-cart.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 295px 350px;
+
+        @include media-breakpoint-down(sm) {
+          background-size: 200px 240px;
+        }
+
+        p {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px;
+        }
       }
 
       .prod {
@@ -262,6 +281,39 @@
 
           @include media-breakpoint-down(sm) {
             max-width: 200px;
+          }
+        }
+
+        &__price {
+          &_sale {
+            display: flex;
+            align-items: end;
+            font-weight: 500;
+            font-size: clamp(16px, 2.5vw, 18px);
+            gap: 10px;
+            color: $redText;
+
+            @include media-breakpoint-down(sm) {
+              flex-direction: column;
+              gap: 0;
+            }
+
+            span {
+              position: relative;
+              height: fit-content;
+              color: $fontColorTitleBlack;
+              font-size: clamp(10px, 2.5vw, 12px);
+
+              &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 5px;
+                width: 100%;
+                height: 2px;
+                background-color: $fontColorTitleBlack;
+              }
+            }
           }
         }
 
@@ -449,7 +501,7 @@
               width: 11px;
               height: 8px;
               transform: translate(-50%, -50%) scale(0);
-              background-image: url("/src/img/svg/checkbox.svg");
+              background-image: url('/src/img/svg/checkbox.svg');
               background-repeat: no-repeat;
               background-position: center;
               background-size: contain;

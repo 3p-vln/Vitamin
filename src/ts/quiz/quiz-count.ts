@@ -1,4 +1,4 @@
-import { getElement, getElements } from '../composables/useCallDom';
+import { getElement, getElements } from '../composables/use-call-dom.ts';
 import { validateEmailForm, validateNameForm } from './quiz-validate';
 
 const countCurrent = getElement('.count__current');

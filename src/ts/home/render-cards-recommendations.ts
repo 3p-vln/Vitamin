@@ -1,5 +1,5 @@
 import { CardData, Response } from './../components/interfaces';
-import { getRecommendations } from '../composables/useApi.ts';
+import { getRecommendations } from '../composables/use-api.ts';
 
 export async function renderCards(): Promise<void> {
 

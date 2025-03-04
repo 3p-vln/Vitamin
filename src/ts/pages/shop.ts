@@ -3,7 +3,7 @@ import { initHeader } from '../components/header';
 import { feedbackSlider } from '../components/feedback-slider';
 import { shopBaners } from '../shop/shop-baners';
 import { filterList } from '../shop/shop-filter';
-import { getElement } from '../composables/useCallDom';
+import { getElement } from '../composables/use-call-dom.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   initHeader();

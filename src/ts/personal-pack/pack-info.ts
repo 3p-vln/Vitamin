@@ -1,4 +1,4 @@
-import { getElement } from '../composables/useCallDom';
+import { getElement } from '../composables/use-call-dom.ts';
 
 const packOwnerSpan = getElement('.pack-info__title span');
 const packOwnerName = localStorage.getItem('firstName');

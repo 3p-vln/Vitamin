@@ -1,6 +1,4 @@
-import { getElement } from '../composables/useCallDom';
-
-let count = 1;
+import { getElement } from '../composables/use-call-dom.ts';
 
 export async function initCounter(countClass: string | HTMLElement) {
   let counterContainer: HTMLElement | null = null;
@@ -17,41 +15,48 @@ export async function initCounter(countClass: string | HTMLElement) {
   const minusBtn = getElement('.counter__minus', counterContainer);
   const counterTotal = getElement('.counter__items', counterContainer);
 
+  let count = Number(counterTotal?.innerText);
+
   if (!counterTotal || !plusBtn || !minusBtn) return;
 
-  styleBtns(plusBtn, minusBtn);
+  styleBtns(plusBtn, minusBtn, count);
 
   minusBtn.addEventListener('click', () => {
-    decrement(counterTotal);
-    styleBtns(plusBtn, minusBtn);
+    decrement(counterTotal, count);
+    count = Number(counterTotal?.innerText);
+    styleBtns(plusBtn, minusBtn, count);
   });
+
   plusBtn.addEventListener('click', () => {
-    increment(counterTotal);
-    styleBtns(plusBtn, minusBtn);
+    increment(counterTotal, count);
+    count = Number(counterTotal?.innerText);
+    styleBtns(plusBtn, minusBtn, count);
   });
-  updateDisplay(counterTotal);
+
+  updateDisplay(counterTotal, count);
 }
 
-function updateDisplay(counterTotal: HTMLElement) {
+function updateDisplay(counterTotal: HTMLElement, count: number) {
   counterTotal.textContent = count.toString();
 }
 
-function decrement(counterTotal: HTMLElement) {
+function decrement(counterTotal: HTMLElement, count: number) {
   if (count > 1) {
     count--;
-    updateDisplay(counterTotal);
+
+    updateDisplay(counterTotal, count);
   }
 }
 
-function increment(counterTotal: HTMLElement) {
+function increment(counterTotal: HTMLElement, count: number) {
   if (count < 999) {
     count++;
-    updateDisplay(counterTotal);
+    updateDisplay(counterTotal, count);
   }
 }
 
-function styleBtns(plusBtn: HTMLElement, minusBtn: HTMLElement) {
-  if (count < 999 && count > 1) {
+function styleBtns(plusBtn: HTMLElement, minusBtn: HTMLElement, count: number) {
+  if (count !== 999 && count !== 1) {
     plusBtn.style.opacity = '1';
     minusBtn.style.opacity = '1';
   }

@@ -1,34 +1,41 @@
-import { OrderResponse } from '../components/interfaces';
-import { createOrder } from '../composables/useApi';
-import { getElement } from '../composables/useCallDom';
+import { addAutoship, addProdToCart, cartActive, removeAutoship } from '../components/cart';
+import { Product } from '../components/interfaces';
+import { getCatalogItem } from '../composables/use-api.ts';
+import { getElement } from '../composables/use-call-dom.ts';
 
 const urlParams = new URLSearchParams(window.location.search);
-const prodId = Number(urlParams.get('id')) || undefined;
+const prodId = urlParams.get('id') || undefined;
 
-const userInfo = localStorage.getItem('userInfo');
+const autoshipBtn = getElement('.autoship__on-off');
 
-export async function autoshipCreate() {
-  const autoship = getElement('.autoship__on-off');
-  if (!autoship) return;
+export async function autoshipCreate( event: Event ) {
+  if (!autoshipBtn) return;
 
-  if (userInfo && autoship.classList.contains('autoship__on-off_active')) {
-    const uid = JSON.parse(userInfo).user_id;
-    if (prodId && uid) {
-      try {
-        const newOrder = (await createOrder({
-          order: [
-            {
-              product_id: prodId,
-              quantity: 1,
-            },
-          ],
-          user_id: uid,
-        })) as OrderResponse;
-
-        if (newOrder) console.log(newOrder.data);
-      } catch (error) {
-        console.error('Error creating order:', error);
-      }
-    }
+  if (prodId) {
+    const prod = (await getCatalogItem(prodId)) as Product;
+    addToCart(prod, event);
   }
+}
+
+function addToCart(prod: Product, event: Event) {
+  if (!autoshipBtn) return;
+
+  if (autoshipBtn.classList.contains('autoship__on-off_active')) {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+    const productExists = cartItems.some((item: Product) => item.id === prod.id);
+
+    if (!productExists) {
+      addProdToCart(prod);
+      addAutoship(prod);
+      cartActive(event);
+      return;
+    }
+
+    addAutoship(prod);
+    cartActive(event);
+    return;
+  }
+
+  removeAutoship(prod);
 }
