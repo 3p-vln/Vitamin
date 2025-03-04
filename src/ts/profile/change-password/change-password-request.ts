@@ -1,4 +1,4 @@
-import apiClient from '../registration/api-client.ts';
+import apiClient from '../../registration/api-client.ts';
 import { AxiosError } from 'axios';
 
 interface PasswordForm {
@@ -8,6 +8,7 @@ interface PasswordForm {
 
 export async function changePasswordRequest(data: PasswordForm) {
   const massageContainer: HTMLSpanElement | null = document.querySelector('.change-password__message');
+  const formChangePassword= document.getElementById('change-password');
   try {
     const res = await apiClient.put('/profile/change-password', data);
 
@@ -16,6 +17,9 @@ export async function changePasswordRequest(data: PasswordForm) {
         massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
         massageContainer.style.background = 'green';
         massageContainer.classList.toggle('hidden');
+      }
+      if(formChangePassword instanceof HTMLFormElement) {
+        formChangePassword.reset()
       }
     }
   } catch (error) {

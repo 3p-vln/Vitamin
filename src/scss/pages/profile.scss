@@ -1,6 +1,18 @@
 @import '../style';
 @import '../components/text-input';
+@import '../components/loader.scss';
 @import '../profile/change-password.scss';
+@import '../profile/payment-methods.scss';
+
+.wrapper{
+  opacity: 0;
+}
+.profile-loader{
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+
+}
 
 .profile-page {
   padding-top: 63px;
@@ -12,6 +24,10 @@
   &__side-bar{
     width: 100%;
     max-width: 355px;
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
   }
 
   &__partition{
@@ -19,9 +35,7 @@
   }
 
   &__menu {
-
     width: 100%;
-
   }
 
 
@@ -32,12 +46,23 @@
     font-size: 22px;
     line-height: 3.2;
     color: $font-color-black;
+
     &_active{
       font-weight: 700;
     }
 
     &_sign-out{
       color: $red;
+    }
+  }
+
+
+  &__partition-item{
+    display: block;
+
+    &_hidden{
+      display: none;
+
     }
   }
 }

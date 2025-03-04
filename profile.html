@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
 <load
-="./src/html/components/head-with-guard.html" title="Vitamin. Profile" styles="profile" />'
+="./src/html/components/head-with-guard.html" title="Vitamin. Profile" styles="profile" />
 <body>
 <script type="module" src="./src/ts/pages/profile.ts"></script>
 
-<div class="wrapper">
+<div class="custom-loader profile-loader"></div>
+<div class="wrapper wrapper-profile">
 
   <load
   ="./src/html/components/header.html" />
@@ -14,30 +15,14 @@
 
     <div class="container">
       <div class="profile-page__content">
-        <aside class="profile-page__side-bar">
-          <ul class="profile-page__menu">
-            <li class="profile-page__menu-item">
-              Change Password1
-            </li>
-            <li class="profile-page__menu-item">
-              Change Password2
-            </li>
-            <li class="profile-page__menu-item">
-              Change Password3
-            </li>
-            <li class="profile-page__menu-item">
-              Change Password4
-            </li>
-            <li class="profile-page__menu-item profile-page__menu-item_active">
-              Change Password
-            </li>
-            <li class="profile-page__menu-item profile-page__menu-item_sign-out">
-              Sign Out
-            </li>
-
-          </ul>
-        </aside>
+        <load
+        ="./src/html/profile/side-bar.html" />
         <div class="profile-page__partition">
+
+          <load
+          ="./src/html/profile/payment-methods.html" />
+          <load
+          ="./src/html/profile/overview.html" />
           <load
           ="./src/html/profile/change-password.html" />
         </div>
