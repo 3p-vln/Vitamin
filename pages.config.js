@@ -41,6 +41,10 @@ const pages = [
     name: 'profile',
     path: resolve(__dirname, 'profile.html'),
   },
+  {
+    name: 'create-order',
+    path: resolve(__dirname, 'create-order.html'),
+  },
 ];
 
 export default pages;
