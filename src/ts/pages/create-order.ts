@@ -3,7 +3,7 @@ import { initAccordion } from '../create-order/order-accordion.ts';
 import { createOrderHeader } from '../create-order/header.ts';
 import { initDropdown } from '../components/dropdown.ts';
 import { getElement } from '../composables/use-call-dom.ts';
-import { initializeMasks, validateDeliveryForm } from '../create-order/validate-form.ts';
+import { validateBillForm, validateDeliveryForm } from '../create-order/validate-form.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   createOrderList();
@@ -13,5 +13,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!dropdownContainer) return;
   initDropdown(dropdownContainer);
   validateDeliveryForm();
-  initializeMasks();
+  validateBillForm();
 });

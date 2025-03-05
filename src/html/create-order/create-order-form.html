@@ -1,7 +1,7 @@
 <div class="create-order-form">
   <div class="create-order-form__deliver-info deliver-info">
     <p class="deliver-info__title">Delivery Information</p>
-    <form class="deliver-info__form" id="deliver-info">
+    <form class="deliver-info__form" id="deliver-info" autocomplete="off">
       <div class="deliver-info__item">
         <label class="deliver-info__form-label" for="first-name">First Name</label>
         <input class="deliver-info__form-input" type="text" name="first-name" id="first-name" placeholder=" ">
@@ -60,15 +60,15 @@
   </div>
   <div class="create-order-form__billing billing">
     <p class="billing__title">Biling</p>
-    <form class="billing__form" id="billing">
+    <form class="billing__form" id="billing" autocomplete="off">
       <div class="billing__item">
         <label class="billing__form-label" for="card">Card Number</label>
-        <input class="billing__form-input" type="number" name="card" id="card" placeholder="XXXX XXXX XXXX XXXX">
+        <input class="billing__form-input" type="text" name="card" id="card" placeholder="XXXX XXXX XXXX XXXX">
       </div>
       <div class="billing__item billing__item_two-items">
         <div class="billing__subitem">
           <label class="billing__form-label" for="expiration">Expiration</label>
-          <input class="billing__form-input" type="number" name="expiration" id="expiration" placeholder="MM/YY">
+          <input class="billing__form-input" type="text" name="expiration" id="expiration" placeholder="MM/YY">
         </div>
         <div class="billing__subitem">
           <label class="billing__form-label" for="cvc">CVC</label>
