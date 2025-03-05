@@ -3,6 +3,8 @@
 @import '../components/loader.scss';
 @import '../profile/change-password.scss';
 @import '../profile/payment-methods.scss';
+@import '../profile/overview.scss';
+@import '../profile/custom-select.scss';
 
 .wrapper{
   opacity: 0;
@@ -24,6 +26,8 @@
   &__side-bar{
     width: 100%;
     max-width: 355px;
+
+
 
     @include media-breakpoint-down(sm) {
       display: none;

@@ -4,6 +4,10 @@ import { validateChangePassword } from '../profile/change-password/validate-chan
 import { showActivePartition } from '../profile/show-active-partition.ts';
 import { validateCard } from '../profile/payment/validate-card.ts';
 import { checkFillPaymentInputs } from '../profile/check-fill-payment-inputs.ts';
+import { overviewCustomSelect } from '../profile/overview-custom-select.ts';
+import { renderFormRole } from '../profile/overview/render-form-role.ts';
+import { unlockSubmit } from '../profile/overview/unlock-submit-button.ts';
+import { overviewValidete } from '../profile/overview/overview-validete.ts';
 
 
 
@@ -17,6 +21,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   validateCard()
   checkFillPaymentInputs ()
+
+  overviewCustomSelect()
+  renderFormRole()
+  unlockSubmit()
+  overviewValidete()
 
 
 });

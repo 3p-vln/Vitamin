@@ -1,5 +1,85 @@
 <section class="overview profile-page__partition-item profile-page__partition-item_hidden" part="overview">
-  <div class="overview__title">Account Overview</div>
-  <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur dolorem error hic iste quis rem sint vitae! Accusamus eius est fugiat harum impedit in numquam obcaecati perspiciatis praesentium similique?</h1>
+  <div class="overview__header">
+    <div class="overview__title">Account Overview</div>
+    <div class="overview__role"></div>
+  </div>
 
+  <form class="overview-form" id="overview-form">
+    <div class="overview-form__wrapper">
+      <div class="overview-form__field field">
+        <input  class="field__input" id="overview-first-name" placeholder=" " name="first_name" type="text">
+        <label class="field__label" for="overview-first-name" >First Name</label>
+      </div>
+
+      <div class="overview-form__field field">
+        <input  class="field__input" id="overview-last-name" placeholder=" " name="last_name" type="text">
+        <label class="field__label" for="overview-last-name" >Last Name</label>
+      </div>
+
+      <div class="overview-form__field field">
+        <input  class="field__input" id="overview-address-line1" placeholder=" " name="address_one" type="text">
+        <label class="field__label" for="overview-address-line1" >Address line 1</label>
+      </div>
+
+      <div class="overview-form__field field">
+        <input  class="field__input" id="overview-address-line2" placeholder=" " name="address_two" type="text">
+        <label class="field__label" for="overview-address-line2" >Address line 1</label>
+      </div>
+
+      <div class="overview-form__field field">
+        <input  class="field__input" id="overview-city" placeholder=" " name="city" type="text">
+        <label class="field__label" for="overview-city" >City</label>
+      </div>
+
+      <div class="overview-form__field overview-form__field_double">
+
+        <div class="overview-form__field overview-form__field_custom-select">
+          <div class="custom-select" >
+            <div class="select-selected">NY</div>
+            <div class="select-items select-hide">
+              <div data-value="TN">TN</div>
+              <div data-value="TX">TX</div>
+              <div data-value="UT">UT</div>
+              <div data-value="VT">VT</div>
+              <div data-value="VA">VA</div>
+              <div data-value="WA">WA</div>
+              <div data-value="WV">WV</div>
+              <div data-value="WI">WI</div>
+              <div data-value="WY">WY</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="overview-form__field overview-form__field_mini field">
+          <input  class="field__input" id="overview-postal-code" placeholder=" " name="postal-code" type="text">
+          <label class="field__label" for="overview-postal-code" >ZIP / Postal code</label>
+        </div>
+      </div>
+
+      <div class="overview-form__field field">
+        <input  class="field__input" id="overview-email" placeholder=" " name="email" type="email">
+        <label class="field__label" for="overview-address-line2" >Email</label>
+      </div>
+
+      <div class="overview-form__field field">
+        <input  class="field__input" id="overview-phone" placeholder=" " name="email" type="email">
+        <label class="field__label" for="overview-phone" >Phone Number</label>
+      </div>
+      <div class="overview-form__field-wrapper overview-form__field-wrapper_hidden">
+        <div class="field__file-description " >Wholesale purchase permission</div>
+        <div class="overview-form__field overview-form__field_file field field_file">
+
+          <input class="field__input" id="wholesale-registration-file" type="file"  hidden>
+
+
+
+          <span class="overview-form__name-file">123qwer.pdf</span>
+          <button class=" btn btn_orange field__file-button" id="overview-add-file-btn" type="button" >Upload</button>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn_orange overview-form__submit-btn overview-form__submit-btn_disabled" disabled type="submit">Save</button>
+  </form>
+  
+  <div class="overview__message hidden"></div>
 </section>

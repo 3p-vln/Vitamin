@@ -1,0 +1,104 @@
+.overview {
+  &__header{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-family: Effra, sans-serif;
+    font-weight: 500;
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  &__role{
+    font-family: Effra, sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+  }
+
+  &__message{
+    font-size: 16px;
+    color: $font-color-white;
+    padding: 17px 70px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 999999;
+    background: green;
+    text-align: center;
+    border-radius: 12px;
+    opacity: 1;
+    pointer-events: none;
+
+    svg{
+      width: 20px;
+      height: 14px;
+      margin-right: 20px;
+    }
+
+    &.hidden{
+      opacity: 0;
+    }
+  }
+
+}
+
+.overview-form {
+
+
+  &__wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px 33px;
+  }
+
+  &__field {
+    max-width: 444px;
+
+    &_double {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+
+      @include media-breakpoint-down(xs) {
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+
+    &_mini {
+      width: 206px;
+    }
+  }
+
+  &__field-wrapper{
+    max-width: 444px;
+    width: 100%;
+
+    &_hidden{
+      display: none;
+    }
+  }
+
+  &__name-file{
+    position: relative;
+    top: 5px;
+  }
+
+  &__submit-btn{
+    margin-top: 40px;
+    width: 154px;
+
+
+    &_disabled{
+      opacity: 0.5;
+      background: #c3bdb6;
+      &:hover{
+        transform: scale(1);
+      }
+    }
+
+  }
+}

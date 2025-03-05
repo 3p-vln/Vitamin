@@ -6,6 +6,9 @@
     font-size: 36px;
     color: $font-color-black;
     margin-bottom: 40px;
+    @include media-breakpoint-down(xs) {
+      font-size: 24px;
+    }
   }
 
   &__message{
@@ -43,8 +46,17 @@
   position: relative;
   z-index: 1;
 
+  @include media-breakpoint-down(md) {
+    padding: 0;
+    background: transparent;
+  }
+
   &__input-wrapper{
     position: relative;
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: 40px;
+    }
   }
 
   &__label{
@@ -62,6 +74,7 @@
     width: 100%;
     line-height: 1.2;
     border-radius: 12px;
+    background: #faf8f6;
 
     &_date{
       width: 104px;
@@ -72,10 +85,10 @@
     display: flex;
     justify-content: right;
     margin: 10px 0;
-  }
 
-  &__img{
-
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
   }
 }
 
@@ -86,6 +99,15 @@
     margin-top: 88px;
     width: 154px;
     background: $orangeMain;
+
+    @include media-breakpoint-down(md) {
+      margin-top: 30px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 30px;
+    }
+
 
     &_disabled{
       background: #c3bdb6;
@@ -107,12 +129,26 @@
   background: #ece8e2;
   z-index: 0;
 
+  @include media-breakpoint-down(lg) {
+    left: 158px;
+  }
+
+  @include media-breakpoint-down(md) {
+    height: 81px;
+    width: 131px;
+    background: transparent;
+    bottom: 75px;
+  }
+
 
   &__magnetic-stripe{
     width: 100%;
     height: 63px;
     background: #c2bfbb;
     margin-top: 40px;
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
   }
 
   &__input-wrapper{
@@ -136,5 +172,10 @@
     width: 104px;
     line-height: 1.2;
     border-radius: 12px;
+
+
+    @include media-breakpoint-down(md) {
+      background: #faf8f6;
+    }
   }
 }
