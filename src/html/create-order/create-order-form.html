@@ -23,11 +23,12 @@
         <input class="deliver-info__form-input" type="text" name="city" id="city" placeholder=" ">
       </div>
       <div class="deliver-info__item deliver-info__item_two-items">
-        <div class="deliver-info__subitem">
+        <div class="deliver-info__subitem deliver-info__subitem_dropdown">
           <label class="deliver-info__form-label" for="state">State / Province</label>
           <div class="dropdown">
-            <div class="dropdown__box">
-              <input class="dropdown__input" type="text" name="state" id="state" placeholder="---">
+            <div class="dropdown__box deliver-info__form-input">
+              <input type="hidden" name="state" id="state-hidden">
+              <input class="dropdown__input dropdown__text" type="text" name="state" id="state" placeholder="---" readonly>
               <div class="dropdown__arrow">
                 <svg>
                   <use href="#next-arrow"></use>

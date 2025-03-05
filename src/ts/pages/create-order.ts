@@ -1,9 +1,17 @@
 import { createOrderList } from '../create-order/order-list.ts';
 import { initAccordion } from '../create-order/order-accordion.ts';
 import { createOrderHeader } from '../create-order/header.ts';
+import { initDropdown } from '../components/dropdown.ts';
+import { getElement } from '../composables/use-call-dom.ts';
+import { initializeMasks, validateDeliveryForm } from '../create-order/validate-form.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   createOrderList();
   initAccordion();
-  createOrderHeader()
+  createOrderHeader();
+  const dropdownContainer = getElement('.deliver-info__subitem_dropdown');
+  if (!dropdownContainer) return;
+  initDropdown(dropdownContainer);
+  validateDeliveryForm();
+  initializeMasks();
 });
