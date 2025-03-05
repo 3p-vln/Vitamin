@@ -37,7 +37,7 @@ export function initHeader() {
   renderUserName();
   initCart();
   logout();
-  authPopUp()
+  authPopUp();
 }
 
 function burgerToggle(clickBtn: string, elActive: string) {

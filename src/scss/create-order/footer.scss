@@ -1,9 +1,9 @@
-.footer-order{
+.footer-order {
   background-color: $background;
   padding: 0;
 
-  .footer{
-    &__content{
+  .footer {
+    &__content {
       padding: 38px 0 35px;
       display: flex;
       max-width: 920px;
@@ -12,11 +12,12 @@
       position: relative;
       gap: 30px;
 
-      @include media-breakpoint-down(sm){
+      @include media-breakpoint-down(sm) {
         flex-direction: column-reverse;
+        padding: 32px 0;
       }
 
-      &::before{
+      &::before {
         content: '';
         position: absolute;
         top: 0;
@@ -27,21 +28,21 @@
       }
     }
 
-    &__list{
+    &__list {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
       opacity: 0.5;
-      font-size: 14px;
+      font-size: 16px;
       column-gap: 30px;
-      row-gap: 15px;
+      row-gap: 20px;
     }
 
-    &__social{
+    &__social {
       max-width: 335px;
 
-      img{
+      img {
         width: 100%;
         height: 100%;
       }

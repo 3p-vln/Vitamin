@@ -1,8 +1,9 @@
 .order-list {
-  padding: 40px;
+  padding: 40px 40px 35px;
   max-width: 445px;
   border: 1px solid $border-color;
   border-radius: 16px;
+  margin-top: 50px;
 
   @include media-breakpoint-down(sm) {
     border: 0 none;
@@ -10,7 +11,8 @@
     max-width: none;
     width: 100vw;
     position: relative;
-    right: 20px;
+    left: 0;
+    margin-top: 0;
   }
 
   &__content {
@@ -212,15 +214,17 @@
     &-content {
       @include media-breakpoint-down(sm) {
         opacity: 0;
-        height: 0%;
+        max-height: 0;
+        padding: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out, visibility 0.3s ease-in-out, padding 0.3s ease-in-out;
       }
 
       &_active {
         opacity: 1;
         visibility: visible;
-        height: 100%;
+        max-height: 100%;
+        padding: 30px 20px;
       }
     }
 
@@ -228,6 +232,17 @@
       .accordion__down-arrow{
         rotate: -180deg;
       }
+    }
+  }
+
+  &__btn{
+    margin-top: 39px;
+    font-size: 20px;
+    width: 100%;
+    padding: 22px 29px;
+
+    @include media-breakpoint-down(sm) {
+      display: none;
     }
   }
 }

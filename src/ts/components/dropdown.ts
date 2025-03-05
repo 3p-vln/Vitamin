@@ -42,7 +42,14 @@ function onItemClick(item: HTMLElement, dropdownActiveItem: HTMLElement, dropdow
 
   if (!dropdownActiveItem) return;
 
-  dropdownActiveItem.textContent = selectedValue;
+  if (dropdownActiveItem.tagName.toLowerCase() === 'p') dropdownActiveItem.textContent = selectedValue;
+  if (dropdownActiveItem.tagName.toLowerCase() === 'input') {
+    (dropdownActiveItem as HTMLInputElement).value = selectedValue;
+    const hiddenInput = getElement('#state-hidden') as HTMLInputElement;
+
+    if(!hiddenInput) return;
+    hiddenInput.value = selectedValue;
+  }
 
   toggleDropdown(event as Event, dropdownBox, dropdownList);
 }
