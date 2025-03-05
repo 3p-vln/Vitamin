@@ -280,7 +280,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   updateInfoInLocal(prod);
 }
 
-function getDiscountedPrice(price: string, discount: number, count: number): string {
+export function getDiscountedPrice(price: string, discount: number, count: number): string {
   const originalPrice = parseFloat(price);
   if (isNaN(originalPrice)) {
     throw new Error('Invalid price format');
@@ -291,7 +291,7 @@ function getDiscountedPrice(price: string, discount: number, count: number): str
   return discountedPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-function getTotalPrice(price: string, count: number): string {
+export function getTotalPrice(price: string, count: number): string {
   const originalPrice = parseFloat(price);
   if (isNaN(originalPrice)) {
     throw new Error('Invalid price format');
