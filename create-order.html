@@ -7,12 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- <link rel="stylesheet" href="node_modules/swiper/" /> -->
   <title>Vitamin. Create order</title>
-  <script type="module" crossorigin src="/Vitamin/assets/create-order-YhmVD96L.js"></script>
+  <script type="module" crossorigin src="/Vitamin/assets/create-order-CGWXcfel.js"></script>
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/style-CWWArEq8.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/use-call-dom-DDNnwvp7.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/cart-BtTvo196.js">
   <link rel="stylesheet" crossorigin href="/Vitamin/assets/style-COxJ4nHZ.css">
-  <link rel="stylesheet" crossorigin href="/Vitamin/assets/create-order-BeC7lUEr.css">
+  <link rel="stylesheet" crossorigin href="/Vitamin/assets/create-order-ZeBK_W4k.css">
 </head>
 
 <body>
@@ -33,7 +33,8 @@
 
   <div class="page">
     <div class="container">
-      <div class="order-list">
+      <div class="create-order">
+        <div class="order-list">
   <div class="order-list__accordion accordion">
     <div class="accordion__title">
       <div class="accordion__bag-svg">
@@ -55,8 +56,90 @@
     </div>
     <div class="order-list__total">
     </div>
+    <button class="order-list__btn bnt btn btn_orange">Place order</button>
   </div>
 </div>
+        <div class="create-order-form">
+  <div class="create-order-form__deliver-info deliver-info">
+    <p class="deliver-info__title">Delivery Information</p>
+    <form class="deliver-info__form" id="deliver-info">
+      <div class="deliver-info__item">
+        <label class="deliver-info__form-label" for="first-name">First Name</label>
+        <input class="deliver-info__form-input" type="text" name="first-name" id="first-name" placeholder=" ">
+      </div>
+      <div class="deliver-info__item">
+        <label class="deliver-info__form-label" for="last-name">Last Name</label>
+        <input class="deliver-info__form-input" type="text" name="last-name" id="last-name" placeholder=" ">
+      </div>
+      <div class="deliver-info__item">
+        <label class="deliver-info__form-label" for="address-line1">Address Line 1</label>
+        <input class="deliver-info__form-input" type="text" name="address-line1" id="address-line1" placeholder=" ">
+      </div>
+      <div class="deliver-info__item">
+        <label class="deliver-info__form-label" for="address-line2">Address Line 2</label>
+        <input class="deliver-info__form-input" type="text" name="address-line2" id="address-line2" placeholder=" ">
+      </div>
+      <div class="deliver-info__item">
+        <label class="deliver-info__form-label" for="city">City</label>
+        <input class="deliver-info__form-input" type="text" name="city" id="city" placeholder=" ">
+      </div>
+      <div class="deliver-info__item deliver-info__item_two-items">
+        <div class="deliver-info__subitem">
+          <label class="deliver-info__form-label" for="state">State / Province</label>
+          <div class="dropdown">
+            <div class="dropdown__box">
+              <input class="dropdown__input" type="text" name="state" id="state" placeholder="---">
+              <div class="dropdown__arrow">
+                <svg>
+                  <use href="#next-arrow"></use>
+                </svg>
+              </div>
+            </div>
+            <div class="dropdown__list">
+              <div class="dropdown__item">1</div>
+              <div class="dropdown__item">2</div>
+              <div class="dropdown__item">3</div>
+              <div class="dropdown__item">4</div>
+            </div>
+          </div>
+        </div>
+        <div class="deliver-info__subitem">
+          <label class="deliver-info__form-label" for="zip">ZIP / Postal Code</label>
+          <input class="deliver-info__form-input" type="number" name="zip" id="zip" placeholder=" ">
+        </div>
+      </div>
+      <div class="deliver-info__item">
+        <label class="deliver-info__form-label" for="mail">Email</label>
+        <input class="deliver-info__form-input" type="email" name="mail" id="mail" placeholder=" ">
+      </div>
+      <div class="deliver-info__item">
+        <label class="deliver-info__form-label" for="phone">Phone Number</label>
+        <input class="deliver-info__form-input" type="tel" name="phone" id="phone" placeholder=" ">
+      </div>
+    </form>
+  </div>
+  <div class="create-order-form__billing billing">
+    <p class="billing__title">Biling</p>
+    <form class="billing__form" id="billing">
+      <div class="billing__item">
+        <label class="billing__form-label" for="card">Card Number</label>
+        <input class="billing__form-input" type="number" name="card" id="card" placeholder="XXXX XXXX XXXX XXXX">
+      </div>
+      <div class="billing__item billing__item_two-items">
+        <div class="billing__subitem">
+          <label class="billing__form-label" for="expiration">Expiration</label>
+          <input class="billing__form-input" type="number" name="expiration" id="expiration" placeholder="MM/YY">
+        </div>
+        <div class="billing__subitem">
+          <label class="billing__form-label" for="cvc">CVC</label>
+          <input class="billing__form-input" type="number" name="cvc" id="cvc" placeholder="CVC">
+        </div>
+      </div>
+    </form>
+  </div>
+  <button class="create-order-form__btn bnt btn btn_orange">Place order</button>
+</div>
+      </div>
     </div>
   </div>
 
