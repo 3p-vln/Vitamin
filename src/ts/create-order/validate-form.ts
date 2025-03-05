@@ -1,6 +1,5 @@
 import JustValidate from 'just-validate';
 import { getElement } from '../composables/use-call-dom.ts';
-// import IMask from 'imask';
 
 export function validateDeliveryForm(): Promise<boolean> {
   return new Promise((resolve) => {
@@ -77,7 +76,7 @@ export function validateDeliveryForm(): Promise<boolean> {
         },
         {
           rule: 'customRegexp',
-          value: /^[\p{L}.,\s]+$/u,
+          value: /^[\p{L}\d.,\s]+$/u,
           errorMessage: 'Write correct address',
         },
       ])
@@ -94,7 +93,7 @@ export function validateDeliveryForm(): Promise<boolean> {
         },
         {
           rule: 'customRegexp',
-          value: /^[\p{L}.,\s]+$/u,
+          value: /^[\p{L}\d.,\s]+$/u,
           errorMessage: 'Write correct address',
         },
       ])
@@ -105,8 +104,8 @@ export function validateDeliveryForm(): Promise<boolean> {
         },
         {
           rule: 'minLength',
-          value: 5,
-          errorMessage: 'Must be at least 5 characters',
+          value: 2,
+          errorMessage: 'Must be at least 2 characters',
         },
         {
           rule: 'maxLength',
@@ -186,95 +185,82 @@ export function validateDeliveryForm(): Promise<boolean> {
   });
 }
 
-// export function validateBillForm(): Promise<boolean> {
-//   return new Promise((resolve) => {
-//     const form = getElement('#billing') as HTMLFormElement;
-//     const cardInput = getElement('#card') as HTMLInputElement;
-//     const expirationInput = getElement('#expiration') as HTMLInputElement;
-//     const cvcInput = getElement('#cvc') as HTMLInputElement;
-//
-//     if (!form || !cardInput || !expirationInput || !cvcInput) {
-//       resolve(false);
-//       console.log(1);
-//       return;
-//     }
-//
-//     // Маски для полей ввода
-//     const maskOptionsCard = {
-//       mask: '0000 0000 0000 0000',
-//     };
-//     const maskOptionsDate = {
-//       mask: '00/00',
-//     };
-//     const maskOptionsCvc = {
-//       mask: '000',
-//     };
-//
-//     // Применение масок
-//     void new IMask(cardInput, maskOptionsCard);
-//     void new IMask(expirationInput, maskOptionsDate);
-//     void new IMask(cvcInput, maskOptionsCvc);
-//
-//     // Инициализация валидатора
-//     const validator = new JustValidate(form, {
-//       focusInvalidField: true,
-//       lockForm: true,
-//       validateBeforeSubmitting: true,
-//     });
-//
-//     validator
-//       .addField('#card', [
-//         {
-//           rule: 'required',
-//           errorMessage: 'This field is required',
-//         },
-//       ])
-//       .addField('#expiration', [
-//         {
-//           rule: 'required',
-//           errorMessage: 'This field is required',
-//         },
-//       ])
-//       .addField('#cvc', [
-//         {
-//           rule: 'required',
-//           errorMessage: 'This field is required',
-//         }
-//       ]);
-//
-//     // После загрузки страницы проверяем форму
-//     if (document.readyState === 'complete') {
-//       validator.revalidate().then((isValid: boolean) => {
-//         resolve(isValid);
-//       });
-//
-//       return;
-//     }
-//
-//     // Если форма еще не загружена, возвращаем false
-//     resolve(false);
-//   });
-// }
+export function validateBillForm(): Promise<boolean> {
+  return new Promise((resolve) => {
+    const form = getElement('#billing') as HTMLFormElement;
+    const cardInput = getElement('#card') as HTMLInputElement;
+    const expirationInput = getElement('#expiration') as HTMLInputElement;
+    const cvcInput = getElement('#cvc') as HTMLInputElement;
 
-export function initializeMasks() {
-  const cardInput = getElement('#card') as HTMLInputElement;
-  const expirationInput = getElement('#expiration') as HTMLInputElement;
-  const cvcInput = getElement('#cvc') as HTMLInputElement;
+    if (!form || !cardInput || !expirationInput || !cvcInput) {
+      resolve(false);
+      return;
+    }
 
-  if (cardInput) {
-    const cardMask = new Inputmask('0000 0000 0000 0000');
-    cardMask.mask(cardInput);
-  }
+    const maskCard = (value: string) => {
+      value = value.replace(/\D/g, '').slice(0, 16);
+      return value.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
+    };
 
-  if (expirationInput) {
-    const dateMask = new Inputmask('00/00');
-    dateMask.mask(expirationInput);
-  }
+    const maskDate = (value: string) => {
+      value = value.replace(/\D/g, '').slice(0, 4);
+      return value.replace(/(\d{2})(?=\d)/g, '$1/').trim();
+    };
 
-  if (cvcInput) {
-    const cvcMask = new Inputmask('000');
-    cvcMask.mask(cvcInput);
-  }
+    const maskCvc = (value: string) => {
+      value = value.replace(/\D/g, '').slice(0, 3);
+      return value;
+    };
+
+    cardInput.addEventListener('input', () => {
+      cardInput.value = maskCard(cardInput.value);
+    });
+
+    expirationInput.addEventListener('input', () => {
+      expirationInput.value = maskDate(expirationInput.value);
+    });
+
+    cvcInput.addEventListener('input', () => {
+      cvcInput.value = maskCvc(cvcInput.value);
+    });
+
+    const validator = new JustValidate(form, {
+      focusInvalidField: true,
+      lockForm: true,
+      validateBeforeSubmitting: true,
+    });
+
+    validator
+      .addField('#card', [
+        {
+          rule: 'required',
+          errorMessage: 'This field is required',
+        },
+      ])
+      .addField('#expiration', [
+        {
+          rule: 'required',
+          errorMessage: 'This field is required',
+        },
+      ])
+      .addField('#cvc', [
+        {
+          rule: 'required',
+          errorMessage: 'This field is required',
+        }
+      ]);
+
+    if (document.readyState === 'complete') {
+      validator.revalidate().then((isValid: boolean) => {
+        resolve(isValid);
+      });
+
+      return;
+    }
+
+    resolve(false);
+  });
 }
+
 
 

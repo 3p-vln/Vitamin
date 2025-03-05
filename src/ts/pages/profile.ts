@@ -9,9 +9,6 @@ import { renderFormRole } from '../profile/overview/render-form-role.ts';
 import { unlockSubmit } from '../profile/overview/unlock-submit-button.ts';
 import { overviewValidete } from '../profile/overview/overview-validete.ts';
 
-
-
-
 document.addEventListener('DOMContentLoaded', async () => {
   initHeader();
   checkFillInputs()
@@ -23,9 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   checkFillPaymentInputs ()
 
   overviewCustomSelect()
-  renderFormRole()
+  await renderFormRole()
   unlockSubmit()
   overviewValidete()
-
-
 });
