@@ -4,45 +4,11 @@ import { getElement } from '../composables/use-call-dom.ts';
 export async function validateOrderInfo(): Promise<boolean> {
   return new Promise((resolve) => {
     const form = getElement('#create-order') as HTMLFormElement;
-    const cardInput = getElement('#card') as HTMLInputElement;
-    const expirationInput = getElement('#expiration') as HTMLInputElement;
-    const cvcInput = getElement('#cvc') as HTMLInputElement;
-
-    if (!form || !cardInput || !expirationInput || !cvcInput) {
-      resolve(false);
-      return;
-    }
-
-    const maskCard = (value: string) => {
-      value = value.replace(/\D/g, '').slice(0, 16);
-      return value.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
-    };
-
-    const maskDate = (value: string) => {
-      value = value.replace(/\D/g, '').slice(0, 4);
-      return value.replace(/(\d{2})(?=\d)/g, '$1/').trim();
-    };
-
-    const maskCvc = (value: string) => {
-      value = value.replace(/\D/g, '').slice(0, 3);
-      return value;
-    };
-
-    cardInput.addEventListener('input', () => {
-      cardInput.value = maskCard(cardInput.value);
-    });
-
-    expirationInput.addEventListener('input', () => {
-      expirationInput.value = maskDate(expirationInput.value);
-    });
-
-    cvcInput.addEventListener('input', () => {
-      cvcInput.value = maskCvc(cvcInput.value);
-    });
+    if(!form) return;
 
     const validator = new JustValidate(form, {
       focusInvalidField: true,
-      lockForm: false, // Убедитесь, что форма не блокируется
+      lockForm: false,
       validateBeforeSubmitting: true,
     });
 
@@ -241,7 +207,7 @@ export async function validateOrderInfo(): Promise<boolean> {
         },
       ]);
 
-    validator.validate(); // Запускаем валидацию сразу
+    validator.validate();
     validator.onSuccess(() => resolve(true));
     validator.onFail(() => resolve(false));
   });
