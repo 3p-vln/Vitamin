@@ -1,18 +1,48 @@
 import JustValidate from 'just-validate';
 import { getElement } from '../composables/use-call-dom.ts';
 
-export function validateDeliveryForm(): Promise<boolean> {
+export async function validateOrderInfo(): Promise<boolean> {
   return new Promise((resolve) => {
-    const form = getElement('#deliver-info') as HTMLFormElement;
+    const form = getElement('#create-order') as HTMLFormElement;
+    const cardInput = getElement('#card') as HTMLInputElement;
+    const expirationInput = getElement('#expiration') as HTMLInputElement;
+    const cvcInput = getElement('#cvc') as HTMLInputElement;
 
-    if (!form) {
+    if (!form || !cardInput || !expirationInput || !cvcInput) {
       resolve(false);
       return;
     }
 
+    const maskCard = (value: string) => {
+      value = value.replace(/\D/g, '').slice(0, 16);
+      return value.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
+    };
+
+    const maskDate = (value: string) => {
+      value = value.replace(/\D/g, '').slice(0, 4);
+      return value.replace(/(\d{2})(?=\d)/g, '$1/').trim();
+    };
+
+    const maskCvc = (value: string) => {
+      value = value.replace(/\D/g, '').slice(0, 3);
+      return value;
+    };
+
+    cardInput.addEventListener('input', () => {
+      cardInput.value = maskCard(cardInput.value);
+    });
+
+    expirationInput.addEventListener('input', () => {
+      expirationInput.value = maskDate(expirationInput.value);
+    });
+
+    cvcInput.addEventListener('input', () => {
+      cvcInput.value = maskCvc(cvcInput.value);
+    });
+
     const validator = new JustValidate(form, {
       focusInvalidField: true,
-      lockForm: true,
+      lockForm: false, // Убедитесь, что форма не блокируется
       validateBeforeSubmitting: true,
     });
 
@@ -118,7 +148,7 @@ export function validateDeliveryForm(): Promise<boolean> {
           errorMessage: 'Enter a valid city name',
         },
       ])
-      .addField('#state-hidden', [
+      .addField('#state', [
         {
           rule: 'required',
           errorMessage: 'This field is required',
@@ -176,65 +206,16 @@ export function validateDeliveryForm(): Promise<boolean> {
           value: /^\+?\d+$/,
           errorMessage: 'Enter a valid phone number',
         },
-      ]);
-
-    if (document.readyState === 'complete') {
-      return;
-    }
-    resolve(false);
-  });
-}
-
-export function validateBillForm(): Promise<boolean> {
-  return new Promise((resolve) => {
-    const form = getElement('#billing') as HTMLFormElement;
-    const cardInput = getElement('#card') as HTMLInputElement;
-    const expirationInput = getElement('#expiration') as HTMLInputElement;
-    const cvcInput = getElement('#cvc') as HTMLInputElement;
-
-    if (!form || !cardInput || !expirationInput || !cvcInput) {
-      resolve(false);
-      return;
-    }
-
-    const maskCard = (value: string) => {
-      value = value.replace(/\D/g, '').slice(0, 16);
-      return value.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
-    };
-
-    const maskDate = (value: string) => {
-      value = value.replace(/\D/g, '').slice(0, 4);
-      return value.replace(/(\d{2})(?=\d)/g, '$1/').trim();
-    };
-
-    const maskCvc = (value: string) => {
-      value = value.replace(/\D/g, '').slice(0, 3);
-      return value;
-    };
-
-    cardInput.addEventListener('input', () => {
-      cardInput.value = maskCard(cardInput.value);
-    });
-
-    expirationInput.addEventListener('input', () => {
-      expirationInput.value = maskDate(expirationInput.value);
-    });
-
-    cvcInput.addEventListener('input', () => {
-      cvcInput.value = maskCvc(cvcInput.value);
-    });
-
-    const validator = new JustValidate(form, {
-      focusInvalidField: true,
-      lockForm: true,
-      validateBeforeSubmitting: true,
-    });
-
-    validator
+      ])
       .addField('#card', [
         {
           rule: 'required',
           errorMessage: 'This field is required',
+        },
+        {
+          rule: 'minLength',
+          value: 19,
+          errorMessage: 'Must be at least 16 characters',
         },
       ])
       .addField('#expiration', [
@@ -242,25 +223,26 @@ export function validateBillForm(): Promise<boolean> {
           rule: 'required',
           errorMessage: 'This field is required',
         },
+        {
+          rule: 'minLength',
+          value: 5,
+          errorMessage: 'Must be at least 4 characters',
+        },
       ])
       .addField('#cvc', [
         {
           rule: 'required',
           errorMessage: 'This field is required',
-        }
+        },
+        {
+          rule: 'minLength',
+          value: 3,
+          errorMessage: 'Must be at least 3 characters',
+        },
       ]);
 
-    if (document.readyState === 'complete') {
-      validator.revalidate().then((isValid: boolean) => {
-        resolve(isValid);
-      });
-
-      return;
-    }
-
-    resolve(false);
+    validator.validate(); // Запускаем валидацию сразу
+    validator.onSuccess(() => resolve(true));
+    validator.onFail(() => resolve(false));
   });
 }
-
-
-
