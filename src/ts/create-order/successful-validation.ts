@@ -23,19 +23,10 @@ export async function ctrateOrder() {
   });
 }
 
-function redirectPage() {
-  if (!storedUserInfo) {
-    window.location.href = '/Vitamin/index.html';
-    return;
-  }
-
-  window.location.href = '/Vitamin/shop.html';
-}
-
 function addToOrders() {
   if (!storedUserInfo) {
     localStorage.removeItem('cartItems');
-    redirectPage();
+    window.location.href = '/Vitamin/successful-order.html';
   }
 
   const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
@@ -59,7 +50,7 @@ function addToOrders() {
     .then((response) => {
       console.log('Order created successfully:', response);
       localStorage.removeItem('cartItems');
-      redirectPage();
+      window.location.href = '/Vitamin/successful-order.html';
     })
     .catch((error) => {
       console.error('Error creating order:', error);
