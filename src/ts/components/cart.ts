@@ -8,6 +8,7 @@ const cart = getElement('.cart');
 const cartCloseBtn = getElement('.cart__close');
 const cartBg = getElement('.cart__bg');
 const cartContainer = getElement('.cart__items');
+const storedUserInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
 
 let prodList = getElements('.prod');
 let empty: boolean;
@@ -479,7 +480,7 @@ export function addBtn(prod: Product) {
 
   const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
-  if(!addItems) return;
+  if (!addItems) return;
 
   if (!productExists) {
     renderProdCard(prod, false, '30', Number(addItems.innerText));
@@ -487,7 +488,7 @@ export function addBtn(prod: Product) {
     return;
   }
 
-  if(!autoshipCheckbox || !autoshipDaysText || !counterItems) return;
+  if (!autoshipCheckbox || !autoshipDaysText || !counterItems) return;
 
   updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', Number(counterItems.textContent) + Number(addItems.innerText));
   loadCartFromLocalStorage();
@@ -538,4 +539,33 @@ function totalCartPrice() {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
+
+  limitTotalPrice(total);
+}
+
+function limitTotalPrice(total: number) {
+  const btnWrspper = getElement('.cart__btn');
+  if(!btnWrspper) return;
+
+  const btn = getElement('.btn', btnWrspper);
+  if (!storedUserInfo || !btn) return;
+
+  if (storedUserInfo.role_type === 'whosale') {
+    btn.style.backgroundColor = '#C3BDB6';
+    btn.style.pointerEvents = 'none';
+    const limitInfo = renderElement('p', 'cart__limit')
+    limitInfo.style.marginTop = '15px';
+    limitInfo.style.textAlign = 'center';
+    limitInfo.style.opacity = '0.5';
+    limitInfo.style.fontSize = '14px';
+    limitInfo.style.fontWeight = '400';
+    limitInfo.innerText = 'Minimum order amount is $700'
+
+    btnWrspper.appendChild(limitInfo);
+
+    if (total >= 700) {
+      btn.style.backgroundColor = '';
+      btn.style.pointerEvents = '';
+    }
+  }
 }
