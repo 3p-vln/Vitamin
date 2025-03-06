@@ -561,7 +561,9 @@ function limitTotalPrice(total: number) {
     limitInfo.style.fontWeight = '400';
     limitInfo.innerText = 'Minimum order amount is $700'
 
-    btnWrspper.appendChild(limitInfo);
+    if(!getElement('.cart__limit')){
+      btnWrspper.appendChild(limitInfo);
+    }
 
     if (total >= 700) {
       btn.style.backgroundColor = '';

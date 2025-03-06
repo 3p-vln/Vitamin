@@ -12,6 +12,7 @@ export async function ctrateOrder() {
   if (!createBtnMain || !createBtnSub) return;
 
   applyMask();
+  addUserInfo();
 
   createBtnSub.addEventListener('click', () => {
     createBtnMain.click();
@@ -69,4 +70,20 @@ function applyMask() {
   IMask(cardInput, { mask: '0000 0000 0000 0000' });
   IMask(expirationInput, { mask: '00/00' });
   IMask(cvcInput, { mask: '000' });
+}
+
+function addUserInfo() {
+  if (!storedUserInfo) return;
+
+  const firstNameInp = getElement('#first-name') as HTMLInputElement;
+  const lastNameInp = getElement('#last-name') as HTMLInputElement;
+  const addressFirstInp = getElement('#address-line1') as HTMLInputElement;
+  const addressSecondInp = getElement('#address-line2') as HTMLInputElement;
+  const cityInp = getElement('#city') as HTMLInputElement;
+
+  if (!firstNameInp || !lastNameInp || !addressFirstInp || !addressSecondInp || !cityInp) return;
+
+  firstNameInp.value = storedUserInfo.first_name;
+  lastNameInp.value = storedUserInfo.last_name;
+  // firstNameInp.value = storedUserInfo.first_name;
 }
