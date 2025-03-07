@@ -19,15 +19,9 @@ const backToShopBtn = getElement('.info__backbtn');
 export async function initCart() {
   if (!cartBtn || !cartCloseBtn || !cartBg || !cartContainer) return;
 
-  cartBtn.addEventListener('click', (event) => {
-    cartActive(event);
-    scrollLock();
-  });
+  cartBtn.addEventListener('click', (event) => cartActive(event));
 
-  cartCloseBtn.addEventListener('click', () => {
-    cartClose();
-    scrollLock();
-  });
+  cartCloseBtn.addEventListener('click', () => cartClose());
 
   loadCartFromLocalStorage();
   totalCartPrice();
@@ -39,11 +33,6 @@ export async function initCart() {
 
     changeAutoshipText(prodAutoshipText);
   });
-
-  cartBg.addEventListener('click', () => {
-    cartClose();
-    scrollLock();
-  });
 }
 
 export function cartActive(event: Event) {
@@ -54,6 +43,8 @@ export function cartActive(event: Event) {
   classManipulator(cart, 'add', 'cart_active');
 
   if (backToShopBtn) backToShopBtn.style.zIndex = '1';
+
+  scrollLock();
 }
 
 function cartClose() {
@@ -62,6 +53,8 @@ function cartClose() {
   classManipulator(cart, 'remove', 'cart_active');
 
   if (backToShopBtn) backToShopBtn.style.zIndex = '25';
+
+  scrollLock();
 }
 
 function removeProd(prodId: number) {
@@ -420,10 +413,20 @@ export function loadCartFromLocalStorage() {
   cartContainer.innerHTML = '';
 
   cartItems.forEach(async (prod: ProductLocalStorge) => {
-    const prodItem = (await getCatalogItem(`${prod.id}`)) as Product;
-    renderProdCard(prodItem, prod.autoshipChecked, prod.autoshipDays, prod.counts);
-    updateInfoInLocal(prodItem);
-    prodList = getElements('.prod');
+    try {
+      const prodItem = await getCatalogItem(`${prod.id}`);
+
+      if ('errors' in prodItem) {
+        console.error(prodItem.errors);
+        return;
+      }
+
+      renderProdCard(prodItem, prod.autoshipChecked, prod.autoshipDays, prod.counts);
+      updateInfoInLocal(prodItem);
+      prodList = getElements('.prod');
+    } catch (error) {
+      console.error(error);
+    }
   });
 }
 
@@ -540,7 +543,13 @@ function totalCartPrice() {
 
   cartItems.forEach(async (item: ProductLocalStorge) => {
     try {
-      const prodItem = (await getCatalogItem(`${item.id}`)) as Product;
+      const prodItem = await getCatalogItem(`${item.id}`);
+
+      if ('errors' in prodItem) {
+        console.error(prodItem.errors);
+        return;
+      }
+
       if (prodItem.type === 'Sale%') totalProdPrice = getDiscountedPrice(prodItem.price, prodItem.discount, item.counts);
       else totalProdPrice = getTotalPrice(prodItem.price, item.counts);
 
@@ -552,9 +561,8 @@ function totalCartPrice() {
       })}`;
 
       limitTotalPrice(total);
-
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   });
 }

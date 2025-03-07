@@ -1,5 +1,15 @@
 import axios, { AxiosError } from 'axios';
-import { CardInfoData, LogInData, OrderData, PasswordData, ProfileUpdateData, RefreshTokenData, RegisterData, ResetPasswordData, SetNewPasswordData } from '../components/interfaces';
+import {
+  CardInfoData,
+  LogInData,
+  OrderData,
+  PasswordData, ProdResponse, Product,
+  ProfileUpdateData,
+  RefreshTokenData,
+  RegisterData,
+  ResetPasswordData,
+  SetNewPasswordData,
+} from '../components/interfaces';
 
 const API_BASE_URL = 'https://www.mku-journal.online';
 
@@ -39,10 +49,10 @@ export const checkResetToken = (token: string) => handleRequest(api.get(`/auth/c
 export const setNewPassword = (data: SetNewPasswordData) => handleRequest(api.post('/auth/set-new-password', data));
 
 //Catalog
-export const getCatalogList = (page: number, limit: number, type?: string) => handleRequest(api.get('/catalog/all-list', { params: { type, page, limit } }));
-export const getCatalogItem = (id: string) => handleRequest(api.get(`/catalog/${id}/info`));
+export const getCatalogList = (page: number, limit: number, type?: string) => handleRequest<ProdResponse>(api.get('/catalog/all-list', { params: { type, page, limit } }));
+export const getCatalogItem = (id: string) => handleRequest<Product>(api.get(`/catalog/${id}/info`));
 export const createOrder = (data: OrderData) => handleRequest(api.post('/catalog/create-order', data));
-export const getRecommendations = (isMain: boolean) => handleRequest(api.get(`${isMain ? '/catalog/recommendations?is_main=true' : '/catalog/recommendations'}`));
+export const getRecommendations = (isMain: boolean) => handleRequest<ProdResponse>(api.get(`${isMain ? '/catalog/recommendations?is_main=true' : '/catalog/recommendations'}`));
 
 //Profile
 export const getProfileInfo = () => handleRequest(api.get('/profile/info'));

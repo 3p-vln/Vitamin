@@ -62,9 +62,10 @@ export interface RecommendationData {
   img: string;
   discount: number;
   type: string;
+  description: string;
 }
 
-export interface RecommendationResponse {
+export interface ProdResponse {
   data: RecommendationData[];
   meta: {
     totalItems: number;
@@ -73,17 +74,17 @@ export interface RecommendationResponse {
   errors?: { message: string }[];
 }
 
-export interface CardData {
-  id: number;
-  name: string;
-  description: string;
-  img: string;
-  type: string;
-}
+// export interface CardData {
+//   id: number;
+//   name: string;
+//   description: string;
+//   img: string;
+//   type: string;
+// }
 
-export interface Response {
-  data: CardData[];
-}
+// export interface Response {
+//   data: CardData[];
+// }
 
 export interface Product {
   id: number;

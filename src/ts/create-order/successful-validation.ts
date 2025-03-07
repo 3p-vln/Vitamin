@@ -9,18 +9,18 @@ const createBtnSub = getElement('.order-list__btn');
 const storedUserInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
 const storedOrderInfo = JSON.parse(localStorage.getItem('orderInfo') || '[]');
 
-const firstNameInput = getElement('#first-name') as HTMLInputElement;
-const lastNameInput = getElement('#last-name') as HTMLInputElement;
-const addressFirstInput = getElement('#address-line1') as HTMLInputElement;
-const addressSecondInput = getElement('#address-line2') as HTMLInputElement;
-const cityInput = getElement('#city') as HTMLInputElement;
-const stateInput = getElement('#state') as HTMLInputElement;
-const zipInput = getElement('#zip') as HTMLInputElement;
-const emailInput = getElement('#mail') as HTMLInputElement;
-const phoneInput = getElement('#phone') as HTMLInputElement;
-const cardInput = getElement('#card') as HTMLInputElement;
-const expirationInput = getElement('#expiration') as HTMLInputElement;
-const cvcInput = getElement('#cvc') as HTMLInputElement;
+const firstNameInput = getElement<HTMLInputElement>('#first-name');
+const lastNameInput = getElement<HTMLInputElement>('#last-name');
+const addressFirstInput = getElement<HTMLInputElement>('#address-line1');
+const addressSecondInput = getElement<HTMLInputElement>('#address-line2');
+const cityInput = getElement<HTMLInputElement>('#city');
+const stateInput = getElement<HTMLInputElement>('#state');
+const zipInput = getElement<HTMLInputElement>('#zip');
+const emailInput = getElement<HTMLInputElement>('#mail');
+const phoneInput = getElement<HTMLInputElement>('#phone');
+const cardInput = getElement<HTMLInputElement>('#card');
+const expirationInput = getElement<HTMLInputElement>('#expiration');
+const cvcInput = getElement<HTMLInputElement>('#cvc');
 
 export async function ctrateOrder() {
   if (!createBtnMain || !createBtnSub) return;
@@ -65,15 +65,15 @@ function addToOrders() {
     user_id: storedUserInfo.user_id,
   };
 
-  createOrder(orderData)
-    .then((response) => {
+  try {
+    createOrder(orderData).then((response) => {
       console.log('Order created successfully:', response);
       localStorage.removeItem('cartItems');
       window.location.href = '/Vitamin/successful-order.html';
-    })
-    .catch((error) => {
-      console.error('Error creating order:', error);
     });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function applyMask() {

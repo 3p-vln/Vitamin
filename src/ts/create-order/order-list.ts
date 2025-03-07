@@ -1,5 +1,5 @@
 import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
-import { Product, ProductLocalStorge } from '../components/interfaces.ts';
+import { ProductLocalStorge } from '../components/interfaces.ts';
 import { getDiscountedPrice, getTotalPrice } from '../components/cart.ts';
 import { getCatalogItem } from '../composables/use-api.ts';
 
@@ -34,53 +34,62 @@ async function renderProd(prod: ProductLocalStorge) {
 
   const prodImg = renderElement('div', 'prod__img');
 
-  const prodItem = (await getCatalogItem(`${prod.id}`)) as Product;
+  try {
+    const prodItem = await getCatalogItem(`${prod.id}`);
 
-  if (prodItem.type === 'Vitamins & Dietary Supplements') {
-    classManipulator(prodImg, 'add', 'prod__img_purple');
-  }
-  if (prodItem.type === 'Minerals') {
-    classManipulator(prodImg, 'add', 'prod__img_green-mint');
-  }
-  if (prodItem.type === 'Prenatal Vitamins') {
-    classManipulator(prodImg, 'add', 'prod__img_pink');
-  }
-  if (prodItem.type === 'Pain Relief') {
-    classManipulator(prodImg, 'add', 'prod__img_blue');
-  }
-  if (prodItem.type === 'Antioxidants') {
-    classManipulator(prodImg, 'add', 'prod__img_orange');
-  }
-  if (prodItem.type === 'Weight Loss') {
-    classManipulator(prodImg, 'add', 'prod__img_dark-blue');
-  }
-  if (prodItem.type === 'Probiotics' || prodItem.type === 'Sale%') {
-    classManipulator(prodImg, 'add', 'prod__img_red');
-  }
+    if ('errors' in prodItem) {
+      console.error(prodItem.errors);
+      return;
+    }
 
-  prodImg.innerHTML = `
+    if (prodItem.type === 'Vitamins & Dietary Supplements') {
+      classManipulator(prodImg, 'add', 'prod__img_purple');
+    }
+    if (prodItem.type === 'Minerals') {
+      classManipulator(prodImg, 'add', 'prod__img_green-mint');
+    }
+    if (prodItem.type === 'Prenatal Vitamins') {
+      classManipulator(prodImg, 'add', 'prod__img_pink');
+    }
+    if (prodItem.type === 'Pain Relief') {
+      classManipulator(prodImg, 'add', 'prod__img_blue');
+    }
+    if (prodItem.type === 'Antioxidants') {
+      classManipulator(prodImg, 'add', 'prod__img_orange');
+    }
+    if (prodItem.type === 'Weight Loss') {
+      classManipulator(prodImg, 'add', 'prod__img_dark-blue');
+    }
+    if (prodItem.type === 'Probiotics' || prodItem.type === 'Sale%') {
+      classManipulator(prodImg, 'add', 'prod__img_red');
+    }
+
+    prodImg.innerHTML = `
     <img src="${prodItem.img}" alt="" />
   `;
 
-  const prodCountAndName = renderElement('div', 'prod__count-and-name');
-  prodCountAndName.innerText = `${prod.counts} x ${prodItem.name}`;
+    const prodCountAndName = renderElement('div', 'prod__count-and-name');
+    prodCountAndName.innerText = `${prod.counts} x ${prodItem.name}`;
 
-  const prodPrice = renderElement('p', 'prod__price');
-  const priceDiscount = getDiscountedPrice(prodItem.price, prodItem.discount, prod.counts);
-  const priceTotoal = getTotalPrice(prodItem.price, prod.counts);
+    const prodPrice = renderElement('p', 'prod__price');
+    const priceDiscount = getDiscountedPrice(prodItem.price, prodItem.discount, prod.counts);
+    const priceTotoal = getTotalPrice(prodItem.price, prod.counts);
 
-  if (prodItem.type === 'Sale%') {
-    classManipulator(prodPrice, 'add', 'prod__price_sale');
-    prodPrice.innerHTML = `<span>$${priceTotoal}</span> $${priceDiscount}`;
-  } else {
-    prodPrice.innerText = `$${priceTotoal}`;
+    if (prodItem.type === 'Sale%') {
+      classManipulator(prodPrice, 'add', 'prod__price_sale');
+      prodPrice.innerHTML = `<span>$${priceTotoal}</span> $${priceDiscount}`;
+    } else {
+      prodPrice.innerText = `$${priceTotoal}`;
+    }
+
+    prodContent.appendChild(prodImg);
+    prodContent.appendChild(prodCountAndName);
+    prodContent.appendChild(prodPrice);
+
+    orderListCintainer.appendChild(prodContent);
+  } catch (error) {
+    console.error(error);
   }
-
-  prodContent.appendChild(prodImg);
-  prodContent.appendChild(prodCountAndName);
-  prodContent.appendChild(prodPrice);
-
-  orderListCintainer.appendChild(prodContent);
 }
 
 function totalCartPrice() {
@@ -104,7 +113,13 @@ function totalCartPrice() {
 
   cartItems.forEach(async (item: ProductLocalStorge) => {
     try {
-      const prodItem = (await getCatalogItem(`${item.id}`)) as Product;
+      const prodItem = await getCatalogItem(`${item.id}`);
+
+      if ('errors' in prodItem) {
+        console.error(prodItem.errors);
+        return;
+      }
+
       if (prodItem.type === 'Sale%') {
         totalProdPrice = getDiscountedPrice(prodItem.price, prodItem.discount, item.counts);
         discount += parseFloat(getTotalPrice(prodItem.price, item.counts).replace(/,/g, '').replace(/\s/g, '')) - parseFloat(getDiscountedPrice(prodItem.price, prodItem.discount, item.counts).replace(/,/g, '').replace(/\s/g, ''));

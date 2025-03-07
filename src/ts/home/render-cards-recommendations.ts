@@ -1,11 +1,15 @@
-import { CardData, Response } from './../components/interfaces';
 import { getRecommendations } from '../composables/use-api.ts';
 
 export async function renderCards(): Promise<void> {
 
   try {
 
-    const response = await getRecommendations(false) as Response;
+    const response = await getRecommendations(false);
+
+    if ('errors' in response) {
+      console.error(response.errors);
+      return;
+    }
 
     if (!response?.data || !Array.isArray(response.data)) {
       console.error('Invalid response format', response);
@@ -23,7 +27,7 @@ export async function renderCards(): Promise<void> {
 
     const fragment: DocumentFragment = document.createDocumentFragment();
 
-    response.data.forEach((item: CardData) => {
+    response.data.forEach((item) => {
 
       const card: HTMLElement = document.createElement('div');
       card.className = 'swiper-slide choose-products__slide';

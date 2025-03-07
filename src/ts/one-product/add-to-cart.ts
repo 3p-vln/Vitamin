@@ -12,8 +12,18 @@ export async function addToCartBtn() {
   if (!addProdBtn) return;
 
   if (prodId) {
-    const prod = (await getCatalogItem(prodId)) as Product;
-    addToCart(prod);
+    try {
+      const prod = await getCatalogItem(prodId);
+
+      if ('errors' in prod) {
+        console.error(prod.errors);
+        return;
+      }
+
+      addToCart(prod);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 

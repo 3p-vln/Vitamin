@@ -1,12 +1,8 @@
-export function getElementId(id: string): HTMLElement | null {
-  return document.getElementById(id);
-}
-
-export function getElements(selectors: string, target: HTMLElement | Document = document): NodeListOf<HTMLElement> {
+export function getElements<T extends HTMLElement>(selectors: string, target: T | Document = document): NodeListOf<T> {
   return target.querySelectorAll(selectors);
 }
 
-export function getElement(selector: string, target: HTMLElement | Document = document): HTMLElement | null {
+export function getElement<T extends HTMLElement>(selector: string, target: HTMLElement | Document = document): T | null {
   return target.querySelector(selector);
 }
 
@@ -18,8 +14,8 @@ export function classManipulator(element: HTMLElement, action: 'add' | 'remove',
   }
 }
 
-export function renderElement(element: string, elementsClass: string[] | string | null) {
-  const domElement = document.createElement(element);
+export function renderElement<T extends HTMLElement>(element: string, elementsClass: string[] | string | null): T {
+  const domElement = document.createElement(element) as T;
 
   if (elementsClass) {
     if (Array.isArray(elementsClass)) {
