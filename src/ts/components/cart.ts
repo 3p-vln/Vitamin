@@ -2,6 +2,7 @@ import { classManipulator, getElement, getElements, renderElement } from '../com
 import { initCounter } from './counter';
 import { initDropdown } from './dropdown';
 import { Product, ProductLocalStorge } from './interfaces';
+import { getCatalogItem } from '../composables/use-api.ts';
 
 const cartBtn = getElement('.header__bag');
 const cart = getElement('.cart');
@@ -64,14 +65,21 @@ function cartClose() {
 }
 
 function removeProd(prodId: number) {
-  if (!prodList) return;
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
-  prodList.forEach((prod) => {
-    const removeBtn = getElement('.prod__close', prod);
+  const productExists = cartItems.some((item: Product) => item.id === prodId);
+
+  if (!productExists) return;
+
+  cartItems.forEach(async (prod: ProductLocalStorge) => {
+    const prodEl = getElement(`.prod_${prod.id}`);
+    if (!prodEl) return;
+
+    const removeBtn = getElement('.prod__close', prodEl);
 
     if (!removeBtn) return;
     removeBtn.addEventListener('click', () => {
-      prod.remove();
+      prodEl.remove();
       removeProductFromLocalStorage(prodId);
     });
   });
@@ -275,7 +283,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
 
   saveProductToLocalStorage(prod);
 
-  prodList = getElements(`.prod`);
+  // prodList = getElements(`.prod`);
   removeProd(prod.id);
 
   updateInfoInLocal(prod);
@@ -318,7 +326,7 @@ function saveProductToLocalStorage(prod: Product) {
 
   if (!productExists) {
     cartItems.push({
-      ...prod,
+      id: prod.id,
       autoshipChecked: autoshipActive,
       autoshipDays: '30',
       counts: countsItems,
@@ -411,9 +419,11 @@ export function loadCartFromLocalStorage() {
   if (!cartContainer) return;
   cartContainer.innerHTML = '';
 
-  cartItems.forEach((prod: ProductLocalStorge) => {
-    renderProdCard(prod, prod.autoshipChecked, prod.autoshipDays, prod.counts);
-    updateInfoInLocal(prod);
+  cartItems.forEach(async (prod: ProductLocalStorge) => {
+    const prodItem = (await getCatalogItem(`${prod.id}`)) as Product;
+    renderProdCard(prodItem, prod.autoshipChecked, prod.autoshipDays, prod.counts);
+    updateInfoInLocal(prodItem);
+    prodList = getElements('.prod');
   });
 }
 
@@ -528,24 +538,30 @@ function totalCartPrice() {
     totalPriceContent.innerText = `$0`;
   }
 
-  cartItems.forEach((item: ProductLocalStorge) => {
-    if (item.type === 'Sale%') totalProdPrice = getDiscountedPrice(item.price, item.discount, item.counts);
-    else totalProdPrice = getTotalPrice(item.price, item.counts);
+  cartItems.forEach(async (item: ProductLocalStorge) => {
+    try {
+      const prodItem = (await getCatalogItem(`${item.id}`)) as Product;
+      if (prodItem.type === 'Sale%') totalProdPrice = getDiscountedPrice(prodItem.price, prodItem.discount, item.counts);
+      else totalProdPrice = getTotalPrice(prodItem.price, item.counts);
 
-    total += parseFloat(totalProdPrice.replace(/,/g, '').replace(/\s/g, ''));
+      total += parseFloat(totalProdPrice.replace(/,/g, '').replace(/\s/g, ''));
+
+      totalPriceContent.innerText = `$${total.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+
+      limitTotalPrice(total);
+
+    } catch (error) {
+      console.log(error);
+    }
   });
-
-  totalPriceContent.innerText = `$${total.toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
-
-  limitTotalPrice(total);
 }
 
 function limitTotalPrice(total: number) {
   const btnWrspper = getElement('.cart__btn');
-  if(!btnWrspper) return;
+  if (!btnWrspper) return;
 
   const btn = getElement('.btn', btnWrspper);
   if (!storedUserInfo || !btn) return;
@@ -553,15 +569,15 @@ function limitTotalPrice(total: number) {
   if (storedUserInfo.role_type === 'whosale') {
     btn.style.backgroundColor = '#C3BDB6';
     btn.style.pointerEvents = 'none';
-    const limitInfo = renderElement('p', 'cart__limit')
+    const limitInfo = renderElement('p', 'cart__limit');
     limitInfo.style.marginTop = '15px';
     limitInfo.style.textAlign = 'center';
     limitInfo.style.opacity = '0.5';
     limitInfo.style.fontSize = '14px';
     limitInfo.style.fontWeight = '400';
-    limitInfo.innerText = 'Minimum order amount is $700'
+    limitInfo.innerText = 'Minimum order amount is $700';
 
-    if(!getElement('.cart__limit')){
+    if (!getElement('.cart__limit')) {
       btnWrspper.appendChild(limitInfo);
     }
 

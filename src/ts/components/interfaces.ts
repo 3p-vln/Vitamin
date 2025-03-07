@@ -103,7 +103,8 @@ export interface Product {
   capsules: number;
 }
 
-export interface ProductLocalStorge extends Product {
+export interface ProductLocalStorge {
+  id: number;
   autoshipChecked: boolean;
   autoshipDays: string;
   counts: number;
