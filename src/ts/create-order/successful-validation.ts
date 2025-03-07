@@ -7,12 +7,27 @@ import IMask from 'imask';
 const createBtnMain = getElement('.create-order-form__btn');
 const createBtnSub = getElement('.order-list__btn');
 const storedUserInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
+const storedOrderInfo = JSON.parse(localStorage.getItem('orderInfo') || '[]');
+
+const firstNameInput = getElement('#first-name') as HTMLInputElement;
+const lastNameInput = getElement('#last-name') as HTMLInputElement;
+const addressFirstInput = getElement('#address-line1') as HTMLInputElement;
+const addressSecondInput = getElement('#address-line2') as HTMLInputElement;
+const cityInput = getElement('#city') as HTMLInputElement;
+const stateInput = getElement('#state') as HTMLInputElement;
+const zipInput = getElement('#zip') as HTMLInputElement;
+const emailInput = getElement('#mail') as HTMLInputElement;
+const phoneInput = getElement('#phone') as HTMLInputElement;
+const cardInput = getElement('#card') as HTMLInputElement;
+const expirationInput = getElement('#expiration') as HTMLInputElement;
+const cvcInput = getElement('#cvc') as HTMLInputElement;
 
 export async function ctrateOrder() {
   if (!createBtnMain || !createBtnSub) return;
 
   applyMask();
-  addUserInfo();
+  // addUserInfo();
+  addUserInfoToForm();
 
   createBtnSub.addEventListener('click', () => {
     createBtnMain.click();
@@ -20,7 +35,10 @@ export async function ctrateOrder() {
 
   createBtnMain.addEventListener('click', async () => {
     const formValidate = await validateOrderInfo();
-    if (formValidate) addToOrders();
+    if (formValidate) {
+      addUserInfoToLocal();
+      addToOrders();
+    }
   });
 }
 
@@ -59,10 +77,6 @@ function addToOrders() {
 }
 
 function applyMask() {
-  const cardInput = getElement('#card') as HTMLInputElement;
-  const expirationInput = getElement('#expiration') as HTMLInputElement;
-  const cvcInput = getElement('#cvc') as HTMLInputElement;
-
   if (!cardInput || !expirationInput || !cvcInput) {
     return;
   }
@@ -72,18 +86,44 @@ function applyMask() {
   IMask(cvcInput, { mask: '000' });
 }
 
-function addUserInfo() {
-  if (!storedUserInfo) return;
+function addUserInfoToLocal() {
+  if (!firstNameInput || !lastNameInput || !addressFirstInput || !addressSecondInput || !cityInput || !stateInput || !zipInput || !emailInput || !phoneInput || !cardInput || !expirationInput || !cvcInput) return;
 
-  const firstNameInp = getElement('#first-name') as HTMLInputElement;
-  const lastNameInp = getElement('#last-name') as HTMLInputElement;
-  const addressFirstInp = getElement('#address-line1') as HTMLInputElement;
-  const addressSecondInp = getElement('#address-line2') as HTMLInputElement;
-  const cityInp = getElement('#city') as HTMLInputElement;
+  const orderInfo = {
+    firstName: firstNameInput.value,
+    lastName: lastNameInput.value,
+    addressFirst: addressFirstInput.value,
+    addressSecond: addressSecondInput.value,
+    city: cityInput.value,
+    state: stateInput.value,
+    zip: zipInput.value,
+    email: emailInput.value,
+    phone: phoneInput.value,
+    card: cardInput.value,
+    date: expirationInput.value,
+    cvc: cvcInput.value,
+  };
 
-  if (!firstNameInp || !lastNameInp || !addressFirstInp || !addressSecondInp || !cityInp) return;
+  console.log('Order created:', orderInfo);
 
-  firstNameInp.value = storedUserInfo.first_name;
-  lastNameInp.value = storedUserInfo.last_name;
-  // firstNameInp.value = storedUserInfo.first_name;
+  localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
+}
+
+function addUserInfoToForm() {
+  if (!firstNameInput || !lastNameInput || !addressFirstInput || !addressSecondInput || !cityInput || !stateInput || !zipInput || !emailInput || !phoneInput || !cardInput || !expirationInput || !cvcInput) return;
+
+  if (storedOrderInfo && !storedUserInfo) {
+    firstNameInput.value = storedOrderInfo.firstName;
+    lastNameInput.value = storedOrderInfo.lastName;
+    addressFirstInput.value = storedOrderInfo.addressFirst;
+    addressSecondInput.value = storedOrderInfo.addressSecond;
+    cityInput.value = storedOrderInfo.city;
+    stateInput.value = storedOrderInfo.state;
+    zipInput.value = storedOrderInfo.zip;
+    emailInput.value = storedOrderInfo.email;
+    phoneInput.value = storedOrderInfo.phone;
+    cardInput.value = storedOrderInfo.card;
+    expirationInput.value = storedOrderInfo.expiration;
+    cvcInput.value = storedOrderInfo.cvc;
+  }
 }
