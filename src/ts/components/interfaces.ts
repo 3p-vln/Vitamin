@@ -55,6 +55,37 @@ export interface PasswordData {
   new_password: string;
 }
 
+export interface UserNotFoundInfo {
+  message: string;
+  error: string;
+}
+
+export interface UserInfo {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+}
+
+export interface OrdersData {
+  orders: [
+    {
+      date_created: string,
+      order_number: string,
+      items: [
+        {
+          product: {
+            additionalProp1: {}
+          },
+          quantity: number,
+          is_discount: boolean,
+          total_sum: number
+        }
+      ]
+    }
+  ]
+}
+
 export interface RecommendationData {
   id: number;
   name: string;
@@ -73,18 +104,6 @@ export interface ProdResponse {
   };
   errors?: { message: string }[];
 }
-
-// export interface CardData {
-//   id: number;
-//   name: string;
-//   description: string;
-//   img: string;
-//   type: string;
-// }
-
-// export interface Response {
-//   data: CardData[];
-// }
 
 export interface Product {
   id: number;
