@@ -1,6 +1,6 @@
 import { getCatalogList, getRecommendations } from '../composables/use-api.ts';
 import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
-import { RecommendationData, RecommendationResponse } from './interfaces';
+import { RecommendationData } from './interfaces';
 
 let currentPage = 1;
 let itemsPerPage = 10;
@@ -12,14 +12,19 @@ export async function renderRecCard(container: string, colour: string) {
   const prodContainer = getElement(container);
   if (!prodContainer) return;
 
-  const response = (await getRecommendations(false)) as RecommendationResponse;
+  try {
+    const response = await getRecommendations(false);
 
-  if (response.errors) {
-    return;
+    if ('errors' in response) {
+      console.error(response.errors);
+      return;
+    }
+
+    const prodList = response.data;
+    await card(prodList, prodContainer, colour);
+  } catch (error) {
+    console.error(error);
   }
-
-  const prodList = response.data;
-  await card(prodList, prodContainer, colour);
 }
 
 function updateItemsPerPage() {
@@ -42,28 +47,37 @@ export async function renderAllCard(container: string, page: number = 1, categor
   const prodContainer = getElement(container);
   if (!prodContainer) return;
 
-  let response: RecommendationResponse = (await getCatalogList(page, itemsPerPage, category)) as RecommendationResponse;
+  try {
+    let response = await getCatalogList(page, itemsPerPage, category);
 
-  if (response.errors || response.data.length === 0) {
-    prodContainer.innerHTML = '<p>Нет товаров в данной категории</p>';
-    return;
+    if ('errors' in response) {
+      console.error(response.errors);
+      return;
+    }
+
+    if (response.errors || response.data.length === 0) {
+      prodContainer.innerHTML = '<p>Нет товаров в данной категории</p>';
+      return;
+    }
+
+    const prodList = response.data;
+    await card(prodList, prodContainer, 'gray');
+
+    if (windowWidth >= 768) setupLazyLoading(container, category);
+    if (windowWidth < 768) await handleViewMoreButtonVisibility(container, category);
+  } catch (error) {
+    console.error(error);
   }
-
-  const prodList = response.data;
-  await card(prodList, prodContainer, 'gray');
-
-  if (windowWidth >= 768) setupLazyLoading(container, category);
-  if (windowWidth < 768) handleViewMoreButtonVisibility(container, category);
 }
 
 async function card(data: RecommendationData[], container: HTMLElement, colour: string) {
   data.forEach((prodItem) => {
-    const card = renderElement('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`]) as HTMLAnchorElement;
+    const card = renderElement<HTMLAnchorElement>('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`]);
     card.href = `one-product.html?id=${prodItem.id}`;
     const cardContainer = renderElement('div', 'prod-card__content');
 
     const cardImg = renderElement('div', 'prod-card__img');
-    cardImg.innerHTML = `<picture><img src="${prodItem.img}" /></picture>`;
+    cardImg.innerHTML = `<picture><img src="${prodItem.img}" alt="prod" /></picture>`;
 
     const cardDiscount = renderElement('div', 'prod-card__discount');
     cardDiscount.innerText = `-${prodItem.discount}%`;
@@ -167,15 +181,24 @@ async function loadMoreCards(container: string, category?: string) {
     currentPage++;
   }
 
-  const response: RecommendationResponse = (await getCatalogList(currentPage, itemsViewMore, category)) as RecommendationResponse;
+  try {
+    const response = await getCatalogList(currentPage, itemsViewMore, category);
 
-  if (response.errors || response.data.length === 0) {
-    return;
+    if ('errors' in response) {
+      console.error(response.errors);
+      return;
+    }
+
+    if (response.errors || response.data.length === 0) {
+      return;
+    }
+
+    await card(response.data, prodContainer, 'gray');
+
+    prodContainer.scrollTop = prevScrollTop;
+  } catch (error) {
+    console.error(error);
   }
-
-  await card(response.data, prodContainer, 'gray');
-
-  prodContainer.scrollTop = prevScrollTop;
 }
 
 export async function handleViewMoreButtonVisibility(container: string, category?: string) {
@@ -185,35 +208,36 @@ export async function handleViewMoreButtonVisibility(container: string, category
   currentCategory = category;
   currentPage = 1;
 
-  let totalItemsResponse = await getCatalogList(1, 1, category);
+  try {
+    let totalItemsResponse = await getCatalogList(1, 1, category);
 
-  if (!isRecommendationResponse(totalItemsResponse) || totalItemsResponse.errors) {
-    return;
-  }
-
-  const totalItems = totalItemsResponse.meta.totalItems;
-  const prodContainer = getElement(container);
-  if (!prodContainer) return;
-
-  let currentItemCount = prodContainer.children.length;
-  let remainingItems = totalItems - currentItemCount;
-
-  viewMoreButton.style.display = remainingItems > 0 ? 'flex' : 'none';
-
-  viewMoreButton.replaceWith(viewMoreButton.cloneNode(true));
-  const newViewMoreButton = getElement('.catalog-list__view-more') as HTMLButtonElement;
-
-  newViewMoreButton.addEventListener('click', async () => {
-    if (remainingItems > 0) {
-      await loadMoreCards(container, currentCategory);
-      currentItemCount = prodContainer.children.length;
-      remainingItems = totalItems - currentItemCount;
-
-      newViewMoreButton.style.display = remainingItems > 0 ? 'flex' : 'none';
+    if ('errors' in totalItemsResponse) {
+      console.error(totalItemsResponse.errors);
+      return;
     }
-  });
-}
 
-function isRecommendationResponse(response: unknown): response is RecommendationResponse {
-  return typeof response === 'object' && response !== null && 'data' in response && Array.isArray((response as RecommendationResponse).data);
+    const totalItems = totalItemsResponse.meta.totalItems;
+    const prodContainer = getElement(container);
+    if (!prodContainer) return;
+
+    let currentItemCount = prodContainer.children.length;
+    let remainingItems = totalItems - currentItemCount;
+
+    viewMoreButton.style.display = remainingItems > 0 ? 'flex' : 'none';
+
+    viewMoreButton.replaceWith(viewMoreButton.cloneNode(true));
+    const newViewMoreButton = getElement('.catalog-list__view-more') as HTMLButtonElement;
+
+    newViewMoreButton.addEventListener('click', async () => {
+      if (remainingItems > 0) {
+        await loadMoreCards(container, currentCategory);
+        currentItemCount = prodContainer.children.length;
+        remainingItems = totalItems - currentItemCount;
+
+        newViewMoreButton.style.display = remainingItems > 0 ? 'flex' : 'none';
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }

@@ -2,12 +2,14 @@ import { classManipulator, getElement, getElements, renderElement } from '../com
 import { initCounter } from './counter';
 import { initDropdown } from './dropdown';
 import { Product, ProductLocalStorge } from './interfaces';
+import { getCatalogItem } from '../composables/use-api.ts';
 
 const cartBtn = getElement('.header__bag');
 const cart = getElement('.cart');
 const cartCloseBtn = getElement('.cart__close');
 const cartBg = getElement('.cart__bg');
 const cartContainer = getElement('.cart__items');
+const storedUserInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
 
 let prodList = getElements('.prod');
 let empty: boolean;
@@ -17,15 +19,9 @@ const backToShopBtn = getElement('.info__backbtn');
 export async function initCart() {
   if (!cartBtn || !cartCloseBtn || !cartBg || !cartContainer) return;
 
-  cartBtn.addEventListener('click', (event) => {
-    cartActive(event);
-    scrollLock();
-  });
+  cartBtn.addEventListener('click', (event) => cartActive(event));
 
-  cartCloseBtn.addEventListener('click', () => {
-    cartClose();
-    scrollLock();
-  });
+  cartCloseBtn.addEventListener('click', () => cartClose());
 
   loadCartFromLocalStorage();
   totalCartPrice();
@@ -37,11 +33,6 @@ export async function initCart() {
 
     changeAutoshipText(prodAutoshipText);
   });
-
-  cartBg.addEventListener('click', () => {
-    cartClose();
-    scrollLock();
-  });
 }
 
 export function cartActive(event: Event) {
@@ -52,6 +43,8 @@ export function cartActive(event: Event) {
   classManipulator(cart, 'add', 'cart_active');
 
   if (backToShopBtn) backToShopBtn.style.zIndex = '1';
+
+  scrollLock();
 }
 
 function cartClose() {
@@ -60,17 +53,26 @@ function cartClose() {
   classManipulator(cart, 'remove', 'cart_active');
 
   if (backToShopBtn) backToShopBtn.style.zIndex = '25';
+
+  scrollLock();
 }
 
 function removeProd(prodId: number) {
-  if (!prodList) return;
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
-  prodList.forEach((prod) => {
-    const removeBtn = getElement('.prod__close', prod);
+  const productExists = cartItems.some((item: Product) => item.id === prodId);
+
+  if (!productExists) return;
+
+  cartItems.forEach(async (prod: ProductLocalStorge) => {
+    const prodEl = getElement(`.prod_${prod.id}`);
+    if (!prodEl) return;
+
+    const removeBtn = getElement('.prod__close', prodEl);
 
     if (!removeBtn) return;
     removeBtn.addEventListener('click', () => {
-      prod.remove();
+      prodEl.remove();
       removeProductFromLocalStorage(prodId);
     });
   });
@@ -274,7 +276,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
 
   saveProductToLocalStorage(prod);
 
-  prodList = getElements(`.prod`);
+  // prodList = getElements(`.prod`);
   removeProd(prod.id);
 
   updateInfoInLocal(prod);
@@ -317,7 +319,7 @@ function saveProductToLocalStorage(prod: Product) {
 
   if (!productExists) {
     cartItems.push({
-      ...prod,
+      id: prod.id,
       autoshipChecked: autoshipActive,
       autoshipDays: '30',
       counts: countsItems,
@@ -410,9 +412,21 @@ export function loadCartFromLocalStorage() {
   if (!cartContainer) return;
   cartContainer.innerHTML = '';
 
-  cartItems.forEach((prod: ProductLocalStorge) => {
-    renderProdCard(prod, prod.autoshipChecked, prod.autoshipDays, prod.counts);
-    updateInfoInLocal(prod);
+  cartItems.forEach(async (prod: ProductLocalStorge) => {
+    try {
+      const prodItem = await getCatalogItem(`${prod.id}`);
+
+      if ('errors' in prodItem) {
+        console.error(prodItem.errors);
+        return;
+      }
+
+      renderProdCard(prodItem, prod.autoshipChecked, prod.autoshipDays, prod.counts);
+      updateInfoInLocal(prodItem);
+      prodList = getElements('.prod');
+    } catch (error) {
+      console.error(error);
+    }
   });
 }
 
@@ -479,7 +493,7 @@ export function addBtn(prod: Product) {
 
   const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
-  if(!addItems) return;
+  if (!addItems) return;
 
   if (!productExists) {
     renderProdCard(prod, false, '30', Number(addItems.innerText));
@@ -487,7 +501,7 @@ export function addBtn(prod: Product) {
     return;
   }
 
-  if(!autoshipCheckbox || !autoshipDaysText || !counterItems) return;
+  if (!autoshipCheckbox || !autoshipDaysText || !counterItems) return;
 
   updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', Number(counterItems.textContent) + Number(addItems.innerText));
   loadCartFromLocalStorage();
@@ -527,15 +541,57 @@ function totalCartPrice() {
     totalPriceContent.innerText = `$0`;
   }
 
-  cartItems.forEach((item: ProductLocalStorge) => {
-    if (item.type === 'Sale%') totalProdPrice = getDiscountedPrice(item.price, item.discount, item.counts);
-    else totalProdPrice = getTotalPrice(item.price, item.counts);
+  cartItems.forEach(async (item: ProductLocalStorge) => {
+    try {
+      const prodItem = await getCatalogItem(`${item.id}`);
 
-    total += parseFloat(totalProdPrice.replace(/,/g, '').replace(/\s/g, ''));
+      if ('errors' in prodItem) {
+        console.error(prodItem.errors);
+        return;
+      }
+
+      if (prodItem.type === 'Sale%') totalProdPrice = getDiscountedPrice(prodItem.price, prodItem.discount, item.counts);
+      else totalProdPrice = getTotalPrice(prodItem.price, item.counts);
+
+      total += parseFloat(totalProdPrice.replace(/,/g, '').replace(/\s/g, ''));
+
+      totalPriceContent.innerText = `$${total.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+
+      limitTotalPrice(total);
+    } catch (error) {
+      console.error(error);
+    }
   });
+}
 
-  totalPriceContent.innerText = `$${total.toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
+function limitTotalPrice(total: number) {
+  const btnWrspper = getElement('.cart__btn');
+  if (!btnWrspper) return;
+
+  const btn = getElement('.btn', btnWrspper);
+  if (!storedUserInfo || !btn) return;
+
+  if (storedUserInfo.role_type === 'whosale') {
+    btn.style.backgroundColor = '#C3BDB6';
+    btn.style.pointerEvents = 'none';
+    const limitInfo = renderElement('p', 'cart__limit');
+    limitInfo.style.marginTop = '15px';
+    limitInfo.style.textAlign = 'center';
+    limitInfo.style.opacity = '0.5';
+    limitInfo.style.fontSize = '14px';
+    limitInfo.style.fontWeight = '400';
+    limitInfo.innerText = 'Minimum order amount is $700';
+
+    if (!getElement('.cart__limit')) {
+      btnWrspper.appendChild(limitInfo);
+    }
+
+    if (total >= 700) {
+      btn.style.backgroundColor = '';
+      btn.style.pointerEvents = '';
+    }
+  }
 }

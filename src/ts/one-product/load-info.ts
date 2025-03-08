@@ -13,15 +13,24 @@ export async function loadInfo() {
 
   if (!prodId || !autoshipDropdown) return;
 
-  const prod = (await getCatalogItem(prodId)) as Product;
+  try {
+    const prod = await getCatalogItem(prodId);
 
-  initCounter('.count__counter');
+    if ('errors' in prod) {
+      console.error(prod.errors);
+      return;
+    }
 
-  showInfo(prod);
-  backToShop();
-  autoshipBtn(prod);
+    initCounter('.count__counter');
 
-  initDropdown(autoshipDropdown);
+    showInfo(prod);
+    backToShop();
+    autoshipBtn(prod);
+
+    initDropdown(autoshipDropdown);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function showInfo(prodInfo: Product) {

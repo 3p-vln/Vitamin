@@ -8,12 +8,22 @@ const prodId = urlParams.get('id') || undefined;
 
 const autoshipBtn = getElement('.autoship__on-off');
 
-export async function autoshipCreate( event: Event ) {
+export async function autoshipCreate(event: Event) {
   if (!autoshipBtn) return;
 
   if (prodId) {
-    const prod = (await getCatalogItem(prodId)) as Product;
-    addToCart(prod, event);
+    try {
+      const prod = await getCatalogItem(prodId);
+
+      if ('errors' in prod) {
+        console.error(prod.errors);
+        return;
+      }
+
+      addToCart(prod, event);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 

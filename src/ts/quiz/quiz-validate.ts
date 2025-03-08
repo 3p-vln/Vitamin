@@ -3,8 +3,8 @@ import { getElement } from '../composables/use-call-dom.ts';
 
 export function validateNameForm(): Promise<boolean> {
   return new Promise((resolve) => {
-    const form = getElement('#firstQuestion') as HTMLFormElement;
-    const firstNameInput = getElement('#firstName') as HTMLInputElement;
+    const form = getElement<HTMLFormElement>('#firstQuestion');
+    const firstNameInput = getElement<HTMLInputElement>('#firstName');
 
     if (!form || !firstNameInput) {
       resolve(false);
@@ -56,8 +56,8 @@ export function validateNameForm(): Promise<boolean> {
 
 export function validateEmailForm(): Promise<boolean> {
   return new Promise((resolve) => {
-    const form = getElement('#emailQuestion') as HTMLFormElement;
-    const firstEmailInput = getElement('#email') as HTMLInputElement;
+    const form = getElement<HTMLFormElement>('#emailQuestion');
+    const firstEmailInput = getElement<HTMLInputElement>('#email');
 
     if (!form || !firstEmailInput) {
       resolve(false);
