@@ -4,6 +4,8 @@
   border: 1px solid $border-color;
   border-radius: 16px;
   margin-bottom: 63px;
+  grid-column: 2 / 3;
+  grid-row: 1;
 
   @include media-breakpoint-down(sm) {
     border: 0 none;
