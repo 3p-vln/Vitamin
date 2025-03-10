@@ -1,3 +1,4 @@
+
 .healthy-happy {
   &__container {
     display: flex;
@@ -25,6 +26,7 @@
       @include media-breakpoint-down(xs) {
         width: 50px;
         height: 56px;
+        margin-bottom: -8px;
       }
     }
   }
@@ -43,6 +45,7 @@
 
     @include media-breakpoint-down(xs) {
       font-size: 20px;
+      margin-bottom: 12px;
     }
   }
 
@@ -67,54 +70,14 @@
       display: none;
     }
   }
-}
 
-.feedback {
-  padding-top: 75px;
-
-  &__slider {
-    width: 100%;
-  }
-
-  &__slide {
-    border-radius: 16px;
-    padding: 40px 34px 30px 30px;
-    width: 444px;
-    font-family: Effra, sans-serif;
-    color: #000;
-    background: $cardBackground;
-  }
-
-  &__grade {
-    margin-bottom: 20px;
-
-    svg {
-      width: 20px;
-      height: 19px;
-    }
-  }
-
-  &__title-feedback {
-    margin-bottom: 20px;
-    font-weight: 500;
-    font-size: 20px;
-  }
-
-  &__text {
-    margin-bottom: 78px;
-    font-weight: normal;
-    line-height: 1.75;
-    word-spacing: 0.2em;
-    font-size: 16px;
+  &__feet-back{
+    padding: 26px 0 0 0;
 
     @include media-breakpoint-down(xs) {
-      margin-bottom: 30px;
+      padding: 0;
+      margin-top: -5px;
+      margin-bottom: -18px;
     }
-  }
-
-  &__person-block {
-    display: flex;
-    column-gap: 13px;
-    align-items: center;
   }
 }

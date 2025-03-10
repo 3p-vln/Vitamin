@@ -21,12 +21,12 @@
   }
 
   &__slide {
-    display: flex;
+    display: flex !important;
     flex-grow: 1;
     flex-direction: column;
     border-radius: 16px;
     padding: 40px 34px 30px 30px;
-    height: auto;
+    height: auto !important;
     color: #000;
     background: $cardBackground;
 

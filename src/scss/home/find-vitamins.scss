@@ -24,6 +24,8 @@
     font-size: 56px;
     color: $fontColorTitleBlack;
 
+
+
     span {
       color: $fontColorSpan;
     }
@@ -42,6 +44,8 @@
 
     @include media-breakpoint-down(xs) {
       font-size: 24px;
+      max-width: 270px;
+      margin-bottom: 16px;
     }
   }
 
@@ -65,6 +69,10 @@
       text-align: center;
       font-size: 14px;
     }
+
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 18px;
+    }
   }
 
   &__links-block {
@@ -87,9 +95,30 @@
 
   &__quiz-link {
     margin-right: 33px;
+      border-radius: 200px;
+      padding: 20px 61px 28px 65px;
+      max-width: 260px;
+      font-family: OpenSans, sans-serif;
+      font-weight: bold;
+      line-height: 1.63;
+      text-align: center;
+      white-space: nowrap;
+      transition: transform 0.3s;
+      font-size: 20px;
+
+
+      @include media-breakpoint-down(sm) {
+        padding: 15px 30px;
+        font-size: 16px;
+      }
+
 
     @include media-breakpoint-down(sm) {
       margin: 0;
+    }
+
+    @include media-breakpoint-down(xs) {
+      padding: 13px 25px;
     }
   }
 
@@ -107,35 +136,50 @@
       top: 2px;
       width: 10px;
       height: 15px;
+      @include media-breakpoint-down(xs) {
+        left: 0;
+        top: 3px;
+      }
     }
 
     &:hover {
       transform: scale(1.1);
     }
-
-    @include media-breakpoint-down(sm) {
-      font-size: 14px;
-    }
-
     @include media-breakpoint-down(md) {
       margin: 10px 0 0 50px;
     }
-
     @include media-breakpoint-down(sm) {
+      font-size: 14px;
       margin: 10px 0 0;
     }
+
+
+
+    @include media-breakpoint-down(xs) {
+      margin-top: 19px;
+    }
+  }
+
+  &__layer{
+    position: absolute;
+    background: #F9F9F9;
+    width: 50vw;
+    height: calc(100% + 120px);
+    z-index: -1;
+    left: 50%;
+    top: -120px;
   }
 
   &__image-block {
     position: absolute;
-    right: 0;
+    left: 50%;
     top: 19px;
     z-index: 10;
 
     &::before {
       content: '';
       position: absolute;
-      right: 188px;
+      right: 377px;
       top: 89px;
       display: block;
       border-radius: 50%;
@@ -150,7 +194,7 @@
       }
 
       @include media-breakpoint-down(md) {
-        right: 120px;
+        right: 70px;
       }
     }
 
@@ -169,10 +213,17 @@
     }
   }
 
+
   &__image {
     position: relative;
-    width: 100%;
     z-index: 11;
+    right: 186px;
+    top: 0px;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+      right: 0;
+    }
   }
 
   &__wrapper-image-mobile {
@@ -185,7 +236,15 @@
   }
 
   &__image-mobile {
-    width: 100%;
+    width: 150vw;
+    position: relative;
+    left: -36%;
+    top: -20px;
+
+    @include media-breakpoint-down(xs) {
+      left: -45%;
+      top: -59px;
+    }
   }
 
   &__rotating-segment1 {
@@ -216,7 +275,8 @@
     }
 
     @include media-breakpoint-down(xs) {
-      bottom: 90px;
+      bottom: 220px;
+      left: -137px;
     }
   }
 
@@ -250,6 +310,11 @@
       svg {
         transform: rotate(0deg);
       }
+    }
+
+    @include media-breakpoint-down(xs) {
+      top: 232px;
+      right: -27px;
     }
   }
 

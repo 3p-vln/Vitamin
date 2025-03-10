@@ -46,7 +46,9 @@ export async function renderFormRole() {
     { inputId: 'overview-city', key: 'city' },
     { inputId: 'overview-email', key: 'email' },
     { inputId: 'overview-phone', key: 'phone' },
-    { inputId: 'overview-postal-code', key: 'postal_code' }
+    { inputId: 'overview-postal-code', key: 'postal_code' },
+    { inputId: 'overview-state', key: 'state_province' }
+
   ];
 
   fields.forEach(field => {

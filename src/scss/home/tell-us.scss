@@ -2,14 +2,25 @@
   position: relative;
   padding-bottom: 150px;
 
+
+
+  @include media-breakpoint-down(xs) {
+    padding-bottom: 27px;
+    overflow: hidden;
+
+  }
   &_bottom{
     padding-top: 100px;
     padding-bottom: 100px;
-  }
+    .tell-us__link{
+      margin-top: 17px;
+      font-size: 14px;
+    }
 
-  @include media-breakpoint-down(xs) {
-    padding-bottom: 60px;
-    overflow-x: hidden;
+    @include media-breakpoint-down(xs) {
+      padding-bottom: 50px;
+      overflow: visible;
+    }
   }
 
 
@@ -21,6 +32,7 @@
     margin: 0 auto;
     padding: 0 15px;
     max-width: $containerWidth;
+
   }
 
   &__logo {
@@ -40,12 +52,16 @@
     font-size: 56px;
     color: #000;
 
-    &_padding{
-      padding-top: 40px;
-    }
+
 
     @include media-breakpoint-down(xs) {
       font-size: 24px;
+      padding-top: 32px;
+      padding-bottom: 15px;
+    }
+
+    &_padding{
+      padding-top: 27px;
     }
   }
 
@@ -62,7 +78,36 @@
 
     @include media-breakpoint-down(xs) {
       font-size: 14px;
+      margin-bottom: 18px;
     }
+  }
+
+  &__btn{
+
+      border-radius: 200px;
+      padding: 20px 61px 28px 65px;
+      max-width: 260px;
+      font-family: OpenSans, sans-serif;
+      font-weight: bold;
+      line-height: 1.63;
+      text-align: center;
+      white-space: nowrap;
+      transition: transform 0.3s;
+      font-size: 20px;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      @include media-breakpoint-down(sm) {
+        padding: 15px 30px;
+        font-size: 16px;
+      }
+
+    @include media-breakpoint-down(xs) {
+      padding: 13px 25px;
+    }
+
   }
 
   &__rotating-segment1 {
@@ -103,7 +148,8 @@
       left: auto;
       right: -120px;
       top: auto;
-      bottom: -130px;
+      bottom: -172px;
+      z-index: 2;
     }
   }
 
@@ -123,7 +169,7 @@
     @include media-breakpoint-down(xs) {
       left: -130px;
       right: auto;
-      top: 0;
+      top: -51px;
     }
   }
 

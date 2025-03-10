@@ -1,5 +1,5 @@
-import { AxiosError } from 'axios';
-import apiClient from '../../registration/api-client.ts';
+import { updateProfile } from '../../composables/use-api.ts';
+
 interface FormData {
   first_name: string;
   last_name: string;
@@ -12,30 +12,25 @@ interface FormData {
   phone: string;
 }
 
-export async  function overviewRequest(data: FormData){
+export async function overviewRequest(data: FormData) {
   const massageContainer: HTMLSpanElement | null = document.querySelector('.overview__message');
 
-  try {
-    const res = await  apiClient.put('/profile/update-profile', data)
-    if (res.status === 200) {
-      if (massageContainer) {
-        massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
-        massageContainer.style.background = 'green';
-        massageContainer.classList.toggle('hidden');
-      }
-    }
-
-  }catch (error){
-    const axiosError = error as AxiosError;
+  const res = await updateProfile(data);
+  if (!('errors' in res)) {
     if (massageContainer) {
-      switch (axiosError.status) {
-        case 401:
-          massageContainer.innerText = 'You are not authorized';
+      massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
+      massageContainer.style.background = 'green';
+      massageContainer.classList.toggle('hidden');
+
+
+    }
+  } else {
+    if (massageContainer) {
+      switch (res.errors[0].message) {
+        case 'Email is required':
+          massageContainer.innerText = 'Email is required';
           break;
-        case 400:
-          massageContainer.innerHTML = 'Incorrect data';
-          break;
-        case 404:
+        case 'Профіль не знайдено':
           massageContainer.innerHTML = 'Profile not found';
           break;
 

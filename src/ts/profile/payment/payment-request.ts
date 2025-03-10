@@ -1,5 +1,4 @@
-import apiClient from '../../registration/api-client.ts';
-import { AxiosError } from 'axios';
+import { updateCardInfo } from '../../composables/use-api.ts';
 
 interface paymentData {
   card_number: string;
@@ -10,30 +9,28 @@ interface paymentData {
 export async function paymentRequest(data: paymentData) {
   const massageContainer: HTMLSpanElement | null = document.querySelector('.payment-methods__message');
   const form = document.getElementById('payment-methods-form');
-  try {
-    const res = await apiClient.put('/profile/update-card-info', data);
-    if (res.status === 200) {
-      if (massageContainer) {
-        massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
-        massageContainer.style.background = 'green';
-        massageContainer.classList.toggle('hidden');
-      }
-      if (form instanceof HTMLFormElement) {
-        form.reset();
-      }
+
+  const res = await updateCardInfo(data);
+  if (!('errors' in res)) {
+    if (massageContainer) {
+      massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
+      massageContainer.style.background = 'green';
+      massageContainer.classList.toggle('hidden');
     }
-  } catch (error) {
-    const axiosError = error as AxiosError;
+    if (form instanceof HTMLFormElement) {
+      form.reset();
+    }
+  } else {
     if (!massageContainer) return;
 
-    switch (axiosError.status) {
-      case 401:
+    switch (res.errors[0].message) {
+      case 'Access token required':
         massageContainer.innerText = 'You are not authorized';
         break;
-      case 400:
+      case 'Неверный номер карты':
         massageContainer.innerHTML = 'Incorrect card number';
         break;
-      case 404:
+      case 'Профіль не знайдено':
         massageContainer.innerHTML = 'Profile not found';
         break;
 
@@ -43,7 +40,6 @@ export async function paymentRequest(data: paymentData) {
     massageContainer.style.background = 'red';
     massageContainer.classList.toggle('hidden');
   }
-
   setTimeout(() => {
     if (massageContainer) {
       massageContainer.classList.add('hidden');

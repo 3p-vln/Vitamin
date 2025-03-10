@@ -1,7 +1,7 @@
-import apiClient from '../registration/api-client.ts';
 import Cookies from 'js-cookie';
-import { AxiosError } from 'axios';
-import { userInfoResponseData } from '../registration/registration-request.ts';
+import  { getProfileInfo, logIn } from '../composables/use-api.ts';
+
+
 
 interface loginData {
   email: string;
@@ -9,35 +9,34 @@ interface loginData {
 }
 
 export async function loginRequest(data: loginData) {
-  try {
-    const res: any = await apiClient.post('/auth/login', data);
-    res.status;
-    if (res.status === 200) {
-      Cookies.set('refreshToken', res.data.refreshToken, { path: '/' });
-      Cookies.set('accessToken', res.data.accessToken, { path: '/' });
-    }
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      if (error.response) {
-        const errorMessageContainer = document.querySelector('.login-form__error-message');
+  const res: any = await logIn(data);
+  if (res.accessToken) {
+    Cookies.set('refreshToken', res.refreshToken, { path: '/' });
+    Cookies.set('accessToken', res.accessToken, { path: '/' });
 
-        if (errorMessageContainer) {
-          if (error.response.data.message === 'Не правильний пароль') {
-            errorMessageContainer.innerHTML = 'Wrong password';
-          } else if (error.response.data.message === 'Користувач не знайдений') {
-            errorMessageContainer.innerHTML = 'Wrong email';
-          } else {
-            errorMessageContainer.innerHTML = 'Error, try again later';
-          }
-        }
-      }
+    const userInfo= await getProfileInfo();
+
+    if ('email' in userInfo) {
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      window.location.href = '/Vitamin';
     }
-    return;
   }
-  const userInfo: userInfoResponseData = await apiClient.get('/profile/info');
 
-  if ('email' in userInfo.data) {
-    localStorage.setItem('userInfo', JSON.stringify(userInfo.data));
-    window.location.href = '/Vitamin';
+  if ('message' in res.errors[0]) {
+
+    const errorMessageContainer = document.querySelector('.login-form__error-message');
+    if (!errorMessageContainer) return;
+
+    switch (res.errors[0].message) {
+      case 'Не правильний пароль':
+        errorMessageContainer.innerHTML = 'Wrong password';
+        break;
+
+      case 'Користувач не знайдений':
+        errorMessageContainer.innerHTML = 'Wrong email';
+        break;
+      default:
+        errorMessageContainer.innerHTML = 'Error, try again later';
+    }
   }
 }
