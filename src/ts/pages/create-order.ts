@@ -3,8 +3,9 @@ import { initAccordion } from '../create-order/order-accordion.ts';
 import { createOrderHeader } from '../create-order/header.ts';
 import { initDropdown } from '../components/dropdown.ts';
 import { getElement } from '../composables/use-call-dom.ts';
-// import { validateBillForm, validateDeliveryForm } from '../create-order/validate-form.ts';
 import { ctrateOrder } from '../create-order/successful-validation.ts';
+import { stop } from '../components/stopPreload.ts';
+import { removeSkeletons } from '../components/removeSkeletons.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   createOrderList();
@@ -14,4 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!dropdownContainer) return;
   initDropdown(dropdownContainer);
   await ctrateOrder();
+  stop();
 });
+
+await removeSkeletons();

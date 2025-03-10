@@ -1,6 +1,7 @@
 import { getCatalogList, getRecommendations } from '../composables/use-api.ts';
 import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
 import { RecommendationData } from './interfaces';
+import { stop } from './stopPreload.ts';
 
 let currentPage = 1;
 let itemsPerPage = 10;
@@ -65,6 +66,8 @@ export async function renderAllCard(container: string, page: number = 1, categor
 
     if (windowWidth >= 768) setupLazyLoading(container, category);
     if (windowWidth < 768) await handleViewMoreButtonVisibility(container, category);
+
+    stop();
   } catch (error) {
     console.error(error);
   }
@@ -72,7 +75,7 @@ export async function renderAllCard(container: string, page: number = 1, categor
 
 async function card(data: RecommendationData[], container: HTMLElement, colour: string) {
   data.forEach((prodItem) => {
-    const card = renderElement<HTMLAnchorElement>('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`]);
+    const card = renderElement<HTMLAnchorElement>('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`, 'skeleton']);
     card.href = `one-product.html?id=${prodItem.id}`;
     const cardContainer = renderElement('div', 'prod-card__content');
 
@@ -172,11 +175,13 @@ async function loadMoreCards(container: string, category?: string) {
   if (!prodContainer) return;
 
   const prevScrollTop = prodContainer.scrollTop;
+  const prevHeight = prodContainer.scrollHeight;
+
+  prodContainer.style.height = prevHeight + 'px';
 
   if (category !== currentCategory) {
-    currentPage = 1;
+    currentPage = 2;
     currentCategory = category;
-    prodContainer.innerHTML = '';
   } else {
     currentPage++;
   }
@@ -195,11 +200,59 @@ async function loadMoreCards(container: string, category?: string) {
 
     await card(response.data, prodContainer, 'gray');
 
-    prodContainer.scrollTop = prevScrollTop;
+    stop();
+    setTimeout(() => {
+      prodContainer.style.height = 'auto';
+      prodContainer.scrollTop = prevScrollTop;
+    }, 0);
   } catch (error) {
     console.error(error);
   }
 }
+
+// async function loadMoreCards(container: string, category?: string) {
+//   const prodContainer = getElement(container);
+//   if (!prodContainer) return;
+//
+//   // Запоминаем текущее положение скролла
+//   const prevScrollTop = prodContainer.scrollTop;
+//   const prevHeight = prodContainer.scrollHeight;
+//
+//   // Фиксируем высоту контейнера
+//   prodContainer.style.height = prevHeight + "px";
+//   prodContainer.style.overflow = "hidden"; // Отключаем скролл временно
+//
+//   if (category !== currentCategory) {
+//     currentPage = 1;
+//     currentCategory = category;
+//     prodContainer.innerHTML = ''; // Очистка контейнера
+//   } else {
+//     currentPage++;
+//   }
+//
+//   try {
+//     const response = await getCatalogList(currentPage, itemsViewMore, category);
+//
+//     if ('errors' in response || !response.data || response.data.length === 0) {
+//       console.error(response.errors);
+//       return;
+//     }
+//
+//     await card(response.data, prodContainer, 'gray'); // Добавляем карточки
+//
+//     stop();
+//
+//     // Восстанавливаем скролл после загрузки
+//     setTimeout(() => {
+//       prodContainer.style.height = "auto"; // Разблокируем высоту
+//       prodContainer.style.overflow = "auto"; // Включаем скролл
+//       prodContainer.scrollTop = prevScrollTop; // Восстанавливаем позицию
+//     }, 0);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
 
 export async function handleViewMoreButtonVisibility(container: string, category?: string) {
   const viewMoreButton = getElement('.catalog-list__view-more');
