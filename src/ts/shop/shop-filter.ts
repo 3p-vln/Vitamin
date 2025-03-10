@@ -1,5 +1,6 @@
-import { renderAllCard } from '../components/render-card';
+import { handleViewMoreButtonVisibility, renderAllCard, setupLazyLoading } from '../components/render-card';
 import { classManipulator, getElement, getElements } from '../composables/use-call-dom.ts';
+import { stop } from '../components/stopPreload.ts';
 
 const filterParametrs = getElements('.filter__item');
 const dropdownActiveItem = getElement('.catalog__content .dropdown__text');
@@ -22,6 +23,10 @@ export async function filterList(container: string) {
   });
 
   await renderAllCard(container, page, selectedCategory);
+  if (window.innerWidth >= 768) setupLazyLoading(container, selectedCategory);
+  if (window.innerWidth < 768) await handleViewMoreButtonVisibility(container, selectedCategory);
+
+  stop();
 
   filterParametrs.forEach((filter) => {
     filter.addEventListener('click', async () => {

@@ -4,6 +4,8 @@ import { feedbackSlider } from '../components/feedback-slider';
 import { shopBaners } from '../shop/shop-baners';
 import { filterList } from '../shop/shop-filter';
 import { getElement } from '../composables/use-call-dom.ts';
+import { stop } from '../components/stopPreload.ts';
+import { removeSkeletons } from '../components/removeSkeletons.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   initHeader();
@@ -15,4 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   initDropdown(catalog);
   await filterList('.catalog-list__content');
   feedbackSlider();
+
+  stop();
 });
+
+await removeSkeletons();

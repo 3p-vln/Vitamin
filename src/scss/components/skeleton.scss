@@ -1,5 +1,6 @@
 .skeleton {
   position: relative;
+  overflow: hidden;
 
   &::after {
     content: '';
