@@ -8,9 +8,15 @@
 
   .ilustrate {
     position: relative;
-    overflow: hidden;
+    top: 0;
     padding: 110px;
+    //height: 100dvh;
     height: 100%;
+    //align-self: start;
+
+    @include media-breakpoint-down(md) {
+      overflow: hidden;
+    }
 
     @include media-breakpoint-down(sm) {
       padding: 35px;
@@ -51,12 +57,14 @@
     }
 
     &__content {
-      position: relative;
+      //height: 100dvh;
+      position: sticky;
+      top: 130px;
       margin: auto;
       margin-top: 30px;
       margin-right: 100px;
       width: 100%;
-      max-width: max-content;
+      max-width: 565px;
       z-index: 2;
 
       @include media-breakpoint-down(md) {
@@ -102,6 +110,9 @@
   .info {
     padding: 163px 136px 103px;
     max-width: 835px;
+    background: white;
+    overflow: hidden;
+    position: relative;
 
     @include media-breakpoint-down(lg) {
       padding: 163px 40px 103px;
@@ -459,7 +470,7 @@
                 align-items: center;
                 gap: 8px;
 
-                &.price{
+                &.price {
                   position: relative;
 
                   &::before {
@@ -650,5 +661,15 @@
         }
       }
     }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }

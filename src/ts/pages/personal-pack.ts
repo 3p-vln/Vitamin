@@ -6,6 +6,6 @@ import { changeName } from '../personal-pack/pack-info';
 document.addEventListener('DOMContentLoaded', async () => {
   initHeader();
   changeName();
-  renderRecCard('.your-pack__cards', 'white');
+  await renderRecCard('.your-pack__cards', 'white');
   unfixBtn();
 });

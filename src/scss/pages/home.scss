@@ -5,6 +5,9 @@
 @import "../home/choose-your-products";
 @import "../home/healthy-happy";
 
+.wrapper{
+  overflow-x: hidden;
+}
 
 .spiner {
   animation: spin 15s linear infinite;
