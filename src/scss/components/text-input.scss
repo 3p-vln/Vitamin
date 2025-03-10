@@ -27,6 +27,8 @@
     width: 100%;
     font-size: 18px;
     background: transparent;
+    font-weight: 400;
+    font-family: OpenSans, sans-serif;
 
     &:-webkit-autofill,
     textarea:-webkit-autofill,
@@ -78,7 +80,7 @@
 
   &__file-description{
     font-weight: normal;
-    font-size: 18px;
+    font-size: 14px;
     color: $font-color-black;
     opacity: 0.3;
 
@@ -100,17 +102,23 @@
         display: none;
       }
     }
+
+    &_mt{
+      position: relative;
+      top: -11px;
+    }
   }
 }
 
 .field__input:not(:placeholder-shown) + .field__label,
 .field__input:focus + .field__label {
-  left: 8px;
-  top: 7px;
+  left: 2px;
+  top: -17px;
   padding: 0 3px;
   color: #000;
-  font-size: 12px;
+  font-size: 14px;
   background: #fff;
+  font-weight: 400;
 }
 
 .just-validate-error-label{

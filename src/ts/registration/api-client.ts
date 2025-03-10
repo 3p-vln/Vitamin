@@ -33,7 +33,8 @@ const clearAuthData = (): void => {
   Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
   Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
   localStorage.removeItem('userInfo')
-  window.location.href = '/Vitamin/login.html';
+  console.log('not refresh');
+  // window.location.href = '/Vitamin/login.html';
 };
 
 // Перехватчик запросов: добавляет заголовок Authorization с токеном, если он есть
@@ -56,8 +57,10 @@ const subscribeTokenRefresh = (cb: (token: string) => void) => {
 
 // Функция, вызываемая после успешного обновления токена (уведомляет всех подписчиков)
 const onRefreshed = (token: string) => {
+  console.log('refreshSubscribers1',refreshSubscribers);
   refreshSubscribers.forEach(cb => cb(token)); // Вызываем все подписанные коллбеки с новым токеном
   refreshSubscribers.splice(0,refreshSubscribers.length); // Очищаем массив подписчиков
+  console.log('refreshSubscribers2',refreshSubscribers);
 };
 
 // Перехватчик ответов: обрабатывает 401 ошибки и обновляет токен
@@ -68,6 +71,7 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
+        console.log('status 401');
         return new Promise(resolve => {
           subscribeTokenRefresh((token) => {
             if (originalRequest.headers) {

@@ -70,6 +70,11 @@ export function overviewValidete(){
         rule: 'required',
         errorMessage: 'Phone Number is required',
       },
+      {
+        rule: 'customRegexp',
+        value: /^\+380\d{9}$/,
+        errorMessage: 'Phone Number must +380**********',
+      },
     ])
     .onSuccess(() => {
       const formData: FormData = {
@@ -78,11 +83,13 @@ export function overviewValidete(){
         address_one: (form.querySelector('#overview-address-line1') as HTMLInputElement).value,
         address_two: (form.querySelector('#overview-address-line2') as HTMLInputElement).value,
         city: (form.querySelector('#overview-city') as HTMLInputElement).value,
-        state_province: (form.querySelector('.select-selected') as HTMLElement).textContent || '',
+        state_province: (form.querySelector('#overview-state') as HTMLInputElement).value,
         postal_code: (form.querySelector('#overview-postal-code') as HTMLInputElement).value,
         email: (form.querySelector('#overview-email') as HTMLInputElement).value,
         phone: (form.querySelector('#overview-phone') as HTMLInputElement).value,
       };
+      console.log(formData);
       overviewRequest(formData)
     });
 }
+

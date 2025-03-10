@@ -1,5 +1,5 @@
-import apiClient from '../../registration/api-client.ts';
-import { AxiosError } from 'axios';
+
+import { changePassword } from '../../composables/use-api.ts';
 
 interface PasswordForm {
   old_password: string;
@@ -9,10 +9,10 @@ interface PasswordForm {
 export async function changePasswordRequest(data: PasswordForm) {
   const massageContainer: HTMLSpanElement | null = document.querySelector('.change-password__message');
   const formChangePassword= document.getElementById('change-password');
-  try {
-    const res = await apiClient.put('/profile/change-password', data);
 
-    if (res.status === 200) {
+    const res = await changePassword( data);
+
+    if (!('errors' in res)) {
       if (massageContainer) {
         massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
         massageContainer.style.background = 'green';
@@ -21,24 +21,25 @@ export async function changePasswordRequest(data: PasswordForm) {
       if(formChangePassword instanceof HTMLFormElement) {
         formChangePassword.reset()
       }
-    }
-  } catch (error) {
-    const axiosError = error as AxiosError;
-    if (!massageContainer) return;
+    }else{
 
-    switch (axiosError.status) {
-      case 400:
-        massageContainer.innerText = 'Old password is incorrect';
-        break;
-      case 404:
-        massageContainer.innerHTML = 'User not found';
-        break;
+      if (!massageContainer) return;
 
-      default:
-        massageContainer.innerHTML = 'Error... Try again later';
-    }
-    massageContainer.style.background = 'red';
-    massageContainer.classList.toggle('hidden');
+      switch (res.errors[0].message) {
+        case 'Old password is incorrect':
+          massageContainer.innerText = 'Old password is incorrect';
+          break;
+        case 'User not found':
+          massageContainer.innerHTML = 'User not found';
+          break;
+
+        default:
+          massageContainer.innerHTML = 'Error... Try again later';
+      }
+      massageContainer.style.background = 'red';
+      massageContainer.classList.toggle('hidden');
+
+
   }
 
   setTimeout(()=>{
