@@ -8,13 +8,13 @@
 .create-order {
   display: flex;
   flex-direction: row-reverse;
-  margin-top: 55px;
+  margin-top: 55px !important;
   align-items: center;
   gap: 32px;
 
   @include media-breakpoint-down(sm) {
     flex-direction: column;
-    margin-top: 0;
+    margin-top: 0 !important;
     gap: 60px;
   }
 }

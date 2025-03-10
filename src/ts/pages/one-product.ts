@@ -6,6 +6,6 @@ import { loadInfo } from '../one-product/load-info';
 document.addEventListener('DOMContentLoaded', async () => {
   initHeader();
   await loadInfo();
-  addToCartBtn();
-  renderRecCard('.you-like__cards', 'gray');
+  await addToCartBtn();
+  await renderRecCard('.you-like__cards', 'gray');
 });

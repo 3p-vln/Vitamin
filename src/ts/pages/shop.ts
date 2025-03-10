@@ -7,12 +7,12 @@ import { getElement } from '../composables/use-call-dom.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   initHeader();
-  shopBaners();
+  await shopBaners();
   const catalog = getElement('.catalog__content');
 
   if (!catalog) return;
 
   initDropdown(catalog);
-  filterList('.catalog-list__content');
+  await filterList('.catalog-list__content');
   feedbackSlider();
 });
