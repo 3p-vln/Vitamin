@@ -2,28 +2,52 @@
 
 .overview {
   padding-top: 17px;
-  &__header{
+  padding-bottom: 100px;
+
+  @include media-breakpoint-down(xs) {
+    padding-bottom: 60px;
+  }
+
+
+  @include media-breakpoint-down(xs) {
+    padding-top: 14px;
+  }
+
+  &__header {
     display: flex;
     justify-content: space-between;
     font-family: Effra, sans-serif;
 
+    @include media-breakpoint-down(xs) {
+      flex-direction: column;
+      margin-bottom: 57px;
+    }
+
   }
 
   &__title {
-
     font-weight: 500;
     font-size: 36px;
     margin-bottom: 68px;
+    @include media-breakpoint-down(xs) {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
   }
-  &__role{
-margin-top: 8px;
+
+  &__role {
+    margin-top: 8px;
     font-weight: 500;
     font-size: 22px;
     margin-right: 125px;
     letter-spacing: 0.05em;
+
+    @include media-breakpoint-down(xs) {
+      font-size: 18px;
+    }
   }
 
-  &__message{
+  &__message {
     font-size: 16px;
     color: $font-color-white;
     padding: 17px 70px;
@@ -38,13 +62,13 @@ margin-top: 8px;
     opacity: 1;
     pointer-events: none;
 
-    svg{
+    svg {
       width: 20px;
       height: 14px;
       margin-right: 20px;
     }
 
-    &.hidden{
+    &.hidden {
       opacity: 0;
     }
   }
@@ -52,17 +76,25 @@ margin-top: 8px;
 }
 
 .overview-form {
+@include media-breakpoint-down(xs) {
+  margin-bottom: 55px;
+}
 
-
-  &__wrapper{
+  &__wrapper {
     display: flex;
     flex-wrap: wrap;
     gap: 53px 33px;
+
+    @include media-breakpoint-down(xs) {
+      gap: 48px 33px;
+    }
   }
 
   &__field {
     max-width: 444px;
-
+    @include media-breakpoint-down(xs) {
+      width: 95%;
+    }
     &_double {
       display: flex;
       justify-content: space-between;
@@ -71,8 +103,10 @@ margin-top: 8px;
 
 
       @include media-breakpoint-down(xs) {
-        flex-direction: column;
         gap: 30px;
+        @include media-breakpoint-down(xs) {
+          gap: 10px;
+        }
       }
     }
 
@@ -81,15 +115,21 @@ margin-top: 8px;
     }
 
 
-    &_custom-select{
+    &_custom-select {
       width: 206px;
       position: relative;
       top: -20px;
+
+      @include media-breakpoint-down(xs) {
+        width: 162px;
+      }
     }
+
+
   }
 
-  &__form-label{
-    font-family: OpenSans, sans-serif ;
+  &__form-label {
+    font-family: OpenSans, sans-serif;
     font-weight: 400;
     font-size: 14px;
     color: #000;
@@ -98,31 +138,37 @@ margin-top: 8px;
     top: -10px;
   }
 
-  &__field-wrapper{
+  &__field-wrapper {
     max-width: 444px;
     width: 100%;
     margin-top: -12px;
 
-    &_hidden{
+    &_hidden {
       display: none;
     }
   }
 
-  &__name-file{
+  &__name-file {
     position: relative;
     top: 1px;
     left: 14px;
   }
 
-  &__submit-btn{
+  &__submit-btn {
     margin-top: 40px;
     width: 154px;
 
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+      max-width: 333px;
+    }
 
-    &_disabled{
+
+    &_disabled {
       opacity: 0.5;
       background: #c3bdb6;
-      &:hover{
+
+      &:hover {
         transform: scale(1);
       }
     }

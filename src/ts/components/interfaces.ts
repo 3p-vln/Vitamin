@@ -75,7 +75,10 @@ export interface OrdersData {
       items: [
         {
           product: {
-            additionalProp1: {}
+            additionalProp1: {},
+            name: string,
+            img: string,
+            type: string,
           },
           quantity: number,
           is_discount: boolean,
