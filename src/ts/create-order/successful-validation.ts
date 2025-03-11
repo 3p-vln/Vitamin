@@ -25,9 +25,8 @@ const cvcInput = getElement<HTMLInputElement>('#cvc');
 export async function ctrateOrder() {
   if (!createBtnMain || !createBtnSub) return;
 
-  applyMask();
-  // addUserInfo();
   addUserInfoToForm();
+  applyMask();
 
   createBtnSub.addEventListener('click', () => {
     createBtnMain.click();
@@ -81,7 +80,7 @@ function applyMask() {
     return;
   }
 
-  IMask(cardInput, { mask: '0000 0000 0000 0000' });
+  IMask(cardInput, { mask: '0000-0000-0000-0000' });
   IMask(expirationInput, { mask: '00/00' });
   IMask(cvcInput, { mask: '000' });
 }
@@ -125,5 +124,22 @@ function addUserInfoToForm() {
     cardInput.value = storedOrderInfo.card;
     expirationInput.value = storedOrderInfo.expiration;
     cvcInput.value = storedOrderInfo.cvc;
+    return;
+  }
+
+  if (storedUserInfo){
+    firstNameInput.value = storedUserInfo.first_name;
+    lastNameInput.value = storedUserInfo.last_name;
+    addressFirstInput.value = storedUserInfo.address_one;
+    addressSecondInput.value = storedUserInfo.address_two;
+    cityInput.value = storedUserInfo.city;
+    stateInput.value = storedUserInfo.state_province;
+    zipInput.value = storedUserInfo.postal_code;
+    emailInput.value = storedUserInfo.email;
+    phoneInput.value = storedUserInfo.phone;
+    cardInput.value = storedUserInfo.card_info.card_number;
+    expirationInput.value = storedUserInfo.card_info.card_date;
+    cvcInput.value = storedUserInfo.card_info.card_cvv;
   }
 }
+
