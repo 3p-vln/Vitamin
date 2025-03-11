@@ -1,6 +1,6 @@
 import { classManipulator, getElements } from '../composables/use-call-dom.ts';
 
-export async function removeSkeletons() {
+export function removeSkeletons() {
   document.addEventListener('loadingIsFinished', () => {
     setTimeout(() => {
       const skeletons = getElements('.skeleton');
