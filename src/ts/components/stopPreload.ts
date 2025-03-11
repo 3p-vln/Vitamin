@@ -1,5 +1,4 @@
 export function stop() {
-  const loadingIsFinished = new Event('loadingIsFinished');
+  const loadingIsFinished = new CustomEvent('loadingIsFinished');
   document.dispatchEvent(loadingIsFinished);
-  console.log(loadingIsFinished);
 }
