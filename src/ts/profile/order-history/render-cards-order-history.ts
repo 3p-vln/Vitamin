@@ -1,11 +1,11 @@
 import { getOrderHistory } from '../../composables/use-api.ts';
 import { OrdersData } from '../../components/interfaces.ts';
 import { getColorCard } from './get-color.ts';
+import { addAllToCart } from '../../components/cart.ts';
 
 export async function renderCardsOrderHistory() {
   const res = await getOrderHistory();
 
-  // Проверяем наличие ошибок в ответе API
   if ('errors' in res) {
     console.log(res);
     return;
@@ -21,12 +21,11 @@ export async function renderCardsOrderHistory() {
   }
   orderHistoryContainer.innerHTML = '';
 
-
   ordersData.orders.forEach((orderItem) => {
+    const productsId: string[] = [];
 
     const orderItemContainer = document.createElement('article');
     orderItemContainer.classList.add('orderItem');
-
 
     const orderItemContainerHeader = document.createElement('div');
     orderItemContainerHeader.classList.add('orderItem__header');
@@ -38,13 +37,13 @@ export async function renderCardsOrderHistory() {
     const formattedDate = date.toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'long',
-      year: 'numeric'
+      year: 'numeric',
     });
 
     const iconRow = document.createElement('img');
     iconRow.classList.add('orderItem__icon');
-    iconRow.src = './src/img/profile/Back_arrow.svg'
-      iconRow.alt = 'picture'
+    iconRow.src = './src/img/profile/Back_arrow.svg';
+    iconRow.alt = 'picture';
 
     const orderItemDate = document.createElement('div');
     orderItemDate.classList.add('orderItem__date');
@@ -55,7 +54,6 @@ export async function renderCardsOrderHistory() {
     orderItemId.innerText = `No ${orderItem.order_number}`;
 
     orderItemContainerHeaderData.appendChild(orderItemDate);
-
 
     const orderItemContainerDescription = document.createElement('div');
     orderItemContainerDescription.classList.add('orderItem__description');
@@ -68,13 +66,15 @@ export async function renderCardsOrderHistory() {
 
     orderItemContainerHeader.appendChild(orderItemId);
 
-    // тело заказа с карточками товаров
     const orderItemBody = document.createElement('div');
     orderItemBody.classList.add('orderItem__body');
 
     orderItem.items.forEach((item) => {
-      const card = document.createElement('div');
+      productsId.push(item.product.id);
+
+      const card = document.createElement('a');
       card.classList.add('orderItem__card', 'card');
+      card.href = `/Vitamin/one-product.html?id=${item.product.id}`;
 
       const imgBlock = document.createElement('div');
       imgBlock.classList.add('card__img-block');
@@ -94,7 +94,7 @@ export async function renderCardsOrderHistory() {
 
       const cardType = document.createElement('div');
       cardType.classList.add('card__type');
-      cardType.classList.add(getColorCard(item.product.type,'card__type'));
+      cardType.classList.add(getColorCard(item.product.type, 'card__type'));
       cardType.innerText = item.product.type;
 
       const cardName = document.createElement('div');
@@ -104,7 +104,7 @@ export async function renderCardsOrderHistory() {
       cardPrice.classList.add('card__price');
       const formattedPrice = item.total_sum.toLocaleString('en-US', {
         style: 'currency',
-        currency: 'USD'
+        currency: 'USD',
       });
       cardPrice.innerText = formattedPrice;
 
@@ -117,20 +117,17 @@ export async function renderCardsOrderHistory() {
       orderItemBody.appendChild(card);
     });
 
-
     const orderItemContent = document.createElement('div');
     orderItemContent.classList.add('orderItem__content');
 
-    orderItemContent.appendChild(orderItemBody);////////////////////////////////////////
-
+    orderItemContent.appendChild(orderItemBody);
 
     const totalOrderSum = orderItem.items.reduce((sum, item) => sum + item.total_sum, 0);
     const formattedTotalSum = totalOrderSum.toLocaleString('en-US', {
       style: 'currency',
-      currency: 'USD'
+      currency: 'USD',
     });
 
-    // Создаем футер
     const orderItemFooter = document.createElement('div');
     orderItemFooter.classList.add('orderItem__footer');
 
@@ -142,14 +139,16 @@ export async function renderCardsOrderHistory() {
     orderItemButton.classList.add('orderItem__button', 'btn', 'btn_orange');
     orderItemButton.innerText = 'Add to cart';
 
+    orderItemButton.addEventListener('click', async () => {
+      await addAllToCart(productsId);
+    });
+
     orderItemFooter.appendChild(orderItemTotal);
     orderItemFooter.appendChild(orderItemButton);
 
-    // Добавляем футер в контейнер заказа перед закрытием <article>
     orderItemContent.appendChild(orderItemFooter);
     orderItemContainer.appendChild(orderItemContent);
 
-    // Добавляем заказ в общий контейнер
     orderHistoryContainer.appendChild(orderItemContainer);
   });
   return Promise.resolve();

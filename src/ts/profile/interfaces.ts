@@ -32,3 +32,23 @@ export interface Order {
 export interface OrdersHistoryData  {
   orders: Order[];
 }
+
+export interface CardInfo {
+  card_number: string;
+  card_cvv: string;
+  card_date: string;
+}
+
+export interface UserInfo {
+  address_one?: string;
+  address_two?: string;
+  city?: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone?: string;
+  postal_code?: string;
+  role_type: string;
+  state_province?: string;
+  card_info: CardInfo
+}

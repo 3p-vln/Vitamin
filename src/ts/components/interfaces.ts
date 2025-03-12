@@ -79,6 +79,7 @@ export interface OrdersData {
             name: string;
             img: string;
             type: string;
+            id: string
           };
           quantity: number;
           is_discount: boolean;

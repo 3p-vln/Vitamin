@@ -1,5 +1,6 @@
 import JustValidate from 'just-validate';
 import { overviewRequest } from './overview-request.ts';
+import parsePhoneNumberFromString from 'libphonenumber-js';
 
 export function overviewValidete(){
   interface FormData {
@@ -70,11 +71,11 @@ export function overviewValidete(){
         rule: 'required',
         errorMessage: 'Phone Number is required',
       },
-      {
-        rule: 'customRegexp',
-        value: /^\+380\d{9}$/,
-        errorMessage: 'Phone Number must +380**********',
-      },
+      // {
+      //   rule: 'customRegexp',
+      //   value: /^\+380\d{9}$/,
+      //   errorMessage: 'Phone Number must +380**********',
+      // },
     ])
     .addField('#overview-state', [
       {
@@ -92,10 +93,23 @@ export function overviewValidete(){
         state_province: (form.querySelector('#overview-state') as HTMLInputElement).value,
         postal_code: (form.querySelector('#overview-postal-code') as HTMLInputElement).value,
         email: (form.querySelector('#overview-email') as HTMLInputElement).value,
-        phone: (form.querySelector('#overview-phone') as HTMLInputElement).value,
+        phone: formatePhoneNumber(),
       };
-      console.log(formData);
       overviewRequest(formData)
     });
+  function formatePhoneNumber() {
+    const phoneInput = form.querySelector('#overview-phone') as HTMLInputElement;
+    if (phoneInput && phoneInput.value) {
+      const value = phoneInput.value; // Получаем значение из поля ввода
+      const phoneNumberParse = parsePhoneNumberFromString(value); // Парсим номер
+      if (phoneNumberParse && phoneNumberParse.isValid()) {
+        // Возвращаем номер без пробелов, скобок и дефисов
+        return phoneNumberParse.number; // .number возвращает строку вроде "+380958006754"
+      }
+      return value.replace(/\D/g, ''); // Если парсинг не удался, убираем все нечисловые символы
+    }
+    return ''; // Если поле пустое, возвращаем пустую строку
+  }
+
 }
 

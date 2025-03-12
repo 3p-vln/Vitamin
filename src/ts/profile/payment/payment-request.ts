@@ -18,7 +18,8 @@ export async function paymentRequest(data: paymentData) {
       massageContainer.classList.toggle('hidden');
     }
     if (form instanceof HTMLFormElement) {
-      form.reset();
+      // form.reset();
+
     }
   } else {
     if (!massageContainer) return;

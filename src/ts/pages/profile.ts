@@ -11,6 +11,8 @@ import { initDropdown } from '../components/dropdown.ts';
 import { getElement } from '../composables/use-call-dom.ts';
 import { renderCardsOrderHistory } from '../profile/order-history/render-cards-order-history.ts';
 import { openOrdersMobile } from '../profile/order-history/open-orders-mobile.ts';
+import { renderValueForm } from '../profile/payment/render-value-form.ts';
+import { phoneMask } from '../profile/overview/phone-mask.ts';
 
 
 
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   showActivePartition()
 
+  renderValueForm()
   validateCard()
   checkFillPaymentInputs ()
 
@@ -30,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await renderFormRole()
   unlockSubmit()
   overviewValidete()
+  phoneMask()
   renderCardsOrderHistory().then(()=>{
     openOrdersMobile()
   })

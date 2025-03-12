@@ -1,17 +1,7 @@
 import apiClient from '../../registration/api-client.ts';
+import { UserInfo } from '../interfaces.ts';
 
-interface UserInfo {
-  address_one?: string;
-  address_two?: string;
-  city?: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  phone?: string;
-  postal_code?: string;
-  role_type: string;
-  state_province?: string;
-}
+
 
 export async function renderFormRole() {
 
@@ -53,8 +43,8 @@ export async function renderFormRole() {
 
   fields.forEach(field => {
     const input = document.getElementById(field.inputId) as HTMLInputElement;
-    if (input && userInfo[field.key] !== null && userInfo[field.key] !== undefined) {
-      input.value = userInfo[field.key] as string; // Приведение типа, так как value ожидает строку
+    if (input && userInfo[field.key]) {
+      input.value = userInfo[field.key] as string;
     }
   });
 
