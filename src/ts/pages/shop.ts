@@ -21,4 +21,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   stop();
 });
 
-await removeSkeletons();
+removeSkeletons();
