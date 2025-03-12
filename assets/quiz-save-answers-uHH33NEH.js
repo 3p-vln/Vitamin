@@ -1,0 +1,1 @@
+import{a as i,c as s}from"./use-call-dom-DDNnwvp7.js";const e=i(".quiz__btns");function _(){e.forEach(c=>{const a=i(".quiz__btn",c);a.forEach(t=>{t.addEventListener("click",()=>{a.forEach(n=>{s(n,"remove","quiz__btn_active")}),t.classList.contains("quiz__btn_active")||s(t,"add","quiz__btn_active")})})})}export{_ as default};
