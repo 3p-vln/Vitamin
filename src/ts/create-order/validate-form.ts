@@ -158,19 +158,9 @@ export async function validateOrderInfo(): Promise<boolean> {
           errorMessage: 'This field is required',
         },
         {
-          rule: 'minLength',
-          value: 4,
-          errorMessage: 'Must be at least 4 characters',
-        },
-        {
           rule: 'maxLength',
-          value: 15,
-          errorMessage: 'Must be less than 15 characters',
-        },
-        {
-          rule: 'customRegexp',
-          value: /^\+?\d+$/,
-          errorMessage: 'Enter a valid phone number',
+          value: 19,
+          errorMessage: 'Must be less than 13 characters',
         },
       ])
       .addField('#card', [
