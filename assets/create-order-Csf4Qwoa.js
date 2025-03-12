@@ -1,7 +1,0 @@
-function __vite__mapDeps(indexes) {
-  if (!__vite__mapDeps.viteFileDeps) {
-    __vite__mapDeps.viteFileDeps = ["assets/order-list-DfVLBYNB.js","assets/use-call-dom-DDNnwvp7.js","assets/cart-DpX4oUFR.js","assets/dropdown-7a_ekS_C.js","assets/use-api-DGP1fZH4.js","assets/order-accordion-ppYV8cx6.js","assets/successful-validation-Bj5vL3zR.js","assets/just-validate.es-C73wyOde.js","assets/index-yFKSUj0c.js","assets/render-cards-recommendations-nLH50Voj.js"]
-  }
-  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
-}
-import"./modulepreload-polyfill-B5Qt9EMX.js";/* empty css              */import{u as e,_ as r}from"./lazy-load-BxtKHmtZ.js";import{i}from"./dropdown-7a_ekS_C.js";import{g as _}from"./use-call-dom-DDNnwvp7.js";import{s as n,r as m}from"./stopPreload-BW9xUuEZ.js";const d=[{importFn:()=>r(()=>import("./order-list-DfVLBYNB.js"),__vite__mapDeps([0,1,2,3,4])),selector:".order-list__prods"},{importFn:()=>r(()=>import("./order-accordion-ppYV8cx6.js"),__vite__mapDeps([5,1])),selector:".accordion"},{importFn:()=>r(()=>import("./successful-validation-Bj5vL3zR.js"),__vite__mapDeps([6,1,7,4,8])),selector:".header"},{importFn:()=>r(()=>import("./render-cards-recommendations-nLH50Voj.js"),__vite__mapDeps([9,4])),selector:"form"}];d.forEach(({importFn:o,selector:t})=>e(o,t));document.addEventListener("DOMContentLoaded",async()=>{const o=_(".deliver-info__subitem_dropdown");o&&(i(o),n())});m();
