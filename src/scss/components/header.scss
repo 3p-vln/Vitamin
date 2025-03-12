@@ -80,17 +80,19 @@
 
   .cart {
     position: fixed;
-    right: -100%;
+    right: 0;
     bottom: 0;
     overflow: hidden;
-    width: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
     transition:
-      right 0.5s ease-in-out,
-      width 0.5s ease-in-out;
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
 
     &_active {
-      right: 0;
-      width: 100%;
+      opacity: 1;
+      visibility: visible;
     }
 
     &__bg {
