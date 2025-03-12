@@ -76,13 +76,14 @@ function addToOrders() {
 }
 
 function applyMask() {
-  if (!cardInput || !expirationInput || !cvcInput) {
+  if (!cardInput || !expirationInput || !cvcInput || !phoneInput) {
     return;
   }
 
   IMask(cardInput, { mask: '0000-0000-0000-0000' });
   IMask(expirationInput, { mask: '00/00' });
   IMask(cvcInput, { mask: '000' });
+  IMask(phoneInput, { mask: '+000 (00) 00 00 000' });
 }
 
 function addUserInfoToLocal() {
