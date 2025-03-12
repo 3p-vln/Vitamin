@@ -1,0 +1,1 @@
+import{S as e}from"./swiper-core-Drop_04u.js";function i(){new e(".feedback__slider",{speed:400,spaceBetween:10,slidesPerView:1,breakpoints:{1024:{slidesPerView:3,spaceBetween:30},576:{slidesPerView:2,spaceBetween:20}}})}export{i as default};
