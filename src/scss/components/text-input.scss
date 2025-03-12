@@ -51,6 +51,8 @@
     font-size: 18px;
     color: $font-color-black;
     opacity: 0.3;
+
+
   }
 
   &__file-button{
@@ -119,6 +121,11 @@
   font-size: 14px;
   background: #fff;
   font-weight: 400;
+  @include media-breakpoint-down(xs) {
+    left: -2px;
+    top: -15px;
+
+  }
 }
 
 .just-validate-error-label{

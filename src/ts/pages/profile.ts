@@ -9,6 +9,9 @@ import { unlockSubmit } from '../profile/overview/unlock-submit-button.ts';
 import { overviewValidete } from '../profile/overview/overview-validete.ts';
 import { initDropdown } from '../components/dropdown.ts';
 import { getElement } from '../composables/use-call-dom.ts';
+import { renderCardsOrderHistory } from '../profile/order-history/render-cards-order-history.ts';
+
+
 
 document.addEventListener('DOMContentLoaded', async () => {
   initHeader();
@@ -26,4 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   await renderFormRole()
   unlockSubmit()
   overviewValidete()
+  renderCardsOrderHistory()
+
 });

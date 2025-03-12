@@ -1,0 +1,133 @@
+
+.orders {
+  font-family: Effra, sans-serif;
+  padding-top: 12px;
+
+  &__title {
+    font-weight: 500;
+    font-size: 36px;
+    color: $font-color-black;
+    margin-bottom: 49px;
+  }
+}
+
+.orderItem {
+  padding: 40px 40px 40px 40px;
+  background: #faf8f6;
+  border-radius: 16px;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+
+  &__date {
+    font-family: OpenSans, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: $font-color-black;
+    opacity: 0.5;
+    margin-bottom: 15px;
+  }
+
+  &__id {
+    font-family: Effra, sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: $font-color-black;
+  }
+
+  &__description {
+    font-family: OpenSans, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #000;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 39px;
+
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding-top: 40px;
+    border-top: 1px solid $font-color-black;
+  }
+
+  &__total-text{
+    opacity: 0.5;
+  }
+
+  &__total-sum {
+    display: block;
+    margin-top: 4px;
+  }
+}
+
+.card {
+  max-width: 460px;
+  display: flex;
+
+
+  &__img-block {
+    max-width: 120px;
+    background: #6b5ebb;
+    border-radius: 16px;
+    width: 100%;
+
+  }
+
+  &__img-wrapper {
+    width: 85px;
+    height: 95px;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__img {
+    width: 100%;
+  }
+
+  &__body {
+    padding: 10px 10px 10px 30px;
+
+  }
+
+  &__type {
+    margin-bottom: 5px;
+    font-family: OpenSans, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  &__name {
+    font-family: Effra, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #000;
+    margin-bottom: 50px;
+  }
+
+  &__price {
+    font-family: OpenSans, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: $font-color-black;
+  }
+}
+
