@@ -110,9 +110,16 @@ function showInfo(prodInfo: Product) {
   capsules.innerText = prodInfo.capsules.toString();
   mg.innerText = prodInfo.weight_mg.toString();
 
+  if (window.innerWidth < 768) {
+    autoshipText.innerText = 'Deliver every';
+  }
+
   window.addEventListener('resize', () => {
     if (window.innerWidth < 768) {
       autoshipText.innerText = 'Deliver every';
+    }
+    if (window.innerWidth >= 768) {
+      autoshipText.innerText = 'Autoship this item every';
     }
   });
 

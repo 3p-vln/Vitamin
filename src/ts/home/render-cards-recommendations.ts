@@ -1,6 +1,6 @@
 import { getRecommendations } from '../composables/use-api.ts';
 
-export async function renderCards(): Promise<void> {
+export default async function renderCards(): Promise<void> {
   try {
     const response = await getRecommendations(false);
 

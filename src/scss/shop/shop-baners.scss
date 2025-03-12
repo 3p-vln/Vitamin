@@ -35,10 +35,10 @@
 
     &_first {
       background-color: $purpleBgBaner;
-      background-image: url('/src/img/shop/baner-1-bg.png');
+      background-image: url("/src/img/shop/baner-1-bg.webp"), url('/src/img/shop/baner-1-bg.png');
 
       @include media-breakpoint-down(sm) {
-        background-image: url('/src/img/shop/baner-1-bg-adapt.jpg');
+        background-image: url("/src/img/shop/baner-1-bg-adapt.webp"), url('/src/img/shop/baner-1-bg-adapt.jpg');
       }
 
       .baner__img {
@@ -59,6 +59,11 @@
           margin-top: 30px;
           width: calc(100% + 40px);
           height: 52vw;
+        }
+
+        picture{
+          width: 100%;
+          height: 100%;
         }
 
         img {
@@ -90,19 +95,19 @@
 
     &_second {
       background-color: $purpleBg;
-      background-image: url('/src/img/shop/baner-2-bg.png');
+      background-image: url("/src/img/shop/baner-2-bg.webp"), url('/src/img/shop/baner-2-bg.png');
 
       @include media-breakpoint-down(sm) {
-        background-image: url('/src/img/shop/baner-2-bg-adapt.jpg');
+        background-image: url("/src/img/shop/baner-2-bg-adapt.webp"), url('/src/img/shop/baner-2-bg-adapt.jpg');
       }
     }
 
     &_third {
       background-color: $blueBgBaner;
-      background-image: url('/src/img/shop/baner-3-bg.png');
+      background-image: url("/src/img/shop/baner-3-bg.webp"), url('/src/img/shop/baner-3-bg.png');
 
       @include media-breakpoint-down(sm) {
-        background-image: url('/src/img/shop/baner-3-bg-adapt.jpg');
+        background-image: url("/src/img/shop/baner-3-bg-adapt.webp"), url('/src/img/shop/baner-3-bg-adapt.jpg');
       }
 
       .baner__img {
@@ -221,6 +226,11 @@
 
     @include media-breakpoint-down(xxs) {
       height: 53vw;
+    }
+
+    picture{
+      width: 100%;
+      height: 100%;
     }
 
     img {
