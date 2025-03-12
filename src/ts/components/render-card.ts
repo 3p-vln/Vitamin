@@ -210,50 +210,6 @@ async function loadMoreCards(container: string, category?: string) {
   }
 }
 
-// async function loadMoreCards(container: string, category?: string) {
-//   const prodContainer = getElement(container);
-//   if (!prodContainer) return;
-//
-//   // Запоминаем текущее положение скролла
-//   const prevScrollTop = prodContainer.scrollTop;
-//   const prevHeight = prodContainer.scrollHeight;
-//
-//   // Фиксируем высоту контейнера
-//   prodContainer.style.height = prevHeight + "px";
-//   prodContainer.style.overflow = "hidden"; // Отключаем скролл временно
-//
-//   if (category !== currentCategory) {
-//     currentPage = 1;
-//     currentCategory = category;
-//     prodContainer.innerHTML = ''; // Очистка контейнера
-//   } else {
-//     currentPage++;
-//   }
-//
-//   try {
-//     const response = await getCatalogList(currentPage, itemsViewMore, category);
-//
-//     if ('errors' in response || !response.data || response.data.length === 0) {
-//       console.error(response.errors);
-//       return;
-//     }
-//
-//     await card(response.data, prodContainer, 'gray'); // Добавляем карточки
-//
-//     stop();
-//
-//     // Восстанавливаем скролл после загрузки
-//     setTimeout(() => {
-//       prodContainer.style.height = "auto"; // Разблокируем высоту
-//       prodContainer.style.overflow = "auto"; // Включаем скролл
-//       prodContainer.scrollTop = prevScrollTop; // Восстанавливаем позицию
-//     }, 0);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-
 export async function handleViewMoreButtonVisibility(container: string, category?: string) {
   const viewMoreButton = getElement('.catalog-list__view-more');
   if (!viewMoreButton) return;

@@ -22,6 +22,7 @@ export async function initCart() {
   cartBtn.addEventListener('click', (event) => cartActive(event));
 
   cartCloseBtn.addEventListener('click', () => cartClose());
+  cartBg.addEventListener('click', () => cartClose());
 
   loadCartFromLocalStorage();
   totalCartPrice();
@@ -86,6 +87,7 @@ function removeProductFromLocalStorage(prodId: number) {
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
   totalCartPrice();
+  blockBtn();
 
   if (cartItems.length === 0) {
     const emptyText = getElement('.cart__empty');
@@ -274,9 +276,12 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   empty = false;
   emptyBag(empty);
 
-  saveProductToLocalStorage(prod);
+  const autoshipEl = getElement('.autoship__on-off');
+  const countsItemsEl = getElement(`.count__items`);
 
-  // prodList = getElements(`.prod`);
+  if (!autoshipEl || !countsItemsEl) saveAllProductToLocalStorage(prod);
+  else saveProductToLocalStorage(prod);
+
   removeProd(prod.id);
 
   updateInfoInLocal(prod);
@@ -323,6 +328,23 @@ function saveProductToLocalStorage(prod: Product) {
       autoshipChecked: autoshipActive,
       autoshipDays: '30',
       counts: countsItems,
+    });
+  }
+
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
+function saveAllProductToLocalStorage(prod: Product) {
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  const productExists = cartItems.some((item: Product) => item.id === prod.id);
+
+  if (!productExists) {
+    cartItems.push({
+      id: prod.id,
+      autoshipChecked: true,
+      autoshipDays: '30',
+      counts: 1,
     });
   }
 
@@ -404,11 +426,13 @@ export function loadCartFromLocalStorage() {
   if (cartItems.length === 0) {
     empty = true;
     emptyBag(empty);
+    blockBtn();
     return;
   }
 
   empty = false;
   emptyBag(empty);
+  blockBtn();
   if (!cartContainer) return;
   cartContainer.innerHTML = '';
 
@@ -445,6 +469,7 @@ export function addProdToCart(prod: Product) {
   }
 
   totalCartPrice();
+  blockBtn();
 }
 
 export function addAutoship(prod: Product) {
@@ -498,6 +523,7 @@ export function addBtn(prod: Product) {
   if (!productExists) {
     renderProdCard(prod, false, '30', Number(addItems.innerText));
     totalCartPrice();
+    blockBtn();
     return;
   }
 
@@ -592,6 +618,58 @@ function limitTotalPrice(total: number) {
     if (total >= 700) {
       btn.style.backgroundColor = '';
       btn.style.pointerEvents = '';
+    }
+  }
+}
+
+function blockBtn() {
+  const btnWrspper = getElement('.cart__btn');
+  if (!btnWrspper) return;
+
+  const btn = getElement('.btn', btnWrspper);
+  if (!btn) return;
+
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  if (cartItems.length === 0) {
+    btn.style.backgroundColor = '#C3BDB6';
+    btn.style.pointerEvents = 'none';
+    return;
+  }
+
+  btn.style.backgroundColor = '';
+  btn.style.pointerEvents = '';
+}
+
+export async function addAllToCart(prodsId: string[]) {
+  for (const prodId of prodsId) {
+    try {
+      let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      const prod = await getCatalogItem(prodId);
+
+      if ('errors' in prod) {
+        console.error(prod);
+        return;
+      }
+
+      const productExists = cartItems.some((item: Product) => item.id === prod.id);
+
+      if (!productExists) {
+        renderProdCard(prod, false, '30', 1);
+        totalCartPrice();
+        blockBtn();
+        continue;
+      }
+
+      const counterItems = getElement(`.prod_${prod.id} .counter__items`);
+      if (!counterItems) return;
+
+      updateAutoshipInLocalStorage(`${prod.id}`, false, '30', Number(counterItems.textContent) + 1);
+      loadCartFromLocalStorage();
+
+      totalCartPrice();
+    } catch (error) {
+      console.error(error);
     }
   }
 }
