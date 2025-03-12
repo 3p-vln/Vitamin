@@ -1,13 +1,13 @@
 import { getElement } from '../composables/use-call-dom.ts';
 import { validateOrderInfo } from '../create-order/validate-form.ts';
 import { createOrder } from '../composables/use-api.ts';
-import { OrderData, ProductLocalStorge } from '../components/interfaces.ts';
+import { OrderData, ProductLocalStorge, UserStore } from '../components/interfaces.ts';
 import IMask from 'imask';
 
 const createBtnMain = getElement('.create-order-form__btn');
 const createBtnSub = getElement('.order-list__btn');
-const storedUserInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
-const storedOrderInfo = JSON.parse(localStorage.getItem('orderInfo') || '[]');
+const storedUserInfo = JSON.parse(localStorage.getItem('userInfo') || 'null') as UserStore;
+const storedOrderInfo = JSON.parse(localStorage.getItem('orderInfo') || 'null');
 
 const firstNameInput = getElement<HTMLInputElement>('#first-name');
 const lastNameInput = getElement<HTMLInputElement>('#last-name');
@@ -111,6 +111,8 @@ function addUserInfoToLocal() {
 function addUserInfoToForm() {
   if (!firstNameInput || !lastNameInput || !addressFirstInput || !addressSecondInput || !cityInput || !stateInput || !zipInput || !emailInput || !phoneInput || !cardInput || !expirationInput || !cvcInput) return;
 
+  if (!storedUserInfo && storedOrderInfo) return;
+
   if (storedOrderInfo && !storedUserInfo) {
     firstNameInput.value = storedOrderInfo.firstName;
     lastNameInput.value = storedOrderInfo.lastName;
@@ -127,7 +129,8 @@ function addUserInfoToForm() {
     return;
   }
 
-  if (storedUserInfo){
+  if (storedUserInfo) {
+    console.log(storedUserInfo);
     firstNameInput.value = storedUserInfo.first_name;
     lastNameInput.value = storedUserInfo.last_name;
     addressFirstInput.value = storedUserInfo.address_one;
@@ -140,6 +143,6 @@ function addUserInfoToForm() {
     cardInput.value = storedUserInfo.card_info.card_number;
     expirationInput.value = storedUserInfo.card_info.card_date;
     cvcInput.value = storedUserInfo.card_info.card_cvv;
+    return;
   }
 }
-
