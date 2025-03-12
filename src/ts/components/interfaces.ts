@@ -70,23 +70,23 @@ export interface UserInfo {
 export interface OrdersData {
   orders: [
     {
-      date_created: string,
-      order_number: string,
+      date_created: string;
+      order_number: string;
       items: [
         {
           product: {
-            additionalProp1: {},
-            name: string,
-            img: string,
-            type: string,
-          },
-          quantity: number,
-          is_discount: boolean,
-          total_sum: number
-        }
-      ]
-    }
-  ]
+            additionalProp1: {};
+            name: string;
+            img: string;
+            type: string;
+          };
+          quantity: number;
+          is_discount: boolean;
+          total_sum: number;
+        },
+      ];
+    },
+  ];
 }
 
 export interface RecommendationData {
@@ -131,4 +131,22 @@ export interface ProductLocalStorge {
   autoshipChecked: boolean;
   autoshipDays: string;
   counts: number;
+}
+
+export interface UserStore {
+  address_one: string;
+  address_two: string;
+  card_info: {
+    card_cvv: string;
+    card_date: string;
+    card_number: string };
+  city: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  postal_code: string;
+  role_type: string;
+  state_province: string;
+  user_id: string;
 }
