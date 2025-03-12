@@ -17,7 +17,7 @@ export async function shopBaners() {
     autoplay: {
       delay: 5000,
     },
-    loop: true,
+    loop: false,
     slidesPerView: 1,
     spaceBetween: 20,
     centeredSlides: true,
@@ -25,17 +25,19 @@ export async function shopBaners() {
       768: {
         slidesPerView: 'auto',
         spaceBetween: 35,
+        loop: true
       },
       1440: {
         slidesPerView: 'auto',
         spaceBetween: 50,
+        loop: true
       },
     },
   });
 }
 
 function removeDuplicate() {
-  const swiperSlides = document.querySelectorAll('.swiper-slide.swiper-slide-duplicate');
+  const swiperSlides = document.querySelectorAll('.shop-baners__swiper-slide-duplicate');
   const screenWidth = window.innerWidth;
 
   if (screenWidth < 768) {
