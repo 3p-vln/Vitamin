@@ -1,5 +1,6 @@
 import { getOrderHistory } from '../../composables/use-api.ts';
 import { OrdersData } from '../../components/interfaces.ts';
+import { getColorCard } from './get-color.ts';
 
 export async function renderCardsOrderHistory() {
   const res = await getOrderHistory();
@@ -18,15 +19,15 @@ export async function renderCardsOrderHistory() {
     console.error('Container not found');
     return;
   }
-  orderHistoryContainer.innerHTML = ''; // Очищаем контейнер
+  orderHistoryContainer.innerHTML = '';
 
-  // Проходим по каждому заказу
+
   ordersData.orders.forEach((orderItem) => {
-    // Создаем основной контейнер для заказа
+
     const orderItemContainer = document.createElement('article');
     orderItemContainer.classList.add('orderItem');
 
-    // Создаем и заполняем заголовок заказа (дата, номер, описание)
+
     const orderItemContainerHeader = document.createElement('div');
     orderItemContainerHeader.classList.add('orderItem__header');
 
@@ -39,6 +40,12 @@ export async function renderCardsOrderHistory() {
       month: 'long',
       year: 'numeric'
     });
+
+    const iconRow = document.createElement('img');
+    iconRow.classList.add('orderItem__icon');
+    iconRow.src = './src/img/profile/Back_arrow.svg'
+      iconRow.alt = 'picture'
+
     const orderItemDate = document.createElement('div');
     orderItemDate.classList.add('orderItem__date');
     orderItemDate.innerText = formattedDate;
@@ -48,17 +55,20 @@ export async function renderCardsOrderHistory() {
     orderItemId.innerText = `No ${orderItem.order_number}`;
 
     orderItemContainerHeaderData.appendChild(orderItemDate);
-    orderItemContainerHeaderData.appendChild(orderItemId);
+
 
     const orderItemContainerDescription = document.createElement('div');
     orderItemContainerDescription.classList.add('orderItem__description');
     orderItemContainerDescription.innerText = 'Shipping';
 
     orderItemContainerHeader.appendChild(orderItemContainerHeaderData);
-    orderItemContainerHeader.appendChild(orderItemContainerDescription);
+    orderItemContainerHeaderData.appendChild(orderItemContainerDescription);
     orderItemContainer.appendChild(orderItemContainerHeader);
+    orderItemContainerHeader.appendChild(iconRow);
 
-    // Создаем тело заказа с карточками товаров
+    orderItemContainerHeader.appendChild(orderItemId);
+
+    // тело заказа с карточками товаров
     const orderItemBody = document.createElement('div');
     orderItemBody.classList.add('orderItem__body');
 
@@ -68,6 +78,8 @@ export async function renderCardsOrderHistory() {
 
       const imgBlock = document.createElement('div');
       imgBlock.classList.add('card__img-block');
+      imgBlock.classList.add(getColorCard(item.product.type, 'card__img-block'));
+
       const imgWrapper = document.createElement('div');
       imgWrapper.classList.add('card__img-wrapper');
       const img = document.createElement('img');
@@ -82,10 +94,10 @@ export async function renderCardsOrderHistory() {
 
       const cardType = document.createElement('div');
       cardType.classList.add('card__type');
+      cardType.classList.add(getColorCard(item.product.type,'card__type'));
       cardType.innerText = item.product.type;
 
       const cardName = document.createElement('div');
-      cardName.classList.add('card__name');
       cardName.innerText = `${item.quantity} х ${item.product.name}`;
 
       const cardPrice = document.createElement('div');
@@ -105,10 +117,13 @@ export async function renderCardsOrderHistory() {
       orderItemBody.appendChild(card);
     });
 
-    orderItemContainer.appendChild(orderItemBody);
 
-    // **Добавляем футер перед </article>**
-    // Рассчитываем общую сумму заказа
+    const orderItemContent = document.createElement('div');
+    orderItemContent.classList.add('orderItem__content');
+
+    orderItemContent.appendChild(orderItemBody);////////////////////////////////////////
+
+
     const totalOrderSum = orderItem.items.reduce((sum, item) => sum + item.total_sum, 0);
     const formattedTotalSum = totalOrderSum.toLocaleString('en-US', {
       style: 'currency',
@@ -131,9 +146,11 @@ export async function renderCardsOrderHistory() {
     orderItemFooter.appendChild(orderItemButton);
 
     // Добавляем футер в контейнер заказа перед закрытием <article>
-    orderItemContainer.appendChild(orderItemFooter);
+    orderItemContent.appendChild(orderItemFooter);
+    orderItemContainer.appendChild(orderItemContent);
 
     // Добавляем заказ в общий контейнер
     orderHistoryContainer.appendChild(orderItemContainer);
   });
+  return Promise.resolve();
 }

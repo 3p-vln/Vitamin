@@ -10,6 +10,7 @@ import { overviewValidete } from '../profile/overview/overview-validete.ts';
 import { initDropdown } from '../components/dropdown.ts';
 import { getElement } from '../composables/use-call-dom.ts';
 import { renderCardsOrderHistory } from '../profile/order-history/render-cards-order-history.ts';
+import { openOrdersMobile } from '../profile/order-history/open-orders-mobile.ts';
 
 
 
@@ -29,6 +30,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   await renderFormRole()
   unlockSubmit()
   overviewValidete()
-  renderCardsOrderHistory()
+  renderCardsOrderHistory().then(()=>{
+    openOrdersMobile()
+  })
+
+
 
 });

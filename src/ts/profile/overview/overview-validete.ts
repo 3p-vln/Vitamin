@@ -76,6 +76,12 @@ export function overviewValidete(){
         errorMessage: 'Phone Number must +380**********',
       },
     ])
+    .addField('#overview-state', [
+      {
+        rule: 'required',
+        errorMessage: 'State is required',
+      },
+    ])
     .onSuccess(() => {
       const formData: FormData = {
         first_name: (form.querySelector('#overview-first-name') as HTMLInputElement).value,
