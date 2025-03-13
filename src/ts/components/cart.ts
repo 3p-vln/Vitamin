@@ -181,7 +181,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   }
 
   prodImg.innerHTML = `
-    <img src="${prod.img}" alt="" />
+    <img src="${prod.img}" alt="prod" />
   `;
 
   const prodInfo = renderElement('div', 'prod__info');
@@ -531,7 +531,13 @@ export function addBtn(prod: Product) {
 
   if (!autoshipCheckbox || !autoshipDaysText || !counterItems) return;
 
-  updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', Number(counterItems.textContent) + Number(addItems.innerText));
+  const counts = Number(counterItems.textContent) + Number(addItems.innerText);
+  if (counts > 999 || counts == 999) {
+    updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', 999);
+  } else {
+    updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', counts);
+  }
+
   loadCartFromLocalStorage();
 
   totalCartPrice();

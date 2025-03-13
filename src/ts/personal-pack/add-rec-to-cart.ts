@@ -3,7 +3,7 @@ import { addAllToCart, cartActive } from '../components/cart.ts';
 
 const addAllProdBtn = getElement('.your-pack__continue');
 
-export async function addRecToCart() {
+export default async function addRecToCart() {
   const cardsItems = getElements('.prod-card');
 
   if (!addAllProdBtn || !cardsItems) return;

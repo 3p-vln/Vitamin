@@ -1,7 +1,7 @@
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
-export async function shopBaners() {
+export default async function shopBaners() {
   removeDuplicate();
 
   new Swiper('.shop-baners__swiper', {
@@ -14,9 +14,9 @@ export async function shopBaners() {
       el: '.swiper-pagination',
       clickable: true,
     },
-    autoplay: {
-      delay: 5000,
-    },
+    // autoplay: {
+    //   delay: 5000,
+    // },
     loop: false,
     slidesPerView: 1,
     spaceBetween: 20,

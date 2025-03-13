@@ -3,7 +3,7 @@ import { getElement } from '../composables/use-call-dom.ts';
 const accordion = getElement('.accordion');
 const accordionContent = getElement('.accordion-content');
 
-export function initAccordion() {
+export default function initAccordion() {
   if (!accordion || !accordionContent) return;
 
   accordion.addEventListener('click', () => {

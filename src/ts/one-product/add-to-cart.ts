@@ -8,7 +8,7 @@ const prodId = urlParams.get('id') || undefined;
 
 const addProdBtn = getElement('.add-to-cart__btn');
 
-export async function addToCartBtn() {
+export default async function addToCartBtn() {
   if (!addProdBtn) return;
 
   if (prodId) {

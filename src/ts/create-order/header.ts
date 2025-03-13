@@ -2,7 +2,7 @@ import { getElement } from '../composables/use-call-dom.ts';
 
 const header = getElement('.header');
 
-export function createOrderHeader() {
+export default function createOrderHeader() {
   addBgScroll();
 }
 

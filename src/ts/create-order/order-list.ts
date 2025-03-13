@@ -6,7 +6,7 @@ import { getCatalogItem } from '../composables/use-api.ts';
 const orderListCintainer = getElement('.order-list__prods');
 const orderListPrice = getElement('.order-list__total');
 
-export function createOrderList() {
+export default function createOrderList() {
   // console.log(orderListCintainer);
   loadCards();
   totalCartPrice();
@@ -65,7 +65,7 @@ async function renderProd(prod: ProductLocalStorge) {
     }
 
     prodImg.innerHTML = `
-    <img src="${prodItem.img}" alt="" />
+    <img src="${prodItem.img}" alt="prod" />
   `;
 
     const prodCountAndName = renderElement('div', 'prod__count-and-name');
