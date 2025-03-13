@@ -1,1 +1,0 @@
-import{c as n}from"./use-api-DGP1fZH4.js";const t=n.get("accessToken"),i=window.location.pathname;!t&&!i.includes("/login.html")&&!i.includes("/registration.html")&&(window.location.href="/Vitamin/login.html");t&&(i.includes("/login.html")||i.includes("/registration.html"))?window.location.href="/Vitamin":document.body.style.visibility="visible";
