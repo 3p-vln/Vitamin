@@ -1,1 +1,0 @@
-import{r}from"./render-card-DLKU-gCb.js";import"./use-api-BnJ_j2Go.js";import"./use-call-dom-DDNnwvp7.js";import"./stopPreload-BW9xUuEZ.js";async function i(){await r(".your-pack__cards","white")}export{i as default};
