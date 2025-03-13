@@ -8,7 +8,7 @@ import { initCounter } from '../components/counter.ts';
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id') || undefined;
 
-export async function loadInfo() {
+export default async function loadInfo() {
   const autoshipDropdown = getElement('.autoship__dropdown');
 
   if (!prodId || !autoshipDropdown) return;

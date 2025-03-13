@@ -23,6 +23,7 @@ export async function renderRecCard(container: string, colour: string) {
 
     const prodList = response.data;
     await card(prodList, prodContainer, colour);
+    stop();
   } catch (error) {
     console.error(error);
   }
