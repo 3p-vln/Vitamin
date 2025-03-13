@@ -22,6 +22,8 @@ export async function renderCardsOrderHistory() {
   orderHistoryContainer.innerHTML = '';
 
   ordersData.orders.forEach((orderItem) => {
+    console.log(orderItem);
+
     const productsId: string[] = [];
 
     const orderItemContainer = document.createElement('article');
@@ -69,8 +71,13 @@ export async function renderCardsOrderHistory() {
     const orderItemBody = document.createElement('div');
     orderItemBody.classList.add('orderItem__body');
 
+
+
     orderItem.items.forEach((item) => {
-      productsId.push(item.product.id);
+
+      for (let i = 0; i < item.quantity; i++) {
+        productsId.push(item.product.id);
+      }
 
       const card = document.createElement('a');
       card.classList.add('orderItem__card', 'card');
@@ -127,6 +134,7 @@ export async function renderCardsOrderHistory() {
       style: 'currency',
       currency: 'USD',
     });
+    console.log(formattedTotalSum);
 
     const orderItemFooter = document.createElement('div');
     orderItemFooter.classList.add('orderItem__footer');
@@ -135,11 +143,12 @@ export async function renderCardsOrderHistory() {
     orderItemTotal.classList.add('orderItem__total');
     orderItemTotal.innerHTML = `<span class="orderItem__total-text">Order amount:</span> <span class="orderItem__total-sum">${formattedTotalSum}</span>`;
 
-    const orderItemButton = document.createElement('div');
+    const orderItemButton = document.createElement('button');
     orderItemButton.classList.add('orderItem__button', 'btn', 'btn_orange');
     orderItemButton.innerText = 'Add to cart';
 
     orderItemButton.addEventListener('click', async () => {
+
       await addAllToCart(productsId);
     });
 

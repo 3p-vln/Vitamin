@@ -71,11 +71,11 @@ export function overviewValidete(){
         rule: 'required',
         errorMessage: 'Phone Number is required',
       },
-      // {
-      //   rule: 'customRegexp',
-      //   value: /^\+380\d{9}$/,
-      //   errorMessage: 'Phone Number must +380**********',
-      // },
+      {
+        rule: 'customRegexp',
+        value: /^\+38 \(\d{3}\)\d{3}-\d{2}-\d{2}$/,
+        errorMessage: 'Phone Number must be in the format +38 (XXX)XXX-XX-XX',
+      }
     ])
     .addField('#overview-state', [
       {
