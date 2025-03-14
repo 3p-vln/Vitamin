@@ -1,6 +1,6 @@
 import Swiper from 'swiper';
 
-export function feedbackSlider() {
+export default function feedbackSlider() {
   new Swiper('.feedback__slider', {
     speed: 400,
     spaceBetween: 10,

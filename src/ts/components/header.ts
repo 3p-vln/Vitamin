@@ -11,7 +11,7 @@ const logoBtn = getElement('.header__logo');
 const personalPackBg = getElement('.pack-info__bg_hulf-circle');
 const header = getElement('.header');
 
-export function initHeader() {
+export default function initHeader() {
   if (!menuMain) return;
 
   const shopBtn = getElement('.menu__item_shop', menuMain);

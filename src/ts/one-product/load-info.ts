@@ -8,7 +8,7 @@ import { initCounter } from '../components/counter.ts';
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id') || undefined;
 
-export async function loadInfo() {
+export default async function loadInfo() {
   const autoshipDropdown = getElement('.autoship__dropdown');
 
   if (!prodId || !autoshipDropdown) return;
@@ -110,9 +110,16 @@ function showInfo(prodInfo: Product) {
   capsules.innerText = prodInfo.capsules.toString();
   mg.innerText = prodInfo.weight_mg.toString();
 
+  if (window.innerWidth < 768) {
+    autoshipText.innerText = 'Deliver every';
+  }
+
   window.addEventListener('resize', () => {
     if (window.innerWidth < 768) {
       autoshipText.innerText = 'Deliver every';
+    }
+    if (window.innerWidth >= 768) {
+      autoshipText.innerText = 'Autoship this item every';
     }
   });
 
