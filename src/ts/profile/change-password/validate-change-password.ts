@@ -49,7 +49,7 @@ export function validateChangePassword() {
         errorMessage: 'Passwords do not match',
       },
     ])
-    // Обработчик успешной валидации
+
     .onSuccess(() => {
       console.log('Successfully updated password');
       const newPassword: HTMLInputElement | null = form.querySelector('#new-password');

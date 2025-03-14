@@ -2,9 +2,9 @@ import axios, { AxiosError, AxiosRequestConfig, InternalAxiosRequestConfig } fro
 import Cookies from 'js-cookie';
 
 const API_BASE_URL = 'https://www.mku-journal.online';
-const ACCESS_TOKEN_KEY = 'accessToken'; // Ключ для хранения accessToken в куках
-const REFRESH_TOKEN_KEY = 'refreshToken'; // Ключ для хранения refreshToken в куках
-const REFRESH_URL = '/auth/refresh-token'; // URL для обновления токенов
+const ACCESS_TOKEN_KEY = 'accessToken';
+const REFRESH_TOKEN_KEY = 'refreshToken';
+const REFRESH_URL = '/auth/refresh-token';
 
 // Создаём экземпляр axios с базовым URL и настройкой передачи куков
 const apiClient = axios.create({
