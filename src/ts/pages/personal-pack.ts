@@ -7,6 +7,8 @@ import { renderRecCard } from '../components/render-card.ts';
 import { initCart } from '../components/cart.ts';
 import { initHeader } from '../components/header.ts';
 
+
+
 document.addEventListener('DOMContentLoaded', async () => {
   const lazyModules: LazyModule[] = [
     {
@@ -19,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   ];
 
-  initHeader();
+  initHeader()
   await initCart();
   await renderRecCard('.your-pack__cards', 'white');
   await addRecToCart();

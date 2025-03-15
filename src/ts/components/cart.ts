@@ -14,6 +14,7 @@ const storedUserInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
 
 let prodList = getElements('.prod');
 let empty: boolean;
+let scrollPosition = 0;
 
 const backToShopBtn = getElement('.info__backbtn');
 
@@ -45,6 +46,7 @@ export function cartActive(event: Event) {
   classManipulator(cart, 'add', 'cart_active');
 
   if (backToShopBtn) backToShopBtn.style.zIndex = '1';
+  disablePageScroll();
 
   scrollLock();
 }
@@ -57,6 +59,63 @@ function cartClose() {
   if (backToShopBtn) backToShopBtn.style.zIndex = '25';
 
   scrollLock();
+  enablePageScroll();
+}
+
+function scrollLock() {
+  const header = getElement('.header');
+  const html = getElement('html');
+
+  if (!header || !html || !cart) return;
+
+  if (cart.classList.contains('cart_active')) {
+    scrollPosition = window.scrollY;
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.left = '0';
+    document.body.style.width = '100%';
+
+    header.style.position = 'fixed';
+    header.style.top = '0';
+    header.style.left = '0';
+    header.style.backgroundColor = 'white';
+
+    header.style.paddingRight = `${getScrollbarWidthAlternative()}px`;
+
+    return;
+  }
+
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.width = '';
+
+  document.documentElement.style.scrollBehavior = 'auto';
+  window.scrollTo({ top: scrollPosition, behavior: 'instant' });
+  document.documentElement.style.scrollBehavior = '';
+
+  header.style.top = '';
+  header.style.left = '';
+  header.style.position = '';
+  header.style.backgroundColor = '';
+
+  header.style.paddingRight = '0';
+}
+
+function getScrollbarWidthAlternative(): number {
+  const div = document.createElement('div');
+  div.style.width = '100px';
+  div.style.height = '100px';
+  div.style.overflow = 'scroll';
+  div.style.position = 'absolute';
+  div.style.top = '-9999px';
+
+  document.body.appendChild(div);
+  const scrollbarWidth = div.offsetWidth - div.clientWidth;
+  document.body.removeChild(div);
+
+  return scrollbarWidth;
 }
 
 function scrollLock() {
@@ -84,16 +143,18 @@ function removeProd(prodId: number) {
   if (!productExists) return;
 
   cartItems.forEach(async (prod: ProductLocalStorge) => {
-    const prodEl = getElement(`.prod_${prod.id}`);
-    if (!prodEl) return;
+    if (prod.id === prodId) {
+      const prodEl = getElement(`.prod_${prod.id}`);
+      if (!prodEl) return;
 
-    const removeBtn = getElement('.prod__close', prodEl);
+      const removeBtn = getElement('.prod__close', prodEl);
 
-    if (!removeBtn) return;
-    removeBtn.addEventListener('click', () => {
-      prodEl.remove();
-      removeProductFromLocalStorage(prodId);
-    });
+      if (!removeBtn) return;
+      removeBtn.addEventListener('click', () => {
+        prodEl.remove();
+        removeProductFromLocalStorage(prodId);
+      });
+    }
   });
 }
 
@@ -256,7 +317,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   const countsItemsEl = getElement(`.count__items`);
 
   if (!autoshipEl || !countsItemsEl) saveAllProductToLocalStorage(prod);
-  else saveProductToLocalStorage(prod);
+  else saveProductToLocalStorage(prod, autoshipChecked, autoshipDays, counts);
 
   removeProd(prod.id);
 
@@ -285,25 +346,17 @@ export function getTotalPrice(price: string, count: number): string {
   return totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-function saveProductToLocalStorage(prod: Product) {
+function saveProductToLocalStorage(prod: Product, autoshipChecked: boolean, autoshipDays: string, counts: number) {
   let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
   const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
-  const autoshipEl = getElement('.autoship__on-off');
-  const countsItemsEl = getElement(`.count__items`);
-
-  if (!autoshipEl || !countsItemsEl) return;
-
-  const autoshipActive: boolean = autoshipEl.classList.contains('autoship__on-off_active') || false;
-  const countsItems = Number(countsItemsEl.innerText);
-
   if (!productExists) {
     cartItems.push({
       id: prod.id,
-      autoshipChecked: autoshipActive,
-      autoshipDays: '30',
-      counts: countsItems,
+      autoshipChecked: autoshipChecked,
+      autoshipDays: autoshipDays,
+      counts: counts,
     });
   }
 
@@ -328,7 +381,7 @@ function saveAllProductToLocalStorage(prod: Product) {
 }
 
 export function updateInfoInLocal(prod: Product) {
-  const autoshipCheckbox = getElement(`.prod_${prod.id} .prod__checkbox input`) as HTMLInputElement;
+  const autoshipCheckbox = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
   const autoshipDaysText = getElement(`.prod_${prod.id} .dropdown__text`);
   const autoshipDaysItem = getElements(`.prod_${prod.id} .dropdown__item`);
 
@@ -480,7 +533,7 @@ export function removeAutoship(prod: Product) {
 }
 
 export function addBtn(prod: Product) {
-  const autoshipCheckbox = getElement(`.prod_${prod.id} .prod__checkbox input`) as HTMLInputElement;
+  const autoshipCheckbox = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
   const autoshipDaysText = getElement(`.prod_${prod.id} .dropdown__text`);
   const counterItems = getElement(`.prod_${prod.id} .counter__items`);
   const addItems = getElement(`.count__counter .counter__items`);
@@ -634,19 +687,27 @@ export async function addAllToCart(prodsId: string[]) {
         return;
       }
 
+      const autoshipCheckbox = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
+      const autoshipDaysText = getElement(`.prod_${prod.id} .dropdown__text`);
+
       const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
       if (!productExists) {
-        renderProdCard(prod, false, '30', 1);
+        renderProdCard(prod, true, '30', 1);
         totalCartPrice();
         blockBtn();
         continue;
       }
 
       const counterItems = getElement(`.prod_${prod.id} .counter__items`);
-      if (!counterItems) return;
+      if (!autoshipCheckbox || !autoshipDaysText || !counterItems) return;
 
-      updateAutoshipInLocalStorage(`${prod.id}`, false, '30', Number(counterItems.textContent) + 1);
+      const counts = Number(counterItems.textContent) + 1;
+      if (counts >= 999) {
+        updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', 999);
+      } else {
+        updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', counts);
+      }
       loadCartFromLocalStorage();
 
       totalCartPrice();
@@ -656,31 +717,38 @@ export async function addAllToCart(prodsId: string[]) {
   }
 }
 
-export async function addAllToCartPersonal(prodsId: string[]) {
-  for (const prodId of prodsId) {
+export async function addAllToCartOrders(prodsIdAndCounts: { id: string; counts: number }[]) {
+  for (const prodId of prodsIdAndCounts) {
     try {
       let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-      const prod = await getCatalogItem(prodId);
+      const prod = await getCatalogItem(prodId.id);
 
       if ('errors' in prod) {
         console.error(prod);
         return;
       }
 
+      const autoshipCheckbox = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
+      const autoshipDaysText = getElement(`.prod_${prod.id} .dropdown__text`);
+
       const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
       if (!productExists) {
-        console.log(1);
-        renderProdCard(prod, false, '30', 1);
+        renderProdCard(prod, false, '30', prodId.counts);
         totalCartPrice();
         blockBtn();
         continue;
       }
 
       const counterItems = getElement(`.prod_${prod.id} .counter__items`);
-      if (!counterItems) return;
+      if (!autoshipCheckbox || !autoshipDaysText || !counterItems) return;
 
-      updateAutoshipInLocalStorage(`${prod.id}`, false, '30', Number(counterItems.textContent) + 1);
+      const counts = Number(counterItems.textContent) + prodId.counts;
+      if (counts >= 999) {
+        updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', 999);
+      } else {
+        updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', counts);
+      }
       loadCartFromLocalStorage();
 
       totalCartPrice();

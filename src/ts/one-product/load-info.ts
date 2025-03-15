@@ -73,8 +73,14 @@ function showInfo(prodInfo: Product) {
     classManipulator(ilustrate, 'add', 'ilustrate_red');
   }
 
-  const img = getElement('.ilustrate__content img') as HTMLImageElement;
-  img.src = prodInfo.img;
+  const img = getElement('.ilustrate__content');
+  if (!img) return;
+  img.innerHTML =  `
+     <picture>
+        <source srcset="${prodInfo.img_webp}" type="image/webp">
+        <img src="${prodInfo.img}" alt="prod" />
+     </picture>`;
+
 
   if (prodInfo.type === 'Vitamins & Dietary Supplements') {
     classManipulator(catgory, 'add', 'info__category_purple');

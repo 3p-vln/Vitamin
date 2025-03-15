@@ -1,7 +1,7 @@
 import { getOrderHistory } from '../../composables/use-api.ts';
 import { OrdersData } from '../../components/interfaces.ts';
 import { getColorCard } from './get-color.ts';
-import { addAllToCart } from '../../components/cart.ts';
+import { addAllToCartOrders, cartActive } from '../../components/cart.ts';
 
 export async function renderCardsOrderHistory() {
   const res = await getOrderHistory();
@@ -22,9 +22,7 @@ export async function renderCardsOrderHistory() {
   orderHistoryContainer.innerHTML = '';
 
   ordersData.orders.forEach((orderItem) => {
-    console.log(orderItem);
-
-    const productsId: string[] = [];
+    const productsIdAndCounts: { id: string; counts: number }[] = [];
 
     const orderItemContainer = document.createElement('article');
     orderItemContainer.classList.add('orderItem');
@@ -71,13 +69,11 @@ export async function renderCardsOrderHistory() {
     const orderItemBody = document.createElement('div');
     orderItemBody.classList.add('orderItem__body');
 
-
-
     orderItem.items.forEach((item) => {
-
-      for (let i = 0; i < item.quantity; i++) {
-        productsId.push(item.product.id);
-      }
+      productsIdAndCounts.push({
+        id: item.product.id,
+        counts: item.quantity,
+      });
 
       const card = document.createElement('a');
       card.classList.add('orderItem__card', 'card');
@@ -134,7 +130,6 @@ export async function renderCardsOrderHistory() {
       style: 'currency',
       currency: 'USD',
     });
-    console.log(formattedTotalSum);
 
     const orderItemFooter = document.createElement('div');
     orderItemFooter.classList.add('orderItem__footer');
@@ -147,9 +142,9 @@ export async function renderCardsOrderHistory() {
     orderItemButton.classList.add('orderItem__button', 'btn', 'btn_orange');
     orderItemButton.innerText = 'Add to cart';
 
-    orderItemButton.addEventListener('click', async () => {
-
-      await addAllToCart(productsId);
+    orderItemButton.addEventListener('click', async (event) => {
+      await addAllToCartOrders(productsIdAndCounts);
+      cartActive(event);
     });
 
     orderItemFooter.appendChild(orderItemTotal);
