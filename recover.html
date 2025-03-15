@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/Vitamin/logo.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <noscript class="loadLater">
+  </noscript>
   <title>Vitamin. Recover password</title>
   <script type="module" crossorigin src="/Vitamin/assets/recover-password-CAfmC5uH.js"></script>
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/modulepreload-polyfill-B5Qt9EMX.js">
@@ -13,7 +15,17 @@
   <link rel="stylesheet" crossorigin href="/Vitamin/assets/style-D1qgJTiI.css">
   <link rel="stylesheet" crossorigin href="/Vitamin/assets/recover-2g6UVsco.css">
 </head>
-'
+
+<script type="application/javascript">
+  // Загрузить содержимое <noscript class="loadLater"></noscript>  после загрузки страницы
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var loadLater = document.querySelector('.loadLater');
+    var head = document.querySelector('head');
+    if(loadLater && head){
+      head.insertAdjacentHTML('beforeend', loadLater.innerHTML);
+    }
+  });
+</script>'
 <body>
 <div class="wrapper">
   <header class="recover-header">
