@@ -118,23 +118,6 @@ function getScrollbarWidthAlternative(): number {
   return scrollbarWidth;
 }
 
-function scrollLock() {
-  if (!cart) return;
-
-  const body = getElement('body');
-  const header = getElement('header');
-
-  if (!body || !header) return;
-
-  if (cart.classList.contains('cart_active')) {
-
-    disablePageScroll()
-    return;
-  }
-
-  enablePageScroll();
-}
-
 function removeProd(prodId: number) {
   let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
