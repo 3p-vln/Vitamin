@@ -5,15 +5,10 @@ import { LazyModule, useLoadFunction } from '../components/lazy-load.ts';
 import { addRecToCart } from '../personal-pack/add-rec-to-cart.ts';
 import { renderRecCard } from '../components/render-card.ts';
 import { initCart } from '../components/cart.ts';
-
-
+import { initHeader } from '../components/header.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const lazyModules: LazyModule[] = [
-    {
-      importFn: () => import("../components/header"),
-      selector: ".header"
-    },
     {
       importFn: () => import("../personal-pack/pack-info"),
       selector: ".pack-info__title span"
@@ -24,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   ];
 
+  initHeader();
   await initCart();
   await renderRecCard('.your-pack__cards', 'white');
   await addRecToCart();

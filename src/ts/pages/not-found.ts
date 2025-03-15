@@ -1,15 +1,8 @@
-import { LazyModule, useLoadFunction } from '../components/lazy-load.ts';
+import { initHeader } from '../components/header.ts';
 
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const lazyModules: LazyModule[] = [
-    {
-      importFn: () => import("../components/header"),
-      selector: ".header"
-    },
-  ];
-
-  lazyModules.forEach(({ importFn, selector }) => useLoadFunction(importFn, selector));
+  initHeader();
 });
 
 
