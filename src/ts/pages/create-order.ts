@@ -1,6 +1,6 @@
 import { initDropdown } from '../components/dropdown.ts';
 import { getElement } from '../composables/use-call-dom.ts';
-import { ctrateOrder } from '../create-order/successful-validation.ts';
+import { crateOrder } from '../create-order/successful-validation.ts';
 import { stop } from '../components/stopPreload.ts';
 import { removeSkeletons } from '../components/removeSkeletons.ts';
 import { LazyModule, useLoadFunction } from '../components/lazy-load.ts';
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const dropdownContainer = getElement('.deliver-info__subitem_dropdown');
   if (!dropdownContainer) return;
   initDropdown(dropdownContainer);
-  await ctrateOrder();
+  await crateOrder();
   stop();
 });
 

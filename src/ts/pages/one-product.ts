@@ -5,6 +5,7 @@
 import { stop } from '../components/stopPreload.ts';
 import { removeSkeletons } from '../components/removeSkeletons.ts';
 import { lazyImg, LazyModule, useLoadFunction } from '../components/lazy-load.ts';
+import { initCart } from '../components/cart.ts';
 
 
 
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   lazyModules.forEach(({ importFn, selector }) => useLoadFunction(importFn, selector));
 
+  await initCart();
   lazyImg();
   stop();
 });

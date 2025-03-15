@@ -4,7 +4,8 @@
 // import { feedbackSlider } from '../components/feedback-slider.ts';
 import { removeSkeletons } from '../components/removeSkeletons.ts';
 import { stop } from '../components/stopPreload.ts';
-import { LazyModule, useLoadFunction } from '../components/lazy-load.ts';
+import { lazyImg, LazyModule, useLoadFunction } from '../components/lazy-load.ts';
+import { initCart } from '../components/cart.ts';
 
 const lazyModules: LazyModule[] = [
   {
@@ -30,7 +31,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // recommendationsProductsSlider();
   // await renderCards();
   // feedbackSlider();
+  await initCart();
   stop();
+  lazyImg();
 });
 
 removeSkeletons();

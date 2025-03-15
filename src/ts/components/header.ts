@@ -1,8 +1,8 @@
 import { classManipulator, getElement } from '../composables/use-call-dom.ts';
 import { renderUserName } from '../registration/render-user-name.ts';
-import { initCart } from './cart.ts';
 import { logout } from './logout.ts';
 import { authPopUp } from './auth-pop-up.ts';
+import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 
 const burgerBtn = getElement('.burger__btn');
 const menuMain = getElement('.burger__menu.main');
@@ -35,34 +35,36 @@ export default function initHeader() {
   }
 
   renderUserName();
-  initCart();
   logout();
   authPopUp();
 }
 
 function burgerToggle(clickBtn: string, elActive: string) {
-  if (clickBtn) {
-    const btn = getElement(`.${clickBtn}`);
-    const el = getElement(`.${elActive}`);
+  const btn = getElement(`.${clickBtn}`);
+  const el = getElement(`.${elActive}`);
 
-    if (btn && el) {
-      btn.addEventListener('click', () => {
-        const isOpening = !el.classList.contains(`${elActive}_active`);
-        if (el.classList.contains('main')) {
-          el.classList.toggle(`${elActive}_active`);
-          btn.classList.toggle(`${clickBtn}_active`);
-          hideBag();
-          scrollLock();
-          animateMenu(el, isOpening);
+  if (btn && el) {
+    btn.addEventListener('click', () => {
+      const isOpening = !el.classList.contains(`${elActive}_active`);
 
-          return;
+      if (el.classList.contains('main')) {
+        el.classList.toggle(`${elActive}_active`);
+        btn.classList.toggle(`${clickBtn}_active`);
+        hideBag();
+
+        if (isOpening) {
+          disablePageScroll(); // Блокируем прокрутку при открытии меню
+        } else {
+          enablePageScroll(); // Разблокируем прокрутку при закрытии
         }
-        el.classList.add(`${elActive}_active`);
-        animateMenu(el, isOpening);
-      });
 
-      return;
-    }
+        animateMenu(el, isOpening);
+        return;
+      }
+
+      el.classList.add(`${elActive}_active`);
+      animateMenu(el, isOpening);
+    });
   }
 }
 
@@ -98,24 +100,6 @@ function hideBag() {
     logoBtn.style.opacity = '1';
     bagBtn.style.display = 'block';
   }
-}
-
-function scrollLock() {
-  if (!burgerBtn) return;
-
-  const body = getElement('body');
-
-  if (!body) return;
-  if (!header) return;
-
-  if (burgerBtn.classList.contains('burger__btn_active')) {
-    body.style.overflow = 'hidden';
-
-    return;
-  }
-
-  body.style.overflow = 'auto';
-  header.style.backgroundColor = 'white';
 }
 
 function addBgScroll() {
@@ -186,6 +170,41 @@ function animate({ timing, draw, duration }: { timing: (t: number) => number; dr
   });
 }
 
+// function resize(shopMenu: HTMLElement, infoMenu: HTMLElement, profileMenu: HTMLElement) {
+//   window.addEventListener('resize', () => {
+//     if (window.innerWidth >= 768) {
+//       burgerBtn?.classList.remove('burger__btn_active');
+//       if (!menuMain || !shopMenu || !infoMenu || !profileMenu) return;
+//
+//       classManipulator(menuMain, 'remove', 'main_active');
+//       menuMain.style.visibility = 'hidden';
+//       menuMain.style.height = '0vh';
+//       menuMain.style.opacity = '0';
+//
+//       if (personalPackBg) personalPackBg.style.display = 'block';
+//       if (bagBtn && logoBtn) {
+//         logoBtn.style.opacity = '1';
+//         bagBtn.style.display = 'block';
+//       }
+//
+//       scrollLock();
+//       addBgScroll();
+//
+//       classManipulator(shopMenu, 'remove', 'shop_active');
+//       classManipulator(infoMenu, 'remove', 'info_active');
+//       classManipulator(profileMenu, 'remove', 'profile_active');
+//
+//       const isOpeningShop = shopMenu.classList.contains(`shop_active`);
+//       animateMenu(shopMenu, isOpeningShop);
+//
+//       const isOpeningInfo = infoMenu.classList.contains(`info_active`);
+//       animateMenu(infoMenu, isOpeningInfo);
+//
+//       const isOpeningProfile = shopMenu.classList.contains(`profile_active`);
+//       animateMenu(profileMenu, isOpeningProfile);
+//     }
+//   });
+// }
 function resize(shopMenu: HTMLElement, infoMenu: HTMLElement, profileMenu: HTMLElement) {
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) {
@@ -203,21 +222,11 @@ function resize(shopMenu: HTMLElement, infoMenu: HTMLElement, profileMenu: HTMLE
         bagBtn.style.display = 'block';
       }
 
-      scrollLock();
-      addBgScroll();
+      enablePageScroll(); // Разблокируем скролл при ресайзе
 
       classManipulator(shopMenu, 'remove', 'shop_active');
       classManipulator(infoMenu, 'remove', 'info_active');
       classManipulator(profileMenu, 'remove', 'profile_active');
-
-      const isOpeningShop = shopMenu.classList.contains(`shop_active`);
-      animateMenu(shopMenu, isOpeningShop);
-
-      const isOpeningInfo = infoMenu.classList.contains(`info_active`);
-      animateMenu(infoMenu, isOpeningInfo);
-
-      const isOpeningProfile = shopMenu.classList.contains(`profile_active`);
-      animateMenu(profileMenu, isOpeningProfile);
     }
   });
 }
