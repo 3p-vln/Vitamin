@@ -3,16 +3,13 @@ import { removeSkeletons } from '../components/removeSkeletons.ts';
 import { lazyImg, LazyModule, useLoadFunction } from '../components/lazy-load.ts';
 import { initCart } from '../components/cart.ts';
 import { initHeader } from '../components/header.ts';
+import { shopBanners } from '../shop/shop-baners.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const lazyModules: LazyModule[] = [
     {
       importFn: () => import('../components/feedback-slider.ts'),
       selector: '.feedback__slider',
-    },
-    {
-      importFn: () => import('../shop/shop-baners'),
-      selector: '.shop-baners__swiper',
     },
     {
       importFn: () => import('../shop/shop-filter'),
@@ -26,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   lazyModules.forEach(({ importFn, selector }) => useLoadFunction(importFn, selector));
 
+  shopBanners()
   initHeader()
   await initCart();
   lazyImg();

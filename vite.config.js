@@ -9,7 +9,7 @@ pages.forEach((page) => {
 });
 
 export default defineConfig({
-  base: '/',
+  base: '/Vitamin',
   build: {
     target: 'es2022',
     outDir: 'build',
