@@ -3,6 +3,7 @@ import { initCounter } from './counter';
 import { initDropdown } from './dropdown';
 import { Product, ProductLocalStorge } from './interfaces';
 import { getCatalogItem } from '../composables/use-api.ts';
+import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 
 const cartBtn = getElement('.header__bag');
 const cart = getElement('.cart');
@@ -108,40 +109,13 @@ function scrollLock() {
 
   if (!body || !header) return;
 
-  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-  const scrollY = window.scrollY;
-
-  const backBtn = getElement('.info__backbtn');
-
   if (cart.classList.contains('cart_active')) {
-    body.style.position = 'fixed';
-    body.style.top = `-${scrollY}px`;
-    body.style.left = '0';
-    body.style.width = '100%';
-    body.style.overflow = 'hidden';
-    body.style.paddingRight = `${scrollbarWidth}px`;
-    header.style.paddingRight = `${scrollbarWidth}px`;
 
-    if (scrollY > 50 && backBtn) backBtn.style.opacity = '0';
-
+    disablePageScroll()
     return;
   }
 
-  const savedScrollY = Math.abs(parseInt(body.style.top, 10)) || 0;
-  body.style.position = '';
-  body.style.top = '';
-  body.style.left = '';
-  body.style.width = '';
-  body.style.overflow = '';
-  body.style.paddingRight = '';
-  header.style.paddingRight = '';
-
-  if (backBtn) {
-    backBtn.style.opacity = '';
-  }
-
-  window.scrollTo(0, savedScrollY);
+  enablePageScroll();
 }
 
 function changeAutoshipText(textEl: HTMLElement) {
@@ -663,6 +637,40 @@ export async function addAllToCart(prodsId: string[]) {
       const productExists = cartItems.some((item: Product) => item.id === prod.id);
 
       if (!productExists) {
+        renderProdCard(prod, false, '30', 1);
+        totalCartPrice();
+        blockBtn();
+        continue;
+      }
+
+      const counterItems = getElement(`.prod_${prod.id} .counter__items`);
+      if (!counterItems) return;
+
+      updateAutoshipInLocalStorage(`${prod.id}`, false, '30', Number(counterItems.textContent) + 1);
+      loadCartFromLocalStorage();
+
+      totalCartPrice();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
+
+export async function addAllToCartPersonal(prodsId: string[]) {
+  for (const prodId of prodsId) {
+    try {
+      let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      const prod = await getCatalogItem(prodId);
+
+      if ('errors' in prod) {
+        console.error(prod);
+        return;
+      }
+
+      const productExists = cartItems.some((item: Product) => item.id === prod.id);
+
+      if (!productExists) {
+        console.log(1);
         renderProdCard(prod, false, '30', 1);
         totalCartPrice();
         blockBtn();

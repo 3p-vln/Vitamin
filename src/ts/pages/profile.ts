@@ -14,6 +14,7 @@ import { openOrdersMobile } from '../profile/order-history/open-orders-mobile.ts
 import { renderValueForm } from '../profile/payment/render-value-form.ts';
 import { phoneMask } from '../profile/overview/phone-mask.ts';
 import { LazyModule, useLoadFunction } from '../components/lazy-load.ts';
+import { initCart } from '../components/cart.ts';
 
 const lazyModules: LazyModule[] = [
   { importFn: () => import("../components/header.ts"), selector: ".header" },
@@ -23,6 +24,7 @@ lazyModules.forEach(({ importFn, selector }) => useLoadFunction(importFn, select
 
 document.addEventListener('DOMContentLoaded', async () => {
   // initHeader();
+  await initCart();
   checkFillInputs()
   validateChangePassword()
 

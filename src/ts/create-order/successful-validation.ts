@@ -22,7 +22,7 @@ const cardInput = getElement<HTMLInputElement>('#card');
 const expirationInput = getElement<HTMLInputElement>('#expiration');
 const cvcInput = getElement<HTMLInputElement>('#cvc');
 
-export async function ctrateOrder() {
+export async function crateOrder() {
   if (!createBtnMain || !createBtnSub) return;
 
   addUserInfoToForm();
@@ -44,7 +44,7 @@ export async function ctrateOrder() {
 function addToOrders() {
   if (!storedUserInfo) {
     localStorage.removeItem('cartItems');
-    window.location.href = '/Vitamin/successful-order.html';
+    // window.location.href = '/Vitamin/successful-order.html';
   }
 
   const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
@@ -115,35 +115,36 @@ function addUserInfoToForm() {
   if (!storedUserInfo && storedOrderInfo) return;
 
   if (storedOrderInfo && !storedUserInfo) {
-    firstNameInput.value = storedOrderInfo.firstName;
-    lastNameInput.value = storedOrderInfo.lastName;
-    addressFirstInput.value = storedOrderInfo.addressFirst;
-    addressSecondInput.value = storedOrderInfo.addressSecond;
-    cityInput.value = storedOrderInfo.city;
-    stateInput.value = storedOrderInfo.state;
-    zipInput.value = storedOrderInfo.zip;
-    emailInput.value = storedOrderInfo.email;
-    phoneInput.value = storedOrderInfo.phone;
-    cardInput.value = storedOrderInfo.card;
-    expirationInput.value = storedOrderInfo.expiration;
-    cvcInput.value = storedOrderInfo.cvc;
+    firstNameInput.value = storedOrderInfo.firstName || '';
+    lastNameInput.value = storedOrderInfo.lastName || '';
+    addressFirstInput.value = storedOrderInfo.addressFirst || '';
+    addressSecondInput.value = storedOrderInfo.addressSecond || '';
+    cityInput.value = storedOrderInfo.city || '';
+    stateInput.value = storedOrderInfo.state || '';
+    zipInput.value = storedOrderInfo.zip || '';
+    emailInput.value = storedOrderInfo.email || '';
+    phoneInput.value = storedOrderInfo.phone || '';
+    cardInput.value = storedOrderInfo.card || '';
+    expirationInput.value = storedOrderInfo.expiration || '';
+    cvcInput.value = storedOrderInfo.cvc || '';
     return;
   }
 
   if (storedUserInfo) {
     console.log(storedUserInfo);
-    firstNameInput.value = storedUserInfo.first_name;
-    lastNameInput.value = storedUserInfo.last_name;
-    addressFirstInput.value = storedUserInfo.address_one;
-    addressSecondInput.value = storedUserInfo.address_two;
-    cityInput.value = storedUserInfo.city;
-    stateInput.value = storedUserInfo.state_province;
-    zipInput.value = storedUserInfo.postal_code;
-    emailInput.value = storedUserInfo.email;
-    phoneInput.value = storedUserInfo.phone;
-    cardInput.value = storedUserInfo.card_info.card_number;
-    expirationInput.value = storedUserInfo.card_info.card_date;
-    cvcInput.value = storedUserInfo.card_info.card_cvv;
+    firstNameInput.value = storedUserInfo.first_name || '';
+    lastNameInput.value = storedUserInfo.last_name || '';
+    addressFirstInput.value = storedUserInfo.address_one || '';
+    addressSecondInput.value = storedUserInfo.address_two || '';
+    cityInput.value = storedUserInfo.city || '';
+    stateInput.value = storedUserInfo.state_province || '';
+    zipInput.value = storedUserInfo.postal_code || '';
+    emailInput.value = storedUserInfo.email || '';
+    phoneInput.value = storedUserInfo.phone || '';
+    if(!storedUserInfo.card_info) return;
+    cardInput.value = storedUserInfo.card_info.card_number || '';
+    expirationInput.value = storedUserInfo.card_info.card_date || '';
+    cvcInput.value = storedUserInfo.card_info.card_cvv || '';
     return;
   }
 }
