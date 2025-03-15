@@ -4,36 +4,38 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 export default async function shopBaners() {
   removeDuplicate();
 
-  new Swiper('.shop-baners__swiper', {
-    modules: [Navigation, Pagination, Autoplay],
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    // autoplay: {
-    //   delay: 5000,
-    // },
-    loop: false,
-    slidesPerView: 1,
-    spaceBetween: 20,
-    centeredSlides: true,
-    breakpoints: {
-      768: {
-        slidesPerView: 'auto',
-        spaceBetween: 35,
-        loop: true
+  setTimeout(() =>{
+    new Swiper('.shop-baners__swiper', {
+      modules: [Navigation, Pagination, Autoplay],
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
       },
-      1440: {
-        slidesPerView: 'auto',
-        spaceBetween: 50,
-        loop: true
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
       },
-    },
-  });
+      // autoplay: {
+      //   delay: 5000,
+      // },
+      loop: false,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      centeredSlides: true,
+      breakpoints: {
+        768: {
+          slidesPerView: 'auto',
+          spaceBetween: 35,
+          loop: true
+        },
+        1440: {
+          slidesPerView: 'auto',
+          spaceBetween: 50,
+          loop: true
+        },
+      },
+    });
+  }, 1000)
 }
 
 function removeDuplicate() {
