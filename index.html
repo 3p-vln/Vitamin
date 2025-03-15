@@ -4,11 +4,9 @@
   <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/Vitamin/logo.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="data:application/octet-stream;base64,QGltcG9ydCAnLi9jb25maWcvbWVkaWEtYnJlYWtwb2ludHMnOw0KQGltcG9ydCAnLi9jb25maWcvZm9udHMnOw0KQGltcG9ydCAnLi9jb25maWcvcmVzZXQnOw0KQGltcG9ydCAnLi9jb25maWcvdmFycyc7DQoNCmJvZHkgew0KICBmb250LWZhbWlseTogRWZmcmE7DQogIGJhY2tncm91bmQtY29sb3I6ICRiYWNrZ3JvdW5kOw0KICBjb2xvcjogJGZvbnRDb2xvclRpdGxlQmxhY2s7DQogIGZvbnQtc2l6ZTogMjBweDsNCn0NCg0KLmNvbnRhaW5lciB7DQogIG1hcmdpbjogMCBhdXRvOw0KICBwYWRkaW5nOiAwIDE1cHg7DQogIG1heC13aWR0aDogJGNvbnRhaW5lcldpZHRoOw0KDQogIEBpbmNsdWRlIG1lZGlhLWJyZWFrcG9pbnQtZG93bihzbSkgew0KICAgIHBhZGRpbmc6IDAgMjBweDsNCiAgfQ0KfQ0KDQoud3JhcHBlciB7DQogIGRpc3BsYXk6IGZsZXg7DQogIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47DQogIG1pbi1oZWlnaHQ6IDEwMCU7DQogIG92ZXJmbG93LXg6IGhpZGRlbjsNCn0NCg0KLnBhZ2Ugew0KICBmbGV4OiAxIDEgYXV0bzsNCiAgbWFyZ2luLXRvcDogMTEwcHg7DQoNCiAgQGluY2x1ZGUgbWVkaWEtYnJlYWtwb2ludC1kb3duKHNtKSB7DQogICAgbWFyZ2luLXRvcDogNzBweDsNCiAgfQ0KfQ0KDQpAa2V5ZnJhbWVzIHNwaW4gew0KICBmcm9tIHsNCiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTsNCiAgfQ0KDQogIHRvIHsNCiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOw0KICB9DQp9DQoNCkBrZXlmcmFtZXMgc2NhbGUgew0KICAwJSB7DQogICAgdHJhbnNmb3JtOiBzY2FsZSgwLjcpOw0KICB9DQoNCiAgNTAlIHsNCiAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMyk7DQogIH0NCg0KICAxMDAlIHsNCiAgICB0cmFuc2Zvcm06IHNjYWxlKDAuNyk7DQogIH0NCn0NCg0KDQpAaW1wb3J0ICcuL2NvbXBvbmVudHMvYnRuJzsNCkBpbXBvcnQgJy4vY29tcG9uZW50cy9oZWFkZXInOw0KQGltcG9ydCAnLi9jb21wb25lbnRzL2Zvb3Rlcic7DQpAaW1wb3J0ICcuL2NvbXBvbmVudHMvcHJvZC1jYXJkJzsNCkBpbXBvcnQgJy4vY29tcG9uZW50cy9mZWVkYmFjayc7DQpAaW1wb3J0ICcuL2NvbXBvbmVudHMvc2tlbGV0b24nOw0K" media="screen" />
-  <link rel="stylesheet" href="data:application/octet-stream;base64,QGltcG9ydCAnLi4vc3R5bGUnOw0KQGltcG9ydCAiLi4vaG9tZS9maW5kLXZpdGFtaW5zIjsNCkBpbXBvcnQgIi4uL2hvbWUvaGVhbHRoeS1oYXZlIjsNCkBpbXBvcnQgIi4uL2hvbWUvdGVsbC11cyI7DQpAaW1wb3J0ICIuLi9ob21lL2Nob29zZS15b3VyLXByb2R1Y3RzIjsNCkBpbXBvcnQgIi4uL2hvbWUvaGVhbHRoeS1oYXBweSI7DQpAaW1wb3J0ICcuLi9jb21wb25lbnRzL2ZlZWRiYWNrJzsNCg0KDQouc3BpbmVyIHsNCiAgYW5pbWF0aW9uOiBzcGluIDE1cyBsaW5lYXIgaW5maW5pdGU7DQogIHRyYW5zZm9ybS1vcmlnaW46IGNlbnRlcjsNCg0KDQogIEBpbmNsdWRlIG1lZGlhLWJyZWFrcG9pbnQtZG93bignbCcpIHsNCiAgICBzY2FsZTogMC43Ow0KICB9DQoNCiAgQGluY2x1ZGUgbWVkaWEtYnJlYWtwb2ludC1kb3duKCdzbScpIHsNCiAgICBzY2FsZTogMC41Ow0KICB9DQoNCn0NCg0KLnNjYWxlciB7DQogIGFuaW1hdGlvbjogc2NhbGUgMTBzIGxpbmVhciBpbmZpbml0ZTsNCn0NCg0KQGtleWZyYW1lcyBzcGluIHsNCiAgZnJvbSB7DQogICAgdHJhbnNmb3JtOiByb3RhdGUoMGRlZyk7DQogIH0NCg0KICB0byB7DQogICAgdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTsNCiAgfQ0KfQ0KDQpAa2V5ZnJhbWVzIHNjYWxlIHsNCiAgMCUgew0KICAgIHRyYW5zZm9ybTogc2NhbGUoMC43KTsNCiAgfQ0KDQogIDUwJSB7DQogICAgdHJhbnNmb3JtOiBzY2FsZSgxLjMpOw0KICB9DQoNCiAgMTAwJSB7DQogICAgdHJhbnNmb3JtOiBzY2FsZSgwLjcpOw0KICB9DQp9" media="screen"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vitamin. Main page</title>
-  <script type="module" crossorigin src="/Vitamin/assets/index-Bl_lH9Gl.js"></script>
+  <script type="module" crossorigin src="/Vitamin/assets/index-BXyMpPHl.js"></script>
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/use-call-dom-DDNnwvp7.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/lazy-load-CcXlw6so.js">
@@ -18,6 +16,8 @@
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/dropdown-7a_ekS_C.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/use-api-AcE-7l2M.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/cart-Ln4c61Nd.js">
+  <link rel="stylesheet" crossorigin href="/Vitamin/assets/index-CNND7vyT.css">
+  <link rel="stylesheet" crossorigin href="/Vitamin/assets/style-B3GZnvMT.css">
 </head>
 
   <body>
