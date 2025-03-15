@@ -68,7 +68,7 @@ function addToOrders() {
     createOrder(orderData).then((response) => {
       console.log('Order created successfully:', response);
       localStorage.removeItem('cartItems');
-      window.location.href = '/Vitamin/successful-order.html';
+      window.location.href = '/successful-order.html';
     });
   } catch (error) {
     console.error(error);

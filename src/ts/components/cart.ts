@@ -174,7 +174,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   const prodCard = renderElement('div', ['cart__item', 'prod', `prod_${prod.id}`]);
 
   const prodImg = renderElement<HTMLAnchorElement>('a', 'prod__img');
-  prodImg.href = `/Vitamin/one-product.html?id=${prod.id}`;
+  prodImg.href = `/one-product.html?id=${prod.id}`;
 
   if (prod.type === 'Vitamins & Dietary Supplements') {
     classManipulator(prodImg, 'add', 'prod__img_purple');
@@ -199,15 +199,17 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   }
 
   prodImg.innerHTML = `
-    <img src="${prod.img}" alt="prod" />
-  `;
+    <picture>
+      <source srcset="${prod.img.img_webp}" type="image/webp">
+      <img src="${prod.img.img_default}" alt="prod" width="${prod.img.img_width}" height="${prod.img.img_height}" />
+    </picture>`;
 
   const prodInfo = renderElement('div', 'prod__info');
 
   const titleAndClose = renderElement('div', 'prod__title-and-close');
 
   const prodTitle = renderElement<HTMLAnchorElement>('a', 'prod__title');
-  prodTitle.href = `/Vitamin/one-product.html?id=${prod.id}`;
+  prodTitle.href = `/one-product.html?id=${prod.id}`;
   prodTitle.innerText = prod.name;
 
   const prodRmove = renderElement('div', 'prod__close');

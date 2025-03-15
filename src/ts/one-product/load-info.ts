@@ -51,6 +51,7 @@ function showInfo(prodInfo: Product) {
 
   if (!prodInfo || !ilustrate || !catgory || !svgIco || !name || !capsules || !mg || !autoshipText || !price || !description || !safetyInf || !indications || !ingredients || !directions || !legal) return;
 
+  console.log('prodInfo', prodInfo);
   if (prodInfo.type === 'Vitamins & Dietary Supplements') {
     classManipulator(ilustrate, 'add', 'ilustrate_purple');
   }
@@ -77,8 +78,8 @@ function showInfo(prodInfo: Product) {
   if (!img) return;
   img.innerHTML =  `
      <picture>
-        <source srcset="${prodInfo.img_webp}" type="image/webp">
-        <img src="${prodInfo.img}" alt="prod" />
+        <source srcset="${prodInfo.img.img_webp}" type="image/webp">
+        <img src="${prodInfo.img.img_default}" alt="prod" width="${prodInfo.img.img_width}" height="${prodInfo.img.img_height}" loading="lazy"/>
      </picture>`;
 
 

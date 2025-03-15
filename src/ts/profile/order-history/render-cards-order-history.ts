@@ -77,7 +77,7 @@ export async function renderCardsOrderHistory() {
 
       const card = document.createElement('a');
       card.classList.add('orderItem__card', 'card');
-      card.href = `/Vitamin/one-product.html?id=${item.product.id}`;
+      card.href = `/one-product.html?id=${item.product.id}`;
 
       const imgBlock = document.createElement('div');
       imgBlock.classList.add('card__img-block');
@@ -85,10 +85,11 @@ export async function renderCardsOrderHistory() {
 
       const imgWrapper = document.createElement('div');
       imgWrapper.classList.add('card__img-wrapper');
-      const img = document.createElement('img');
-      img.classList.add('card__img');
-      img.src = item.product.img;
-      img.alt = 'Card image';
+      const img = document.createElement('picture');
+      img.innerHTML=`
+        <source srcset="${item.product.img.img_webp}" type="image/webp">
+        <img class="card__img" src="${item.product.img.img_default}" alt="prod" width="${item.product.img.img_width}" height="${item.product.img.img_height}" loading="lazy" />
+      `
       imgWrapper.appendChild(img);
       imgBlock.appendChild(imgWrapper);
 

@@ -85,8 +85,8 @@ async function card(data: RecommendationData[], container: HTMLElement, colour: 
     const cardImg = renderElement('div', 'prod-card__img');
     cardImg.innerHTML = `
         <picture>
-           <source srcset="${prodItem.img_webp}" type="image/webp">
-           <img src="${prodItem.img}" alt="prod" />
+           <source srcset="${prodItem.img.img_webp}" type="image/webp">
+           <img src="${prodItem.img.img_default}" alt="prod" width="${prodItem.img.img_width}" height="${prodItem.img.img_height}" />
         </picture>`;
 
     const cardDiscount = renderElement('div', 'prod-card__discount');
