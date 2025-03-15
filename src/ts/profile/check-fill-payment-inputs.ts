@@ -3,7 +3,7 @@ export function checkFillPaymentInputs() {
   const submitButton = document.getElementById('payment-submit-btn') as HTMLButtonElement;
   const inputs = form.querySelectorAll('.card-input') as NodeListOf<HTMLInputElement>;
 
-  // Функция проверки заполненности всех полей
+
   function checkFormValidity(): void {
     const allFilled = Array.from(inputs).every((input) => input.value.trim() !== '');
 
@@ -16,7 +16,6 @@ export function checkFillPaymentInputs() {
     }
   }
 
-  // Добавляем слушатели событий на все поля ввода
   inputs.forEach((input) => {
     input.addEventListener('input', checkFormValidity);
   });

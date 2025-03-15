@@ -4,11 +4,11 @@ import validator from 'validator';
 import { paymentRequest } from './payment-request.ts';
 
 export function validateCard() {
-  // Типизация для элемента ввода номера карты
+
   const cardInput: HTMLInputElement = document.querySelector('#payment-number-card') as HTMLInputElement;
   IMask(cardInput, { mask: '0000-0000-0000-0000' });
 
-  // Типизация для элемента ввода даты
+
   const dateInput: HTMLInputElement = document.querySelector('#payment-date') as HTMLInputElement;
   IMask(dateInput, {
     mask: 'MM/YY',
@@ -21,7 +21,7 @@ export function validateCard() {
   const cvcInput: HTMLInputElement = document.querySelector('#payment-amount') as HTMLInputElement;
   IMask(cvcInput, { mask: '000[0]' });
 
-  // Типизация для формы и создание экземпляра JustValidate
+
   const form: HTMLFormElement = document.querySelector('#payment-methods-form') as HTMLFormElement;
   const validate = new JustValidate(form);
 

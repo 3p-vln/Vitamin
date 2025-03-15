@@ -103,12 +103,12 @@ export function overviewValidete(){
       const value = phoneInput.value; // Получаем значение из поля ввода
       const phoneNumberParse = parsePhoneNumberFromString(value); // Парсим номер
       if (phoneNumberParse && phoneNumberParse.isValid()) {
-        // Возвращаем номер без пробелов, скобок и дефисов
-        return phoneNumberParse.number; // .number возвращает строку вроде "+380958006754"
+
+        return phoneNumberParse.number;
       }
-      return value.replace(/\D/g, ''); // Если парсинг не удался, убираем все нечисловые символы
+      return value.replace(/\D/g, '');
     }
-    return ''; // Если поле пустое, возвращаем пустую строку
+    return '';
   }
 
 }

@@ -1,6 +1,4 @@
 import Cookies from 'js-cookie';
-// import apiClient from './api-client.ts';
-// // import { AxiosError } from 'axios';
 import { RegisterData } from '../components/interfaces.ts';
 import { register } from '../composables/use-api.ts';
 import apiClient from './api-client.ts';

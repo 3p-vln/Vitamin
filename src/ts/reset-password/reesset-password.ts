@@ -5,7 +5,7 @@ export async function resetPassword() {
   const messageContainer: HTMLElement | null = document.querySelector('.recover__message');
   const customLoader: HTMLElement | null = document.querySelector('.custom-loader');
   const formNewPassword: HTMLElement | null = document.getElementById('reset-password-form');
-  // Извлекаем параметр 'reset'
+
   const token = url.searchParams.get('reset');
 
   if (token && messageContainer && customLoader && formNewPassword) {

@@ -6,7 +6,6 @@ export function feedbackSlider() {
     spaceBetween: 32,
     slidesPerView: 1,
     breakpoints: {
-      // when window width is >= 320px
       1024: {
         slidesPerView: 3,
         spaceBetween: 20,

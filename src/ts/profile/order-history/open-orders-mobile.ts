@@ -1,12 +1,12 @@
 export function openOrdersMobile(): void {
-  // Указываем тип для элементов как NodeListOf<HTMLElement>
+
   const openButton: NodeListOf<HTMLElement> = document.querySelectorAll('.orderItem__icon');
   const containerOrders: NodeListOf<HTMLElement> = document.querySelectorAll('.orderItem');
 
 
   openButton.forEach((item: HTMLElement) => {
     item.addEventListener('click', function(this: HTMLElement): void {
-      // Теперь this имеет тип HTMLElement
+
       const orderItem: HTMLElement = this.closest('.orderItem') as HTMLElement;
       const orderBody: HTMLElement = orderItem.querySelector('.orderItem__content') as HTMLElement;
 
