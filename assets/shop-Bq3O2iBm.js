@@ -1,0 +1,7 @@
+function __vite__mapDeps(indexes) {
+  if (!__vite__mapDeps.viteFileDeps) {
+    __vite__mapDeps.viteFileDeps = ["assets/header-CsY3XN5P.js","assets/use-call-dom-DDNnwvp7.js","assets/use-api-CdSl8Y54.js","assets/cart-HhXYscZ1.js","assets/dropdown-C_o1Z155.js","assets/feedback-slider-EqPxlzzp.js","assets/swiper-core-Drop_04u.js","assets/shop-baners-CQNHhpFX.js","assets/shop-filter-BiJr3wPc.js","assets/render-card-DfPl1pbc.js","assets/stopPreload-BW9xUuEZ.js","assets/filter-dropdown-CJ0QxTJs.js"]
+  }
+  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
+}
+import"./modulepreload-polyfill-B5Qt9EMX.js";/* empty css              */import{u as e,l as _,_ as o}from"./dropdown-C_o1Z155.js";import{s as i,r as a}from"./stopPreload-BW9xUuEZ.js";import{i as s}from"./cart-HhXYscZ1.js";import"./use-call-dom-DDNnwvp7.js";import"./use-api-CdSl8Y54.js";document.addEventListener("DOMContentLoaded",async()=>{[{importFn:()=>o(()=>import("./header-CsY3XN5P.js"),__vite__mapDeps([0,1,2,3,4])),selector:".header"},{importFn:()=>o(()=>import("./feedback-slider-EqPxlzzp.js"),__vite__mapDeps([5,6])),selector:".feedback__slider"},{importFn:()=>o(()=>import("./shop-baners-CQNHhpFX.js"),__vite__mapDeps([7,6])),selector:".shop-baners__swiper"},{importFn:()=>o(()=>import("./shop-filter-BiJr3wPc.js"),__vite__mapDeps([8,9,2,1,10])),selector:".catalog-list__content"},{importFn:()=>o(()=>import("./filter-dropdown-CJ0QxTJs.js"),__vite__mapDeps([11,1,4])),selector:".catalog__content"}].forEach(({importFn:t,selector:r})=>e(t,r)),await s(),_(),i()});a();
