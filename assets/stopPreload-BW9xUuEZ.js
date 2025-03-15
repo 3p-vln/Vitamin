@@ -1,1 +1,0 @@
-import{a as n,c as t}from"./use-call-dom-DDNnwvp7.js";function i(){document.addEventListener("loadingIsFinished",()=>{setTimeout(()=>{n(".skeleton").forEach(s=>{t(s,"remove","skeleton")})},2e3)})}function a(){const e=new CustomEvent("loadingIsFinished");document.dispatchEvent(e)}export{i as r,a as s};
