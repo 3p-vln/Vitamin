@@ -33,11 +33,12 @@ export default async function renderCards(): Promise<void> {
       const imgWrapper = document.createElement('div');
       imgWrapper.className = 'choose-products__img-wrapper';
 
-      const img: HTMLImageElement = document.createElement('img');
-      img.className = 'choose-products__img';
-      img.src = item.img;
-      img.alt = item.name;
-      img.loading = 'lazy';
+      const img: HTMLPictureElement = document.createElement('picture');
+      // img.className = 'choose-products__img';
+      img.innerHTML= `
+        <source srcset="${item.img.img_webp}" type="image/webp">
+        <img class="choose-products__img" src="${item.img.img_default}" alt="prod" width="${item.img.img_width}" height="${item.img.img_height}" loading="lazy" />
+      `
       imgWrapper.append(img);
 
       card.appendChild(imgWrapper);

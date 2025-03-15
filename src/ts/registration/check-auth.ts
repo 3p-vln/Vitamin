@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
   //хорошо бы проверить валидность токена
 
   if (!token && !path.includes('/login.html') && !path.includes('/registration.html')) {
-    window.location.href = '/Vitamin/login.html';
+    window.location.href = '/login.html';
   }
 
   if (token && (path.includes('/login.html') || path.includes('/registration.html'))) {

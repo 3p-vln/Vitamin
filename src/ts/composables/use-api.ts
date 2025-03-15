@@ -14,18 +14,25 @@ import {
   SetNewPasswordData, UserInfo, UserNotFoundInfo,
 } from '../components/interfaces';
 
-const ACCESS_TOKEN_KEY = 'accessToken';
-const REFRESH_TOKEN_KEY = 'refreshToken';
-const REFRESH_URL = 'https://www.mku-journal.online/auth/refresh-token';
+const API_BASE_URL = 'https://www.mku-journal.online';
+const ACCESS_TOKEN_KEY = 'accessToken'; // Ключ для хранения accessToken в куках
+const REFRESH_TOKEN_KEY = 'refreshToken'; // Ключ для хранения refreshToken в куках
+const REFRESH_URL = '/auth/refresh-token'; // URL для обновления токенов
 
-const apiClient = axios.create({
-  withCredentials: true,
+const api = axios.create({
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Функция-обертка для обработки ошибок
+// Создаём экземпляр axios с базовым URL и настройкой передачи куков
+const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  withCredentials: true, // Позволяет передавать куки при запросах
+});
+
+// Helper function for error handling
 const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T | { errors: { message: string }[] }> => {
   try {
     const response = await request;
@@ -35,51 +42,62 @@ const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T | { er
       console.error('API error:', error.response?.data || error.message);
       return { errors: [{ message: error.response?.data?.message || error.message }] };
     }
+    if (error instanceof Error) {
+      console.error('General error:', error.message);
+      return { errors: [{ message: error.message }] };
+    }
+
     console.error('Unknown error:', error);
     return { errors: [{ message: 'An unexpected error occurred.' }] };
   }
 };
 
 // Auth
-export const logIn = (data: LogInData) => handleRequest<LogInData>(axios.post('https://www.mku-journal.online/auth/login', data));
-export const register = (data: RegisterData) => handleRequest<RegisterData>(axios.post('https://www.mku-journal.online/auth/register', data));
-export const resetPassword = (data: ResetPasswordData) => handleRequest<ResetPasswordData>(axios.post('https://www.mku-journal.online/auth/reset-password', data));
-export const checkResetToken = (token: string) => handleRequest<AxiosResponse>(axios.get(`https://www.mku-journal.online/auth/check-reset-token?token=${token}`));
-export const setNewPassword = (data: SetNewPasswordData) => handleRequest<SetNewPasswordData>(axios.post('https://www.mku-journal.online/auth/set-new-password', data));
-export const refreshToken = (data: RefreshTokenData) => handleRequest(axios.post(REFRESH_URL, data));
+export const logIn = (data: LogInData) => handleRequest<LogInData>(apiClient.post('/auth/login', data));
+export const register = (data: RegisterData) => handleRequest<RegisterData>(apiClient.post('/auth/register', data));
+export const resetPassword = (data: ResetPasswordData) => handleRequest<ResetPasswordData>(apiClient.post('/auth/reset-password', data));
+export const checkResetToken = (token: string) => handleRequest<AxiosResponse>(apiClient.get(`/auth/check-reset-token?token=${token}`));
+export const setNewPassword = (data: SetNewPasswordData) => handleRequest<SetNewPasswordData>(apiClient.post(`/auth/set-new-password`, data));
+export const refreshToken = (data: RefreshTokenData) => handleRequest(api.post('/auth/refresh-token', data));
 
-// Catalog
-export const getCatalogList = (page: number, limit: number, type?: string) => handleRequest<ProdResponse>(
-  axios.get('https://www.mku-journal.online/catalog/all-list', { params: { type, page, limit } })
-);
-export const getCatalogItem = (id: string) => handleRequest<Product>(axios.get(`https://www.mku-journal.online/catalog/${id}/info`));
-export const createOrder = (data: OrderData) => handleRequest(axios.post('https://www.mku-journal.online/catalog/create-order', data));
-export const getRecommendations = (isMain: boolean) => handleRequest<ProdResponse>(
-  axios.get(`https://www.mku-journal.online/catalog/recommendations${isMain ? '?is_main=true' : ''}`)
-);
+//Catalog
+export const getCatalogList = (page: number, limit: number, type?: string) => handleRequest<ProdResponse>(api.get('/catalog/all-list', { params: { type, page, limit } }));
+export const getCatalogItem = (id: string) => handleRequest<Product>(api.get(`/catalog/${id}/info`));
+export const createOrder = (data: OrderData) => handleRequest(api.post('/catalog/create-order', data));
+export const getRecommendations = (isMain: boolean) => handleRequest<ProdResponse>(api.get(`${isMain ? '/catalog/recommendations?is_main=true' : '/catalog/recommendations'}`));
 
-// Profile
-export const getProfileInfo = () => handleRequest<UserInfo | UserNotFoundInfo>(apiClient.get('https://www.mku-journal.online/profile/info'));
-export const getOrderHistory = () => handleRequest<OrdersData>(apiClient.get('https://www.mku-journal.online/profile/order-history'));
-export const updateProfile = (data: ProfileUpdateData) => handleRequest<ProfileUpdateData>(apiClient.put('https://www.mku-journal.online/profile/update-profile', data));
-export const updateCardInfo = (data: CardInfoData) => handleRequest<CardInfoData>(apiClient.put('https://www.mku-journal.online/profile/update-card-info', data));
-export const changePassword = (data: PasswordData) => handleRequest<PasswordData>(apiClient.put('https://www.mku-journal.online/profile/change-password', data));
+//Profile
+export const getProfileInfo = () => handleRequest<UserInfo | UserNotFoundInfo>(apiClient.get('/profile/info'));
+export const getOrderHistory = () => handleRequest<OrdersData>(apiClient.get('/profile/order-history'));
+export const updateProfile = (data: ProfileUpdateData) => handleRequest<ProfileUpdateData>(apiClient.put('/profile/update-profile', data));
+export const updateCardInfo = (data: CardInfoData) => handleRequest<CardInfoData>(apiClient.put('/profile/update-card-info', data));
+export const changePassword = (data: PasswordData) => handleRequest<PasswordData>(apiClient.put('/profile/change-password', data));
 
-// Работа с токенами
-const getAccessToken = (): string | null => Cookies.get(ACCESS_TOKEN_KEY) || null;
-const getRefreshToken = (): string | null => Cookies.get(REFRESH_TOKEN_KEY) || null;
-const setTokens = (accessToken: string, refreshToken: string): void => {
-  Cookies.set(ACCESS_TOKEN_KEY, accessToken, { path: '/' });
-  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, { path: '/', expires: 1 });
+// Функция получения accessToken из куков
+const getAccessToken = (): string | null => {
+  return Cookies.get(ACCESS_TOKEN_KEY) || null;
 };
+
+// Функция получения refreshToken из куков
+const getRefreshToken = (): string | null => {
+  return Cookies.get(REFRESH_TOKEN_KEY) || null;
+};
+
+// Функция сохранения accessToken и refreshToken в куки
+const setTokens = (accessToken: string, refreshToken: string): void => {
+  Cookies.set(ACCESS_TOKEN_KEY, accessToken, {  path: '/' });
+  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, {  path: '/' ,expires: 1});
+};
+
+// Очистка токенов при выходе из системы или истечении refreshToken
 const clearAuthData = (): void => {
   Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
   Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
-  localStorage.removeItem('userInfo');
-  window.location.href = '/Vitamin/login.html';
+  localStorage.removeItem('userInfo')
+  window.location.href = '/login.html';
 };
 
-// Перехватчик запросов
+// Перехватчик запросов: добавляет заголовок Authorization с токеном, если он есть
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = getAccessToken();
   if (token && config.headers) {
@@ -88,16 +106,22 @@ apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   return config;
 }, (error) => Promise.reject(error));
 
-// Логика обновления токена
+// Флаг для предотвращения множественных запросов на refresh
 let isRefreshing = false;
 const refreshSubscribers: ((token: string) => void)[] = [];
-const subscribeTokenRefresh = (cb: (token: string) => void) => refreshSubscribers.push(cb);
-const onRefreshed = (token: string) => {
-  refreshSubscribers.forEach(cb => cb(token));
-  refreshSubscribers.splice(0, refreshSubscribers.length);
+
+// Функция подписки на обновление токена (используется при ожидании обновления токена)
+const subscribeTokenRefresh = (cb: (token: string) => void) => {
+  refreshSubscribers.push(cb);
 };
 
-// Перехватчик ответов
+// Функция, вызываемая после успешного обновления токена (уведомляет всех подписчиков)
+const onRefreshed = (token: string) => {
+  refreshSubscribers.forEach(cb => cb(token)); // Вызываем все подписанные коллбеки с новым токеном
+  refreshSubscribers.splice(0,refreshSubscribers.length); // Очищаем массив подписчиков
+};
+
+// Перехватчик ответов: обрабатывает 401 ошибки и обновляет токен
 apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
@@ -124,18 +148,18 @@ apiClient.interceptors.response.use(
           throw new Error('No refresh token available');
         }
 
-        const { data } = await axios.post<{ accessToken: string; refreshToken: string }>(REFRESH_URL, {
+        const { data } = await apiClient.post<{ accessToken: string; refreshToken: string }>(REFRESH_URL, {
           [REFRESH_TOKEN_KEY]: refreshToken,
         });
-        setTokens(data.accessToken, data.refreshToken);
-        onRefreshed(data.accessToken);
+        setTokens(data.accessToken, data.refreshToken); // Сохраняем новые токены в куки
+        onRefreshed(data.accessToken); // Уведомляем подписчиков о новом токене
 
         if (originalRequest.headers) {
           originalRequest.headers.authorization = `${data.accessToken}`;
         }
         return apiClient(originalRequest);
       } catch (refreshError) {
-        clearAuthData();
+        clearAuthData(); // Очистка данных, если refreshToken невалиден
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

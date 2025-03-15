@@ -77,7 +77,12 @@ export interface OrdersData {
           product: {
             additionalProp1: {};
             name: string;
-            img: string;
+            img: {
+              img_default: string;
+              img_webp: string;
+              img_height: string;
+              img_width: string;
+            };
             type: string;
             id: string;
           };
@@ -94,7 +99,12 @@ export interface RecommendationData {
   id: number;
   name: string;
   price: string;
-  img: string;
+  img: {
+    img_default: string;
+    img_webp: string;
+    img_height: string;
+    img_width: string;
+  };
   img_webp: string;
   discount: number;
   type: string;
@@ -117,8 +127,12 @@ export interface Product {
   directions: string;
   disabled_subscribe: boolean;
   discount: number;
-  img: string;
-  img_webp: string;
+  img: {
+    img_default: string;
+    img_webp: string;
+    img_height: string;
+    img_width: string;
+  };
   indications: string;
   ingradients: string;
   legal_disclaimer: string;
