@@ -112,21 +112,21 @@ function addUserInfoToLocal() {
 function addUserInfoToForm() {
   if (!firstNameInput || !lastNameInput || !addressFirstInput || !addressSecondInput || !cityInput || !stateInput || !zipInput || !emailInput || !phoneInput || !cardInput || !expirationInput || !cvcInput) return;
 
-  if (!storedUserInfo && storedOrderInfo) return;
+  if (!storedUserInfo && !storedOrderInfo) return;
 
   if (storedOrderInfo && !storedUserInfo) {
-    firstNameInput.value = storedOrderInfo.firstName || '';
-    lastNameInput.value = storedOrderInfo.lastName || '';
-    addressFirstInput.value = storedOrderInfo.addressFirst || '';
-    addressSecondInput.value = storedOrderInfo.addressSecond || '';
-    cityInput.value = storedOrderInfo.city || '';
-    stateInput.value = storedOrderInfo.state || '';
-    zipInput.value = storedOrderInfo.zip || '';
-    emailInput.value = storedOrderInfo.email || '';
-    phoneInput.value = storedOrderInfo.phone || '';
-    cardInput.value = storedOrderInfo.card || '';
-    expirationInput.value = storedOrderInfo.expiration || '';
-    cvcInput.value = storedOrderInfo.cvc || '';
+    firstNameInput.value = storedOrderInfo.firstName;
+    lastNameInput.value = storedOrderInfo.lastName;
+    addressFirstInput.value = storedOrderInfo.addressFirst;
+    addressSecondInput.value = storedOrderInfo.addressSecond;
+    cityInput.value = storedOrderInfo.city;
+    stateInput.value = storedOrderInfo.state;
+    zipInput.value = storedOrderInfo.zip;
+    emailInput.value = storedOrderInfo.email;
+    phoneInput.value = storedOrderInfo.phone;
+    cardInput.value = storedOrderInfo.card;
+    expirationInput.value = storedOrderInfo.expiration;
+    cvcInput.value = storedOrderInfo.cvc;
     return;
   }
 

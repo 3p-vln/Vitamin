@@ -16,7 +16,7 @@ export function renderValueForm() {
 
   fields.forEach(field => {
     const input = document.getElementById(field.inputId) as HTMLInputElement;
-    if (input && userInfo.card_info[field.key]) {
+    if (input && userInfo.card_info) {
       input.value = userInfo.card_info[field.key] as string;
     }
   });

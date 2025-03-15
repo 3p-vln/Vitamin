@@ -19,15 +19,11 @@
   padding: 40px 40px 40px 40px;
   background: #faf8f6;
   border-radius: 16px;
+  margin-bottom: 20px;
 
   @include media-breakpoint-down(xs) {
     padding: 35px 20px 20px 20px;
   }
-
-  &:not(:last-child) {
-    margin-bottom: 20px;
-  }
-
 
   &__content {
     transition: opacity 0.3s, height 1s;
@@ -38,7 +34,7 @@
       pointer-events: none;
     }
 
-    &_show{
+    &_show {
       height: auto;
       opacity: 1;
       pointer-events: auto;
@@ -259,7 +255,7 @@
     }
 
     &_redBg {
-     color: $redBg;
+      color: $redBg;
     }
 
     &_darkBlueBg {

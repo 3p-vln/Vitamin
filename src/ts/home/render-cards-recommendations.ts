@@ -27,12 +27,8 @@ export default async function renderCards(): Promise<void> {
     const fragment: DocumentFragment = document.createDocumentFragment();
 
     response.data.forEach((item) => {
-
-
       const card: HTMLElement = document.createElement('div');
-      card.className = `swiper-slide choose-products__slide ${getColorCard(item.type)}`;
-
-
+      card.className = `swiper-slide choose-products__slide ${getColorCard(item.type)} skeleton`;
 
       const imgWrapper = document.createElement('div');
       imgWrapper.className = 'choose-products__img-wrapper';

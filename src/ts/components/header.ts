@@ -10,6 +10,7 @@ const bagBtn = getElement('.header__bag');
 const logoBtn = getElement('.header__logo');
 const personalPackBg = getElement('.pack-info__bg_hulf-circle');
 const header = getElement('.header');
+const cart = getElement('.cart');
 
 export function initHeader() {
   if (!menuMain) return;
@@ -53,9 +54,9 @@ function burgerToggle(clickBtn: string, elActive: string) {
         hideBag();
 
         if (isOpening) {
-          disablePageScroll(); // Блокируем прокрутку при открытии меню
+          disablePageScroll();
         } else {
-          enablePageScroll(); // Разблокируем прокрутку при закрытии
+          enablePageScroll();
         }
 
         animateMenu(el, isOpening);
@@ -109,9 +110,9 @@ function addBgScroll() {
 }
 
 function updateHeader() {
-  if (!header) return;
+  if (!header || !cart) return;
 
-  if (window.scrollY > 50) {
+  if (window.scrollY > 50 || cart.classList.contains('cart_active')) {
     header.style.backgroundColor = 'white';
     header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
     header.style.transition = 'background-color 0.3s ease, box-shadow 0.3s ease';
