@@ -1,4 +1,4 @@
-// import { initHeader } from '../components/header';
+import { initHeader } from '../components/header';
 // import { recommendationsProductsSlider } from '../home/recommendations-products-home-slider.ts';
 // import { renderCards } from '../home/render-cards-recommendations.ts';
 // import { feedbackSlider } from '../components/feedback-slider.ts';
@@ -8,10 +8,6 @@ import { lazyImg, LazyModule, useLoadFunction } from '../components/lazy-load.ts
 import { initCart } from '../components/cart.ts';
 
 const lazyModules: LazyModule[] = [
-  {
-    importFn: () => import('../components/header.ts'),
-    selector: '.header',
-  },
   {
     importFn: () => import('../home/recommendations-products-home-slider.ts'),
     selector: '.choose-products__products-slider',
@@ -27,7 +23,7 @@ const lazyModules: LazyModule[] = [
 lazyModules.forEach(({ importFn, selector }) => useLoadFunction(importFn, selector));
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // initHeader();
+  initHeader();
   // recommendationsProductsSlider();
   // await renderCards();
   // feedbackSlider();

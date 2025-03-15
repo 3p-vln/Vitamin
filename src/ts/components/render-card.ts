@@ -8,6 +8,7 @@ let itemsPerPage = 10;
 let itemsViewMore = 6;
 const windowWidth = window.innerWidth;
 let currentCategory: string | undefined = undefined;
+let hasMoreData = true;
 
 export async function renderRecCard(container: string, colour: string) {
   const prodContainer = getElement(container);
@@ -52,6 +53,7 @@ export async function renderAllCard(container: string, page: number = 1, categor
   try {
     let response = await getCatalogList(page, itemsPerPage, category);
 
+    hasMoreData = true;
     if ('errors' in response) {
       console.error(response.errors);
       return;
@@ -81,7 +83,11 @@ async function card(data: RecommendationData[], container: HTMLElement, colour: 
     const cardContainer = renderElement('div', 'prod-card__content');
 
     const cardImg = renderElement('div', 'prod-card__img');
-    cardImg.innerHTML = `<picture><img src="${prodItem.img}" alt="prod" /></picture>`;
+    cardImg.innerHTML = `
+        <picture>
+           <source srcset="${prodItem.img_webp}" type="image/webp">
+          <img src="${prodItem.img}" alt="prod" />
+        </picture>`;
 
     const cardDiscount = renderElement('div', 'prod-card__discount');
     cardDiscount.innerText = `-${prodItem.discount}%`;
@@ -159,7 +165,8 @@ export function setupLazyLoading(container: string, category?: string) {
       if (lastCard.isIntersecting) {
         obs.disconnect();
         await loadMoreCards(container, category);
-        setupLazyLoading(container, category);
+
+        if (hasMoreData) setupLazyLoading(container, category);
       }
     },
     { threshold: 1.0 }
@@ -196,6 +203,7 @@ async function loadMoreCards(container: string, category?: string) {
     }
 
     if (response.errors || response.data.length === 0) {
+      hasMoreData = false;
       return;
     }
 
