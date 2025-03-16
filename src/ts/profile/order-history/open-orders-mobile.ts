@@ -1,6 +1,6 @@
 export function openOrdersMobile(): void {
 
-  const openButton: NodeListOf<HTMLElement> = document.querySelectorAll('.orderItem__icon');
+  const openButton: NodeListOf<HTMLElement> = document.querySelectorAll('.orderItem');
   const containerOrders: NodeListOf<HTMLElement> = document.querySelectorAll('.orderItem');
 
 

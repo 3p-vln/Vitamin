@@ -155,7 +155,7 @@ function backToShop() {
   if (!backBtn) return;
 
   backBtn.addEventListener('click', () => {
-    window.location.href = 'shop.html';
+    window.location.href = '/Vitamin/shop.html';
   });
 }
 

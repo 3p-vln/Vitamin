@@ -10,7 +10,7 @@ export function authPopUp(){
     openButton.addEventListener('click',()  => {
 
       if(token){
-        window.location.href = '/profile.html';
+        window.location.href = '/Vitamin/profile.html';
 
       }else{
         popup.show();

@@ -174,7 +174,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   const prodCard = renderElement('div', ['cart__item', 'prod', `prod_${prod.id}`]);
 
   const prodImg = renderElement<HTMLAnchorElement>('a', 'prod__img');
-  prodImg.href = `/one-product.html?id=${prod.id}`;
+  prodImg.href = `/Vitamin/one-product.html?id=${prod.id}`;
 
   if (prod.type === 'Vitamins & Dietary Supplements') {
     classManipulator(prodImg, 'add', 'prod__img_purple');
@@ -209,7 +209,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   const titleAndClose = renderElement('div', 'prod__title-and-close');
 
   const prodTitle = renderElement<HTMLAnchorElement>('a', 'prod__title');
-  prodTitle.href = `/one-product.html?id=${prod.id}`;
+  prodTitle.href = `/Vitamin/one-product.html?id=${prod.id}`;
   prodTitle.innerText = prod.name;
 
   const prodRmove = renderElement('div', 'prod__close');
