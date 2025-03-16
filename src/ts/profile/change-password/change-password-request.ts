@@ -1,5 +1,7 @@
 
 import { changePassword } from '../../composables/use-api.ts';
+import { validation } from '../change-password/validate-change-password.ts';
+
 
 interface PasswordForm {
   old_password: string;
@@ -23,23 +25,12 @@ export async function changePasswordRequest(data: PasswordForm) {
       }
     }else{
 
-      if (!massageContainer) return;
+      const errorsObj = res.errors.reduce((acc: any, error) => {
+        acc[`#${error.field}`] = error.message;
+        return acc;
+      }, {});
 
-      switch (res.errors[0].message) {
-        case 'Old password is incorrect':
-          massageContainer.innerText = 'Old password is incorrect';
-          break;
-        case 'User not found':
-          massageContainer.innerHTML = 'User not found';
-          break;
-
-        default:
-          massageContainer.innerHTML = 'Error... Try again later';
-      }
-      massageContainer.style.background = 'red';
-      massageContainer.classList.toggle('hidden');
-
-
+      validation.showErrors(errorsObj);
   }
 
   setTimeout(()=>{

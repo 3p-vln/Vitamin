@@ -8,9 +8,9 @@ export function renderValueForm() {
   const userInfo: UserInfo = JSON.parse(userData);
 
   const fields: { inputId: string; key: keyof CardInfo }[] = [
-    { inputId: 'payment-number-card', key: 'card_number' },
-    { inputId: 'payment-date', key: 'card_date' },
-    { inputId: 'payment-amount', key: 'card_cvv' },
+    { inputId: 'card_number', key: 'card_number' },
+    { inputId: 'card_date', key: 'card_date' },
+    { inputId: 'card_cvv', key: 'card_cvv' },
 
   ];
 

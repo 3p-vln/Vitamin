@@ -7,13 +7,15 @@ interface PasswordForm {
 
 }
 
+export let validation: any
+
 export function validateChangePassword() {
   const form = document.getElementById('change-password') as HTMLFormElement;
 
-  const validation = new JustValidate('#change-password');
+  validation = new JustValidate('#change-password');
 
   validation
-    .addField('#current-password', [
+    .addField('#old_password', [
       {
         rule: 'required',
         errorMessage: 'Current password is required',
@@ -51,9 +53,8 @@ export function validateChangePassword() {
     ])
 
     .onSuccess(() => {
-      console.log('Successfully updated password');
       const newPassword: HTMLInputElement | null = form.querySelector('#new-password');
-      const currentPassword: HTMLInputElement | null = form.querySelector('#current-password');
+      const currentPassword: HTMLInputElement | null = form.querySelector('#old_password');
 
       if (newPassword && currentPassword) {
         if (newPassword.value && currentPassword.value) {

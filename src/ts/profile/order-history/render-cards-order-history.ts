@@ -7,7 +7,7 @@ export async function renderCardsOrderHistory() {
   const res = await getOrderHistory();
 
   if ('errors' in res) {
-    console.log(res);
+
     return;
   }
 

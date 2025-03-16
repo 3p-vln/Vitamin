@@ -1,15 +1,15 @@
-import JustValidate from 'just-validate';
 import IMask from 'imask';
+import JustValidate from 'just-validate';
 import validator from 'validator';
 import { paymentRequest } from './payment-request.ts';
 
-export function validateCard() {
+export let validate: any
 
-  const cardInput: HTMLInputElement = document.querySelector('#payment-number-card') as HTMLInputElement;
+export function validateCard() {
+  const cardInput: HTMLInputElement = document.querySelector('#card_number') as HTMLInputElement;
   IMask(cardInput, { mask: '0000-0000-0000-0000' });
 
-
-  const dateInput: HTMLInputElement = document.querySelector('#payment-date') as HTMLInputElement;
+  const dateInput: HTMLInputElement = document.querySelector('#card_date') as HTMLInputElement;
   IMask(dateInput, {
     mask: 'MM/YY',
     blocks: {
@@ -18,14 +18,13 @@ export function validateCard() {
     },
   });
 
-  const cvcInput: HTMLInputElement = document.querySelector('#payment-amount') as HTMLInputElement;
+  const cvcInput: HTMLInputElement = document.querySelector('#card_cvv') as HTMLInputElement;
   IMask(cvcInput, { mask: '000[0]' });
 
-
   const form: HTMLFormElement = document.querySelector('#payment-methods-form') as HTMLFormElement;
-  const validate = new JustValidate(form);
+  validate = new JustValidate(form);
 
-  validate.addField('#payment-number-card', [
+  validate.addField('#card_number', [
     {
       validator: (value: string): boolean => {
         const cleanValue: string = value.replace(/\s/g, '');
@@ -35,7 +34,7 @@ export function validateCard() {
     },
   ]);
 
-  validate.addField('#payment-date', [
+  validate.addField('#card_date', [
     {
       validator: (value: string): boolean => {
         const [month, year]: number[] = value.split('/').map(Number);
@@ -49,23 +48,28 @@ export function validateCard() {
       errorMessage: 'Incorrect or expired date',
     },
   ]);
-  validate.addField('#payment-amount', [
+  validate.addField('#card_cvv', [
     {
       rule: 'customRegexp',
       value: /^\d+$/u,
       errorMessage: 'Enter a valid code!',
     },
   ]);
+  validate.addField('#card_cvv', [
+    {
+      rule: 'minLength',
+      value: 3,
+      errorMessage: 'too short',
+    },
+  ]);
 
-  validate.onSuccess( async () => {
+  validate.onSuccess(async () => {
     const formData = new FormData(form);
-    const data: any = {}
+    const data: any = {};
     for (let [key, value] of formData.entries()) {
-      data[key] = value ;
+      data[key] = value;
     }
 
-    await paymentRequest(data)
+    await paymentRequest(data);
   });
-
-
 }

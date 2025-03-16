@@ -2,6 +2,9 @@ import JustValidate from 'just-validate';
 import { overviewRequest } from './overview-request.ts';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 
+
+export let validation: any
+
 export function overviewValidete(){
   interface FormData {
     first_name: string;
@@ -17,46 +20,51 @@ export function overviewValidete(){
 
   const form = document.getElementById('overview-form') as HTMLFormElement;
 
-  const validation = new JustValidate(form);
+  validation = new JustValidate(form);
 
   validation
-    .addField('#overview-first-name', [
+    .addField('#first_name', [
       {
         rule: 'required',
         errorMessage: 'First Name is required',
       },
     ])
-    .addField('#overview-last-name', [
+    .addField('#last_name', [
       {
         rule: 'required',
         errorMessage: 'Last Name is required',
       },
     ])
-    .addField('#overview-address-line1', [
+    .addField('#address_one', [
       {
         rule: 'required',
         errorMessage: 'Address line 1 is required',
       },
     ])
-    .addField('#overview-address-line2', [
+    .addField('#address_two', [
       {
         rule: 'required',
         errorMessage: 'Address line 2 is required',
       },
     ])
-    .addField('#overview-city', [
+    .addField('#city', [
       {
         rule: 'required',
         errorMessage: 'City is required',
       },
     ])
-    .addField('#overview-postal-code', [
+    .addField('#postal_code', [
       {
         rule: 'required',
         errorMessage: 'ZIP / Postal code is required',
       },
+      {
+        rule: 'number',
+        errorMessage: 'Postal code only number',
+
+      }
     ])
-    .addField('#overview-email', [
+    .addField('#email', [
       {
         rule: 'required',
         errorMessage: 'Email is required',
@@ -66,7 +74,7 @@ export function overviewValidete(){
         errorMessage: 'Email is invalid',
       },
     ])
-    .addField('#overview-phone', [
+    .addField('#phone', [
       {
         rule: 'required',
         errorMessage: 'Phone Number is required',
@@ -85,20 +93,20 @@ export function overviewValidete(){
     ])
     .onSuccess(() => {
       const formData: FormData = {
-        first_name: (form.querySelector('#overview-first-name') as HTMLInputElement).value,
-        last_name: (form.querySelector('#overview-last-name') as HTMLInputElement).value,
-        address_one: (form.querySelector('#overview-address-line1') as HTMLInputElement).value,
-        address_two: (form.querySelector('#overview-address-line2') as HTMLInputElement).value,
-        city: (form.querySelector('#overview-city') as HTMLInputElement).value,
+        first_name: (form.querySelector('#first_name') as HTMLInputElement).value,
+        last_name: (form.querySelector('#last_name') as HTMLInputElement).value,
+        address_one: (form.querySelector('#address_one') as HTMLInputElement).value,
+        address_two: (form.querySelector('#address_two') as HTMLInputElement).value,
+        city: (form.querySelector('#city') as HTMLInputElement).value,
         state_province: (form.querySelector('#overview-state') as HTMLInputElement).value,
-        postal_code: (form.querySelector('#overview-postal-code') as HTMLInputElement).value,
-        email: (form.querySelector('#overview-email') as HTMLInputElement).value,
+        postal_code: (form.querySelector('#postal_cod') as HTMLInputElement).value,
+        email: (form.querySelector('#email') as HTMLInputElement).value,
         phone: formatePhoneNumber(),
       };
       overviewRequest(formData)
     });
   function formatePhoneNumber() {
-    const phoneInput = form.querySelector('#overview-phone') as HTMLInputElement;
+    const phoneInput = form.querySelector('#phone') as HTMLInputElement;
     if (phoneInput && phoneInput.value) {
       const value = phoneInput.value; // Получаем значение из поля ввода
       const phoneNumberParse = parsePhoneNumberFromString(value); // Парсим номер
