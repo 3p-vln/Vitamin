@@ -7,7 +7,7 @@ export async function renderCardsOrderHistory() {
   const res = await getOrderHistory();
 
   if ('errors' in res) {
-    console.log(res);
+
     return;
   }
 
@@ -22,7 +22,6 @@ export async function renderCardsOrderHistory() {
   orderHistoryContainer.innerHTML = '';
 
   ordersData.orders.forEach((orderItem) => {
-    console.log(orderItem);
 
     const productsId: string[] = [];
 
@@ -91,7 +90,7 @@ export async function renderCardsOrderHistory() {
       imgWrapper.classList.add('card__img-wrapper');
       const img = document.createElement('img');
       img.classList.add('card__img');
-      img.src = item.product.img;
+      img.src = item.product.img_webp;
       img.alt = 'Card image';
       imgWrapper.appendChild(img);
       imgBlock.appendChild(imgWrapper);
@@ -134,7 +133,7 @@ export async function renderCardsOrderHistory() {
       style: 'currency',
       currency: 'USD',
     });
-    console.log(formattedTotalSum);
+
 
     const orderItemFooter = document.createElement('div');
     orderItemFooter.classList.add('orderItem__footer');

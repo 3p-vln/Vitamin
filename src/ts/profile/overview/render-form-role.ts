@@ -29,14 +29,14 @@ export async function renderFormRole() {
   }
 
   const fields: { inputId: string; key: keyof UserInfo }[] = [
-    { inputId: 'overview-first-name', key: 'first_name' },
-    { inputId: 'overview-last-name', key: 'last_name' },
-    { inputId: 'overview-address-line1', key: 'address_one' },
-    { inputId: 'overview-address-line2', key: 'address_two' },
-    { inputId: 'overview-city', key: 'city' },
-    { inputId: 'overview-email', key: 'email' },
-    { inputId: 'overview-phone', key: 'phone' },
-    { inputId: 'overview-postal-code', key: 'postal_code' },
+    { inputId: 'first_name', key: 'first_name' },
+    { inputId: 'last_name', key: 'last_name' },
+    { inputId: 'address_one', key: 'address_one' },
+    { inputId: 'address_two', key: 'address_two' },
+    { inputId: 'city', key: 'city' },
+    { inputId: 'email', key: 'email' },
+    { inputId: 'phone', key: 'phone' },
+    { inputId: 'postal_code', key: 'postal_code' },
     { inputId: 'overview-state', key: 'state_province' }
 
   ];

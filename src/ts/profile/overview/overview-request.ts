@@ -1,4 +1,5 @@
 import { updateProfile } from '../../composables/use-api.ts';
+import { validation } from './overview-validete.ts';
 
 interface FormData {
   first_name: string;
@@ -25,22 +26,14 @@ export async function overviewRequest(data: FormData) {
 
     }
   } else {
-    if (massageContainer) {
-      switch (res.errors[0].message) {
-        case 'Email is required':
-          massageContainer.innerText = 'Email is required';
-          break;
-        case 'Профіль не знайдено':
-          massageContainer.innerHTML = 'Profile not found';
-          break;
 
-        default:
-          massageContainer.innerHTML = 'Error... Try again later';
-      }
+    const errorsObj = res.errors.reduce((acc: any, error) => {
+      acc[`#${error.field}`] = error.message;
+      return acc;
+    }, {});
 
-      massageContainer.style.background = 'red';
-      massageContainer.classList.toggle('hidden');
-    }
+    validation.showErrors(errorsObj);
+
   }
 
   setTimeout(() => {

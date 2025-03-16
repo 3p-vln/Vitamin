@@ -78,6 +78,7 @@ export interface OrdersData {
             additionalProp1: {};
             name: string;
             img: string;
+            img_webp: string;
             type: string;
             id: string
           };

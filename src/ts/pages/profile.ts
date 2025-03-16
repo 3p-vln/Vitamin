@@ -2,7 +2,7 @@
 import { checkFillInputs } from '../profile/change-password/check-fill-inputs.ts';
 import { validateChangePassword } from '../profile/change-password/validate-change-password.ts';
 import { showActivePartition } from '../profile/show-active-partition.ts';
-import { validateCard } from '../profile/payment/validate-card.ts';
+
 import { checkFillPaymentInputs } from '../profile/check-fill-payment-inputs.ts';
 import { renderFormRole } from '../profile/overview/render-form-role.ts';
 import { unlockSubmit } from '../profile/overview/unlock-submit-button.ts';
@@ -14,6 +14,10 @@ import { openOrdersMobile } from '../profile/order-history/open-orders-mobile.ts
 import { renderValueForm } from '../profile/payment/render-value-form.ts';
 import { phoneMask } from '../profile/overview/phone-mask.ts';
 import { LazyModule, useLoadFunction } from '../components/lazy-load.ts';
+import { validateCard } from '../profile/payment/validate-card.ts';
+
+
+
 
 const lazyModules: LazyModule[] = [
   { importFn: () => import("../components/header.ts"), selector: ".header" },

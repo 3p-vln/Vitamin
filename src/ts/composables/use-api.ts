@@ -33,18 +33,19 @@ const apiClient = axios.create({
 });
 
 // Helper function for error handling
-const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T | { errors: { message: string }[] }> => {
+const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T | { errors: { message: string, field?:string }[] }> => {
   try {
     const response = await request;
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
       console.error('API error:', error.response?.data || error.message);
-      return { errors: [{ message: error.response?.data?.message || error.message }] };
+      return { errors: [{ message: error.response?.data?.message || error.message, field: error.response?.data?.field }] };
     }
     if (error instanceof Error) {
+
       console.error('General error:', error.message);
-      return { errors: [{ message: error.message }] };
+      return { errors: [{ message: error.message}] };
     }
 
     console.error('Unknown error:', error);
