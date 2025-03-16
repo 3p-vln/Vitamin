@@ -77,10 +77,14 @@ export interface OrdersData {
           product: {
             additionalProp1: {};
             name: string;
-            img: string;
-            img_webp: string;
+            img: {
+              img_default: string;
+              img_webp: string;
+              img_height: string;
+              img_width: string;
+            };
             type: string;
-            id: string
+            id: string;
           };
           quantity: number;
           is_discount: boolean;
@@ -95,7 +99,13 @@ export interface RecommendationData {
   id: number;
   name: string;
   price: string;
-  img: string;
+  img: {
+    img_default: string;
+    img_webp: string;
+    img_height: string;
+    img_width: string;
+  };
+  img_webp: string;
   discount: number;
   type: string;
   description: string;
@@ -117,7 +127,12 @@ export interface Product {
   directions: string;
   disabled_subscribe: boolean;
   discount: number;
-  img: string;
+  img: {
+    img_default: string;
+    img_webp: string;
+    img_height: string;
+    img_width: string;
+  };
   indications: string;
   ingradients: string;
   legal_disclaimer: string;
@@ -141,7 +156,8 @@ export interface UserStore {
   card_info: {
     card_cvv: string;
     card_date: string;
-    card_number: string };
+    card_number: string;
+  };
   city: string;
   email: string;
   first_name: string;

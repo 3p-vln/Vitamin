@@ -7,7 +7,6 @@ const orderListCintainer = getElement('.order-list__prods');
 const orderListPrice = getElement('.order-list__total');
 
 export default function createOrderList() {
-  // console.log(orderListCintainer);
   loadCards();
   totalCartPrice();
 }
@@ -65,8 +64,10 @@ async function renderProd(prod: ProductLocalStorge) {
     }
 
     prodImg.innerHTML = `
-    <img src="${prodItem.img}" alt="prod" />
-  `;
+        <picture>
+           <source srcset="${prodItem.img.img_webp}" type="image/webp">
+           <img src="${prodItem.img.img_default}" alt="prod" width="${prodItem.img.img_width}" height="${prodItem.img.img_height}" />
+        </picture>`;
 
     const prodCountAndName = renderElement('div', 'prod__count-and-name');
     prodCountAndName.innerText = `${prod.counts} x ${prodItem.name}`;

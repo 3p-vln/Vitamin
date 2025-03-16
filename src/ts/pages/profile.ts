@@ -1,4 +1,4 @@
-// import { initHeader } from '../components/header.ts';
+import { initHeader } from '../components/header.ts';
 import { checkFillInputs } from '../profile/change-password/check-fill-inputs.ts';
 import { validateChangePassword } from '../profile/change-password/validate-change-password.ts';
 import { showActivePartition } from '../profile/show-active-partition.ts';
@@ -13,20 +13,11 @@ import { renderCardsOrderHistory } from '../profile/order-history/render-cards-o
 import { openOrdersMobile } from '../profile/order-history/open-orders-mobile.ts';
 import { renderValueForm } from '../profile/payment/render-value-form.ts';
 import { phoneMask } from '../profile/overview/phone-mask.ts';
-import { LazyModule, useLoadFunction } from '../components/lazy-load.ts';
-import { validateCard } from '../profile/payment/validate-card.ts';
-
-
-
-
-const lazyModules: LazyModule[] = [
-  { importFn: () => import("../components/header.ts"), selector: ".header" },
-];
-
-lazyModules.forEach(({ importFn, selector }) => useLoadFunction(importFn, selector));
+import { initCart } from '../components/cart.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // initHeader();
+  initHeader();
+  await initCart();
   checkFillInputs()
   validateChangePassword()
 

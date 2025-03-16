@@ -1,9 +1,10 @@
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { setImg } from '../components/set-img-size.ts';
 
-export default async function shopBaners() {
+export function shopBanners() {
   removeDuplicate();
-
+  setImg();
   new Swiper('.shop-baners__swiper', {
     modules: [Navigation, Pagination, Autoplay],
     navigation: {
@@ -14,23 +15,23 @@ export default async function shopBaners() {
       el: '.swiper-pagination',
       clickable: true,
     },
-    // autoplay: {
-    //   delay: 5000,
-    // },
+    autoplay: {
+      delay: 5000,
+    },
     loop: false,
     slidesPerView: 1,
-    spaceBetween: 20,
+    spaceBetween: 0,
     centeredSlides: true,
     breakpoints: {
       768: {
         slidesPerView: 'auto',
         spaceBetween: 35,
-        loop: true
+        loop: true,
       },
       1440: {
         slidesPerView: 'auto',
         spaceBetween: 50,
-        loop: true
+        loop: true,
       },
     },
   });

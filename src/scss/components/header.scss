@@ -204,8 +204,11 @@
         display: grid;
         align-items: center;
         grid-template-columns: 120px 1fr;
-        margin-bottom: 61px;
         gap: 25px;
+
+        &:not(:last-child){
+          margin-bottom: 61px;
+        }
 
         @include media-breakpoint-down(sm) {
           grid-template-columns: 100px 1fr;

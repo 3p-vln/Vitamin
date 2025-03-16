@@ -9,13 +9,13 @@ export async function setPasswordRequest(data: { resetToken: string; newPassword
   if (!("errors" in res)) {
     if (messageContainer && form) {
       form.remove();
-      messageContainer.innerHTML = `The password was successfully changed  <a class="recover__link-login" href="/Vitamin/login.html"> Back to login</a>`;
+      messageContainer.innerHTML = `The password was successfully changed  <a class="recover__link-login" href="/login.html"> Back to login</a>`;
       messageContainer.classList.remove('recover__message_hidden');
       messageContainer.style.color = 'green';
     }
   } else {
     if (messageContainer) {
-      messageContainer.innerHTML = `Oops. Error, the password has not been changed. Try again later.<a class="recover__link-login" href="/Vitamin/login.html"> Back to login</a>`;
+      messageContainer.innerHTML = `Oops. Error, the password has not been changed. Try again later.<a class="recover__link-login" href="/login.html"> Back to login</a>`;
       messageContainer.classList.remove('recover__message_hidden');
       messageContainer.style.color = 'red';
     }

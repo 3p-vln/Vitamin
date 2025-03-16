@@ -1,7 +1,7 @@
 import { getOrderHistory } from '../../composables/use-api.ts';
 import { OrdersData } from '../../components/interfaces.ts';
 import { getColorCard } from './get-color.ts';
-import { addAllToCart } from '../../components/cart.ts';
+import { addAllToCartOrders, cartActive } from '../../components/cart.ts';
 
 export async function renderCardsOrderHistory() {
   const res = await getOrderHistory();
@@ -22,8 +22,7 @@ export async function renderCardsOrderHistory() {
   orderHistoryContainer.innerHTML = '';
 
   ordersData.orders.forEach((orderItem) => {
-
-    const productsId: string[] = [];
+    const productsIdAndCounts: { id: string; counts: number }[] = [];
 
     const orderItemContainer = document.createElement('article');
     orderItemContainer.classList.add('orderItem');
@@ -70,17 +69,15 @@ export async function renderCardsOrderHistory() {
     const orderItemBody = document.createElement('div');
     orderItemBody.classList.add('orderItem__body');
 
-
-
     orderItem.items.forEach((item) => {
-
-      for (let i = 0; i < item.quantity; i++) {
-        productsId.push(item.product.id);
-      }
+      productsIdAndCounts.push({
+        id: item.product.id,
+        counts: item.quantity,
+      });
 
       const card = document.createElement('a');
       card.classList.add('orderItem__card', 'card');
-      card.href = `/Vitamin/one-product.html?id=${item.product.id}`;
+      card.href = `/one-product.html?id=${item.product.id}`;
 
       const imgBlock = document.createElement('div');
       imgBlock.classList.add('card__img-block');
@@ -88,10 +85,11 @@ export async function renderCardsOrderHistory() {
 
       const imgWrapper = document.createElement('div');
       imgWrapper.classList.add('card__img-wrapper');
-      const img = document.createElement('img');
-      img.classList.add('card__img');
-      img.src = item.product.img_webp;
-      img.alt = 'Card image';
+      const img = document.createElement('picture');
+      img.innerHTML=`
+        <source srcset="${item.product.img.img_webp}" type="image/webp">
+        <img class="card__img" src="${item.product.img.img_default}" alt="prod" width="${item.product.img.img_width}" height="${item.product.img.img_height}" loading="lazy" />
+      `
       imgWrapper.appendChild(img);
       imgBlock.appendChild(imgWrapper);
 
@@ -134,7 +132,6 @@ export async function renderCardsOrderHistory() {
       currency: 'USD',
     });
 
-
     const orderItemFooter = document.createElement('div');
     orderItemFooter.classList.add('orderItem__footer');
 
@@ -146,9 +143,9 @@ export async function renderCardsOrderHistory() {
     orderItemButton.classList.add('orderItem__button', 'btn', 'btn_orange');
     orderItemButton.innerText = 'Add to cart';
 
-    orderItemButton.addEventListener('click', async () => {
-
-      await addAllToCart(productsId);
+    orderItemButton.addEventListener('click', async (event) => {
+      await addAllToCartOrders(productsIdAndCounts);
+      cartActive(event);
     });
 
     orderItemFooter.appendChild(orderItemTotal);

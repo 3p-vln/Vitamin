@@ -9,10 +9,11 @@ pages.forEach((page) => {
 });
 
 export default defineConfig({
-  base: '/Vitamin',
+  base: '/',
   build: {
     target: 'es2022',
     outDir: 'build',
+    cssCodeSplit: true,
     rollupOptions: {
       input: {
         ...pagesInput,

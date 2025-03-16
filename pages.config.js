@@ -49,6 +49,10 @@ const pages = [
     name: 'successful-order',
     path: resolve(__dirname, 'successful-order.html'),
   },
+  {
+    name: '404',
+    path: resolve(__dirname, '404.html'),
+  },
 ];
 
 export default pages;
