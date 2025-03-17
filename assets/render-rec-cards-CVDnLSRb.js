@@ -1,0 +1,1 @@
+import{r}from"./render-card-CpJQh2uI.js";import"./use-api-D3sUrr-l.js";import"./js.cookie-Cz0CWeBA.js";import"./use-call-dom-DDNnwvp7.js";import"./lazy-load-CcXlw6so.js";async function m(){await r(".you-like__cards","gray")}export{m as default};
