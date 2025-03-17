@@ -36,11 +36,21 @@
   }
 
   &__prods {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
     padding-bottom: 40px;
     position: relative;
+
+    &-container{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-height: 340px;
+      overflow: auto;
+      position: relative;
+
+      @include media-breakpoint-down(sm) {
+        gap: 15px;
+      }
+    }
 
     @include media-breakpoint-down(sm) {
       gap: 15px;
