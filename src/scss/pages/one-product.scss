@@ -2,14 +2,6 @@
 @import '../one-product/about-prod';
 @import '../one-product/you-may-also-like';
 
-.page {
-  margin-top: 0 !important;
-
-  @include media-breakpoint-down(sm) {
-    margin-top: 70px !important;
-  }
-}
-
 .wrapper {
-  overflow-x: visible !important;
+  overflow-x: visible;
 }

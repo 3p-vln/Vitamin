@@ -1,5 +1,5 @@
 import { initDropdown } from '../components/dropdown';
-import { Product } from '../components/interfaces';
+import { Product } from '../../typings/interfaces.ts';
 import { getCatalogItem } from '../composables/use-api.ts';
 import { classManipulator, getElement } from '../composables/use-call-dom.ts';
 import { autoshipCreate } from './autoship';
@@ -8,9 +8,30 @@ import { initCounter } from '../components/counter.ts';
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id') || undefined;
 
-export default async function loadInfo() {
-  const autoshipDropdown = getElement('.autoship__dropdown');
+const autoshipDropdown = getElement('.autoship__dropdown');
 
+const ilustrate = getElement('.ilustrate');
+const catgory = getElement('.info__category');
+const svgIco = getElement('.count__svg svg use');
+const name = getElement('.info__name');
+const capsules = getElement('.count__capsules span');
+const mg = getElement('.count__mg span');
+const autoshipText = getElement('.autoship__text');
+const price = getElement('.add-to-cart__price');
+const description = getElement('.descripton__info');
+const safetyInf = getElement('.safety .inf');
+const indications = getElement('.indications .inf');
+const ingredients = getElement('.ingredients .inf');
+const directions = getElement('.directions .inf');
+const legal = getElement('.legal .inf');
+
+const requiredFields = [ilustrate, catgory, svgIco, name, capsules, mg, autoshipText, price, description, safetyInf, indications, ingredients, directions, legal];
+
+const minusBtn = getElement('.count__minus');
+const plusBtn = getElement('.count__plus');
+const countEl = getElement('.count__items');
+
+export default async function loadInfo() {
   if (!prodId || !autoshipDropdown) return;
 
   try {
@@ -33,120 +54,134 @@ export default async function loadInfo() {
   }
 }
 
+function getItem(item: HTMLElement | null): HTMLElement | undefined {
+  if (item) return item;
+}
+
+function setItem(item: HTMLElement | null, operation: 'innerText' | 'innerHTML', text: string) {
+  if (!item) return;
+  switch (operation) {
+    case 'innerText':
+      item.textContent = text;
+      break;
+    case 'innerHTML':
+      item.innerHTML = text;
+      break;
+  }
+}
+
 function showInfo(prodInfo: Product) {
-  const ilustrate = getElement('.ilustrate');
-  const catgory = getElement('.info__category');
-  const svgIco = getElement('.count__svg svg use');
-  const name = getElement('.info__name');
-  const capsules = getElement('.count__capsules span');
-  const mg = getElement('.count__mg span');
-  const autoshipText = getElement('.autoship__text');
-  const price = getElement('.add-to-cart__price');
-  const description = getElement('.descripton__info');
-  const safetyInf = getElement('.safety .inf');
-  const indications = getElement('.indications .inf');
-  const ingredients = getElement('.ingredients .inf');
-  const directions = getElement('.directions .inf');
-  const legal = getElement('.legal .inf');
+  if (requiredFields.some((field) => !field)) return;
 
-  if (!prodInfo || !ilustrate || !catgory || !svgIco || !name || !capsules || !mg || !autoshipText || !price || !description || !safetyInf || !indications || !ingredients || !directions || !legal) return;
-
-  console.log('prodInfo', prodInfo);
-  if (prodInfo.type === 'Vitamins & Dietary Supplements') {
-    classManipulator(ilustrate, 'add', 'ilustrate_purple');
-  }
-  if (prodInfo.type === 'Minerals') {
-    classManipulator(ilustrate, 'add', 'ilustrate_green-mint');
-  }
-  if (prodInfo.type === 'Prenatal Vitamins') {
-    classManipulator(ilustrate, 'add', 'ilustrate_pink');
-  }
-  if (prodInfo.type === 'Pain Relief') {
-    classManipulator(ilustrate, 'add', 'ilustrate_blue');
-  }
-  if (prodInfo.type === 'Antioxidants') {
-    classManipulator(ilustrate, 'add', 'ilustrate_orange');
-  }
-  if (prodInfo.type === 'Weight Loss') {
-    classManipulator(ilustrate, 'add', 'ilustrate_dark-blue');
-  }
-  if (prodInfo.type === 'Probiotics' || prodInfo.type === 'Sale%') {
-    classManipulator(ilustrate, 'add', 'ilustrate_red');
+  switch (prodInfo.type) {
+    case 'Vitamins & Dietary Supplements':
+      classManipulator(getItem(ilustrate), 'add', 'ilustrate_purple');
+      break;
+    case 'Minerals':
+      classManipulator(getItem(ilustrate), 'add', 'ilustrate_green-mint');
+      break;
+    case 'Prenatal Vitamins':
+      classManipulator(getItem(ilustrate), 'add', 'ilustrate_pink');
+      break;
+    case 'Pain Relief':
+      classManipulator(getItem(ilustrate), 'add', 'ilustrate_blue');
+      break;
+    case 'Antioxidants':
+      classManipulator(getItem(ilustrate), 'add', 'ilustrate_orange');
+      break;
+    case 'Weight Loss':
+      classManipulator(getItem(ilustrate), 'add', 'ilustrate_dark-blue');
+      break;
+    case 'Probiotics':
+      classManipulator(getItem(ilustrate), 'add', 'ilustrate_red');
+      break;
+    case 'Sale%':
+      classManipulator(getItem(ilustrate), 'add', 'ilustrate_red');
+      break;
+    default:
+      break;
   }
 
   const img = getElement('.ilustrate__content');
   if (!img) return;
-  img.innerHTML =  `
+  img.innerHTML = `
      <picture>
         <source srcset="${prodInfo.img.img_webp}" type="image/webp">
         <img src="${prodInfo.img.img_default}" alt="prod" width="${prodInfo.img.img_width}" height="${prodInfo.img.img_height}" loading="lazy"/>
      </picture>`;
 
+  switch (prodInfo.type) {
+    case 'Vitamins & Dietary Supplements':
+      classManipulator(getItem(catgory), 'add', 'info__category_purple');
+      getItem(svgIco)?.setAttribute('href', '#can');
+      break;
+    case 'Minerals':
+      classManipulator(getItem(catgory), 'add', 'info__category_green-mint');
+      getItem(svgIco)?.setAttribute('href', '#bottle');
+      break;
+    case 'Prenatal Vitamins':
+      classManipulator(getItem(catgory), 'add', 'info__category_pink');
+      getItem(svgIco)?.setAttribute('href', '#kit');
+      break;
+    case 'Pain Relief':
+      classManipulator(getItem(catgory), 'add', 'info__category_blue');
+      getItem(svgIco)?.setAttribute('href', '#box');
+      break;
+    case 'Antioxidants':
+      classManipulator(getItem(catgory), 'add', 'info__category_orange');
+      getItem(svgIco)?.setAttribute('href', '#can');
+      break;
+    case 'Weight Loss':
+      classManipulator(getItem(catgory), 'add', 'info__category_dark-blue');
+      getItem(svgIco)?.setAttribute('href', '#bottle');
+      break;
+    case 'Probiotics':
+      classManipulator(getItem(catgory), 'add', 'info__category_red');
+      getItem(svgIco)?.setAttribute('href', '#kit');
+      break;
+    case 'Sale%':
+      classManipulator(getItem(catgory), 'add', 'info__category_red');
+      getItem(svgIco)?.setAttribute('href', '#kit');
+      break;
+    default:
+      break;
+  }
 
-  if (prodInfo.type === 'Vitamins & Dietary Supplements') {
-    classManipulator(catgory, 'add', 'info__category_purple');
-    svgIco.setAttribute('href', '#can');
-  }
-  if (prodInfo.type === 'Minerals') {
-    classManipulator(catgory, 'add', 'info__category_green-mint');
-    svgIco.setAttribute('href', '#bottle');
-  }
-  if (prodInfo.type === 'Prenatal Vitamins') {
-    classManipulator(catgory, 'add', 'info__category_pink');
-    svgIco.setAttribute('href', '#kit');
-  }
-  if (prodInfo.type === 'Pain Relief') {
-    classManipulator(catgory, 'add', 'info__category_blue');
-    svgIco.setAttribute('href', '#box');
-  }
-  if (prodInfo.type === 'Antioxidants') {
-    classManipulator(catgory, 'add', 'info__category_orange');
-    svgIco.setAttribute('href', '#can');
-  }
-  if (prodInfo.type === 'Weight Loss') {
-    classManipulator(catgory, 'add', 'info__category_dark-blue');
-    svgIco.setAttribute('href', '#bottle');
-  }
-  if (prodInfo.type === 'Probiotics' || prodInfo.type === 'Sale%') {
-    classManipulator(catgory, 'add', 'info__category_red');
-    svgIco.setAttribute('href', '#kit');
-  }
-
-  catgory.innerText = prodInfo.type;
-  name.innerText = prodInfo.name;
-  capsules.innerText = prodInfo.capsules.toString();
-  mg.innerText = prodInfo.weight_mg.toString();
+  setItem(catgory, 'innerText', prodInfo.type);
+  setItem(name, 'innerText', prodInfo.name);
+  setItem(capsules, 'innerText', prodInfo.capsules.toString());
+  setItem(mg, 'innerText', prodInfo.weight_mg.toString());
 
   if (window.innerWidth < 768) {
-    autoshipText.innerText = 'Deliver every';
+    setItem(autoshipText, 'innerText', 'Deliver every');
   }
 
   window.addEventListener('resize', () => {
     if (window.innerWidth < 768) {
-      autoshipText.innerText = 'Deliver every';
+      setItem(autoshipText, 'innerText', 'Deliver every');
     }
     if (window.innerWidth >= 768) {
-      autoshipText.innerText = 'Autoship this item every';
+      setItem(autoshipText, 'innerText', 'Autoship this item every');
     }
   });
 
   const priceDiscount = getDiscountedPrice(prodInfo.price, prodInfo.discount);
 
   if (prodInfo.type === 'Sale%') {
-    classManipulator(price, 'add', 'add-to-cart__price_sale');
-    price.innerHTML = `<span><span class="price">$${prodInfo.price}</span> <span class="discount">-${prodInfo.discount}%</span></span> $${priceDiscount}`;
+    classManipulator(getItem(price), 'add', 'add-to-cart__price_sale');
+    setItem(price, 'innerHTML', `<span><span class="price">$${prodInfo.price}</span> <span class="discount">-${prodInfo.discount}%</span></span> $${priceDiscount}`);
   } else {
-    price.innerText = `$${prodInfo.price}`;
+    setItem(price, 'innerText', `$${prodInfo.price}`);
   }
 
-  updatePrice(price, prodInfo);
+  updatePrice(getItem(price), prodInfo);
 
-  description.innerText = prodInfo.description;
-  safetyInf.innerText = prodInfo.satefy_information;
-  indications.innerText = prodInfo.indications;
-  ingredients.innerText = prodInfo.ingradients;
-  directions.innerText = prodInfo.directions;
-  legal.innerText = prodInfo.legal_disclaimer;
+  setItem(description, 'innerText', prodInfo.description);
+  setItem(safetyInf, 'innerText', prodInfo.satefy_information);
+  setItem(indications, 'innerText', prodInfo.indications);
+  setItem(ingredients, 'innerText', prodInfo.ingradients);
+  setItem(directions, 'innerText', prodInfo.directions);
+  setItem(legal, 'innerText', prodInfo.legal_disclaimer);
 }
 
 function backToShop() {
@@ -171,7 +206,7 @@ function autoshipBtn(prodInfo: Product) {
       autoship.classList.toggle('autoship__on-off_active');
       autoshipCircle.classList.toggle('autoship__circle_active');
 
-      autoshipCreate(event);
+      await autoshipCreate(event);
     });
   }
 }
@@ -198,11 +233,7 @@ function getTotalPrice(price: string, count: number = 1): string {
   return totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-function updatePrice(el: HTMLElement, prod: Product) {
-  const minusBtn = getElement('.count__minus');
-  const plusBtn = getElement('.count__plus');
-  const countEl = getElement('.count__items');
-
+function updatePrice(el: HTMLElement | undefined, prod: Product) {
   if (!el || !plusBtn || !minusBtn || !countEl) return;
 
   let count = Number(countEl.innerText);

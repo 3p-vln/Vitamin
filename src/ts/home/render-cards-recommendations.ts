@@ -1,6 +1,6 @@
 import { getRecommendations } from '../composables/use-api.ts';
 
-export default async function renderCards(): Promise<void> {
+export async function renderCards(): Promise<void> {
   try {
     const response = await getRecommendations(false);
 
@@ -35,10 +35,10 @@ export default async function renderCards(): Promise<void> {
 
       const img: HTMLPictureElement = document.createElement('picture');
       // img.className = 'choose-products__img';
-      img.innerHTML= `
+      img.innerHTML = `
         <source srcset="${item.img.img_webp}" type="image/webp">
         <img class="choose-products__img" src="${item.img.img_default}" alt="prod" width="${item.img.img_width}" height="${item.img.img_height}" loading="lazy" />
-      `
+      `;
       imgWrapper.append(img);
 
       card.appendChild(imgWrapper);
@@ -90,7 +90,6 @@ function getColorCard(type: string): string {
     case 'Pain Relief':
       result = 'blueBg';
       break;
-
 
     case 'Prenatal Vitamins':
       result = 'pinkBg';

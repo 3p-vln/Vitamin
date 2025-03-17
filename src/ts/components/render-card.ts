@@ -1,6 +1,6 @@
 import { getCatalogList, getRecommendations } from '../composables/use-api.ts';
 import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
-import { RecommendationData } from './interfaces';
+import { RecommendationData } from '../../typings/interfaces.ts';
 import { stop } from './stopPreload.ts';
 
 let currentPage = 1;
@@ -23,7 +23,7 @@ export async function renderRecCard(container: string, colour: string) {
     }
 
     const prodList = response.data;
-    await card(prodList, prodContainer, colour);
+    card(prodList, prodContainer, colour);
     stop();
   } catch (error) {
     console.error(error);
@@ -65,7 +65,7 @@ export async function renderAllCard(container: string, page: number = 1, categor
     }
 
     const prodList = response.data;
-    await card(prodList, prodContainer, 'gray');
+    card(prodList, prodContainer, 'gray');
 
     if (windowWidth >= 768) setupLazyLoading(container, category);
     if (windowWidth < 768) await handleViewMoreButtonVisibility(container, category);
@@ -76,7 +76,7 @@ export async function renderAllCard(container: string, page: number = 1, categor
   }
 }
 
-async function card(data: RecommendationData[], container: HTMLElement, colour: string) {
+function card(data: RecommendationData[], container: HTMLElement, colour: string) {
   data.forEach((prodItem) => {
     const card = renderElement<HTMLAnchorElement>('a', ['prod-card', `${prodItem.id}`, `prod-card_${colour}`, 'skeleton']);
     card.href = `/Vitamin/one-product.html?id=${prodItem.id}`;
@@ -207,7 +207,7 @@ async function loadMoreCards(container: string, category?: string) {
       return;
     }
 
-    await card(response.data, prodContainer, 'gray');
+    card(response.data, prodContainer, 'gray');
 
     stop();
     setTimeout(() => {
@@ -248,11 +248,15 @@ export async function handleViewMoreButtonVisibility(container: string, category
 
     newViewMoreButton.addEventListener('click', async () => {
       if (remainingItems > 0) {
-        await loadMoreCards(container, currentCategory);
-        currentItemCount = prodContainer.children.length;
-        remainingItems = totalItems - currentItemCount;
+        try {
+          await loadMoreCards(container, currentCategory);
+          currentItemCount = prodContainer.children.length;
+          remainingItems = totalItems - currentItemCount;
 
-        newViewMoreButton.style.display = remainingItems > 0 ? 'flex' : 'none';
+          newViewMoreButton.style.display = remainingItems > 0 ? 'flex' : 'none';
+        } catch (error) {
+          console.error(error);
+        }
       }
     });
   } catch (error) {

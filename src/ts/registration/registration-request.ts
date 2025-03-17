@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { RegisterData } from '../components/interfaces.ts';
+import { RegisterData } from '../../typings/interfaces.ts';
 import { register } from '../composables/use-api.ts';
 import apiClient from './api-client.ts';
 
@@ -22,9 +22,7 @@ export interface userInfoResponseData {
 }
 
 export async function registrationRequest(data: RegisterData) {
-
   const res: any = await register(data);
-
 
   if (res.message === 'Реєстрація успішна') {
     Cookies.set('refreshToken', res.user.refreshToken, { path: '/' });

@@ -6,7 +6,9 @@ export function getElement<T extends HTMLElement>(selector: string, target: HTML
   return target.querySelector(selector);
 }
 
-export function classManipulator(element: HTMLElement, action: 'add' | 'remove', className: string) {
+export function classManipulator(element: HTMLElement | undefined, action: 'add' | 'remove', className: string) {
+  if (!element) return;
+
   if (action === 'add') {
     element.classList.add(className);
   } else if (action === 'remove') {

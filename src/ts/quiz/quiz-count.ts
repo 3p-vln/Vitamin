@@ -43,15 +43,15 @@ function changeQuestion(step: number) {
   }
 }
 
-export function initQuestions() {
+export async function initQuestions() {
   showQuestion(currentQuestionIndex);
 
   if (!nextQuestionBtns) {
     return;
   }
 
-  validateNameForm();
-  validateEmailForm();
+  await validateNameForm();
+  await validateEmailForm();
 
   nextQuestionBtns.forEach((button: HTMLElement) => {
     button.addEventListener('click', async (event) => {

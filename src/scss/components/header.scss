@@ -182,7 +182,7 @@
       }
 
       &.empty {
-        background-image: url(/src/img/svg/empty-cart.svg);
+        background-image: url(/src/img/cart/empty-cart.svg);
         background-repeat: no-repeat;
         background-position: center;
         background-size: 295px 350px;
@@ -521,7 +521,7 @@
               width: 11px;
               height: 8px;
               transform: translate(-50%, -50%) scale(0);
-              background-image: url('/src/img/svg/checkbox.svg');
+              background-image: url('/src/img/cart/checkbox.svg');
               background-repeat: no-repeat;
               background-position: center;
               background-size: contain;
