@@ -72,6 +72,7 @@ export interface OrdersData {
     {
       date_created: string;
       order_number: string;
+      total_sum_order: string;
       items: [
         {
           product: {

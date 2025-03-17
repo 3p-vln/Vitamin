@@ -23,6 +23,7 @@ export async function renderCardsOrderHistory() {
 
   ordersData.orders.forEach((orderItem) => {
     const productsIdAndCounts: { id: string; counts: number }[] = [];
+    console.log(orderItem);
 
     const orderItemContainer = document.createElement('article');
     orderItemContainer.classList.add('orderItem');
@@ -126,18 +127,18 @@ export async function renderCardsOrderHistory() {
 
     orderItemContent.appendChild(orderItemBody);
 
-    const totalOrderSum = orderItem.items.reduce((sum, item) => sum + item.total_sum, 0);
-    const formattedTotalSum = totalOrderSum.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    });
+    // const totalOrderSum = orderItem.items.reduce((sum, item) => sum + item.total_sum, 0);
+    // const formattedTotalSum = totalOrderSum.toLocaleString('en-US', {
+    //   style: 'currency',
+    //   currency: 'USD',
+    // });
 
     const orderItemFooter = document.createElement('div');
     orderItemFooter.classList.add('orderItem__footer');
 
     const orderItemTotal = document.createElement('div');
     orderItemTotal.classList.add('orderItem__total');
-    orderItemTotal.innerHTML = `<span class="orderItem__total-text">Order amount:</span> <span class="orderItem__total-sum">${formattedTotalSum}</span>`;
+    orderItemTotal.innerHTML = `<span class="orderItem__total-text">Order amount:</span> <span class="orderItem__total-sum">${parseFloat(orderItem.total_sum_order).toFixed(2)}</span>`;
 
     const orderItemButton = document.createElement('button');
     orderItemButton.classList.add('orderItem__button', 'btn', 'btn_orange');
