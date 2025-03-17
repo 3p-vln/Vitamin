@@ -1,1 +1,0 @@
-import"./modulepreload-polyfill-B5Qt9EMX.js";import"./style-l0sNRNKZ.js";import{i as t}from"./header-BuGRmcjA.js";import"./use-call-dom-8Q8ZjlCD.js";import"./js.cookie-Cz0CWeBA.js";document.addEventListener("DOMContentLoaded",async()=>{t()});
