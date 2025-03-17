@@ -6,23 +6,22 @@
   <link rel="icon" type="image/svg+xml" href="/Vitamin/logo.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vitamin. Create order</title>
-  <script type="module" crossorigin src="/Vitamin/assets/create-order-Bq5RIexY.js"></script>
+  <script type="module" crossorigin src="/Vitamin/assets/create-order-B8s_ibt5.js"></script>
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="modulepreload" crossorigin href="/Vitamin/assets/use-call-dom-DDNnwvp7.js">
-  <link rel="modulepreload" crossorigin href="/Vitamin/assets/lazy-load-CcXlw6so.js">
-  <link rel="modulepreload" crossorigin href="/Vitamin/assets/dropdown-7a_ekS_C.js">
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/use-call-dom-8Q8ZjlCD.js">
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/lazy-load-C3ije9Oq.js">
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/dropdown-MNiyI8bl.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/just-validate.es-C73wyOde.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/js.cookie-Cz0CWeBA.js">
-  <link rel="modulepreload" crossorigin href="/Vitamin/assets/use-api-D3sUrr-l.js">
+  <link rel="modulepreload" crossorigin href="/Vitamin/assets/use-api-CoVlJz1c.js">
   <link rel="modulepreload" crossorigin href="/Vitamin/assets/index-yFKSUj0c.js">
-  <link rel="stylesheet" crossorigin href="/Vitamin/assets/create-order-DwAYRXQ9.css">
-  <link rel="stylesheet" crossorigin href="/Vitamin/assets/style-CGNY-jX6.css">
+  <link rel="stylesheet" crossorigin href="/Vitamin/assets/create-order-DgMA2vNe.css">
+  <link rel="stylesheet" crossorigin href="/Vitamin/assets/style-S0yhB-S6.css">
 </head>
 
+
 <body>
-
 <div class="wrapper">
-
   <header class="header-order header">
   <div class="container">
     <div class="header__content">
@@ -46,7 +45,9 @@
           <use href="#bag"></use>
         </svg>
       </div>
+
       Today’s Total:
+
       <div class="accordion__down-arrow">
         <svg>
           <use href="#next-arrow"></use>
@@ -55,51 +56,67 @@
     </div>
     <p class="accordion__price"></p>
   </div>
+
   <div class="order-list__content accordion-content">
-    <div class="order-list__prods">
-    </div>
-    <div class="order-list__total">
-    </div>
+    <div class="order-list__prods"></div>
+
+    <div class="order-list__total"></div>
+
     <button class="order-list__btn bnt btn btn_orange" type="submit">Place order</button>
   </div>
 </div>
+
         <div class="create-order-form skeleton">
   <form id="create-order">
     <div class="create-order-form__deliver-info deliver-info">
       <p class="deliver-info__title">Delivery Information</p>
+
       <div class="deliver-info__form">
         <div class="deliver-info__item">
           <label class="deliver-info__form-label" for="first-name">First Name</label>
+
           <input class="deliver-info__form-input" type="text" name="first-name" id="first-name" placeholder=" ">
         </div>
+
         <div class="deliver-info__item">
           <label class="deliver-info__form-label" for="last-name">Last Name</label>
+
           <input class="deliver-info__form-input" type="text" name="last-name" id="last-name" placeholder=" ">
         </div>
+
         <div class="deliver-info__item">
           <label class="deliver-info__form-label" for="address-line1">Address Line 1</label>
+
           <input class="deliver-info__form-input" type="text" name="address-line1" id="address-line1" placeholder=" ">
         </div>
+
         <div class="deliver-info__item">
           <label class="deliver-info__form-label" for="address-line2">Address Line 2</label>
+
           <input class="deliver-info__form-input" type="text" name="address-line2" id="address-line2" placeholder=" ">
         </div>
+
         <div class="deliver-info__item">
           <label class="deliver-info__form-label" for="city">City</label>
+
           <input class="deliver-info__form-input" type="text" name="city" id="city" placeholder=" ">
         </div>
+
         <div class="deliver-info__item deliver-info__item_two-items">
           <div class="deliver-info__subitem deliver-info__subitem_dropdown">
             <label class="deliver-info__form-label" for="state">State / Province</label>
+
             <div class="dropdown">
               <div class="dropdown__box deliver-info__form-input deliver-info__form-input_dropdown-box">
                 <input class="dropdown__input dropdown__text" type="text" name="state" id="state" placeholder="---" readonly>
+
                 <div class="dropdown__arrow">
                   <svg>
                     <use href="#next-arrow"></use>
                   </svg>
                 </div>
               </div>
+
               <div class="dropdown__list">
                 <div class="dropdown__item">NY</div>
                 <div class="dropdown__item">TN</div>
@@ -114,35 +131,47 @@
               </div>
             </div>
           </div>
+
           <div class="deliver-info__subitem">
             <label class="deliver-info__form-label" for="zip">ZIP / Postal Code</label>
+
             <input class="deliver-info__form-input" type="number" name="zip" id="zip" placeholder=" ">
           </div>
         </div>
+
         <div class="deliver-info__item">
           <label class="deliver-info__form-label" for="mail">Email</label>
+
           <input class="deliver-info__form-input" type="email" name="mail" id="mail" placeholder=" ">
         </div>
+
         <div class="deliver-info__item">
           <label class="deliver-info__form-label" for="phone">Phone Number</label>
+
           <input class="deliver-info__form-input" type="tel" name="phone" id="phone" placeholder=" ">
         </div>
       </div>
     </div>
+
     <div class="create-order-form__billing billing">
       <p class="billing__title">Biling</p>
       <div class="billing__form">
         <div class="billing__item">
           <label class="billing__form-label" for="card">Card Number</label>
+
           <input class="billing__form-input" type="text" name="card" id="card" placeholder="XXXX XXXX XXXX XXXX">
         </div>
+
         <div class="billing__item billing__item_two-items">
           <div class="billing__subitem">
             <label class="billing__form-label" for="expiration">Expiration</label>
+
             <input class="billing__form-input" type="text" name="expiration" id="expiration" placeholder="MM/YY">
           </div>
+
           <div class="billing__subitem">
             <label class="billing__form-label" for="cvc">CVC</label>
+
             <input class="billing__form-input" type="number" name="cvc" id="cvc" placeholder="CVC">
           </div>
         </div>
@@ -159,9 +188,17 @@
   <div class="container">
     <div class="footer__content">
       <ul class="footer__list">
-        <li class="footer__list-item"><a href="">Return Policy</a></li>
-        <li class="footer__list-item"><a href="">Privacy Policy</a></li>
-        <li class="footer__list-item"><a href="">Terms & Conditions</a></li>
+        <li class="footer__list-item">
+          <a href="">Return Policy</a>
+        </li>
+
+        <li class="footer__list-item">
+          <a href="">Privacy Policy</a>
+        </li>
+
+        <li class="footer__list-item">
+          <a href="">Terms & Conditions</a>
+        </li>
       </ul>
       
       <div class="footer__social">
