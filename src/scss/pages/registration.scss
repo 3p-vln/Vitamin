@@ -6,12 +6,15 @@
 
 
 body{
-  //visibility: hidden;
-  background-color: #faf8f6;
+  background-color: $cardBackground;
 }
 
 .page{
   margin-top: 0 !important;
+}
+
+.wrapper{
+  overflow: visible;
 }
 
 .registration {
@@ -37,7 +40,7 @@ body{
   padding-top: 30px;
   padding-bottom: 30px;
   width: 100%;
-  background: #faf8f6;
+  background: $cardBackground;
 
   svg{
     position: relative;
@@ -67,7 +70,6 @@ body{
   &__link-mobile {
     display: none;
 
-
     @include media-breakpoint-down(xs) {
       display: flex;
       justify-content: space-between;
@@ -90,12 +92,10 @@ body{
 
 .side {
   backface-visibility: hidden;
-
 }
 
 .front {
   transform: rotateY(180deg) translateX(50%);
-
 }
 
 

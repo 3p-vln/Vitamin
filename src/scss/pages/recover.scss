@@ -1,38 +1,38 @@
 @import '../style';
 
-body{
+body {
   background: $cardBackground;
 }
 
-.recover-header{
+.recover-header {
   background: $cardBackground;
   padding-top: 30px;
   padding-bottom: 209px;
   margin: 0 auto;
 
-  svg{
+  svg {
     width: 42px;
     height: 50px;
   }
+
   @include media-breakpoint-down(md) {
     padding-bottom: 80px;
   }
 }
 
 
-.recover{
+.recover {
 
   margin: 0 auto;
   font-family: Effra, sans-serif;
   width: 100%;
 
-
-  &__container{
+  &__container {
     max-width: 920px;
     margin: 0 auto;
   }
 
-  &__form{
+  &__form {
     padding: 60px 238px;
     width: 100%;
     display: flex;
@@ -42,7 +42,7 @@ body{
     background: $background;
     margin-bottom: 226px;
 
-    &_new-password{
+    &_new-password {
       display: none;
     }
 
@@ -52,34 +52,33 @@ body{
     }
   }
 
-&__message{
-  font-size: 25px;
-  font-family: OpenSans, sans-serif;
-  text-align: center;
- transition: opacity 0.3s ;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  &__message {
+    font-size: 25px;
+    font-family: OpenSans, sans-serif;
+    text-align: center;
+    transition: opacity 0.3s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-  a{
-    display: block;
-    margin-top: 10px;
+    a {
+      display: block;
+      margin-top: 10px;
+    }
+
+    &_hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
   }
 
-  &_hidden{
-    opacity: 0;
-    pointer-events: none;
-  }
-}
-
-  &__link-login{
+  &__link-login {
     color: $orangeMain;
   }
 
 
-
-  &__title{
+  &__title {
     font-weight: 500;
     font-size: 26px;
     text-align: center;
@@ -87,7 +86,7 @@ body{
     margin-bottom: 10px;
   }
 
-  &__description{
+  &__description {
     font-family: OpenSans, sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -97,7 +96,7 @@ body{
     margin-bottom: 20px;
   }
 
-  &__field{
+  &__field {
     width: 100%;
     margin-bottom: 20px;
 
@@ -106,25 +105,25 @@ body{
     }
   }
 
-  &__submit-btn{
+  &__submit-btn {
     max-width: 270px;
     width: 100%;
     display: flex;
     justify-content: center;
   }
 
-  &__reg{
+  &__reg {
     margin: 0 auto;
     width: 315px;
     font-weight: 400;
     font-size: 16px;
   }
 
-  &__login-link{
+  &__login-link {
     color: $orangeMain;
   }
 
-  &__successes-massage{
+  &__successes-massage {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -134,7 +133,7 @@ body{
     color: green;
   }
 
-  &__error-message{
+  &__error-message {
     color: $red;
     margin-top: 10px;
   }
@@ -145,15 +144,12 @@ body{
   position: relative;
   border-radius: 14px;
   width: 100%;
-
-  background: #faf8f6;
-
+  background: $cardBackground;
 
   &__input {
     outline: none;
     border-radius: 4px;
     padding: 17px 24px;
-
     width: 444px;
     font-size: 18px;
     background: transparent;
@@ -165,7 +161,7 @@ body{
     &:-webkit-autofill,
     textarea:-webkit-autofill,
     select:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0 1000px #FAF8F6 inset;
+      -webkit-box-shadow: 0 0 0 1000px $cardBackground inset;
       -webkit-text-fill-color: black;
     }
   }
@@ -183,17 +179,17 @@ body{
     opacity: 0.3;
   }
 
-  &__file-button{
+  &__file-button {
     border-radius: 12px;
     padding: 10px 30px;
   }
 
-  &__file-name{
+  &__file-name {
     display: none;
     margin-right: 26px;
     font-weight: normal;
     font-size: 18px;
-    color: #000;
+    color: $font-color-black;
     opacity: 0.3;
 
     @include media-breakpoint-down(xs) {
@@ -201,13 +197,13 @@ body{
     }
   }
 
-  &__file-description{
+  &__file-description {
     font-weight: normal;
     font-size: 18px;
     color: $font-color-black;
     opacity: 0.3;
 
-    &_mobile{
+    &_mobile {
       display: none;
 
       @include media-breakpoint-down(xs) {
@@ -215,7 +211,7 @@ body{
       }
     }
 
-    &_pc{
+    &_pc {
       @include media-breakpoint-down(xs) {
         display: none;
       }
@@ -228,12 +224,12 @@ body{
   left: 8px;
   top: 7px;
   padding: 0 3px;
-  color: #000;
+  color: $font-color-black;
   font-size: 12px;
-  background: #fff;
+  background: $background;
 }
 
-.just-validate-error-label{
+.just-validate-error-label {
   position: absolute;
   left: 10px;
   bottom: 0;
@@ -241,7 +237,6 @@ body{
 }
 
 .custom-loader {
-
   width: 100px;
   height: 100px;
   display: grid;
@@ -253,22 +248,23 @@ body{
 
   &::before,
   &::after {
-    content:"";
+    content: "";
     grid-area: 1/1;
-    border:8px solid;
+    border: 8px solid $purple;
     border-radius: 50%;
-    border-color:#766DF4 #766DF4 #0000 #0000;
     mix-blend-mode: darken;
     animation: s4 1s infinite linear;
   }
+
   &::after {
-    border-color:#0000 #0000 #E4E4ED #E4E4ED;
+    border-color: #0000 #0000 #E4E4ED #E4E4ED;
     animation-direction: reverse;
   }
-
 }
 
-@keyframes s4{
-  100%{transform: rotate(360deg)}
+@keyframes s4 {
+  100% {
+    transform: rotate(360deg)
+  }
 }
 

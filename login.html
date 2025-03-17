@@ -6,22 +6,17 @@
 <body>
 
 <div class="wrapper">
-
   <header class="auth-header">
 
     <a class="auth-header__link" href="/Vitamin">
-
       <svg>
         <use href="#vitamin-logo"></use>
       </svg>
     </a>
 
-    <a href="/" class="auth-header__link-mobile">
-
-      <svg width="11" height="21" viewBox="0 0 11 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M9.53624 20.2489L11 18.7277L2.92751 10.311L11 1.89431L9.53624 0.373047L0 10.311L9.53624 20.2489Z"
-              fill="black" />
+    <a href="/Vitamin" class="auth-header__link-mobile">
+      <svg>
+        <use href="#back-row"></use>
       </svg>
 
       <span>Account</span>
@@ -32,7 +27,6 @@
   <main class="login-page">
 
     <div class="login-page__container">
-
       <div class="login-page__title">Sign in with email</div>
 
       <div class="login-page__subtitle">Please enter your e-mail and password:</div>
@@ -40,39 +34,40 @@
       <form class="login-page__form login-form" id="login-form">
 
         <div class="login-form__field field">
-
           <input class="field__input" id="regular-login-email" placeholder=" " type="email" name="email">
-
           <label class="field__label" for="regular-login-email">Email</label>
-
         </div>
 
         <div class="login-form__field field">
-
           <input class="field__input" id="login-password" type="password" placeholder=" " autoComplete="new-password"
                  name="password">
-
           <label class="field__label" for="login-password">Password</label>
-
           <a class="forgot-password-link" href="/recover.html">Forgot password?</a>
         </div>
 
         <button class="btn btn_orange btn_login login-form__submit" type="submit">Sign in</button>
 
         <span class="login-form__error-message"></span>
-
       </form>
-      <load
-      ="./src/html/registration/social-sign-up.html" title-modification="social-sign-up__title_reg" title="or sign in with..." />
 
+      <load
+      ="./src/html/registration/social-sign-up.html" title-modification="social-sign-up__title_reg"
+      title="or sign in with..." />
     </div>
-    <p class="login-page__reg">Don't have an account? <a href="/registration.html"
-                                                         class="login-page__registration-link">Create one</a></p>
+
+    <p class="login-page__reg">Don't have an account?
+      <a href="/Vitamin/registration.html"
+         class="login-page__registration-link">
+        Create one
+      </a>
+    </p>
   </main>
 </div>
-<load ="/src/img/sprite.html" />
-<load ="/src/img/reg-sprite.html" />
+
+<load
+="/src/img/sprite.html" />
+
+<load
+="/src/img/reg-sprite.html" />
 </body>
-
-
 </html>

@@ -1,17 +1,18 @@
-.payment-methods{
+.payment-methods {
 
-  &__title{
+  &__title {
     font-family: Effra, sans-serif;
     font-weight: 500;
     font-size: 36px;
     color: $font-color-black;
     margin-bottom: 40px;
+
     @include media-breakpoint-down(xs) {
       font-size: 24px;
     }
   }
 
-  &__message{
+  &__message {
     font-size: 16px;
     color: $font-color-white;
     padding: 17px 70px;
@@ -26,21 +27,21 @@
     opacity: 1;
     pointer-events: none;
 
-    svg{
+    svg {
       width: 20px;
       height: 14px;
       margin-right: 20px;
     }
 
-    &.hidden{
+    &.hidden {
       opacity: 0;
     }
   }
 }
 
-.card-front{
+.card-front {
   max-width: 490px;
-  background: #f3efea;
+  background: $cardBackground;
   padding: 50px 40px 40px 40px;
   border-radius: 16px;
   position: relative;
@@ -51,7 +52,7 @@
     background: transparent;
   }
 
-  &__input-wrapper{
+  &__input-wrapper {
     position: relative;
 
     @include media-breakpoint-down(md) {
@@ -59,7 +60,7 @@
     }
   }
 
-  &__label{
+  &__label {
     display: block;
     font-weight: 400;
     font-size: 14px;
@@ -67,21 +68,21 @@
     margin-bottom: 8px;
   }
 
-  &__input{
+  &__input {
     font-weight: 400;
     font-size: 18px;
     padding: 17px 24px;
     width: 100%;
     line-height: 1.2;
     border-radius: 12px;
-    background: #faf8f6;
+    background: $cardBackground;
 
-    &_date{
+    &_date {
       width: 104px;
     }
   }
 
-  &__img-wrapper{
+  &__img-wrapper {
     display: flex;
     justify-content: right;
     margin: 10px 0;
@@ -92,10 +93,10 @@
   }
 }
 
-.cards{
+.cards {
   position: relative;
 
-  &__submit{
+  &__submit {
     margin-top: 88px;
     width: 154px;
     background: $orangeMain;
@@ -108,25 +109,24 @@
       margin-bottom: 30px;
     }
 
-
-    &_disabled{
-      background: #c3bdb6;
+    &_disabled {
+      background: $cardBackground;
     }
   }
 
-  .just-validate-error-label{
-    top:75px;
+  .just-validate-error-label {
+    top: 75px;
   }
 }
 
-.card-back{
+.card-back {
   position: absolute;
   bottom: 82px;
   left: 184px;
   border-radius: 16px;
   width: 490px;
   height: 288px;
-  background: #ece8e2;
+  background: $cardBackground;
   z-index: 0;
 
   @include media-breakpoint-down(lg) {
@@ -141,23 +141,24 @@
   }
 
 
-  &__magnetic-stripe{
+  &__magnetic-stripe {
     width: 100%;
     height: 63px;
-    background: #c2bfbb;
+    background: $cardBackground;
     margin-top: 40px;
+
     @include media-breakpoint-down(md) {
       display: none;
     }
   }
 
-  &__input-wrapper{
-  position: absolute;
+  &__input-wrapper {
+    position: absolute;
     bottom: 48px;
     right: 40px;
   }
 
-  &__label{
+  &__label {
     display: block;
     font-weight: 400;
     font-size: 14px;
@@ -165,7 +166,7 @@
     margin-bottom: 8px;
   }
 
-  &__input{
+  &__input {
     font-weight: 400;
     font-size: 18px;
     padding: 17px 24px;
@@ -173,9 +174,8 @@
     line-height: 1.2;
     border-radius: 12px;
 
-
     @include media-breakpoint-down(md) {
-      background: #faf8f6;
+      background: $cardBackground;
     }
   }
 }

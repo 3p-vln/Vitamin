@@ -8,7 +8,6 @@
     padding-bottom: 60px;
   }
 
-
   @include media-breakpoint-down(xs) {
     padding-top: 14px;
   }
@@ -22,7 +21,6 @@
       flex-direction: column;
       margin-bottom: 57px;
     }
-
   }
 
   &__title {
@@ -72,7 +70,6 @@
       opacity: 0;
     }
   }
-
 }
 
 .overview-form {
@@ -102,7 +99,6 @@
       width: 100%;
       height: 56px;
 
-
       @include media-breakpoint-down(xs) {
         gap: 30px;
         @include media-breakpoint-down(xs) {
@@ -125,15 +121,13 @@
         width: 162px;
       }
     }
-
-
   }
 
   &__form-label {
     font-family: OpenSans, sans-serif;
     font-weight: 400;
     font-size: 14px;
-    color: #000;
+    color: $font-color-black;
     opacity: 0.5;
     position: relative;
     top: -10px;
@@ -167,14 +161,11 @@
 
     &_disabled {
       opacity: 0.5;
-      background: #c3bdb6;
+      background: $cardBackground;
 
       &:hover {
         transform: scale(1);
       }
     }
-
   }
-
-
 }

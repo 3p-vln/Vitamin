@@ -4,7 +4,7 @@
   border-radius: 14px;
   width: 100%;
   max-width: 444px;
-  background: #faf8f6;
+  background: $cardBackground;
 
 &:not(:last-child) {
   margin-bottom: 18px;
@@ -31,7 +31,7 @@
     &:-webkit-autofill,
     textarea:-webkit-autofill,
     select:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0 1000px #FAF8F6 inset;
+      -webkit-box-shadow: 0 0 0 1000px $cardBackground inset;
       -webkit-text-fill-color: black;
     }
   }
@@ -59,7 +59,7 @@
     margin-right: 26px;
     font-weight: normal;
     font-size: 18px;
-    color: #000;
+    color: $font-color-black;
     opacity: 0.3;
 
     @include media-breakpoint-down(xs) {
@@ -94,9 +94,9 @@
   left: 8px;
   top: 7px;
   padding: 0 3px;
-  color: #000;
+  color: $font-color-black;
   font-size: 12px;
-  background: #fff;
+  background: $background;
 }
 
 .just-validate-error-label{
@@ -104,10 +104,4 @@
   left: 10px;
   bottom: 0;
   font-size: 12px;
-}
-
-/* Для большинства браузеров */
-input:-webkit-autofill {
-  background-color: red!important;
-
 }

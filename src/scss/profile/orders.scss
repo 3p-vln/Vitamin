@@ -8,6 +8,7 @@
     font-size: 36px;
     color: $font-color-black;
     margin-bottom: 49px;
+
     @include media-breakpoint-down(xs) {
       font-size: 24px;
       margin-bottom: 30px;
@@ -17,7 +18,7 @@
 
 .orderItem {
   padding: 40px 40px 40px 40px;
-  background: #faf8f6;
+  background: $cardBackground;
   border-radius: 16px;
   margin-bottom: 20px;
 
@@ -59,7 +60,6 @@
     right: 0;
     top: 50%;
     @include media-breakpoint-down(xs) {
-
       display: block;
     }
   }
@@ -85,7 +85,6 @@
       font-size: 14px;
       margin-bottom: 11px;
     }
-
   }
 
   &__id {
@@ -103,7 +102,8 @@
     font-family: OpenSans, sans-serif;
     font-weight: 400;
     font-size: 18px;
-    color: #000;
+    color: $font-color-black;
+
     @include media-breakpoint-down(xs) {
       font-size: 14px;
       opacity: 0.5;
@@ -164,6 +164,7 @@
 
   &__button {
     white-space: nowrap;
+
     @include media-breakpoint-down(xs) {
       font-size: 14px;
     }
@@ -173,14 +174,13 @@
 .card {
   max-width: 460px;
   display: flex;
-  //min-width: 400px;
-
 
   &__img-block {
     max-width: 120px;
-    background: #6b5ebb;
+    background: $purple;
     border-radius: 16px;
     width: 100%;
+
     @include media-breakpoint-down(xs) {
       max-width: 100px;
       border-radius: 8px;
@@ -243,7 +243,6 @@
       font-size: 14px;
       width: 100%;
     }
-
   }
 
   &__type {
@@ -289,7 +288,7 @@
     font-family: Effra, sans-serif;
     font-weight: 400;
     font-size: 20px;
-    color: #000;
+    color: $font-color-black;
     margin-bottom: 50px;
   }
 

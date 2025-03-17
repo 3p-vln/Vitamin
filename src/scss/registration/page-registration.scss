@@ -1,5 +1,5 @@
 .registration {
-  background: #faf8f6;
+  background: $cardBackground;
 
   @include media-breakpoint-down(sm) {
     background: transparent;
@@ -85,7 +85,7 @@
       top: 50%;
       width: 150px;
       height: 1px;
-      background: #F2F2F2;
+      background: $lineBackground;
     }
 
     &::after {
@@ -149,7 +149,6 @@
       background: $disabled-btn;
       color: $font-color-white;
     }
-
   }
 
   &__error-message {
@@ -164,7 +163,7 @@
     font-weight: normal;
     text-align: center;
     font-size: 16px;
-    color: #000;
+    color: $font-color-black;
 
     @include media-breakpoint-down(xs) {
       margin-top: 80px;
