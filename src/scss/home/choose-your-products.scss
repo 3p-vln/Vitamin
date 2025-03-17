@@ -145,12 +145,12 @@
   }
 
   &__slide {
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     margin-right: 33px;
     border-radius: 16px;
     padding: 40px 30px;
-    width: 400px !important;
+    width: 400px;
     color: $font-color-white;
     max-height: 535px;
 
@@ -186,12 +186,12 @@
 
     @include media-breakpoint-down(xs) {
       margin-right: 10px;
-      width: 335px !important;
+      width: 335px;
       padding: 20px 20px 20px 20px;
     }
 
     @include media-breakpoint-down(xxs) {
-      width: 280px !important;
+      width: 280px;
     }
   }
 

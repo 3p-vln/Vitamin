@@ -283,7 +283,7 @@
     &-pagination {
       --swiper-pagination-bullet-horizontal-gap: 12px;
 
-      bottom: 29px !important;
+      bottom: 29px;
 
       @include media-breakpoint-up(sm) {
         display: none;
