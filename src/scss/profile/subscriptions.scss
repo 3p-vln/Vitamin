@@ -49,11 +49,11 @@
     width: 120px;
     border-radius: 8px;
 
-    &_pinc{
+    &_pinc {
       background: $pinkBg;
     }
 
-    &_purple{
+    &_purple {
       background: $purpleBg;
     }
 
@@ -70,7 +70,6 @@
     @include media-breakpoint-down(xs) {
       margin: 20px auto 15px auto;
     }
-
   }
 
   &__img {
@@ -97,12 +96,11 @@
     color: $greenMintBg;
     margin-bottom: 10px;
 
-    &_pink{
+    &_pink {
       color: $pinkBg;
-
     }
 
-    &_purple{
+    &_purple {
       color: $purpleBg;
     }
 
@@ -133,6 +131,7 @@
   }
 
   &__name {
+
     @include media-breakpoint-down(xs) {
       font-size: 16px;
       max-width: 235px;

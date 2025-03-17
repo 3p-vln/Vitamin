@@ -19,13 +19,13 @@
       height: 60px;
       animation: scale 10s linear infinite;
       z-index: 1;
-      background: #ffca78;
+      background: $orange;
     }
 
     @include media-breakpoint-down(xs) {
       margin-top: -100px;
       padding-top: 71px;
-      padding-bottom:115px;
+      padding-bottom: 115px;
     }
   }
 
@@ -47,7 +47,7 @@
       height: 139px;
       animation: scale 10s linear infinite;
       z-index: 1;
-      background: #ffca78;
+      background: $orange;
 
       @include media-breakpoint-down(md) {
         left: auto;
@@ -75,8 +75,6 @@
 
     @include media-breakpoint-down(xs) {
       font-size: 40px;
-
-      //height: 420px;
       height: auto;
       width: 100vw;
       left: 0;
@@ -97,12 +95,6 @@
     @include media-breakpoint-down(sm) {
       height: auto;
       max-width: 100vw;
-    }
-
-    @include media-breakpoint-down(xxs) {
-
-
-
     }
   }
 
@@ -142,8 +134,7 @@
 
     @include media-breakpoint-down(xs) {
       margin-top: 0;
-      margin-bottom: 0px;
-
+      margin-bottom: 0;
     }
   }
 
@@ -156,7 +147,7 @@
     word-spacing: -0.1em;
     letter-spacing: -0.01em;
     font-size: 56px;
-    color: #fff;
+    color: $font-color-white;
 
     @include media-breakpoint-down(lg) {
       padding-top: 0;
@@ -178,7 +169,6 @@
     @include media-breakpoint-down(xs) {
       font-size: 24px;
     }
-
   }
 
   &__description {
@@ -187,12 +177,9 @@
     align-items: center;
     row-gap: 103px;
 
-
-
     @include media-breakpoint-down(xs) {
       row-gap: 0;
     }
-
   }
 
   &__description-item {
@@ -202,7 +189,7 @@
     max-width: 628px;
     font-weight: 500;
     font-size: 30px;
-    color: #000;
+    color: $font-color-black;
 
     @include media-breakpoint-down(lg) {
       column-gap: 20px;
@@ -224,7 +211,6 @@
 
     @include media-breakpoint-down(xs) {
       font-size: 14px;
-
     }
   }
 
@@ -266,17 +252,15 @@
       top: 7px;
       width: 170px;
       height: 171px;
-      img{
+
+      img {
         height: 100%;
       }
     }
 
     @include media-breakpoint-down(xxs) {
       height: 141px;
-
-
     }
-
   }
 
   &__img-wrapper-pills {
@@ -303,14 +287,13 @@
       top: 57px;
       max-width: 255px;
 
-
-      img{
+      img {
         height: 100%;
       }
     }
   }
 
-  &__drugs-purple{
+  &__drugs-purple {
     width: 103px;
     height: 84px;
 
@@ -319,7 +302,7 @@
     }
   }
 
-  &__heal-yellow{
+  &__heal-yellow {
     width: 88px;
     height: 97px;
 
@@ -329,16 +312,12 @@
     }
   }
 
-  &__shopping-orange{
+  &__shopping-orange {
     width: 85px;
     height: 107px;
     @include media-breakpoint-down(xs) {
       width: 69px;
-
     }
   }
-
-
-
 }
 

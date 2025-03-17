@@ -8,35 +8,30 @@
 @import '../profile/orders.scss';
 @import '../profile/subscriptions.scss';
 
-//.wrapper{
-//  opacity: 0;
-//}
-.profile-loader{
+
+.profile-loader {
   position: absolute;
   top: calc(50% - 100px);
   left: calc(50% - 100px);
-
 }
 
 .profile-page {
   padding-top: 40px;
 
-  &__content{
+  &__content {
     display: flex;
   }
 
-  &__side-bar{
+  &__side-bar {
     width: 100%;
     max-width: 355px;
-
-
 
     @include media-breakpoint-down(sm) {
       display: none;
     }
   }
 
-  &__partition{
+  &__partition {
     flex: 1;
   }
 
@@ -44,31 +39,28 @@
     width: 100%;
   }
 
-
-
-  &__menu-item{
+  &__menu-item {
     font-family: Effra, sans-serif;
     font-weight: 400;
     font-size: 22px;
     line-height: 3.2;
     color: $font-color-black;
 
-    &_active{
+    &_active {
       font-weight: 700;
     }
 
-    .sign-out{
+    .sign-out {
       color: $red;
     }
   }
 
 
-  &__partition-item{
+  &__partition-item {
     display: block;
 
-    &_hidden{
+    &_hidden {
       display: none;
-
     }
   }
 }

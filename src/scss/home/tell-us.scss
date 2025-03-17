@@ -2,14 +2,12 @@
   position: relative;
   padding-bottom: 150px;
 
-
-
   @include media-breakpoint-down(xs) {
     padding-bottom: 27px;
     overflow: hidden;
-
   }
-  &_bottom{
+
+  &_bottom {
     padding-top: 100px;
     padding-bottom: 100px;
 
@@ -28,7 +26,6 @@
     margin: 0 auto;
     padding: 0 15px;
     max-width: $containerWidth;
-
   }
 
   &__logo {
@@ -46,8 +43,7 @@
     line-height: 1.2;
     text-align: center;
     font-size: 56px;
-    color: #000;
-
+    color: $font-color-black;
 
 
     @include media-breakpoint-down(xs) {
@@ -56,7 +52,7 @@
       padding-bottom: 15px;
     }
 
-    &_padding{
+    &_padding {
       padding-top: 40px;
       padding-bottom: 37px;
     }
@@ -71,9 +67,9 @@
     text-align: center;
     word-spacing: 0.2em;
     font-size: 20px;
-    color: #808080;
+    color: $fontColorText;
 
-    &_width{
+    &_width {
       max-width: 920px;
       margin-bottom: 48px;
     }
@@ -84,32 +80,30 @@
     }
   }
 
-  &__btn{
+  &__btn {
+    border-radius: 200px;
+    padding: 20px 61px 28px 65px;
+    max-width: 260px;
+    font-family: OpenSans, sans-serif;
+    font-weight: bold;
+    line-height: 1.63;
+    text-align: center;
+    white-space: nowrap;
+    transition: transform 0.3s;
+    font-size: 20px;
 
-      border-radius: 200px;
-      padding: 20px 61px 28px 65px;
-      max-width: 260px;
-      font-family: OpenSans, sans-serif;
-      font-weight: bold;
-      line-height: 1.63;
-      text-align: center;
-      white-space: nowrap;
-      transition: transform 0.3s;
-      font-size: 20px;
+    &:hover {
+      transform: scale(1.05);
+    }
 
-      &:hover {
-        transform: scale(1.05);
-      }
-
-      @include media-breakpoint-down(sm) {
-        padding: 15px 30px;
-        font-size: 16px;
-      }
+    @include media-breakpoint-down(sm) {
+      padding: 15px 30px;
+      font-size: 16px;
+    }
 
     @include media-breakpoint-down(xs) {
       padding: 13px 25px;
     }
-
   }
 
   &__rotating-segment1 {
@@ -121,6 +115,7 @@
     z-index: -1;
 
     &_alt {
+
       svg {
         transform: rotate(90deg);
       }
@@ -182,7 +177,7 @@
     border-radius: 50%;
     width: 95px;
     height: 95px;
-    background: #8172dd;
+    background: $purple;
 
     @include media-breakpoint-down(xs) {
       right: -60px;
@@ -194,7 +189,7 @@
     font-family: Effra, sans-serif;
     font-weight: 500;
     font-size: 20px;
-    color: #f27e58;
+    color: $orangeLink;
 
     svg {
       position: relative;
@@ -203,5 +198,4 @@
       height: 15px;
     }
   }
-
 }
