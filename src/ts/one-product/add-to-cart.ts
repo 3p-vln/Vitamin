@@ -1,7 +1,8 @@
-import { addBtn, cartActive } from '../components/cart';
-import { Product } from '../components/interfaces';
+import { cartActive } from '../components/cart/cart.ts';
+import { Product } from '../../typings/interfaces.ts';
 import { getCatalogItem } from '../composables/use-api.ts';
 import { getElement } from '../composables/use-call-dom.ts';
+import { addBtn } from '../components/cart/cart-operation.ts';
 
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id') || undefined;

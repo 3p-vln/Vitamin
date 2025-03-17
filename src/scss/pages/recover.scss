@@ -166,7 +166,7 @@ body{
     textarea:-webkit-autofill,
     select:-webkit-autofill {
       -webkit-box-shadow: 0 0 0 1000px #FAF8F6 inset;
-      -webkit-text-fill-color: black;
+      -webkit-text-fill-color: $font-color-black;
     }
   }
 
@@ -193,7 +193,7 @@ body{
     margin-right: 26px;
     font-weight: normal;
     font-size: 18px;
-    color: #000;
+    color: $font-color-black;
     opacity: 0.3;
 
     @include media-breakpoint-down(xs) {
@@ -228,9 +228,9 @@ body{
   left: 8px;
   top: 7px;
   padding: 0 3px;
-  color: #000;
+  color: $font-color-black;
   font-size: 12px;
-  background: #fff;
+  background: $font-color-white;
 }
 
 .just-validate-error-label{

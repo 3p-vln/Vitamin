@@ -1,10 +1,10 @@
 import JustValidate from 'just-validate';
 import { getElement } from '../composables/use-call-dom.ts';
 
-export async function validateOrderInfo(): Promise<boolean> {
+export function validateOrderInfo(): Promise<boolean> {
   return new Promise((resolve) => {
     const form = getElement('#create-order') as HTMLFormElement;
-    if(!form) return;
+    if (!form) return;
 
     const validator = new JustValidate(form, {
       focusInvalidField: true,

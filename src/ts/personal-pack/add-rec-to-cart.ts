@@ -1,9 +1,10 @@
 import { getElement, getElements } from '../composables/use-call-dom.ts';
-import { addAllToCart, cartActive } from '../components/cart.ts';
+import { cartActive } from '../components/cart/cart.ts';
+import { addAllToCart } from '../components/cart/cart-operation.ts';
 
 const addAllProdBtn = getElement('.your-pack__continue');
 
-export async function addRecToCart() {
+export function addRecToCart() {
   const cardsItems = getElements('.prod-card');
 
   if (!addAllProdBtn || !cardsItems) return;

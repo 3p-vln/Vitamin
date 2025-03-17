@@ -1,7 +1,7 @@
 import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
-import { ProductLocalStorge } from '../components/interfaces.ts';
-import { getDiscountedPrice, getTotalPrice } from '../components/cart.ts';
+import { ProductLocalStorge } from '../../typings/interfaces.ts';
 import { getCatalogItem } from '../composables/use-api.ts';
+import { getTotalPrice, getDiscountedPrice } from '../components/cart/render-cart.ts';
 
 const orderListCintainer = getElement('.order-list__prods');
 const orderListPrice = getElement('.order-list__total');
@@ -21,8 +21,8 @@ function loadCards() {
   if (!orderListCintainer) return;
   orderListCintainer.innerHTML = '';
 
-  cartItems.forEach((prod: ProductLocalStorge) => {
-    renderProd(prod);
+  cartItems.forEach(async (prod: ProductLocalStorge) => {
+    await renderProd(prod);
   });
 }
 

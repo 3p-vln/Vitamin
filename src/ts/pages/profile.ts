@@ -13,32 +13,26 @@ import { renderCardsOrderHistory } from '../profile/order-history/render-cards-o
 import { openOrdersMobile } from '../profile/order-history/open-orders-mobile.ts';
 import { renderValueForm } from '../profile/payment/render-value-form.ts';
 import { phoneMask } from '../profile/overview/phone-mask.ts';
-import { initCart } from '../components/cart.ts';
+import { initCart } from '../components/cart/cart.ts';
 import { validateCard } from '../profile/payment/validate-card.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  await renderFormRole();
+  initCart();
   initHeader();
-  await initCart();
-  checkFillInputs()
-  validateChangePassword()
-
-  showActivePartition()
-
-  renderValueForm()
-  validateCard()
-  checkFillPaymentInputs ()
-
+  checkFillInputs();
+  validateChangePassword();
+  showActivePartition();
+  renderValueForm();
+  validateCard();
+  checkFillPaymentInputs();
   const dropdownContainer = getElement('.overview-form__field_custom-select');
   if (!dropdownContainer) return;
   initDropdown(dropdownContainer);
-  await renderFormRole()
-  unlockSubmit()
-  overviewValidete()
-  phoneMask()
-  renderCardsOrderHistory().then(()=>{
-    openOrdersMobile()
-  })
-
-
-
+  unlockSubmit();
+  overviewValidete();
+  phoneMask();
+  renderCardsOrderHistory().then(() => {
+    openOrdersMobile();
+  });
 });

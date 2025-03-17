@@ -1,18 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 
-import {
-  CardInfoData,
-  LogInData,
-  OrderData, OrdersData,
-  PasswordData,
-  ProdResponse, Product,
-  ProfileUpdateData,
-  RefreshTokenData,
-  RegisterData,
-  ResetPasswordData,
-  SetNewPasswordData, UserInfo, UserNotFoundInfo,
-} from '../components/interfaces';
+import { CardInfoData, LogInData, OrderData, OrdersData, PasswordData, ProdResponse, Product, ProfileUpdateData, RefreshTokenData, RegisterData, ResetPasswordData, SetNewPasswordData, UserInfo, UserNotFoundInfo } from '../../typings/interfaces.ts';
 
 const API_BASE_URL = 'https://www.mku-journal.online';
 const ACCESS_TOKEN_KEY = 'accessToken'; // Ключ для хранения accessToken в куках
@@ -33,23 +22,24 @@ const apiClient = axios.create({
 });
 
 // Helper function for error handling
-const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T | { errors: { message: string, field?:string }[] }> => {
+const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T | { errors: { message: string; field?: string }[] }> => {
   try {
     const response = await request;
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.error('API error:', error.response?.data || error.message);
-      return { errors: [{ message: error.response?.data?.message || error.message, field: error.response?.data?.field }] };
+      const message = error.response?.data?.message || error.message;
+      console.error('API error:', message);
+      throw new Error(message);
     }
-    if (error instanceof Error) {
 
+    if (error instanceof Error) {
       console.error('General error:', error.message);
-      return { errors: [{ message: error.message}] };
+      throw error;
     }
 
     console.error('Unknown error:', error);
-    return { errors: [{ message: 'An unexpected error occurred.' }] };
+    throw new Error('An unexpected error occurred.');
   }
 };
 
@@ -86,26 +76,29 @@ const getRefreshToken = (): string | null => {
 
 // Функция сохранения accessToken и refreshToken в куки
 const setTokens = (accessToken: string, refreshToken: string): void => {
-  Cookies.set(ACCESS_TOKEN_KEY, accessToken, {  path: '/' });
-  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, {  path: '/' ,expires: 1});
+  Cookies.set(ACCESS_TOKEN_KEY, accessToken, { path: '/' });
+  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, { path: '/', expires: 1 });
 };
 
 // Очистка токенов при выходе из системы или истечении refreshToken
 const clearAuthData = (): void => {
   Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
   Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
-  localStorage.removeItem('userInfo')
+  localStorage.removeItem('userInfo');
   window.location.href = '/login.html';
 };
 
 // Перехватчик запросов: добавляет заголовок Authorization с токеном, если он есть
-apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = getAccessToken();
-  if (token && config.headers) {
-    config.headers.authorization = `${token}`;
-  }
-  return config;
-}, (error) => Promise.reject(error));
+apiClient.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const token = getAccessToken();
+    if (token && config.headers) {
+      config.headers.authorization = `${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // Флаг для предотвращения множественных запросов на refresh
 let isRefreshing = false;
@@ -118,8 +111,8 @@ const subscribeTokenRefresh = (cb: (token: string) => void) => {
 
 // Функция, вызываемая после успешного обновления токена (уведомляет всех подписчиков)
 const onRefreshed = (token: string) => {
-  refreshSubscribers.forEach(cb => cb(token)); // Вызываем все подписанные коллбеки с новым токеном
-  refreshSubscribers.splice(0,refreshSubscribers.length); // Очищаем массив подписчиков
+  refreshSubscribers.forEach((cb) => cb(token)); // Вызываем все подписанные коллбеки с новым токеном
+  refreshSubscribers.splice(0, refreshSubscribers.length); // Очищаем массив подписчиков
 };
 
 // Перехватчик ответов: обрабатывает 401 ошибки и обновляет токен
@@ -130,7 +123,7 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           subscribeTokenRefresh((token) => {
             if (originalRequest.headers) {
               originalRequest.headers.authorization = `${token}`;

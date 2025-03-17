@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="en">
+
 <load
 ="./src/html/components/head-with-guard.html" title="Vitamin. Login" styles="login" />
+
 <script type="module" src="./src/ts/pages/login.ts"></script>
+
 <body>
 
 <div class="wrapper">
-
   <header class="auth-header">
-
     <a class="auth-header__link" href="/Vitamin">
-
       <svg>
         <use href="#vitamin-logo"></use>
       </svg>
     </a>
 
     <a href="/" class="auth-header__link-mobile">
-
       <svg width="11" height="21" viewBox="0 0 11 21" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
               d="M9.53624 20.2489L11 18.7277L2.92751 10.311L11 1.89431L9.53624 0.373047L0 10.311L9.53624 20.2489Z"
@@ -26,25 +25,19 @@
 
       <span>Account</span>
     </a>
-
   </header>
 
   <main class="login-page">
-
     <div class="login-page__container">
-
       <div class="login-page__title">Sign in with email</div>
 
       <div class="login-page__subtitle">Please enter your e-mail and password:</div>
 
       <form class="login-page__form login-form" id="login-form">
-
         <div class="login-form__field field">
-
           <input class="field__input" id="regular-login-email" placeholder=" " type="email" name="email">
 
           <label class="field__label" for="regular-login-email">Email</label>
-
         </div>
 
         <div class="login-form__field field">
@@ -62,17 +55,22 @@
         <span class="login-form__error-message"></span>
 
       </form>
+
       <load
-      ="./src/html/registration/social-sign-up.html" title-modification="social-sign-up__title_reg" title="or sign in with..." />
+      ="./src/html/registration/social-sign-up.html" title-modification="social-sign-up__title_reg" title="
+      or sign in with..." />
 
     </div>
-    <p class="login-page__reg">Don't have an account? <a href="/registration.html"
-                                                         class="login-page__registration-link">Create one</a></p>
+
+    <p class="login-page__reg">Don't have an account? <a href="/registration.html" class="login-page__registration-link">Create one</a></p>
   </main>
 </div>
-<load ="/src/img/sprite.html" />
-<load ="/src/img/reg-sprite.html" />
-</body>
 
+<load
+="/src/img/sprite.html" />
+
+<load
+="/src/img/reg-sprite.html" />
+</body>
 
 </html>

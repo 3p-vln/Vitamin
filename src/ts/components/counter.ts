@@ -1,7 +1,7 @@
 import { getElement } from '../composables/use-call-dom.ts';
 
-export async function initCounter(countClass: string | HTMLElement) {
-  let counterContainer: HTMLElement | null = null;
+export function initCounter(countClass: string | HTMLElement) {
+  let counterContainer: HTMLElement | null;
 
   if (typeof countClass === 'string') {
     counterContainer = getElement(countClass);

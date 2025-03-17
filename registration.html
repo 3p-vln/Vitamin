@@ -1,9 +1,12 @@
 <!doctype html>
 <html lang="en">
+
 <load
 ="./src/html/components/head-with-guard.html" title="Vitamin. Registration" styles="registration" />
 <body>
+
 <script type="module" src="./src/ts/pages/registration.ts" defer></script>
+
 <div class="wrapper">
   <header class="auth-header">
     <a class="auth-header__link" href="/Vitamin">
@@ -11,27 +14,28 @@
         <use href="#vitamin-logo"></use>
       </svg>
     </a>
-    <a  class="auth-header__link-mobile" href="/Vitamin">
+
+    <a class="auth-header__link-mobile" href="/Vitamin">
       <svg>
         <use href="#back-arrow"></use>
       </svg>
-<!--      <svg width="11" height="21" viewBox="0 0 11 21" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.53624 20.2489L11 18.7277L2.92751 10.311L11 1.89431L9.53624 0.373047L0 10.311L9.53624 20.2489Z" fill="black" />-->
-<!--      </svg>-->
+
       <span>Account</span>
     </a>
-
   </header>
+
   <main class="page registration">
     <div class="registration__container">
       <nav class="registration__nav-menu">
         <button class="registration__nav-btn " id="regular-reg">Regular customer</button>
+
         <button class="registration__nav-btn registration__nav-btn_active" id="wholesale-reg">Wholesale customer
         </button>
       </nav>
 
       <load
-      ="./src/html/registration/social-sign-up.html" title-modification="social-sign-up__title_reg" title="Sign up with"/>
+      ="./src/html/registration/social-sign-up.html" title-modification="social-sign-up__title_reg" title="Sign up with"
+      />
 
       <div class="registration__text">or sign up using your email address...</div>
 
@@ -39,14 +43,19 @@
         <div class="registration__card" id="auth-card">
           <load
           ="./src/html/registration/wholesale.html" />
+
           <load
           ="./src/html/registration/regular.html" />
         </div>
-      </main>
-    </div>
-<load ="/src/img/sprite.html" />
-<load ="/src/img/reg-sprite.html" />
-  </body>
+  </main>
+</div>
 
+<load
+="/src/img/sprite.html" />
+
+<load
+="/src/img/reg-sprite.html" />
+
+</body>
 
 </html>

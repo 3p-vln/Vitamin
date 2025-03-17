@@ -1,15 +1,11 @@
 import { getOrderHistory } from '../../composables/use-api.ts';
-import { OrdersData } from '../../components/interfaces.ts';
+import { OrdersData } from '../../../typings/interfaces.ts';
 import { getColorCard } from './get-color.ts';
-import { addAllToCartOrders, cartActive } from '../../components/cart.ts';
+import { cartActive } from '../../components/cart/cart.ts';
+import { addAllToCartOrders } from '../../components/cart/cart-operation.ts';
 
 export async function renderCardsOrderHistory() {
   const res = await getOrderHistory();
-
-  if ('errors' in res) {
-
-    return;
-  }
 
   const ordersData = res as OrdersData;
 
@@ -86,10 +82,10 @@ export async function renderCardsOrderHistory() {
       const imgWrapper = document.createElement('div');
       imgWrapper.classList.add('card__img-wrapper');
       const img = document.createElement('picture');
-      img.innerHTML=`
+      img.innerHTML = `
         <source srcset="${item.product.img.img_webp}" type="image/webp">
         <img class="card__img" src="${item.product.img.img_default}" alt="prod" width="${item.product.img.img_width}" height="${item.product.img.img_height}" loading="lazy" />
-      `
+      `;
       imgWrapper.appendChild(img);
       imgBlock.appendChild(imgWrapper);
 
@@ -110,6 +106,7 @@ export async function renderCardsOrderHistory() {
         style: 'currency',
         currency: 'USD',
       });
+
       cardPrice.innerText = formattedPrice;
 
       cardBody.appendChild(cardType);

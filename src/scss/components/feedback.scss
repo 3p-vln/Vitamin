@@ -27,7 +27,7 @@
     border-radius: 16px;
     padding: 40px 34px 30px 30px;
     height: auto !important;
-    color: #000;
+    color: $font-color-black;
     background: $cardBackground;
 
     @include media-breakpoint-down(sm) {
