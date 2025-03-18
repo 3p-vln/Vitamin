@@ -13,18 +13,8 @@ export async function changePasswordRequest(data: PasswordForm) {
   try {
     const res = await changePassword(data);
 
-    if (!('errors' in res)) {
-      if (massageContainer) {
-        massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
-        massageContainer.style.background = 'green';
-        massageContainer.classList.toggle('hidden');
-      }
-
-      if (formChangePassword instanceof HTMLFormElement) {
-        formChangePassword.reset();
-      }
-    } else {
-      const errorsObj = res.errors.reduce((acc: Record<string, string>, error) => {
+    if (typeof res === 'object' && res !== null && 'errors' in res && Array.isArray(res.errors)) {
+      const errorsObj = res.errors.reduce((acc: Record<string, string>, error: { field?: string; message: string }) => {
         if (error.field) {
           acc[`#${error.field}`] = error.message;
         }
@@ -32,6 +22,20 @@ export async function changePasswordRequest(data: PasswordForm) {
       }, {});
 
       validation.showErrors(errorsObj);
+    } else {
+      if (massageContainer) {
+        massageContainer.innerHTML = `
+          <svg>
+            <use href="#check-white"></use>
+          </svg> Changes successfully saved
+        `;
+        massageContainer.style.background = 'green';
+        massageContainer.classList.toggle('hidden');
+      }
+
+      if (formChangePassword instanceof HTMLFormElement) {
+        formChangePassword.reset();
+      }
     }
   } catch (error) {
     console.error('Ошибка при изменении пароля:', error);

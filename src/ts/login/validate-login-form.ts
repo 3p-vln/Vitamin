@@ -33,8 +33,6 @@ export function validateLoginForm() {
       },
     ])
     .onSuccess(async () => {
-      console.log('Form is valid. Submitting...');
-
       const form = document.getElementById('login-form') as HTMLFormElement | undefined;
       const formData: FormData = new FormData(form);
       const data: any = {};

@@ -4,6 +4,7 @@ import { getCatalogItem } from '../composables/use-api.ts';
 import { classManipulator, getElement } from '../composables/use-call-dom.ts';
 import { autoshipCreate } from './autoship';
 import { initCounter } from '../components/counter.ts';
+import { addToCartBtn } from './add-to-cart.ts';
 
 const urlParams = new URLSearchParams(window.location.search);
 const prodId = urlParams.get('id') || undefined;
@@ -37,10 +38,7 @@ export default async function loadInfo() {
   try {
     const prod = await getCatalogItem(prodId);
 
-    if ('errors' in prod) {
-      console.error(prod.errors);
-      return;
-    }
+    await addToCartBtn(prod);
 
     initCounter('.count__counter');
 
@@ -255,8 +253,10 @@ function plusMunusEvent(count: number, countEl: HTMLElement, totalPrice: string,
   discountPrice = getDiscountedPrice(prod.price, prod.discount, count);
 
   if (prod.type === 'Sale%') {
-    el.innerHTML = `<span>$${totalPrice} <span class="discount">-${prod.discount}%</span></span> $${discountPrice}`;
-  } else {
-    el.innerText = `$${totalPrice}`;
+    el.innerHTML = `<span><span class="price">$${totalPrice}</span> <span class="discount">-${prod.discount}%</span></span> $${discountPrice}`;
+
+    return;
   }
+
+  el.innerText = `$${totalPrice}`;
 }

@@ -2,7 +2,7 @@ import { getElement } from '../composables/use-call-dom.ts';
 import { validateOrderInfo } from './validate-form.ts';
 import { createOrder } from '../composables/use-api.ts';
 import { OrderData, ProductLocalStorge, UserStore } from '../../typings/interfaces.ts';
-import IMask from 'imask';
+import IMask, { MaskedDynamic, MaskedPattern } from 'imask';
 
 const createBtnMain = getElement('.create-order-form__btn');
 const createBtnSub = getElement('.order-list__btn');
@@ -55,12 +55,7 @@ function addToOrders() {
 
   const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
-  if (cartItems.length === 0) {
-    console.log('Cart is empty!');
-    return;
-  }
-
-  console.log(storedUserInfo);
+  if (cartItems.length === 0) return;
 
   const orderData: OrderData = {
     order: cartItems.map((item: ProductLocalStorge) => ({
@@ -71,8 +66,7 @@ function addToOrders() {
   };
 
   try {
-    createOrder(orderData).then((response) => {
-      console.log('Order created successfully:', response);
+    createOrder(orderData).then(() => {
       localStorage.removeItem('cartItems');
       window.location.href = '/Vitamin/successful-order.html';
     });
@@ -89,7 +83,40 @@ function applyMask() {
   IMask(cardInput, { mask: '0000-0000-0000-0000' });
   IMask(expirationInput, { mask: '00/00' });
   IMask(cvcInput, { mask: '000' });
-  IMask(phoneInput, { mask: '+000 (00) 00 00 000' });
+
+  type MaskWithStartsWith = { mask: string; startsWith: string };
+
+  IMask(phoneInput, {
+    mask: [
+      { mask: '+{1} (000) 000-0000', startsWith: '1' }, // США/Канада
+      { mask: '+{7} (000) 000-00-00', startsWith: '7' }, // Россия/Казахстан
+      { mask: '+{380} (00) 000-00-00', startsWith: '380' }, // Украина
+      { mask: '+{44} (0000) 000000', startsWith: '44' }, // Великобритания
+      { mask: '+{49} (000) 000-0000', startsWith: '49' }, // Германия
+      { mask: '+{86} (000) 0000-0000', startsWith: '86' }, // Китай
+      { mask: '+{33} (0) 0 00 00 00 00', startsWith: '33' }, // Франция
+      { mask: '+{39} 0 000 000 000', startsWith: '39' }, // Италия
+      { mask: '+{34} 000 000 000', startsWith: '34' }, // Испания
+      { mask: '+{61} (0) 0000 0000', startsWith: '61' }, // Австралия
+      { mask: '+{81} (0) 0-0000-0000', startsWith: '81' }, // Япония
+      { mask: '+{91} 0000 000 000', startsWith: '91' }, // Индия
+      { mask: '+{52} (0) 000 0000 0000', startsWith: '52' }, // Мексика
+      { mask: '+{55} (0) 00 0000-0000', startsWith: '55' }, // Бразилия
+      { mask: '+{82} (0) 0-0000-0000', startsWith: '82' }, // Южная Корея
+      { mask: '+{90} 000 000 00 00', startsWith: '90' }, // Турция
+      { mask: '+{27} 000 000 000', startsWith: '27' }, // Южноафриканская Республика
+      { mask: '+{64} 0 000 000 000', startsWith: '64' }, // Новая Зеландия
+      { mask: '+{65} 0000 0000', startsWith: '65' }, // Сингапур
+      { mask: '+{48} 000 000 000', startsWith: '48' }, // Польша
+      { mask: '+000 (00) 000-00-00', startsWith: '' },
+    ] as MaskWithStartsWith[],
+
+    dispatch: (appended: string, dynamicMasked: MaskedDynamic<MaskedPattern>) => {
+      let number = (dynamicMasked.value + appended).replace(/\D/g, '');
+
+      return dynamicMasked.compiledMasks.find((m) => (m as unknown as MaskWithStartsWith).startsWith && number.startsWith((m as unknown as MaskWithStartsWith).startsWith)) || dynamicMasked.compiledMasks[dynamicMasked.compiledMasks.length - 1];
+    },
+  });
 }
 
 function getInputValue(input: HTMLInputElement | null): string | undefined {
@@ -113,8 +140,6 @@ function addUserInfoToLocal() {
     date: getInputValue(expirationInput),
     cvc: getInputValue(cvcInput),
   };
-
-  console.log('Order created:', orderInfo);
 
   localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
 }

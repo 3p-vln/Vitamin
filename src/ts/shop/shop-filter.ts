@@ -4,10 +4,9 @@ import { stop } from '../components/stopPreload.ts';
 
 const filterParametrs = getElements('.filter__item');
 const dropdownActiveItem = getElement('.catalog__content .dropdown__text');
+const container = '.catalog-list__content';
 
 export default async function filterList() {
-  const container = '.catalog-list__content';
-
   if (!filterParametrs || !dropdownActiveItem || !container) return;
 
   const urlParams = new URLSearchParams(window.location.search);

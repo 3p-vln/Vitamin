@@ -152,11 +152,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   empty = false;
   emptyBag(empty);
 
-  const autoshipEl = getElement('.autoship__on-off');
-  const countsItemsEl = getElement(`.count__items`);
-
-  if (!autoshipEl || !countsItemsEl) saveProductToLocalStorage(prod, autoshipChecked, autoshipDays, counts);
-  else saveAllProductToLocalStorage(prod);
+  saveProductToLocalStorage(prod, autoshipChecked, autoshipDays, counts);
 
   removeProd(prod.id);
 
@@ -199,6 +195,7 @@ function removeProductFromLocalStorage(prodId: number) {
 
   if (cartItems.length === 0) {
     const emptyText = getElement('.cart__empty');
+
     if (emptyText) return;
 
     empty = true;
@@ -243,23 +240,6 @@ function saveProductToLocalStorage(prod: Product, autoshipChecked: boolean, auto
       autoshipChecked: autoshipChecked,
       autoshipDays: autoshipDays,
       counts: counts,
-    });
-  }
-
-  localStorage.setItem('cartItems', JSON.stringify(cartItems));
-}
-
-function saveAllProductToLocalStorage(prod: Product) {
-  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-
-  const productExists = cartItems.some((item: Product) => item.id === prod.id);
-
-  if (!productExists) {
-    cartItems.push({
-      id: prod.id,
-      autoshipChecked: true,
-      autoshipDays: '30',
-      counts: 1,
     });
   }
 
@@ -315,9 +295,10 @@ function updatePriceDisplay(prod: Product, count: number) {
 
   if (prod.type === 'Sale%') {
     prodPrice.innerHTML = `<span>$${priceTotal}</span> $${priceDiscount}`;
-  } else {
-    prodPrice.innerText = `$${priceTotal}`;
+    return;
   }
+
+  prodPrice.innerText = `$${priceTotal}`;
 }
 
 export function updateAutoshipInLocalStorage(prodId: string, autoshipChecked: boolean, autoshipDays: string, counts: number) {
@@ -353,11 +334,6 @@ export function loadCartFromLocalStorage() {
   cartItems.forEach(async (prod: ProductLocalStorge) => {
     try {
       const prodItem = await getCatalogItem(`${prod.id}`);
-
-      if ('errors' in prodItem) {
-        console.error(prodItem.errors);
-        return;
-      }
 
       renderProdCard(prodItem, prod.autoshipChecked, prod.autoshipDays, prod.counts);
       updateInfoInLocal(prodItem);
@@ -402,11 +378,6 @@ export function totalCartPrice() {
   cartItems.forEach(async (item: ProductLocalStorge) => {
     try {
       const prodItem = await getCatalogItem(`${item.id}`);
-
-      if ('errors' in prodItem) {
-        console.error(prodItem.errors);
-        return;
-      }
 
       if (prodItem.type === 'Sale%') totalProdPrice = getDiscountedPrice(prodItem.price, prodItem.discount, item.counts);
       else totalProdPrice = getTotalPrice(prodItem.price, item.counts);

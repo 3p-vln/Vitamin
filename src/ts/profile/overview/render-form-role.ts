@@ -1,17 +1,14 @@
 import apiClient from '../../registration/api-client.ts';
 import { UserInfo } from '../interfaces.ts';
 
-
-
 export async function renderFormRole() {
-
   try {
-    const res = await apiClient.get('/profile/info')
-    if(res.status === 200) {
-      localStorage.setItem('userInfo', JSON.stringify(res.data))
+    const res = await apiClient.get('/profile/info');
+    if (res.status === 200) {
+      localStorage.setItem('userInfo', JSON.stringify(res.data));
     }
   } catch (errorError) {
-    console.log(errorError)
+    console.error(errorError);
   }
   const userData = localStorage.getItem('userInfo');
   const form = document.getElementById('overview-form');
@@ -37,11 +34,10 @@ export async function renderFormRole() {
     { inputId: 'email', key: 'email' },
     { inputId: 'phone', key: 'phone' },
     { inputId: 'postal_code', key: 'postal_code' },
-    { inputId: 'overview-state', key: 'state_province' }
-
+    { inputId: 'overview-state', key: 'state_province' },
   ];
 
-  fields.forEach(field => {
+  fields.forEach((field) => {
     const input = document.getElementById(field.inputId) as HTMLInputElement;
     if (input && userInfo[field.key]) {
       input.value = userInfo[field.key] as string;

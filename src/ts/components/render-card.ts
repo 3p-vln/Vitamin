@@ -1,7 +1,8 @@
 import { getCatalogList, getRecommendations } from '../composables/use-api.ts';
 import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
-import { RecommendationData } from '../../typings/interfaces.ts';
+import { IntersectionObserverConfig, RecommendationData } from '../../typings/interfaces.ts';
 import { stop } from './stopPreload.ts';
+import { observe } from '../composables/use-observer.ts';
 
 let currentPage = 1;
 let itemsPerPage = 10;
@@ -17,11 +18,6 @@ export async function renderRecCard(container: string, colour: string) {
   try {
     const response = await getRecommendations(false);
 
-    if ('errors' in response) {
-      console.error(response.errors);
-      return;
-    }
-
     const prodList = response.data;
     card(prodList, prodContainer, colour);
     stop();
@@ -36,13 +32,19 @@ function updateItemsPerPage() {
   if (newWindowWidth < 375) {
     itemsPerPage = 4;
     itemsViewMore = 2;
-  } else if (newWindowWidth < 768) {
+
+    return;
+  }
+
+  if (newWindowWidth < 768) {
     itemsPerPage = 6;
     itemsViewMore = 6;
-  } else {
-    itemsPerPage = 10;
-    itemsViewMore = 10;
+
+    return;
   }
+
+  itemsPerPage = 10;
+  itemsViewMore = 10;
 }
 
 export async function renderAllCard(container: string, page: number = 1, category?: string) {
@@ -54,10 +56,6 @@ export async function renderAllCard(container: string, page: number = 1, categor
     let response = await getCatalogList(page, itemsPerPage, category);
 
     hasMoreData = true;
-    if ('errors' in response) {
-      console.error(response.errors);
-      return;
-    }
 
     if (response.errors || response.data.length === 0) {
       prodContainer.innerHTML = '<p>Нет товаров в данной категории</p>';
@@ -145,6 +143,7 @@ function applyCategoryClass(type: string, categoryElement: HTMLElement) {
 
 export function getDiscountedPrice(price: string, discount: number): string {
   const originalPrice = parseFloat(price);
+
   if (isNaN(originalPrice)) {
     throw new Error('Invalid price format');
   }
@@ -158,8 +157,8 @@ export function setupLazyLoading(container: string, category?: string) {
   const prodContainer = getElement(container);
   if (!prodContainer || prodContainer.children.length === 0) return;
 
-  const observer = new IntersectionObserver(
-    async (entries, obs) => {
+  const loadMoreCardsObserverConfig: IntersectionObserverConfig = {
+    callback: async (entries, obs) => {
       const lastCard = entries[0];
 
       if (lastCard.isIntersecting) {
@@ -169,12 +168,12 @@ export function setupLazyLoading(container: string, category?: string) {
         if (hasMoreData) setupLazyLoading(container, category);
       }
     },
-    { threshold: 1.0 }
-  );
+    options: { threshold: 1.0 },
+  };
 
   const lastCardElement = prodContainer.lastElementChild;
   if (lastCardElement) {
-    observer.observe(lastCardElement);
+    observe(lastCardElement, loadMoreCardsObserverConfig);
   }
 }
 
@@ -196,11 +195,6 @@ async function loadMoreCards(container: string, category?: string) {
 
   try {
     const response = await getCatalogList(currentPage, itemsViewMore, category);
-
-    if ('errors' in response) {
-      console.error(response.errors);
-      return;
-    }
 
     if (response.errors || response.data.length === 0) {
       hasMoreData = false;
@@ -228,11 +222,6 @@ export async function handleViewMoreButtonVisibility(container: string, category
 
   try {
     let totalItemsResponse = await getCatalogList(1, 1, category);
-
-    if ('errors' in totalItemsResponse) {
-      console.error(totalItemsResponse.errors);
-      return;
-    }
 
     const totalItems = totalItemsResponse.meta.totalItems;
     const prodContainer = getElement(container);

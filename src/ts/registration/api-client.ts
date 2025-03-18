@@ -24,27 +24,28 @@ const getRefreshToken = (): string | null => {
 
 // Функция сохранения accessToken и refreshToken в куки
 const setTokens = (accessToken: string, refreshToken: string): void => {
-  Cookies.set(ACCESS_TOKEN_KEY, accessToken, {  path: '/' });
-  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, {  path: '/' ,expires: 1});
+  Cookies.set(ACCESS_TOKEN_KEY, accessToken, { path: '/' });
+  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, { path: '/', expires: 1 });
 };
 
 // Очистка токенов при выходе из системы или истечении refreshToken
 const clearAuthData = (): void => {
   Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
   Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
-  localStorage.removeItem('userInfo')
-  console.log('not refresh');
-  // window.location.href = '/Vitamin/login.html';
+  localStorage.removeItem('userInfo');
 };
 
 // Перехватчик запросов: добавляет заголовок Authorization с токеном, если он есть
-apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = getAccessToken();
-  if (token && config.headers) {
-    config.headers.authorization = `${token}`;
-  }
-  return config;
-}, (error) => Promise.reject(error));
+apiClient.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const token = getAccessToken();
+    if (token && config.headers) {
+      config.headers.authorization = `${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // Флаг для предотвращения множественных запросов на refresh
 let isRefreshing = false;
@@ -57,10 +58,8 @@ const subscribeTokenRefresh = (cb: (token: string) => void) => {
 
 // Функция, вызываемая после успешного обновления токена (уведомляет всех подписчиков)
 const onRefreshed = (token: string) => {
-  console.log('refreshSubscribers1',refreshSubscribers);
-  refreshSubscribers.forEach(cb => cb(token)); // Вызываем все подписанные коллбеки с новым токеном
-  refreshSubscribers.splice(0,refreshSubscribers.length); // Очищаем массив подписчиков
-  console.log('refreshSubscribers2',refreshSubscribers);
+  refreshSubscribers.forEach((cb) => cb(token)); // Вызываем все подписанные коллбеки с новым токеном
+  refreshSubscribers.splice(0, refreshSubscribers.length); // Очищаем массив подписчиков
 };
 
 // Перехватчик ответов: обрабатывает 401 ошибки и обновляет токен
@@ -71,8 +70,7 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
-        console.log('status 401');
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           subscribeTokenRefresh((token) => {
             if (originalRequest.headers) {
               originalRequest.headers.authorization = `${token}`;
@@ -102,7 +100,7 @@ apiClient.interceptors.response.use(
         }
         return apiClient(originalRequest);
       } catch (refreshError) {
-         clearAuthData(); // Очистка данных, если refreshToken невалиден
+        clearAuthData(); // Очистка данных, если refreshToken невалиден
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
@@ -113,4 +111,3 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
-

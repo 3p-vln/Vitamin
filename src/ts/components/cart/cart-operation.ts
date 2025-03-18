@@ -11,11 +11,6 @@ export async function addAllToCart(prodsId: string[]) {
       let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
       const prod = await getCatalogItem(prodId);
 
-      if ('errors' in prod) {
-        console.error(prod);
-        return;
-      }
-
       const autoshipCheckbox = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
       const autoshipDaysText = getElement(`.prod_${prod.id} .dropdown__text`);
 
@@ -52,11 +47,6 @@ export async function addAllToCartOrders(prodsIdAndCounts: { id: string; counts:
       let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
       const prod = await getCatalogItem(prodId.id);
 
-      if ('errors' in prod) {
-        console.error(prod);
-        return;
-      }
-
       const autoshipCheckbox = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
       const autoshipDaysText = getElement(`.prod_${prod.id} .dropdown__text`);
 
@@ -64,7 +54,6 @@ export async function addAllToCartOrders(prodsIdAndCounts: { id: string; counts:
 
       if (!productExists) {
         renderProdCard(prod, false, '30', prodId.counts);
-        // console.log(prodId.counts);
         totalCartPrice();
         blockBtn();
         continue;
@@ -79,6 +68,7 @@ export async function addAllToCartOrders(prodsIdAndCounts: { id: string; counts:
       } else {
         updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', counts);
       }
+
       loadCartFromLocalStorage();
 
       totalCartPrice();

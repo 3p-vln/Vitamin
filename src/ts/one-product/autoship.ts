@@ -16,11 +16,6 @@ export async function autoshipCreate(event: Event) {
     try {
       const prod = await getCatalogItem(prodId);
 
-      if ('errors' in prod) {
-        console.error(prod.errors);
-        return;
-      }
-
       addToCart(prod, event);
     } catch (error) {
       console.error(error);

@@ -169,3 +169,11 @@ export interface UserStore {
   state_province: string;
   user_id: string;
 }
+
+type ObserverCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => void;
+
+export interface IntersectionObserverConfig {
+  callback: ObserverCallback;
+  options?: IntersectionObserverInit;
+  multipleObservers?: boolean;
+}

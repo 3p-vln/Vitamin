@@ -12,6 +12,7 @@ const html = getElement('html');
 
 let prodList = getElements('.prod');
 let scrollPosition = 0;
+let isCartOpened: boolean = false;
 
 const backToShopBtn = getElement('.info__backbtn');
 
@@ -22,17 +23,6 @@ export function initCart() {
 
   cartCloseBtn.addEventListener('click', () => cartClose());
   cartBg.addEventListener('click', () => cartClose());
-
-  loadCartFromLocalStorage();
-  totalCartPrice();
-
-  prodList.forEach((prod) => {
-    const prodAutoshipText = getElement('.prod__autoship-text', prod);
-
-    if (!prodAutoshipText) return;
-
-    changeAutoshipText(prodAutoshipText);
-  });
 }
 
 export function cartActive(event: Event) {
@@ -42,7 +32,23 @@ export function cartActive(event: Event) {
 
   classManipulator(cart, 'add', 'cart_active');
 
+  if (!isCartOpened) {
+    isCartOpened = true;
+
+    loadCartFromLocalStorage();
+    totalCartPrice();
+
+    prodList.forEach((prod) => {
+      const prodAutoshipText = getElement('.prod__autoship-text', prod);
+
+      if (!prodAutoshipText) return;
+
+      changeAutoshipText(prodAutoshipText);
+    });
+  }
+
   if (backToShopBtn) backToShopBtn.style.zIndex = '1';
+
   disablePageScroll();
 
   scrollLock();

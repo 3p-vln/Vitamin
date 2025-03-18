@@ -116,10 +116,12 @@ function updateHeader() {
     header.style.backgroundColor = 'white';
     header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
     header.style.transition = 'background-color 0.3s ease, box-shadow 0.3s ease';
-  } else {
-    header.style.backgroundColor = 'transparent';
-    header.style.boxShadow = 'none';
+
+    return;
   }
+
+  header.style.backgroundColor = 'transparent';
+  header.style.boxShadow = 'none';
 }
 
 function animateMenu(element: HTMLElement, isOpening: boolean) {
@@ -171,41 +173,6 @@ function animate({ timing, draw, duration }: { timing: (t: number) => number; dr
   });
 }
 
-// function resize(shopMenu: HTMLElement, infoMenu: HTMLElement, profileMenu: HTMLElement) {
-//   window.addEventListener('resize', () => {
-//     if (window.innerWidth >= 768) {
-//       burgerBtn?.classList.remove('burger__btn_active');
-//       if (!menuMain || !shopMenu || !infoMenu || !profileMenu) return;
-//
-//       classManipulator(menuMain, 'remove', 'main_active');
-//       menuMain.style.visibility = 'hidden';
-//       menuMain.style.height = '0vh';
-//       menuMain.style.opacity = '0';
-//
-//       if (personalPackBg) personalPackBg.style.display = 'block';
-//       if (bagBtn && logoBtn) {
-//         logoBtn.style.opacity = '1';
-//         bagBtn.style.display = 'block';
-//       }
-//
-//       scrollLock();
-//       addBgScroll();
-//
-//       classManipulator(shopMenu, 'remove', 'shop_active');
-//       classManipulator(infoMenu, 'remove', 'info_active');
-//       classManipulator(profileMenu, 'remove', 'profile_active');
-//
-//       const isOpeningShop = shopMenu.classList.contains(`shop_active`);
-//       animateMenu(shopMenu, isOpeningShop);
-//
-//       const isOpeningInfo = infoMenu.classList.contains(`info_active`);
-//       animateMenu(infoMenu, isOpeningInfo);
-//
-//       const isOpeningProfile = shopMenu.classList.contains(`profile_active`);
-//       animateMenu(profileMenu, isOpeningProfile);
-//     }
-//   });
-// }
 function resize(shopMenu: HTMLElement, infoMenu: HTMLElement, profileMenu: HTMLElement) {
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) {
@@ -218,12 +185,13 @@ function resize(shopMenu: HTMLElement, infoMenu: HTMLElement, profileMenu: HTMLE
       menuMain.style.opacity = '0';
 
       if (personalPackBg) personalPackBg.style.display = 'block';
+
       if (bagBtn && logoBtn) {
         logoBtn.style.opacity = '1';
         bagBtn.style.display = 'block';
       }
 
-      enablePageScroll(); // Разблокируем скролл при ресайзе
+      enablePageScroll();
 
       classManipulator(shopMenu, 'remove', 'shop_active');
       classManipulator(infoMenu, 'remove', 'info_active');

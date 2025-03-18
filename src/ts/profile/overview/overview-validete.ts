@@ -2,10 +2,9 @@ import JustValidate from 'just-validate';
 import { overviewRequest } from './overview-request.ts';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 
+export let validation: any;
 
-export let validation: any
-
-export function overviewValidete(){
+export function overviewValidete() {
   interface FormData {
     first_name: string;
     last_name: string;
@@ -61,8 +60,7 @@ export function overviewValidete(){
       {
         rule: 'number',
         errorMessage: 'Postal code only number',
-
-      }
+      },
     ])
     .addField('#email', [
       {
@@ -83,7 +81,7 @@ export function overviewValidete(){
         rule: 'customRegexp',
         value: /^\+38 \(\d{3}\)\d{3}-\d{2}-\d{2}$/,
         errorMessage: 'Phone Number must be in the format +38 (XXX)XXX-XX-XX',
-      }
+      },
     ])
     .addField('#overview-state', [
       {
@@ -99,25 +97,23 @@ export function overviewValidete(){
         address_two: (form.querySelector('#address_two') as HTMLInputElement).value,
         city: (form.querySelector('#city') as HTMLInputElement).value,
         state_province: (form.querySelector('#overview-state') as HTMLInputElement).value,
-        postal_code: (form.querySelector('#postal_cod') as HTMLInputElement).value,
+        postal_code: (form.querySelector('#postal_code') as HTMLInputElement).value,
         email: (form.querySelector('#email') as HTMLInputElement).value,
         phone: formatePhoneNumber(),
       };
-      overviewRequest(formData)
+      overviewRequest(formData);
     });
+
   function formatePhoneNumber() {
     const phoneInput = form.querySelector('#phone') as HTMLInputElement;
     if (phoneInput && phoneInput.value) {
       const value = phoneInput.value; // Получаем значение из поля ввода
       const phoneNumberParse = parsePhoneNumberFromString(value); // Парсим номер
       if (phoneNumberParse && phoneNumberParse.isValid()) {
-
         return phoneNumberParse.number;
       }
       return value.replace(/\D/g, '');
     }
     return '';
   }
-
 }
-

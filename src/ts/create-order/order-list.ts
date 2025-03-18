@@ -36,11 +36,6 @@ async function renderProd(prod: ProductLocalStorge) {
   try {
     const prodItem = await getCatalogItem(`${prod.id}`);
 
-    if ('errors' in prodItem) {
-      console.error(prodItem.errors);
-      return;
-    }
-
     if (prodItem.type === 'Vitamins & Dietary Supplements') {
       classManipulator(prodImg, 'add', 'prod__img_purple');
     }
@@ -116,11 +111,6 @@ async function totalCartPrice() {
     for (const item of cartItems) {
       const prodItem = await getCatalogItem(`${item.id}`);
 
-      if ('errors' in prodItem) {
-        console.error(prodItem.errors);
-        return;
-      }
-
       if (prodItem.type === 'Sale%') {
         totalProdPrice = parseFloat(getTotalPrice(prodItem.price, item.counts).replace(/,/g, '').replace(/\s/g, ''));
 
@@ -128,19 +118,13 @@ async function totalCartPrice() {
 
         discount += totalProdPrice - discountedPrice;
 
-        console.log('prod price: ' + totalProdPrice);
-
         total += Math.round(totalProdPrice * 100) / 100;
       } else {
         totalProdPrice = parseFloat(getTotalPrice(prodItem.price, item.counts).replace(/,/g, '').replace(/\s/g, ''));
 
-        console.log('prod price: ' + totalProdPrice);
-
         total += Math.round(totalProdPrice * 100) / 100;
       }
     }
-
-    console.log('total: ' + total.toFixed(2));
 
     subtotalPrice.innerHTML = `Subtotal <span>$${total.toLocaleString('en-US', {
       minimumFractionDigits: 2,

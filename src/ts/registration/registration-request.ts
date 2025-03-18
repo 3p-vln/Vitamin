@@ -36,7 +36,6 @@ export async function registrationRequest(data: RegisterData) {
   }
 
   if ('message' in res.errors[0]) {
-    console.log(res.errors[0].message);
     const errorMessageContainer: NodeListOf<HTMLSpanElement> = document.querySelectorAll('.registration-form__error-message');
     if (errorMessageContainer) {
       switch (res.errors[0].message) {
