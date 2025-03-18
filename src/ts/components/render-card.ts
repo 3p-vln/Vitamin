@@ -1,8 +1,8 @@
 import { getCatalogList, getRecommendations } from '../composables/use-api.ts';
 import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
-import { RecommendationData } from '../../typings/interfaces.ts';
+import { IntersectionObserverConfig, RecommendationData } from '../../typings/interfaces.ts';
 import { stop } from './stopPreload.ts';
-import { IntersectionObserverConfig, observe } from '../composables/use-observer.ts';
+import { observe } from '../composables/use-observer.ts';
 
 let currentPage = 1;
 let itemsPerPage = 10;

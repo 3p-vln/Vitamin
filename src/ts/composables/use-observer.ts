@@ -1,10 +1,4 @@
-type ObserverCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => void;
-
-export interface IntersectionObserverConfig {
-  callback: ObserverCallback;
-  options?: IntersectionObserverInit;
-  multipleObservers?: boolean;
-}
+import { IntersectionObserverConfig } from '../../typings/interfaces.ts';
 
 let observers: IntersectionObserver[] = [];
 

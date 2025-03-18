@@ -1,5 +1,6 @@
 import { getElements } from '../composables/use-call-dom.ts';
-import { IntersectionObserverConfig, observe } from '../composables/use-observer.ts';
+import { observe } from '../composables/use-observer.ts';
+import { IntersectionObserverConfig } from '../../typings/interfaces.ts';
 
 export type LazyModule = {
   importFn: () => Promise<{ default: () => Promise<void> | void }>;
