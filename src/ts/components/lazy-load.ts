@@ -1,4 +1,5 @@
 import { getElements } from '../composables/use-call-dom.ts';
+import { IntersectionObserverConfig, observe } from '../composables/use-observer.ts';
 
 export type LazyModule = {
   importFn: () => Promise<{ default: () => Promise<void> | void }>;
@@ -9,8 +10,8 @@ export function useLoadFunction(importFn: LazyModule['importFn'], selector: stri
   const element = document.querySelector<HTMLElement>(selector);
   if (!element) return;
 
-  const observer = new IntersectionObserver(
-    async (entries, observer) => {
+  const observerConfig: IntersectionObserverConfig = {
+    callback: async (entries, observer) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           observer.unobserve(entry.target);
@@ -23,18 +24,18 @@ export function useLoadFunction(importFn: LazyModule['importFn'], selector: stri
         }
       }
     },
-    { threshold: 0.1 }
-  );
+    options: { threshold: 0.1 },
+  };
 
-  observer.observe(element);
+  observe(element, observerConfig);
 }
 
 export function lazyImg() {
   document.addEventListener('DOMContentLoaded', () => {
     const lazyImages = getElements<HTMLImageElement>('img.lazy');
 
-    const observer = new IntersectionObserver(
-      (entries, observer) => {
+    const lazyImageObserverConfig: IntersectionObserverConfig = {
+      callback: (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const img = entry.target as HTMLImageElement;
@@ -46,11 +47,9 @@ export function lazyImg() {
           }
         });
       },
-      {
-        rootMargin: '100px',
-      }
-    );
+      options: { rootMargin: '100px' },
+    };
 
-    lazyImages.forEach((img) => observer.observe(img));
+    lazyImages.forEach((img) => observe(img, lazyImageObserverConfig));
   });
 }

@@ -2,6 +2,7 @@ import { getCatalogList, getRecommendations } from '../composables/use-api.ts';
 import { classManipulator, getElement, renderElement } from '../composables/use-call-dom.ts';
 import { RecommendationData } from '../../typings/interfaces.ts';
 import { stop } from './stopPreload.ts';
+import { IntersectionObserverConfig, observe } from '../composables/use-observer.ts';
 
 let currentPage = 1;
 let itemsPerPage = 10;
@@ -156,8 +157,8 @@ export function setupLazyLoading(container: string, category?: string) {
   const prodContainer = getElement(container);
   if (!prodContainer || prodContainer.children.length === 0) return;
 
-  const observer = new IntersectionObserver(
-    async (entries, obs) => {
+  const loadMoreCardsObserverConfig: IntersectionObserverConfig = {
+    callback: async (entries, obs) => {
       const lastCard = entries[0];
 
       if (lastCard.isIntersecting) {
@@ -167,12 +168,12 @@ export function setupLazyLoading(container: string, category?: string) {
         if (hasMoreData) setupLazyLoading(container, category);
       }
     },
-    { threshold: 1.0 }
-  );
+    options: { threshold: 1.0 },
+  };
 
   const lastCardElement = prodContainer.lastElementChild;
   if (lastCardElement) {
-    observer.observe(lastCardElement);
+    observe(lastCardElement, loadMoreCardsObserverConfig);
   }
 }
 
