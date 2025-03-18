@@ -17,11 +17,6 @@ export async function renderRecCard(container: string, colour: string) {
   try {
     const response = await getRecommendations(false);
 
-    if ('errors' in response) {
-      console.error(response.errors);
-      return;
-    }
-
     const prodList = response.data;
     card(prodList, prodContainer, colour);
     stop();
@@ -60,10 +55,6 @@ export async function renderAllCard(container: string, page: number = 1, categor
     let response = await getCatalogList(page, itemsPerPage, category);
 
     hasMoreData = true;
-    if ('errors' in response) {
-      console.error(response.errors);
-      return;
-    }
 
     if (response.errors || response.data.length === 0) {
       prodContainer.innerHTML = '<p>Нет товаров в данной категории</p>';
@@ -204,11 +195,6 @@ async function loadMoreCards(container: string, category?: string) {
   try {
     const response = await getCatalogList(currentPage, itemsViewMore, category);
 
-    if ('errors' in response) {
-      console.error(response.errors);
-      return;
-    }
-
     if (response.errors || response.data.length === 0) {
       hasMoreData = false;
       return;
@@ -235,11 +221,6 @@ export async function handleViewMoreButtonVisibility(container: string, category
 
   try {
     let totalItemsResponse = await getCatalogList(1, 1, category);
-
-    if ('errors' in totalItemsResponse) {
-      console.error(totalItemsResponse.errors);
-      return;
-    }
 
     const totalItems = totalItemsResponse.meta.totalItems;
     const prodContainer = getElement(container);

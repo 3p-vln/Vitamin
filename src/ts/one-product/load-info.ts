@@ -38,11 +38,6 @@ export default async function loadInfo() {
   try {
     const prod = await getCatalogItem(prodId);
 
-    if ('errors' in prod) {
-      console.error(prod.errors);
-      return;
-    }
-
     await addToCartBtn(prod);
 
     initCounter('.count__counter');

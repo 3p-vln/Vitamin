@@ -22,7 +22,7 @@ const apiClient = axios.create({
 });
 
 // Helper function for error handling
-const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T | { errors: { message: string; field?: string }[] }> => {
+const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T> => {
   try {
     const response = await request;
     return response.data;

@@ -4,12 +4,6 @@ export async function renderCards(): Promise<void> {
   try {
     const response = await getRecommendations(false);
 
-    if ('errors' in response) {
-      console.error('error', response.errors);
-
-      return;
-    }
-
     if (!response?.data || !Array.isArray(response.data)) {
       console.error('Invalid response format', response);
       return;
@@ -34,7 +28,6 @@ export async function renderCards(): Promise<void> {
       imgWrapper.className = 'choose-products__img-wrapper';
 
       const img: HTMLPictureElement = document.createElement('picture');
-      // img.className = 'choose-products__img';
       img.innerHTML = `
         <source srcset="${item.img.img_webp}" type="image/webp">
         <img class="choose-products__img" src="${item.img.img_default}" alt="prod" width="${item.img.img_width}" height="${item.img.img_height}" loading="lazy" />

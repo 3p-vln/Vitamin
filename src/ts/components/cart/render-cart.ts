@@ -246,23 +246,6 @@ function saveProductToLocalStorage(prod: Product, autoshipChecked: boolean, auto
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
-// function saveAllProductToLocalStorage(prod: Product) {
-//   let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-//
-//   const productExists = cartItems.some((item: Product) => item.id === prod.id);
-//
-//   if (!productExists) {
-//     cartItems.push({
-//       id: prod.id,
-//       autoshipChecked: true,
-//       autoshipDays: '30',
-//       counts: 1,
-//     });
-//   }
-//
-//   localStorage.setItem('cartItems', JSON.stringify(cartItems));
-// }
-
 export function updateInfoInLocal(prod: Product) {
   const autoshipCheckbox = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
   const autoshipDaysText = getElement(`.prod_${prod.id} .dropdown__text`);
@@ -352,11 +335,6 @@ export function loadCartFromLocalStorage() {
     try {
       const prodItem = await getCatalogItem(`${prod.id}`);
 
-      if ('errors' in prodItem) {
-        console.error(prodItem.errors);
-        return;
-      }
-
       renderProdCard(prodItem, prod.autoshipChecked, prod.autoshipDays, prod.counts);
       updateInfoInLocal(prodItem);
     } catch (error) {
@@ -400,11 +378,6 @@ export function totalCartPrice() {
   cartItems.forEach(async (item: ProductLocalStorge) => {
     try {
       const prodItem = await getCatalogItem(`${item.id}`);
-
-      if ('errors' in prodItem) {
-        console.error(prodItem.errors);
-        return;
-      }
 
       if (prodItem.type === 'Sale%') totalProdPrice = getDiscountedPrice(prodItem.price, prodItem.discount, item.counts);
       else totalProdPrice = getTotalPrice(prodItem.price, item.counts);

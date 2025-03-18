@@ -16,20 +16,32 @@ interface FormData {
 export async function overviewRequest(data: FormData) {
   const massageContainer: HTMLSpanElement | null = document.querySelector('.overview__message');
 
-  const res = await updateProfile(data);
-  if (!('errors' in res)) {
-    if (massageContainer) {
-      massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
-      massageContainer.style.background = 'green';
-      massageContainer.classList.toggle('hidden');
-    }
-  } else {
-    const errorsObj = res.errors.reduce((acc: any, error) => {
-      acc[`#${error.field}`] = error.message;
-      return acc;
-    }, {});
+  try {
+    const res = await updateProfile(data);
 
-    validation.showErrors(errorsObj);
+    if (typeof res === 'object' && res !== null && 'errors' in res && Array.isArray(res.errors)) {
+      const errorsObj = res.errors.reduce((acc: Record<string, string>, error: { field?: string; message: string }) => {
+        if (error.field) {
+          acc[`#${error.field}`] = error.message;
+        }
+        return acc;
+      }, {});
+
+      validation.showErrors(errorsObj);
+    } else {
+      if (massageContainer) {
+        massageContainer.innerHTML = `
+          <svg>
+            <use href="#check-white"></use>
+          </svg> Changes successfully saved
+        `;
+        massageContainer.style.background = 'green';
+        massageContainer.classList.toggle('hidden');
+      }
+    }
+  } catch (error) {
+    console.error('Ошибка при обновлении профиля:', error);
+    validation.showErrors({ general: 'Something went wrong. Please try again.' });
   }
 
   setTimeout(() => {

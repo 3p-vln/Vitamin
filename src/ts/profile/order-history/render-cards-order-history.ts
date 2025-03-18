@@ -19,7 +19,6 @@ export async function renderCardsOrderHistory() {
 
   ordersData.orders.forEach((orderItem) => {
     const productsIdAndCounts: { id: string; counts: number }[] = [];
-    console.log(orderItem);
 
     const orderItemContainer = document.createElement('article');
     orderItemContainer.classList.add('orderItem');
@@ -123,12 +122,6 @@ export async function renderCardsOrderHistory() {
     orderItemContent.classList.add('orderItem__content');
 
     orderItemContent.appendChild(orderItemBody);
-
-    // const totalOrderSum = orderItem.items.reduce((sum, item) => sum + item.total_sum, 0);
-    // const formattedTotalSum = totalOrderSum.toLocaleString('en-US', {
-    //   style: 'currency',
-    //   currency: 'USD',
-    // });
 
     const orderItemFooter = document.createElement('div');
     orderItemFooter.classList.add('orderItem__footer');
