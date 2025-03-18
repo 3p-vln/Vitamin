@@ -1,7 +1,8 @@
 import Cookies from 'js-cookie';
+import { getElements } from '../composables/use-call-dom.ts';
 
 export function logout() {
-  const logoutButtons = document.querySelectorAll('.sign-out');
+  const logoutButtons = getElements('.sign-out');
   logoutButtons.forEach((logoutButton) => {
     logoutButton.addEventListener('click', () => {
       window.location.href = '/Vitamin';

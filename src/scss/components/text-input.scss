@@ -4,12 +4,9 @@
   border-radius: 14px;
   max-width: 444px;
   width: 100%;
-  background: #FAF8F6;
+  background: $cardBackground;
 
-
-
-
-  &_file{
+  &_file {
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -36,8 +33,6 @@
       -webkit-box-shadow: 0 0 0 1000px #FAF8F6 inset;
       -webkit-text-fill-color: black;
     }
-
-
   }
 
 
@@ -51,21 +46,18 @@
     font-size: 18px;
     color: $font-color-black;
     opacity: 0.3;
-
-
   }
 
-  &__file-button{
+  &__file-button {
     border-radius: 12px;
     padding: 10px 30px;
 
     @include media-breakpoint-down(xs) {
       margin: 10px;
     }
-
   }
 
-  &__file-name{
+  &__file-name {
     position: relative;
     top: 5px;
     display: none;
@@ -80,13 +72,13 @@
     }
   }
 
-  &__file-description{
+  &__file-description {
     font-weight: normal;
     font-size: 14px;
     color: $font-color-black;
     opacity: 0.3;
 
-    &_mobile{
+    &_mobile {
       display: none;
 
       @include media-breakpoint-down(xs) {
@@ -96,7 +88,7 @@
       }
     }
 
-    &_pc{
+    &_pc {
       position: relative;
       top: 10px;
 
@@ -105,7 +97,7 @@
       }
     }
 
-    &_mt{
+    &_mt {
       position: relative;
       top: -11px;
     }
@@ -121,14 +113,14 @@
   font-size: 14px;
   background: #fff;
   font-weight: 400;
+
   @include media-breakpoint-down(xs) {
     left: -2px;
     top: -15px;
-
   }
 }
 
-.just-validate-error-label{
+.just-validate-error-label {
   position: absolute;
   left: 10px;
   bottom: 0;

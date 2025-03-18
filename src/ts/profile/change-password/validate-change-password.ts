@@ -4,13 +4,14 @@ import { changePasswordRequest } from './change-password-request.ts';
 interface PasswordForm {
   old_password: string;
   new_password: string;
-
 }
 
-export let validation: any
+export let validation: any;
 
 export function validateChangePassword() {
-  const form = document.getElementById('change-password') as HTMLFormElement;
+  const form = document.getElementById('change-password');
+
+  if (!(form instanceof HTMLFormElement)) return;
 
   validation = new JustValidate('#change-password');
 
@@ -45,7 +46,9 @@ export function validateChangePassword() {
       {
         rule: 'custom',
         validator: (value: string) => {
-          const newPassword = form.querySelector('#new-password') as HTMLInputElement;
+          const newPassword = document.getElementById('#new-password');
+
+          if (!(newPassword instanceof HTMLInputElement)) return;
           return value === newPassword.value;
         },
         errorMessage: 'Passwords do not match',
@@ -53,13 +56,13 @@ export function validateChangePassword() {
     ])
 
     .onSuccess(() => {
-      const newPassword: HTMLInputElement | null = form.querySelector('#new-password');
-      const currentPassword: HTMLInputElement | null = form.querySelector('#old_password');
+      const newPassword = document.getElementById('#new-password');
+      const currentPassword = document.getElementById('#old_password');
 
-      if (newPassword && currentPassword) {
+      if (newPassword instanceof HTMLInputElement && currentPassword instanceof HTMLInputElement) {
         if (newPassword.value && currentPassword.value) {
-          const data:PasswordForm   = {
-            old_password: currentPassword.value ,
+          const data: PasswordForm = {
+            old_password: currentPassword.value,
             new_password: newPassword.value,
           };
           changePasswordRequest(data);

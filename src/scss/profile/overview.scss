@@ -161,7 +161,7 @@
 
     &_disabled {
       opacity: 0.5;
-      background: $cardBackground;
+      background: $disabled-btn;
 
       &:hover {
         transform: scale(1);

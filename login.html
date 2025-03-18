@@ -6,23 +6,8 @@
 <body>
 
 <div class="wrapper">
-  <header class="auth-header">
-
-    <a class="auth-header__link" href="/Vitamin">
-      <svg>
-        <use href="#vitamin-logo"></use>
-      </svg>
-    </a>
-
-    <a href="/Vitamin" class="auth-header__link-mobile">
-      <svg>
-        <use href="#back-row"></use>
-      </svg>
-
-      <span>Account</span>
-    </a>
-
-  </header>
+  <load
+  ="./src/html/components/auth-header.html"/>
 
   <main class="login-page">
 
@@ -42,7 +27,7 @@
           <input class="field__input" id="login-password" type="password" placeholder=" " autoComplete="new-password"
                  name="password">
           <label class="field__label" for="login-password">Password</label>
-          <a class="forgot-password-link" href="/recover.html">Forgot password?</a>
+          <a class="forgot-password-link" href="/Vitamin/recover.html">Forgot password?</a>
         </div>
 
         <button class="btn btn_orange btn_login login-form__submit" type="submit">Sign in</button>

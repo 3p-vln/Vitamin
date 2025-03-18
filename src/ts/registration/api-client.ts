@@ -24,15 +24,17 @@ const getRefreshToken = (): string | null => {
 
 // Функция сохранения accessToken и refreshToken в куки
 const setTokens = (accessToken: string, refreshToken: string): void => {
-  Cookies.set(ACCESS_TOKEN_KEY, accessToken, { path: '/' });
-  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, { path: '/', expires: 1 });
+  Cookies.set(ACCESS_TOKEN_KEY, accessToken, {  path: '/' });
+  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, {  path: '/' ,expires: 1});
 };
 
 // Очистка токенов при выходе из системы или истечении refreshToken
 const clearAuthData = (): void => {
   Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
   Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
-  localStorage.removeItem('userInfo');
+  localStorage.removeItem('userInfo')
+  console.log('not refresh');
+  // window.location.href = '/Vitamin/login.html';
 };
 
 // Перехватчик запросов: добавляет заголовок Authorization с токеном, если он есть
@@ -58,8 +60,10 @@ const subscribeTokenRefresh = (cb: (token: string) => void) => {
 
 // Функция, вызываемая после успешного обновления токена (уведомляет всех подписчиков)
 const onRefreshed = (token: string) => {
+  console.log('refreshSubscribers1', refreshSubscribers);
   refreshSubscribers.forEach((cb) => cb(token)); // Вызываем все подписанные коллбеки с новым токеном
   refreshSubscribers.splice(0, refreshSubscribers.length); // Очищаем массив подписчиков
+  console.log('refreshSubscribers2', refreshSubscribers);
 };
 
 // Перехватчик ответов: обрабатывает 401 ошибки и обновляет токен
@@ -70,6 +74,7 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
+        console.log('status 401');
         return new Promise((resolve) => {
           subscribeTokenRefresh((token) => {
             if (originalRequest.headers) {
@@ -111,3 +116,4 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
+

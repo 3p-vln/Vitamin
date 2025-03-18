@@ -1,16 +1,19 @@
 import { getOrderHistory } from '../../composables/use-api.ts';
-import { OrdersData } from '../../../typings/interfaces.ts';
+import { OrdersData } from '../../components/interfaces.ts';
 import { getColorCard } from './get-color.ts';
-import { cartActive } from '../../components/cart/cart.ts';
-import { addAllToCartOrders } from '../../components/cart/cart-operation.ts';
+import { addAllToCartOrders, cartActive } from '../../components/cart.ts';
+import { getElement, renderElement } from '../../composables/use-call-dom.ts';
 
 export async function renderCardsOrderHistory() {
   const res = await getOrderHistory();
 
-  const ordersData = res as OrdersData;
+  if ('errors' in res) {
+    return;
+  }
 
-  // Получаем контейнер для вставки заказов
-  const orderHistoryContainer = document.getElementById('orderItems');
+  const ordersData: OrdersData = res;
+
+  const orderHistoryContainer = getElement<HTMLElement>('#orderItems');
   if (!orderHistoryContainer) {
     console.error('Container not found');
     return;
@@ -20,14 +23,10 @@ export async function renderCardsOrderHistory() {
   ordersData.orders.forEach((orderItem) => {
     const productsIdAndCounts: { id: string; counts: number }[] = [];
 
-    const orderItemContainer = document.createElement('article');
-    orderItemContainer.classList.add('orderItem');
+    const orderItemContainer = renderElement<HTMLElement>('article', 'orderItem');
 
-    const orderItemContainerHeader = document.createElement('div');
-    orderItemContainerHeader.classList.add('orderItem__header');
-
-    const orderItemContainerHeaderData = document.createElement('div');
-    orderItemContainerHeaderData.classList.add('orderItem__data');
+    const orderItemContainerHeader = renderElement<HTMLElement>('div', 'orderItem__header');
+    const orderItemContainerHeaderData = renderElement<HTMLElement>('div', 'orderItem__data');
 
     const date = new Date(orderItem.date_created);
     const formattedDate = date.toLocaleDateString('en-GB', {
@@ -36,34 +35,27 @@ export async function renderCardsOrderHistory() {
       year: 'numeric',
     });
 
-    const iconRow = document.createElement('img');
-    iconRow.classList.add('orderItem__icon');
+    const iconRow = renderElement<HTMLImageElement>('img', 'orderItem__icon');
     iconRow.src = './src/img/profile/Back_arrow.svg';
     iconRow.alt = 'picture';
 
-    const orderItemDate = document.createElement('div');
-    orderItemDate.classList.add('orderItem__date');
+    const orderItemDate = renderElement<HTMLElement>('div', 'orderItem__date');
     orderItemDate.innerText = formattedDate;
 
-    const orderItemId = document.createElement('div');
-    orderItemId.classList.add('orderItem__id');
+    const orderItemId = renderElement<HTMLElement>('div', 'orderItem__id');
     orderItemId.innerText = `No ${orderItem.order_number}`;
 
-    orderItemContainerHeaderData.appendChild(orderItemDate);
-
-    const orderItemContainerDescription = document.createElement('div');
-    orderItemContainerDescription.classList.add('orderItem__description');
+    const orderItemContainerDescription = renderElement<HTMLElement>('div', 'orderItem__description');
     orderItemContainerDescription.innerText = 'Shipping';
 
+    orderItemContainerHeaderData.appendChild(orderItemDate);
     orderItemContainerHeader.appendChild(orderItemContainerHeaderData);
     orderItemContainerHeaderData.appendChild(orderItemContainerDescription);
     orderItemContainer.appendChild(orderItemContainerHeader);
     orderItemContainerHeader.appendChild(iconRow);
-
     orderItemContainerHeader.appendChild(orderItemId);
 
-    const orderItemBody = document.createElement('div');
-    orderItemBody.classList.add('orderItem__body');
+    const orderItemBody = renderElement<HTMLElement>('div', 'orderItem__body');
 
     orderItem.items.forEach((item) => {
       productsIdAndCounts.push({
@@ -71,67 +63,62 @@ export async function renderCardsOrderHistory() {
         counts: item.quantity,
       });
 
-      const card = document.createElement('a');
-      card.classList.add('orderItem__card', 'card');
+      const card = renderElement<HTMLAnchorElement>('a', ['orderItem__card', 'card']);
       card.href = `/one-product.html?id=${item.product.id}`;
 
-      const imgBlock = document.createElement('div');
-      imgBlock.classList.add('card__img-block');
-      imgBlock.classList.add(getColorCard(item.product.type, 'card__img-block'));
+      const imgBlock = renderElement<HTMLElement>('div', ['card__img-block', getColorCard(item.product.type, 'card__img-block')]);
 
-      const imgWrapper = document.createElement('div');
-      imgWrapper.classList.add('card__img-wrapper');
-      const img = document.createElement('picture');
-      img.innerHTML = `
-        <source srcset="${item.product.img.img_webp}" type="image/webp">
-        <img class="card__img" src="${item.product.img.img_default}" alt="prod" width="${item.product.img.img_width}" height="${item.product.img.img_height}" loading="lazy" />
-      `;
-      imgWrapper.appendChild(img);
+      const imgWrapper = renderElement<HTMLElement>('div', 'card__img-wrapper');
+      const picture = renderElement<HTMLElement>('picture', null);
+
+      const source = renderElement<HTMLElement>('source', null);
+      source.setAttribute('srcset', item.product.img.img_webp);
+      source.setAttribute('type', 'image/webp');
+
+      const img = renderElement<HTMLImageElement>('img', 'card__img');
+      img.src = item.product.img.img_default;
+      img.alt = 'prod';
+      img.width = parseFloat(item.product.img.img_width);
+      img.height = parseFloat(item.product.img.img_height);
+      img.loading = 'lazy';
+
+      picture.appendChild(source);
+      picture.appendChild(img);
+      imgWrapper.appendChild(picture);
       imgBlock.appendChild(imgWrapper);
 
-      const cardBody = document.createElement('div');
-      cardBody.classList.add('card__body');
+      const cardBody = renderElement<HTMLElement>('div', 'card__body');
 
-      const cardType = document.createElement('div');
-      cardType.classList.add('card__type');
-      cardType.classList.add(getColorCard(item.product.type, 'card__type'));
+      const cardType = renderElement<HTMLElement>('div', ['card__type', getColorCard(item.product.type, 'card__type')]);
       cardType.innerText = item.product.type;
 
-      const cardName = document.createElement('div');
+      const cardName = renderElement<HTMLElement>('div', null);
       cardName.innerText = `${item.quantity} х ${item.product.name}`;
 
-      const cardPrice = document.createElement('div');
-      cardPrice.classList.add('card__price');
+      const cardPrice = renderElement<HTMLElement>('div', 'card__price');
       const formattedPrice = item.total_sum.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
       });
-
       cardPrice.innerText = formattedPrice;
 
       cardBody.appendChild(cardType);
       cardBody.appendChild(cardName);
       cardBody.appendChild(cardPrice);
-
       card.appendChild(imgBlock);
       card.appendChild(cardBody);
       orderItemBody.appendChild(card);
     });
 
-    const orderItemContent = document.createElement('div');
-    orderItemContent.classList.add('orderItem__content');
-
+    const orderItemContent = renderElement<HTMLElement>('div', 'orderItem__content');
     orderItemContent.appendChild(orderItemBody);
 
-    const orderItemFooter = document.createElement('div');
-    orderItemFooter.classList.add('orderItem__footer');
+    const orderItemFooter = renderElement<HTMLElement>('div', 'orderItem__footer');
 
-    const orderItemTotal = document.createElement('div');
-    orderItemTotal.classList.add('orderItem__total');
+    const orderItemTotal = renderElement<HTMLElement>('div', 'orderItem__total');
     orderItemTotal.innerHTML = `<span class="orderItem__total-text">Order amount:</span> <span class="orderItem__total-sum">${parseFloat(orderItem.total_sum_order).toFixed(2)}</span>`;
 
-    const orderItemButton = document.createElement('button');
-    orderItemButton.classList.add('orderItem__button', 'btn', 'btn_orange');
+    const orderItemButton = renderElement<HTMLButtonElement>('button', ['orderItem__button', 'btn', 'btn_orange']);
     orderItemButton.innerText = 'Add to cart';
 
     orderItemButton.addEventListener('click', async (event) => {
@@ -141,11 +128,11 @@ export async function renderCardsOrderHistory() {
 
     orderItemFooter.appendChild(orderItemTotal);
     orderItemFooter.appendChild(orderItemButton);
-
     orderItemContent.appendChild(orderItemFooter);
     orderItemContainer.appendChild(orderItemContent);
 
     orderHistoryContainer.appendChild(orderItemContainer);
   });
+
   return Promise.resolve();
 }

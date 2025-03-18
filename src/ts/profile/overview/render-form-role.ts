@@ -1,28 +1,28 @@
-import apiClient from '../../registration/api-client.ts';
 import { UserInfo } from '../interfaces.ts';
+import { getProfileInfo } from '../../composables/use-api.ts';
+import { classManipulator, getElement } from '../../composables/use-call-dom.ts';
 
 export async function renderFormRole() {
-  try {
-    const res = await apiClient.get('/profile/info');
-    if (res.status === 200) {
-      localStorage.setItem('userInfo', JSON.stringify(res.data));
-    }
-  } catch (errorError) {
-    console.error(errorError);
+  const res = await getProfileInfo();
+  if (!('errors' in res)) {
+    localStorage.setItem('userInfo', JSON.stringify(res));
   }
+
   const userData = localStorage.getItem('userInfo');
-  const form = document.getElementById('overview-form');
   if (!userData) return;
 
   const userInfo: UserInfo = JSON.parse(userData);
 
-  const userRoleContainer = document.querySelector('.overview__role') as HTMLDivElement;
-  if (userRoleContainer) {
+  const userRoleContainer = getElement('.overview__role');
+  if (userRoleContainer instanceof HTMLDivElement) {
     userRoleContainer.innerText = `${userInfo.role_type.charAt(0).toUpperCase() + userInfo.role_type.slice(1).toLowerCase()} customer`;
   }
 
   if (userInfo.role_type !== 'regular') {
-    document.querySelector('.overview-form__field-wrapper')!.classList.remove('overview-form__field-wrapper_hidden');
+    const fieldWrapper = getElement('.overview-form__field-wrapper');
+    if (fieldWrapper instanceof HTMLElement) {
+      classManipulator(fieldWrapper, 'remove', 'overview-form__field-wrapper_hidden');
+    }
   }
 
   const fields: { inputId: string; key: keyof UserInfo }[] = [
@@ -38,15 +38,16 @@ export async function renderFormRole() {
   ];
 
   fields.forEach((field) => {
-    const input = document.getElementById(field.inputId) as HTMLInputElement;
-    if (input && userInfo[field.key]) {
-      input.value = userInfo[field.key] as string;
+    const input = document.getElementById(field.inputId);
+    if (input instanceof HTMLInputElement) {
+      input.value = (userInfo[field.key] as string) || '';
     }
   });
 
-  if (userInfo.state_province && form) {
-    const select = form.querySelector('.select-selected');
-    if (select) {
+  const form = document.getElementById('overview-form');
+  if (userInfo.state_province && form instanceof HTMLFormElement) {
+    const select = getElement('.select-selected', form);
+    if (select instanceof HTMLElement) {
       select.textContent = userInfo.state_province;
     }
   }

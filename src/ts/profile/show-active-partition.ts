@@ -1,9 +1,11 @@
+import { classManipulator, getElement, getElements } from '../composables/use-call-dom.ts';
+
 export function showActivePartition() {
   const url = new URL(window.location.href);
-  const activePartition: string | null  = url.searchParams.get('part') ? url.searchParams.get('part'): 'subscriptions';
+  const activePartition: string | null = url.searchParams.get('part') ? url.searchParams.get('part') : 'subscriptions';
 
-  const partitions: NodeListOf<HTMLDivElement> = document.querySelectorAll('.profile-page__partition-item');
-  const menuItems: NodeListOf<HTMLElement> = document.querySelectorAll('.profile-page__menu-item');
+  const partitions = getElements<HTMLDivElement>('.profile-page__partition-item');
+  const menuItems = getElements('.profile-page__menu-item');
 
   if (partitions.length > 0 && activePartition) {
     partitions.forEach((item: HTMLDivElement) => {
@@ -23,17 +25,17 @@ export function showActivePartition() {
     menuItems.forEach((menuItem) => {
       const itemAttribute = menuItem.getAttribute('part');
       if (activePartition === itemAttribute) {
-        menuItem.classList.add('profile-page__menu-item_active');
+        classManipulator(menuItem, 'add', 'profile-page__menu-item_active');
       } else {
-        menuItem.classList.remove('profile-page__menu-item_active');
+        classManipulator(menuItem, 'remove', 'profile-page__menu-item_active');
       }
     });
   }
 
-  const wrapperPage: HTMLDivElement | null = document.querySelector('.wrapper-profile')
-  const loader: HTMLDivElement | null = document.querySelector('.profile-loader')
+  const wrapperPage = getElement<HTMLDivElement>('.wrapper-profile');
+  const loader = getElement<HTMLDivElement>('.profile-loader');
 
-  if (wrapperPage && loader) {
+  if (wrapperPage instanceof HTMLDivElement && loader instanceof HTMLDivElement) {
     wrapperPage.style.opacity = '1';
     loader.style.display = 'none';
   }

@@ -1,31 +1,27 @@
-export function fileUpload() {
-  const fileInput = document.getElementById('wholesale-registration-file') as HTMLInputElement | undefined;
-  const fileNameSpanPc = document.getElementById('wholesale-registration-file-description-pc') as HTMLSpanElement | undefined;
-  const fileNameSpanMobile = document.getElementById('wholesale-registration-file-name') as HTMLSpanElement | undefined;
-  const inputFileBtn = document.getElementById('registration-add-file-btn') as HTMLButtonElement | undefined;
-  const submitButton = document.getElementById('wholesale-registration-submit-btn') as HTMLButtonElement | undefined;
+import { classManipulator, getElement } from '../composables/use-call-dom.ts';
 
-  if (fileInput) {
+export function fileUpload() {
+  const fileInput = getElement('#wholesale-registration-file');
+  const fileNameSpanPc = getElement('#wholesale-registration-file-description-pc');
+  const fileNameSpanMobile = getElement('#wholesale-registration-file-name');
+  const inputFileBtn = getElement('#registration-add-file-btn');
+  const submitButton = getElement('#wholesale-registration-submit-btn');
+
+  if (fileInput instanceof HTMLInputElement) {
     fileInput.addEventListener('change', () => {
       if (fileInput.files && fileInput.files.length > 0) {
         if (window.innerWidth >= 567 && fileNameSpanPc) {
-
           const fileName = fileInput.files[0].name;
           const maxLength = 30;
-          const truncatedFileName = fileName.length > maxLength
-            ? fileName.slice(0, maxLength) + '...'
-            : fileName;
+          const truncatedFileName = fileName.length > maxLength ? fileName.slice(0, maxLength) + '...' : fileName;
 
           fileNameSpanPc!.textContent = truncatedFileName;
         } else {
           const fileName = fileInput.files[0].name;
           const maxLength = 30;
-          const truncatedFileName = fileName.length > maxLength
-            ? fileName.slice(0, maxLength) + '...'
-            : fileName;
-
+          const truncatedFileName = fileName.length > maxLength ? fileName.slice(0, maxLength) + '...' : fileName;
           fileNameSpanMobile!.textContent = truncatedFileName;
-          fileNameSpanMobile!.style.opacity = '1'
+          fileNameSpanMobile!.style.opacity = '1';
         }
       }
     });
@@ -37,9 +33,9 @@ export function fileUpload() {
     });
   }
 
-  if (fileInput && submitButton) {
+  if (fileInput && submitButton instanceof HTMLButtonElement) {
     fileInput.addEventListener('change', () => {
-      submitButton.classList.remove('registration-form__submit_disabled');
+      classManipulator(submitButton, 'remove', 'registration-form__submit_disabled');
       submitButton.disabled = false;
     });
   }
