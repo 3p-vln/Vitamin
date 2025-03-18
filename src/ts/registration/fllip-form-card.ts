@@ -1,82 +1,77 @@
+import { classManipulator, getElement, getElements } from '../composables/use-call-dom.ts';
+
 export function flipFormCard() {
-  const card = document.getElementById('auth-card') as HTMLDivElement | null;
-  const buttonRegular = document.getElementById('regular-reg') as HTMLButtonElement | null;
-  const buttonWholesale = document.getElementById('wholesale-reg') as HTMLButtonElement | null;
-  const errorContainer: NodeListOf<HTMLSpanElement> = document.querySelectorAll('.registration-form__error-message');
-  const registrationContainer = document.querySelector('.registration__container');
+  const card = getElement<HTMLDivElement>('#auth-card');
+  const buttonRegular = getElement<HTMLButtonElement>('#regular-reg');
+  const buttonWholesale = getElement<HTMLButtonElement>('#wholesale-reg');
+  const errorContainer = getElements<HTMLSpanElement>('.registration-form__error-message');
+  const registrationContainer = getElement<HTMLDivElement>('.registration__container');
 
   if (card && buttonRegular && buttonWholesale) {
     buttonRegular.addEventListener('click', () => {
-      buttonWholesale.classList.remove('registration__nav-btn_active');
-      buttonRegular.classList.add('registration__nav-btn_active');
-      card.classList.add('flipped');
+      classManipulator(buttonWholesale, 'remove', 'registration__nav-btn_active');
+      classManipulator(buttonRegular, 'add', 'registration__nav-btn_active');
+      classManipulator(card, 'add', 'flipped');
 
-      const regularForm = document.getElementById('regular-registration');
-      if (regularForm instanceof HTMLFormElement) {
+      const regularForm = getElement<HTMLFormElement>('#regular-registration');
+      if (regularForm) {
         regularForm.reset();
       }
 
-      if (errorContainer) {
-        errorContainer.forEach((item: HTMLSpanElement) =>{
-          item.innerText = '';
-        })
-      }
-      const errorLabel = document.querySelectorAll('.just-validate-error-label');
-      if (errorLabel) {
-        errorLabel.forEach((label) => {
-          label.remove();
-        });
-      }
+      errorContainer.forEach((item) => {
+        item.innerText = '';
+      });
 
-      if(registrationContainer instanceof HTMLDivElement) {
+      const errorLabel = getElements<HTMLElement>('.just-validate-error-label');
+      errorLabel.forEach((label) => {
+        label.remove();
+      });
+
+      if (registrationContainer) {
         registrationContainer.style.height = '890px';
       }
     });
 
     buttonWholesale.addEventListener('click', () => {
-      buttonWholesale.classList.add('registration__nav-btn_active');
-      buttonRegular.classList.remove('registration__nav-btn_active');
-      card.classList.remove('flipped');
+      classManipulator(buttonWholesale, 'add', 'registration__nav-btn_active');
+      classManipulator(buttonRegular, 'remove', 'registration__nav-btn_active');
+      classManipulator(card, 'remove', 'flipped');
 
-      const whoForm = document.getElementById('wholesale-registration');
-      if (whoForm instanceof HTMLFormElement) {
+      const whoForm = getElement<HTMLFormElement>('#wholesale-registration');
+      if (whoForm) {
         whoForm.reset();
       }
 
-      const fileNamePc = document.getElementById('wholesale-registration-file-name');
+      const fileNamePc = getElement<HTMLElement>('#wholesale-registration-file-name');
       if (fileNamePc) {
         fileNamePc.innerHTML = 'Permission';
         fileNamePc.style.opacity = '0.3';
       }
 
-      const fileName = document.getElementById('wholesale-registration-file-description-pc');
+      const fileName = getElement<HTMLElement>('#wholesale-registration-file-description-pc');
       if (fileName) {
         fileName.innerHTML = 'Wholesale purchase permission';
         fileName.style.opacity = '0.3';
       }
 
-      const submitBtn = document.getElementById('wholesale-registration-submit-btn');
-      if (submitBtn instanceof HTMLButtonElement) {
+      const submitBtn = getElement<HTMLButtonElement>('#wholesale-registration-submit-btn');
+      if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.classList.add('registration-form__submit_disabled');
+        classManipulator(submitBtn, 'add', 'registration-form__submit_disabled');
       }
 
-      if (errorContainer) {
-        errorContainer.forEach((item: HTMLSpanElement) =>{
-          item.innerText = '';
-        })
-      }
+      errorContainer.forEach((item) => {
+        item.innerText = '';
+      });
 
-      if(registrationContainer instanceof HTMLDivElement) {
+      if (registrationContainer) {
         registrationContainer.style.height = '950px';
       }
-
     });
-    const errorLabel = document.querySelectorAll('.just-validate-error-label');
-    if (errorLabel) {
-      errorLabel.forEach((label) => {
-        label.remove();
-      });
-    }
+
+    const errorLabel = getElements<HTMLElement>('.just-validate-error-label');
+    errorLabel.forEach((label) => {
+      label.remove();
+    });
   }
 }

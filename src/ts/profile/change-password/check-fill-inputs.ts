@@ -1,25 +1,24 @@
+import { classManipulator, getElement, getElements } from '../../composables/use-call-dom.ts';
+
 export function checkFillInputs() {
-
-  const form = document.getElementById('change-password') as HTMLFormElement;
-  const submitButton = form.querySelector('.change-password__submit-btn') as HTMLButtonElement;
-  const inputs = form.querySelectorAll('.field__input') as NodeListOf<HTMLInputElement>;
-
+  const form = getElement<HTMLFormElement>('#change-password');
+  if (!(form instanceof HTMLFormElement)) return;
+  const submitButton = getElement<HTMLButtonElement>('.change-password__submit-btn', form);
+  const inputs = getElements('.field__input', form);
 
   function checkFormValidity(): void {
-    const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
-
+    const allFilled = Array.from(inputs).every((input) => input.value.trim() !== '');
+    if (!(submitButton instanceof HTMLButtonElement) && !submitButton) return;
     if (allFilled) {
       submitButton.disabled = false;
-      submitButton.classList.remove('change-password__submit-btn_disabled');
+      classManipulator(submitButton, 'remove', 'change-password__submit-btn_disabled');
     } else {
       submitButton.disabled = true;
-      submitButton.classList.add('change-password__submit-btn_disabled');
+      classManipulator(submitButton, 'add', 'change-password__submit-btn_disabled');
     }
   }
 
-
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     input.addEventListener('input', checkFormValidity);
   });
-
 }

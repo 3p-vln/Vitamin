@@ -1,28 +1,27 @@
-export function unlockSubmit () {
+import { classManipulator, getElement } from '../../composables/use-call-dom.ts';
+
+export function unlockSubmit() {
   const form = document.getElementById('overview-form') as HTMLFormElement;
 
   const inputs = form.querySelectorAll('input');
-  const submitButton = document.querySelector('.overview-form__submit-btn') as HTMLButtonElement;
-  const customDropdown = document.querySelector('#overview-state');
+  const submitButton = getElement('.overview-form__submit-btn');
+  const customDropdown = getElement('#overview-state');
 
-  if(customDropdown){
-    customDropdown.addEventListener('blur', ()=>{
-      if(submitButton){
-
-        submitButton.classList.remove('overview-form__submit-btn_disabled');
-        submitButton.disabled = false
+  if (!(submitButton instanceof HTMLButtonElement)) return;
+  if (customDropdown) {
+    customDropdown.addEventListener('blur', () => {
+      if (submitButton) {
+        classManipulator(submitButton, 'remove', 'overview-form__submit-btn_disabled');
+        submitButton.disabled = false;
       }
-    })
+    });
   }
-  inputs.forEach(input => {
-
+  inputs.forEach((input) => {
     input.addEventListener('input', () => {
-
-      if(submitButton){
-
-        submitButton.classList.remove('overview-form__submit-btn_disabled');
-        submitButton.disabled = false
+      if (submitButton) {
+        classManipulator(submitButton, 'remove', 'overview-form__submit-btn_disabled');
+        submitButton.disabled = false;
       }
-    })
-  })
+    });
+  });
 }

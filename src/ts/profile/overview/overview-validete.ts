@@ -1,11 +1,11 @@
 import JustValidate from 'just-validate';
 import { overviewRequest } from './overview-request.ts';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { getElement } from '../../composables/use-call-dom.ts';
 
+export let validation: any;
 
-export let validation: any
-
-export function overviewValidete(){
+export function overviewValidate() {
   interface FormData {
     first_name: string;
     last_name: string;
@@ -18,7 +18,8 @@ export function overviewValidete(){
     phone: string;
   }
 
-  const form = document.getElementById('overview-form') as HTMLFormElement;
+  const form = getElement<HTMLFormElement>('#overview-form');
+  if (!form) return;
 
   validation = new JustValidate(form);
 
@@ -61,8 +62,7 @@ export function overviewValidete(){
       {
         rule: 'number',
         errorMessage: 'Postal code only number',
-
-      }
+      },
     ])
     .addField('#email', [
       {
@@ -83,7 +83,7 @@ export function overviewValidete(){
         rule: 'customRegexp',
         value: /^\+38 \(\d{3}\)\d{3}-\d{2}-\d{2}$/,
         errorMessage: 'Phone Number must be in the format +38 (XXX)XXX-XX-XX',
-      }
+      },
     ])
     .addField('#overview-state', [
       {
@@ -92,32 +92,46 @@ export function overviewValidete(){
       },
     ])
     .onSuccess(() => {
-      const formData: FormData = {
-        first_name: (form.querySelector('#first_name') as HTMLInputElement).value,
-        last_name: (form.querySelector('#last_name') as HTMLInputElement).value,
-        address_one: (form.querySelector('#address_one') as HTMLInputElement).value,
-        address_two: (form.querySelector('#address_two') as HTMLInputElement).value,
-        city: (form.querySelector('#city') as HTMLInputElement).value,
-        state_province: (form.querySelector('#overview-state') as HTMLInputElement).value,
-        postal_code: (form.querySelector('#postal_cod') as HTMLInputElement).value,
-        email: (form.querySelector('#email') as HTMLInputElement).value,
-        phone: formatePhoneNumber(),
-      };
-      overviewRequest(formData)
-    });
-  function formatePhoneNumber() {
-    const phoneInput = form.querySelector('#phone') as HTMLInputElement;
-    if (phoneInput && phoneInput.value) {
-      const value = phoneInput.value; // Получаем значение из поля ввода
-      const phoneNumberParse = parsePhoneNumberFromString(value); // Парсим номер
-      if (phoneNumberParse && phoneNumberParse.isValid()) {
+      // Получаем элементы ввода с правильными типами
+      const firstNameInput = getElement<HTMLInputElement>('#first_name', form);
+      const lastNameInput = getElement<HTMLInputElement>('#last_name', form);
+      const addressOneInput = getElement<HTMLInputElement>('#address_one', form);
+      const addressTwoInput = getElement<HTMLInputElement>('#address_two', form);
+      const cityInput = getElement<HTMLInputElement>('#city', form);
+      const stateInput = getElement<HTMLInputElement>('#overview-state', form);
+      const postalCodeInput = getElement<HTMLInputElement>('#postal_code', form); // Исправлен ID
+      const emailInput = getElement<HTMLInputElement>('#email', form);
+      const phoneInput = getElement<HTMLInputElement>('#phone', form);
 
-        return phoneNumberParse.number;
+      if (!firstNameInput || !lastNameInput || !addressOneInput || !addressTwoInput || !cityInput || !stateInput || !postalCodeInput || !emailInput || !phoneInput) {
+        console.error('One or more form fields are missing.');
+        return;
+      }
+
+      const formData: FormData = {
+        first_name: firstNameInput.value,
+        last_name: lastNameInput.value,
+        address_one: addressOneInput.value,
+        address_two: addressTwoInput.value,
+        city: cityInput.value,
+        state_province: stateInput.value,
+        postal_code: postalCodeInput.value,
+        email: emailInput.value,
+        phone: formatPhoneNumber(phoneInput),
+      };
+
+      overviewRequest(formData);
+    });
+
+  function formatPhoneNumber(phoneInput: HTMLInputElement): string {
+    const value = phoneInput.value;
+    if (value) {
+      const phoneNumberParse = parsePhoneNumberFromString(value);
+      if (phoneNumberParse && phoneNumberParse.isValid()) {
+        return phoneNumberParse.number.toString();
       }
       return value.replace(/\D/g, '');
     }
     return '';
   }
-
 }
-

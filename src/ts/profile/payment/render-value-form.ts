@@ -11,13 +11,12 @@ export function renderValueForm() {
     { inputId: 'card_number', key: 'card_number' },
     { inputId: 'card_date', key: 'card_date' },
     { inputId: 'card_cvv', key: 'card_cvv' },
-
   ];
 
-  fields.forEach(field => {
-    const input = document.getElementById(field.inputId) as HTMLInputElement;
-    if (input && userInfo.card_info) {
-      input.value = userInfo.card_info[field.key] as string;
+  fields.forEach((field) => {
+    const input = document.getElementById(field.inputId);
+    if (input instanceof HTMLInputElement && userInfo.card_info) {
+      input.value = userInfo.card_info[field.key];
     }
   });
 }

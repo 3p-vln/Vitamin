@@ -1,14 +1,15 @@
 import Cookies from 'js-cookie';
 import  { getProfileInfo, logIn } from '../composables/use-api.ts';
+import { getElement } from '../composables/use-call-dom.ts';
 
 
 
-interface loginData {
+export interface LoginData {
   email: string;
   password: string;
 }
 
-export async function loginRequest(data: loginData) {
+export async function loginRequest(data: LoginData) {
   const res: any = await logIn(data);
   if (res.accessToken) {
     Cookies.set('refreshToken', res.refreshToken, { path: '/' });
@@ -23,8 +24,8 @@ export async function loginRequest(data: loginData) {
   }
 
   if ('message' in res.errors[0]) {
+    const errorMessageContainer = getElement<HTMLElement>('.login-form__error-message');
 
-    const errorMessageContainer = document.querySelector('.login-form__error-message');
     if (!errorMessageContainer) return;
 
     switch (res.errors[0].message) {

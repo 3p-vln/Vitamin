@@ -1,5 +1,6 @@
 import { updateProfile } from '../../composables/use-api.ts';
 import { validation } from './overview-validete.ts';
+import { getElement } from '../../composables/use-call-dom.ts';
 
 interface FormData {
   first_name: string;
@@ -14,7 +15,7 @@ interface FormData {
 }
 
 export async function overviewRequest(data: FormData) {
-  const massageContainer: HTMLSpanElement | null = document.querySelector('.overview__message');
+  const massageContainer: HTMLSpanElement | null = getElement('.overview__message');
 
   const res = await updateProfile(data);
   if (!('errors' in res)) {
@@ -22,19 +23,13 @@ export async function overviewRequest(data: FormData) {
       massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
       massageContainer.style.background = 'green';
       massageContainer.classList.toggle('hidden');
-
-
     }
-  } else {
-
-    const errorsObj = res.errors.reduce((acc: any, error) => {
-      acc[`#${error.field}`] = error.message;
-      return acc;
-    }, {});
-
-    validation.showErrors(errorsObj);
-
+    return;
   }
+  const field = `#${[res.errors[0].field!]}`;
+  const errorsObj = { [field]: res.errors[0].message };
+
+  validation.showErrors(errorsObj);
 
   setTimeout(() => {
     if (massageContainer) {

@@ -1,5 +1,5 @@
 import JustValidate from 'just-validate';
-import { loginRequest } from './login-request.ts';
+import { LoginData, loginRequest } from './login-request.ts';
 
 export function validateLoginForm() {
 
@@ -37,15 +37,15 @@ export function validateLoginForm() {
       ])
       .onSuccess( async () => {
 
-        console.log('Form is valid. Submitting...');
+        const form = document.getElementById('login-form');
 
-        const form = document.getElementById('login-form') as HTMLFormElement | undefined;
+        if (!(form instanceof HTMLFormElement)) return;
         const formData: FormData = new FormData(form);
-        const data: any = {}
 
-        for (let [key, value] of formData.entries()) {
-          data[key] = value ;
-        }
+        const data: LoginData = {
+          email: formData.get('email')!.toString(),
+          password: formData.get('password')!.toString(),
+        };
 
         await loginRequest(data)
       })

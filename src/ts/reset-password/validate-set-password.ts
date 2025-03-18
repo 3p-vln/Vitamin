@@ -1,5 +1,6 @@
 import JustValidate from 'just-validate';
 import { setPasswordRequest } from './set-password-request.ts';
+import { getElement } from '../composables/use-call-dom.ts';
 
 export function validatePassword() {
   const validator = new JustValidate('#reset-password-form');
@@ -31,7 +32,7 @@ export function validatePassword() {
       const url = new URL(window.location.href);
       const token = url.searchParams.get('reset');
 
-      const newPassword = document.getElementById('reset-password');
+      const newPassword = getElement('#reset-password');
       if (newPassword instanceof HTMLInputElement && token) {
        await setPasswordRequest({
           resetToken: token,
