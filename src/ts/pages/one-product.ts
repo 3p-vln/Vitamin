@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       importFn: () => import('../one-product/load-info'),
       selector: '.ilustrate',
     },
-    {
-      importFn: () => import('../one-product/add-to-cart'),
-      selector: '.add-to-cart__btn',
-    },
+    // {
+    //   importFn: () => import('../one-product/add-to-cart'),
+    //   selector: '.add-to-cart__btn',
+    // },
     {
       importFn: () => import('../one-product/render-rec-cards'),
       selector: '.you-like',

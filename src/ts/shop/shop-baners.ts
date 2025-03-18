@@ -5,6 +5,7 @@ import { setImg } from '../components/set-img-size.ts';
 export function shopBanners() {
   removeDuplicate();
   setImg();
+
   new Swiper('.shop-baners__swiper', {
     modules: [Navigation, Pagination, Autoplay],
     navigation: {

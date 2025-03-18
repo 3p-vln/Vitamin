@@ -36,13 +36,19 @@ function updateItemsPerPage() {
   if (newWindowWidth < 375) {
     itemsPerPage = 4;
     itemsViewMore = 2;
-  } else if (newWindowWidth < 768) {
+
+    return;
+  }
+
+  if (newWindowWidth < 768) {
     itemsPerPage = 6;
     itemsViewMore = 6;
-  } else {
-    itemsPerPage = 10;
-    itemsViewMore = 10;
+
+    return;
   }
+
+  itemsPerPage = 10;
+  itemsViewMore = 10;
 }
 
 export async function renderAllCard(container: string, page: number = 1, category?: string) {
@@ -145,6 +151,7 @@ function applyCategoryClass(type: string, categoryElement: HTMLElement) {
 
 export function getDiscountedPrice(price: string, discount: number): string {
   const originalPrice = parseFloat(price);
+
   if (isNaN(originalPrice)) {
     throw new Error('Invalid price format');
   }

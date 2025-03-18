@@ -10,7 +10,6 @@ export function addRecToCart() {
   if (!addAllProdBtn || !cardsItems) return;
 
   const cardsId = Array.from(cardsItems).map((card) => card.classList[1]);
-  console.log(cardsItems);
 
   addAllProdBtn.addEventListener('click', async (event) => {
     await addAllToCart(cardsId);

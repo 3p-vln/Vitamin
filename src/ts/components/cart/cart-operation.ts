@@ -64,7 +64,6 @@ export async function addAllToCartOrders(prodsIdAndCounts: { id: string; counts:
 
       if (!productExists) {
         renderProdCard(prod, false, '30', prodId.counts);
-        // console.log(prodId.counts);
         totalCartPrice();
         blockBtn();
         continue;
@@ -79,6 +78,7 @@ export async function addAllToCartOrders(prodsIdAndCounts: { id: string; counts:
       } else {
         updateAutoshipInLocalStorage(`${prod.id}`, autoshipCheckbox.checked, autoshipDaysText.textContent || '30', counts);
       }
+
       loadCartFromLocalStorage();
 
       totalCartPrice();

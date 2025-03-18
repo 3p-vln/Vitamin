@@ -128,8 +128,6 @@ async function totalCartPrice() {
 
         discount += totalProdPrice - discountedPrice;
 
-        console.log('prod price: ' + totalProdPrice);
-
         total += Math.round(totalProdPrice * 100) / 100;
       } else {
         totalProdPrice = parseFloat(getTotalPrice(prodItem.price, item.counts).replace(/,/g, '').replace(/\s/g, ''));
@@ -139,8 +137,6 @@ async function totalCartPrice() {
         total += Math.round(totalProdPrice * 100) / 100;
       }
     }
-
-    console.log('total: ' + total.toFixed(2));
 
     subtotalPrice.innerHTML = `Subtotal <span>$${total.toLocaleString('en-US', {
       minimumFractionDigits: 2,

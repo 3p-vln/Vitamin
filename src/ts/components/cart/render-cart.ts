@@ -152,11 +152,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   empty = false;
   emptyBag(empty);
 
-  const autoshipEl = getElement('.autoship__on-off');
-  const countsItemsEl = getElement(`.count__items`);
-
-  if (!autoshipEl || !countsItemsEl) saveProductToLocalStorage(prod, autoshipChecked, autoshipDays, counts);
-  else saveAllProductToLocalStorage(prod);
+  saveProductToLocalStorage(prod, autoshipChecked, autoshipDays, counts);
 
   removeProd(prod.id);
 
@@ -199,6 +195,7 @@ function removeProductFromLocalStorage(prodId: number) {
 
   if (cartItems.length === 0) {
     const emptyText = getElement('.cart__empty');
+
     if (emptyText) return;
 
     empty = true;
@@ -249,22 +246,22 @@ function saveProductToLocalStorage(prod: Product, autoshipChecked: boolean, auto
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
-function saveAllProductToLocalStorage(prod: Product) {
-  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-
-  const productExists = cartItems.some((item: Product) => item.id === prod.id);
-
-  if (!productExists) {
-    cartItems.push({
-      id: prod.id,
-      autoshipChecked: true,
-      autoshipDays: '30',
-      counts: 1,
-    });
-  }
-
-  localStorage.setItem('cartItems', JSON.stringify(cartItems));
-}
+// function saveAllProductToLocalStorage(prod: Product) {
+//   let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+//
+//   const productExists = cartItems.some((item: Product) => item.id === prod.id);
+//
+//   if (!productExists) {
+//     cartItems.push({
+//       id: prod.id,
+//       autoshipChecked: true,
+//       autoshipDays: '30',
+//       counts: 1,
+//     });
+//   }
+//
+//   localStorage.setItem('cartItems', JSON.stringify(cartItems));
+// }
 
 export function updateInfoInLocal(prod: Product) {
   const autoshipCheckbox = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
@@ -315,9 +312,10 @@ function updatePriceDisplay(prod: Product, count: number) {
 
   if (prod.type === 'Sale%') {
     prodPrice.innerHTML = `<span>$${priceTotal}</span> $${priceDiscount}`;
-  } else {
-    prodPrice.innerText = `$${priceTotal}`;
+    return;
   }
+
+  prodPrice.innerText = `$${priceTotal}`;
 }
 
 export function updateAutoshipInLocalStorage(prodId: string, autoshipChecked: boolean, autoshipDays: string, counts: number) {
