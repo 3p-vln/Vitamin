@@ -2,7 +2,8 @@ import { classManipulator, getElement } from '../composables/use-call-dom.ts';
 import { renderUserName } from '../registration/render-user-name.ts';
 import { logout } from './logout.ts';
 import { authPopUp } from './auth-pop-up.ts';
-import { disablePageScroll, enablePageScroll } from 'scroll-lock';
+// import { disablePageScroll, enablePageScroll } from 'scroll-lock';
+import Cookies from 'js-cookie';
 
 const burgerBtn = getElement('.burger__btn');
 const menuMain = getElement('.burger__menu.main');
@@ -12,15 +13,18 @@ const personalPackBg = getElement('.pack-info__bg_hulf-circle');
 const header = getElement('.header');
 const cart = getElement('.cart');
 
+const shopMenu = getElement('.burger__menu.shop');
+const infoMenu = getElement('.burger__menu.info');
+const profileMenu = getElement('.burger__menu.profile');
+
 export function initHeader() {
   if (!menuMain) return;
 
   const shopBtn = getElement('.menu__item_shop', menuMain);
   const infoBtn = getElement('.menu__item_info', menuMain);
   const profileBtn = getElement('.header__profile', menuMain);
-  const shopMenu = getElement('.burger__menu.shop');
-  const infoMenu = getElement('.burger__menu.info');
-  const profileMenu = getElement('.burger__menu.profile');
+
+  changeProfileMenu();
 
   addBgScroll();
 
@@ -52,12 +56,7 @@ function burgerToggle(clickBtn: string, elActive: string) {
         el.classList.toggle(`${elActive}_active`);
         btn.classList.toggle(`${clickBtn}_active`);
         hideBag();
-
-        if (isOpening) {
-          disablePageScroll();
-        } else {
-          enablePageScroll();
-        }
+        scrollLock();
 
         animateMenu(el, isOpening);
         return;
@@ -67,6 +66,24 @@ function burgerToggle(clickBtn: string, elActive: string) {
       animateMenu(el, isOpening);
     });
   }
+}
+
+function scrollLock() {
+  if (!burgerBtn) return;
+
+  const body = getElement('body');
+
+  if (!body) return;
+  if (!header) return;
+
+  if (burgerBtn.classList.contains('burger__btn_active')) {
+    body.style.overflow = 'hidden';
+
+    return;
+  }
+
+  body.style.overflow = 'auto';
+  header.style.backgroundColor = 'white';
 }
 
 function burgerBack(clickBtn: string, elActive: string) {
@@ -191,11 +208,32 @@ function resize(shopMenu: HTMLElement, infoMenu: HTMLElement, profileMenu: HTMLE
         bagBtn.style.display = 'block';
       }
 
-      enablePageScroll();
-
       classManipulator(shopMenu, 'remove', 'shop_active');
       classManipulator(infoMenu, 'remove', 'info_active');
       classManipulator(profileMenu, 'remove', 'profile_active');
     }
   });
+}
+
+function changeProfileMenu() {
+  const token = Cookies.get('accessToken');
+  const profileList = getElement('.menu_profile');
+
+  if (!profileList) return;
+
+  if (!token) {
+    profileList.innerHTML = `
+    <li class="menu__item">
+      <a href="/Vitamin/login.html" class="menu__login">
+         Sign in
+      </a>
+    </li>
+    
+    <li class="menu__item red">
+       <a href="/Vitamin/registration.html" class="menu__reg">
+         Registration
+      </a>
+    </li>
+    `;
+  }
 }

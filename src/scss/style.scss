@@ -41,6 +41,10 @@ body {
 
   &_one-product, &_quiz, &_successful-order {
     margin-top: 0;
+
+    @include media-breakpoint-down(sm) {
+      margin-top: 70px;
+    }
   }
 
   &_shop{
