@@ -1,7 +1,0 @@
-function __vite__mapDeps(indexes) {
-  if (!__vite__mapDeps.viteFileDeps) {
-    __vite__mapDeps.viteFileDeps = ["assets/recommendations-products-home-slider-BOPTFcY5.js","assets/swiper-core-Drop_04u.js","assets/recommendations-products-home-slider-Be9b3THL.css","assets/render-cards-recommendations-CrikJ4BJ.js","assets/use-api-DGM808Zk.js","assets/js.cookie-Cz0CWeBA.js","assets/use-call-dom-8Q8ZjlCD.js","assets/feedback-slider-EqPxlzzp.js"]
-  }
-  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
-}
-import"./modulepreload-polyfill-B5Qt9EMX.js";/* empty css              */import{u as e,s as i,l as s,r as m,_ as o}from"./lazy-load-3l2UQROd.js";import{i as _}from"./header-CPNAprGT.js";import{i as p}from"./cart-CxZNLKWy.js";import"./use-call-dom-8Q8ZjlCD.js";import"./js.cookie-Cz0CWeBA.js";import"./render-cart-dlgLCC52.js";import"./dropdown-MNiyI8bl.js";import"./use-api-DGM808Zk.js";const d=[{importFn:()=>o(()=>import("./recommendations-products-home-slider-BOPTFcY5.js"),__vite__mapDeps([0,1,2])),selector:".choose-products__products-slider"},{importFn:()=>o(()=>import("./render-cards-recommendations-CrikJ4BJ.js"),__vite__mapDeps([3,4,5,6])),selector:"#choose-products-slider"},{importFn:()=>o(()=>import("./feedback-slider-EqPxlzzp.js"),__vite__mapDeps([7,1])),selector:".feedback__slider"}];d.forEach(({importFn:r,selector:t})=>e(r,t));document.addEventListener("DOMContentLoaded",async()=>{_(),p(),i(),s()});m();
