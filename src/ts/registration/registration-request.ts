@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { RegisterData } from '../components/interfaces.ts';
+import { RegisterData } from '../../typings/interfaces.ts';
 import { getProfileInfo, register } from '../composables/use-api.ts';
 import { getElements } from '../composables/use-call-dom.ts';
 

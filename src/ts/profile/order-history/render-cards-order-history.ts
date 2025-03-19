@@ -1,7 +1,8 @@
 import { getOrderHistory } from '../../composables/use-api.ts';
-import { OrdersData } from '../../components/interfaces.ts';
+import { OrdersData } from '../../../typings/interfaces.ts';
 import { getColorCard } from './get-color.ts';
-import { addAllToCartOrders, cartActive } from '../../components/cart.ts';
+import { cartActive } from '../../components/cart/cart.ts';
+import { addAllToCartOrders } from '../../components/cart/cart-operation.ts';
 import { getElement, renderElement } from '../../composables/use-call-dom.ts';
 
 export async function renderCardsOrderHistory() {

@@ -177,3 +177,9 @@ export interface IntersectionObserverConfig {
   options?: IntersectionObserverInit;
   multipleObservers?: boolean;
 }
+
+export interface paymentData {
+  card_number: string;
+  card_cvv: string;
+  card_date: string;
+}

@@ -1,9 +1,8 @@
 import { initHeader } from '../components/header';
-
-import { removeSkeletons } from '../components/removeSkeletons.ts';
+import { removeSkeletons } from '../components/remove-skeletons.ts';
 import { stop } from '../components/stopPreload.ts';
 import { lazyImg, LazyModule, useLoadFunction } from '../components/lazy-load.ts';
-import { initCart } from '../components/cart.ts';
+import { initCart } from '../components/cart/cart.ts';
 
 const lazyModules: LazyModule[] = [
   {
@@ -25,7 +24,7 @@ lazyModules.forEach(({ importFn, selector }) => useLoadFunction(importFn, select
 document.addEventListener('DOMContentLoaded', async () => {
   initHeader();
 
-  await initCart();
+  initCart();
   stop();
   lazyImg();
 });
