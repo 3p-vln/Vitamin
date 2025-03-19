@@ -46,8 +46,8 @@
     justify-content: center;
     margin-top: 50px;
     padding: 23px 29px;
-    width: 100%;
     max-width: 330px;
+    width: 100% !important;
 
     &_fixed {
       position: fixed;

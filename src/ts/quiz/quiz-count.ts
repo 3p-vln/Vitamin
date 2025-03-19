@@ -67,7 +67,7 @@ export async function initQuestions() {
       if (currentQuestionIndex === 8) {
         const isValid = await validateEmailForm();
         if (!isValid) return;
-        window.location.href = '/personal-pack.html';
+        window.location.href = '/Vitamin/personal-pack.html';
         return;
       }
 

@@ -39,7 +39,7 @@ body {
     margin-top: 70px;
   }
 
-  &_one-product, &_quiz, &_successful-order {
+  &_one-product, &_successful-order {
     margin-top: 0;
 
     @include media-breakpoint-down(sm) {
@@ -47,7 +47,11 @@ body {
     }
   }
 
-  &_shop{
+  &_quiz {
+    margin-top: 0;
+  }
+
+  &_shop {
     margin-top: 80px;
 
     @include media-breakpoint-down(sm) {
