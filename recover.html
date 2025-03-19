@@ -5,45 +5,8 @@
 <body>
 <script type="module" src="./src/ts/pages/recover.ts"></script>
 
-<div class="wrapper">
-  <header class="recover-header">
-    <a href="/Vitamin">
-      <svg>
-        <use href="#vitamin-logo"></use>
-      </svg>
-    </a>
-  </header>
-
-  <main class="page recover">
-    <div class="recover__container">
-      <form class="recover__form" id="recover-form">
-
-        <div class="recover__title">Recover password</div>
-
-        <div class="recover__description">Please enter your email:</div>
-
-        <div class="recover__field field">
-          <input class="field__input" id="recover-email" placeholder=" " type="email" name="email">
-          <label class="field__label" for="recover-email">Email</label>
-        </div>
-
-        <button class="btn btn_orange  recover__submit-btn" type="submit">
-          Recover
-        </button>
-
-        <span class="recover__error-message"></span>
-      </form>
-
-      <p class="recover__reg">
-        Remember your password?
-        <a href="/login.html" class="recover__login-link">
-          Back to login
-        </a>
-      </p>
-    </div>
-
-  </main>
-</div>
+<load
+="/src/html/recover/recover.html" />
 
 <load
 ="/src/img/sprite.html" />
