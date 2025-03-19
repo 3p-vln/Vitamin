@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";/* empty css              */import{i as t}from"./header-BM1GFSan.js";import"./use-call-dom-8Q8ZjlCD.js";import"./js.cookie-Cz0CWeBA.js";document.addEventListener("DOMContentLoaded",()=>{t()});
