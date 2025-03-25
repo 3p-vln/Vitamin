@@ -1,9 +1,15 @@
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { setImg } from '../components/set-img-size.ts';
+import { getElement, getElements, renderElement } from '../composables/use-call-dom.ts';
 
 export function shopBanners() {
   removeDuplicate();
+
+  window.addEventListener('resize', () => {
+    removeDuplicate();
+  });
+
   setImg();
 
   new Swiper('.shop-baners__swiper', {
@@ -39,12 +45,28 @@ export function shopBanners() {
 }
 
 function removeDuplicate() {
-  const swiperSlides = document.querySelectorAll('.shop-baners__swiper-slide-duplicate');
+  const swiperSlidesDuplicate = getElements('.shop-baners__swiper-slide-duplicate');
+  const swiperWrapper = getElement('.shop-baners__swiper-wrapper');
   const screenWidth = window.innerWidth;
 
   if (screenWidth < 768) {
-    swiperSlides.forEach((slide) => {
+    swiperSlidesDuplicate.forEach((slide) => {
       slide.remove();
+    });
+
+    return;
+  }
+
+  if (screenWidth >= 768) {
+    const swiperSlides = getElements('.swiper-slide .baner');
+    if (!swiperSlides || !swiperWrapper || swiperSlidesDuplicate.length !== 0) return;
+
+    swiperSlides.forEach((slide) => {
+      const dubSlide = renderElement('div', ['shop-baners__swiper-slide', 'shop-baners__swiper-slide-duplicate', 'swiper-slide']);
+      dubSlide.innerHTML = slide.innerHTML;
+      console.log(slide);
+
+      swiperWrapper.appendChild(dubSlide);
     });
   }
 }

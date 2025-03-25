@@ -17,33 +17,19 @@ interface FormData {
 export async function overviewRequest(data: FormData) {
   const massageContainer: HTMLSpanElement | null = getElement('.overview__message');
 
-  try {
-    const res = await updateProfile(data);
-
-    if (typeof res === 'object' && res !== null && 'errors' in res && Array.isArray(res.errors)) {
-      const errorsObj = res.errors.reduce((acc: Record<string, string>, error: { field?: string; message: string }) => {
-        if (error.field) {
-          acc[`#${error.field}`] = error.message;
-        }
-        return acc;
-      }, {});
-
-      validation.showErrors(errorsObj);
-    } else {
-      if (massageContainer) {
-        massageContainer.innerHTML = `
-          <svg>
-            <use href="#check-white"></use>
-          </svg> Changes successfully saved
-        `;
-        massageContainer.style.background = 'green';
-        massageContainer.classList.toggle('hidden');
-      }
+  const res = await updateProfile(data);
+  if (!('errors' in res)) {
+    if (massageContainer) {
+      massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
+      massageContainer.style.background = 'green';
+      massageContainer.classList.toggle('hidden');
     }
-  } catch (error) {
-    console.error('Ошибка при обновлении профиля:', error);
-    validation.showErrors({ general: 'Something went wrong. Please try again.' });
+    return;
   }
+  const field = `#${[res.errors[0].field!]}`;
+  const errorsObj = { [field]: res.errors[0].message };
+
+  validation.showErrors(errorsObj);
 
   setTimeout(() => {
     if (massageContainer) {

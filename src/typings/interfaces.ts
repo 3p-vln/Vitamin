@@ -106,7 +106,6 @@ export interface RecommendationData {
     img_height: string;
     img_width: string;
   };
-  img_webp: string;
   discount: number;
   type: string;
   description: string;

@@ -15,7 +15,7 @@ interface ProductItem {
   img: ImageData;
 }
 
-export default async function renderCards(): Promise<void> {
+export async function renderCards(): Promise<void> {
   const response = await getRecommendations(false);
   const container: HTMLElement | null = getElement('#choose-products-slider');
 

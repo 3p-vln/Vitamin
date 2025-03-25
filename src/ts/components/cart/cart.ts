@@ -1,5 +1,4 @@
 import { classManipulator, getElement, getElements, renderElement } from '../../composables/use-call-dom.ts';
-import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 import { loadCartFromLocalStorage, totalCartPrice } from './render-cart.ts';
 
 const cartBtn = getElement('.header__bag');
@@ -49,8 +48,6 @@ export function cartActive(event: Event) {
 
   if (backToShopBtn) backToShopBtn.style.zIndex = '1';
 
-  disablePageScroll();
-
   scrollLock();
 }
 
@@ -62,11 +59,10 @@ function cartClose() {
   if (backToShopBtn) backToShopBtn.style.zIndex = '25';
 
   scrollLock();
-  enablePageScroll();
 }
 
 function scrollLock() {
-  if (!header || !html || !cart) return;
+  if (!header || !html || !cart || !cartContainer) return;
 
   if (cart.classList.contains('cart_active')) {
     scrollPosition = window.scrollY;

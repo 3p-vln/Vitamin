@@ -81,7 +81,7 @@
       font-size: clamp(12px, 2.5vw, 14px);
 
       @include media-breakpoint-down(sm) {
-        line-height: 13px;
+        line-height: 15px;
       }
 
       &_purple {
@@ -117,9 +117,14 @@
       margin-bottom: 15px;
       line-height: 26px;
       font-size: clamp(16px, 2.5vw, 20px);
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
 
       @include media-breakpoint-down(sm) {
-        margin-bottom: 27px;
+        margin-bottom: 12px;
         line-height: 20px;
       }
     }

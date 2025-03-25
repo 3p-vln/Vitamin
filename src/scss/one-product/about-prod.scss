@@ -126,7 +126,7 @@
     }
 
     @include media-breakpoint-down(sm) {
-      padding: 43px 20px;
+      padding: 39px 20px;
     }
 
     &__backbtn {
@@ -138,6 +138,7 @@
       z-index: 23;
       font-size: 16px;
       gap: 16px;
+      cursor: pointer;
 
       @include media-breakpoint-down(md) {
         display: none;
@@ -188,6 +189,10 @@
       font-weight: 500;
       line-height: 1.2;
       font-size: clamp(24px, 2.5vw, 40px);
+
+      @include media-breakpoint-down(sm) {
+        margin-top: 13px;
+      }
     }
 
     .count-and-buy {
@@ -462,6 +467,7 @@
 
               @include media-breakpoint-down(sm) {
                 gap: 6px;
+                max-width: 94px;
               }
 
               span {

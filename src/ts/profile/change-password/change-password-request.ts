@@ -9,19 +9,25 @@ interface PasswordForm {
 
 export async function changePasswordRequest(data: PasswordForm) {
   const massageContainer: HTMLSpanElement | null = getElement('.change-password__message');
+  const formChangePassword = getElement('change-password');
 
   const res = await changePassword(data);
 
-  if (typeof res === 'object' && res !== null && 'errors' in res && Array.isArray(res.errors)) {
-    const errorsObj = res.errors.reduce((acc: Record<string, string>, error: { field?: string; message: string }) => {
-      if (error.field) {
-        acc[`#${error.field}`] = error.message;
-      }
-      return acc;
-    }, {});
-
-    validation.showErrors(errorsObj);
+  if (!('errors' in res)) {
+    if (massageContainer) {
+      massageContainer.innerHTML = '<svg>\n' + '  <use href="#check-white"></use>\n' + '</svg> Changes successfully saved';
+      massageContainer.style.background = 'green';
+      massageContainer.classList.toggle('hidden');
+    }
+    if (formChangePassword instanceof HTMLFormElement) {
+      formChangePassword.reset();
+    }
+    return;
   }
+  const field = `#${[res.errors[0].field!]}`;
+  const errorsObj = { [field]: res.errors[0].message };
+
+  validation.showErrors(errorsObj);
 
   setTimeout(() => {
     if (massageContainer) {

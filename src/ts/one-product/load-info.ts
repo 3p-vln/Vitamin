@@ -12,7 +12,7 @@ const prodId = urlParams.get('id') || undefined;
 const autoshipDropdown = getElement('.autoship__dropdown');
 
 const ilustrate = getElement('.ilustrate');
-const catgory = getElement('.info__category');
+const catgory = getElement<HTMLAnchorElement>('.info__category');
 const svgIco = getElement('.count__svg svg use');
 const name = getElement('.info__name');
 const capsules = getElement('.count__capsules span');
@@ -52,7 +52,7 @@ export default async function loadInfo() {
   }
 }
 
-function getItem(item: HTMLElement | null): HTMLElement | undefined {
+function getItem(item: HTMLElement | HTMLAnchorElement | null): HTMLElement | HTMLAnchorElement | undefined {
   if (item) return item;
 }
 
@@ -108,37 +108,47 @@ function showInfo(prodInfo: Product) {
         <img src="${prodInfo.img.img_default}" alt="prod" width="${prodInfo.img.img_width}" height="${prodInfo.img.img_height}" loading="lazy"/>
      </picture>`;
 
+  if (!catgory) return;
+
   switch (prodInfo.type) {
     case 'Vitamins & Dietary Supplements':
       classManipulator(getItem(catgory), 'add', 'info__category_purple');
+      catgory.href = '/Vitamin/shop.html?category=Vitamins+%26+Dietary+Supplements';
       getItem(svgIco)?.setAttribute('href', '#can');
       break;
     case 'Minerals':
       classManipulator(getItem(catgory), 'add', 'info__category_green-mint');
+      catgory.href = '/Vitamin/shop.html?category=Minerals';
       getItem(svgIco)?.setAttribute('href', '#bottle');
       break;
     case 'Prenatal Vitamins':
       classManipulator(getItem(catgory), 'add', 'info__category_pink');
+      catgory.href = '/Vitamin/shop.html?category=Prenatal+Vitamins';
       getItem(svgIco)?.setAttribute('href', '#kit');
       break;
     case 'Pain Relief':
       classManipulator(getItem(catgory), 'add', 'info__category_blue');
+      catgory.href = '/Vitamin/shop.html?category=Pain+Relief';
       getItem(svgIco)?.setAttribute('href', '#box');
       break;
     case 'Antioxidants':
       classManipulator(getItem(catgory), 'add', 'info__category_orange');
+      catgory.href = '/Vitamin/shop.html?category=Antioxidants';
       getItem(svgIco)?.setAttribute('href', '#can');
       break;
     case 'Weight Loss':
       classManipulator(getItem(catgory), 'add', 'info__category_dark-blue');
+      catgory.href = '/Vitamin/shop.html?category=Weight+Loss';
       getItem(svgIco)?.setAttribute('href', '#bottle');
       break;
     case 'Probiotics':
       classManipulator(getItem(catgory), 'add', 'info__category_red');
+      catgory.href = '/Vitamin/shop.html?category=Probiotics';
       getItem(svgIco)?.setAttribute('href', '#kit');
       break;
     case 'Sale%':
       classManipulator(getItem(catgory), 'add', 'info__category_red');
+      catgory.href = '/Vitamin/shop.html?category=Sale%25';
       getItem(svgIco)?.setAttribute('href', '#kit');
       break;
     default:
@@ -215,9 +225,13 @@ function getDiscountedPrice(price: string, discount: number, count: number = 1):
     throw new Error('Invalid price format');
   }
 
-  const discountedPrice = originalPrice * (1 - discount / 100) * count;
+  const unitPrice = Math.round(originalPrice * (1 - discount / 100) * 100) / 100;
 
-  return discountedPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  console.log(Math.round(unitPrice * count * 100));
+
+  const totalPrice = Math.round(unitPrice * count * 100) / 100;
+
+  return totalPrice.toFixed(2);
 }
 
 function getTotalPrice(price: string, count: number = 1): string {

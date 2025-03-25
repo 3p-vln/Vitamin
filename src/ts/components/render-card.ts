@@ -84,7 +84,7 @@ function card(data: RecommendationData[], container: HTMLElement, colour: string
     cardImg.innerHTML = `
         <picture>
            <source srcset="${prodItem.img.img_webp}" type="image/webp">
-           <img src="${prodItem.img.img_default}" alt="prod" width="${prodItem.img.img_width}" height="${prodItem.img.img_height}" />
+           <img src="${prodItem.img.img_default}" alt="prod" width="${prodItem.img.img_width}" height="${prodItem.img.img_height}" loading="lazy"/>
         </picture>`;
 
     const cardDiscount = renderElement('div', 'prod-card__discount');

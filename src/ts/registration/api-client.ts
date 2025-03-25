@@ -24,15 +24,15 @@ const getRefreshToken = (): string | null => {
 
 // Функция сохранения accessToken и refreshToken в куки
 const setTokens = (accessToken: string, refreshToken: string): void => {
-  Cookies.set(ACCESS_TOKEN_KEY, accessToken, {  path: '/' });
-  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, {  path: '/' ,expires: 1});
+  Cookies.set(ACCESS_TOKEN_KEY, accessToken, { path: '/' });
+  Cookies.set(REFRESH_TOKEN_KEY, refreshToken, { path: '/', expires: 1 });
 };
 
 // Очистка токенов при выходе из системы или истечении refreshToken
 const clearAuthData = (): void => {
   Cookies.remove(ACCESS_TOKEN_KEY, { path: '/' });
   Cookies.remove(REFRESH_TOKEN_KEY, { path: '/' });
-  localStorage.removeItem('userInfo')
+  localStorage.removeItem('userInfo');
   console.log('not refresh');
   // window.location.href = '/Vitamin/login.html';
 };
@@ -116,4 +116,3 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
-
