@@ -82,7 +82,7 @@ export function validateRegularForm() {
     ])
     .onSuccess(async () => {
       const form = getElement<HTMLFormElement>('#regular-registration');
-      if (!form) return; // Проверяем, что форма существует
+      if (!form) return;
 
       const formData = new FormData(form);
       const data = {

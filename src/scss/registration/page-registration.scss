@@ -139,13 +139,17 @@
     justify-content: center;
     margin-top: 24px;
     padding: 17px 140px;
-    width: 100%;
+
     max-width: 444px;
     font-weight: bold;
     white-space: nowrap;
     font-size: 20px;
 
-    &_disabled {
+    &:not(.no-effect){
+      width: 100%;
+    }
+
+    &_disabled:not(.no-effect) {
       background: $disabled-btn;
       color: $font-color-white;
     }

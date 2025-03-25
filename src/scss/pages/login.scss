@@ -69,6 +69,12 @@ body {
 }
 
 .login-page {
+  padding-top: 61px;
+
+  @include media-breakpoint-down(xs) {
+    padding-top: 0;
+  }
+
   &__container {
     margin: 0 auto;
     padding-top: 52px;
@@ -80,6 +86,10 @@ body {
 
     @include media-breakpoint-down(md) {
       padding: 60px 15px;
+    }
+
+    @include media-breakpoint-down(md) {
+      padding: 40px 15px;
     }
   }
 
@@ -118,10 +128,11 @@ body {
     margin-bottom: 45px;
   }
 
-  &__reg {
-    margin-top: 100px;
+  &__log {
+    margin-top: 88px;
     margin-bottom: 80px;
     text-align: center;
+    font-size: 17px;
   }
 }
 
@@ -137,8 +148,11 @@ body {
     right: 14px;
     top: 3px;
     padding: 20px;
-    width: 270px;
     font-size: 20px;
+
+    &:not(.no-effect) {
+      width: 270px;
+    }
   }
 
   &__field {
@@ -154,7 +168,7 @@ body {
 
 .forgot-password-link {
   position: absolute;
-  right: 15px;
+  right: 39px;
   top: 40%;
   font-family: OpenSans, sans-serif;
   font-weight: normal;

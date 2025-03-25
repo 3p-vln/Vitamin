@@ -2,6 +2,11 @@
   position: relative;
   width: 100%;
 
+  @media (hover: hover) {
+    cursor: pointer;
+  }
+
+
   &__list {
     position: absolute;
     left: 0;
@@ -52,6 +57,8 @@
     align-items: center;
     position: relative;
 
+
+
     .just-validate-error-label{
       top: 55px;
       left: 0;
@@ -67,6 +74,10 @@
       background: transparent;
       width: 100%;
       max-width: 50px;
+
+      @media (hover: hover) {
+        cursor: pointer;
+      }
     }
 
     &_active {

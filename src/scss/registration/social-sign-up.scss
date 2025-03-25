@@ -11,6 +11,14 @@
     text-align: center;
     font-size: 26px;
 
+    &_log {
+      font-size: 20px;
+    }
+
+    &_reg{
+      margin-bottom: 44px;
+    }
+
     @include media-breakpoint-down(xs) {
       margin-bottom: 34px;
     }
@@ -21,7 +29,7 @@
       top: 50%;
       width: 242px;
       height: 1px;
-      background:$lineBackground;
+      background: $lineBackground;
     }
 
     &::after {
@@ -76,10 +84,10 @@
     justify-content: start;
     border-radius: 12px;
     padding-left: 16px;
+    max-width: 206px;
     width: 100%;
     height: 65px;
     background: $cardBackground;
-
     @include media-breakpoint-down(xs) {
       padding: 0 21px;
       width: 100%;
@@ -90,7 +98,7 @@
   &__link {
     position: relative;
     display: flex;
-    column-gap: 40px;
+    column-gap: 35px;
     align-items: center;
     font-weight: 500;
     font-size: 20px;
@@ -125,10 +133,13 @@
   &__icon-apple {
     width: 20px;
     height: 48px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   &__icon-facebook {
     width: 32px;
     height: 64px;
+    margin-left: 2px;
   }
 }
