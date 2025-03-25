@@ -56,7 +56,8 @@
 
         @include media-breakpoint-down(sm) {
           display: none;
-          margin-top: 30px;
+          position: relative;
+          bottom: 5px;
           width: calc(100% + 40px);
           height: 52vw;
         }
@@ -136,6 +137,7 @@
       padding-left: 0;
       max-width: 100%;
       text-align: center;
+      margin-top: 10px;
     }
   }
 
@@ -186,15 +188,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 22px;
-    width: 100%;
+    padding: 22px !important;
+    width: 100% !important;
     max-width: 255px;
     font-size: clamp(16px, 2.5vw, 20px);
 
     @include media-breakpoint-down(sm) {
       margin: 0 auto;
-      padding: 18px 30px;
-      max-width: fit-content;
+      padding: 18px 30px !important;
+      max-width: fit-content !important;
     }
   }
 
@@ -267,6 +269,7 @@
 
     &-wrapper {
       display: flex;
+      align-items: flex-end;
     }
 
     &-slide {
@@ -281,9 +284,8 @@
     }
 
     &-pagination {
-      --swiper-pagination-bullet-horizontal-gap: 12px;
-
-      bottom: 29px;
+      --swiper-pagination-bullet-horizontal-gap: 12px !important;
+      bottom: 29px !important;
 
       @include media-breakpoint-up(sm) {
         display: none;
@@ -399,7 +401,7 @@
   margin-top: 82px;
 
   @include media-breakpoint-down(sm) {
-    margin-top: 61px;
+    margin-top: 62px;
   }
 
   .baner {
@@ -423,6 +425,12 @@
 
       @include media-breakpoint-down(xxs) {
         height: 70vw;
+      }
+    }
+
+    &__info{
+      @include media-breakpoint-down(sm) {
+        margin-top: 0;
       }
     }
   }

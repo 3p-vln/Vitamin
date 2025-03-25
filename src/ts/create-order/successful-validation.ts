@@ -180,6 +180,7 @@ function addUserInfoToForm() {
     setInputValue(zipInput, storedUserInfo.postal_code);
     setInputValue(emailInput, storedUserInfo.email);
     setInputValue(phoneInput, storedUserInfo.phone);
+    if (!storedUserInfo.card_info) return;
     setInputValue(cardInput, storedUserInfo.card_info.card_number);
     setInputValue(expirationInput, storedUserInfo.card_info.card_date);
     setInputValue(cvcInput, storedUserInfo.card_info.card_cvv);

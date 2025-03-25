@@ -43,13 +43,32 @@ const handleRequest = async <T>(request: Promise<{ data: T }>): Promise<T> => {
   }
 };
 
+const handleResponse = async <T>(request: Promise<{ data: T }>): Promise<T | { errors: { message: string; field?: string }[] }> => {
+  try {
+    const response = await request;
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.error('API error:', error.response?.data || error.message);
+      return { errors: [{ message: error.response?.data?.message || error.message, field: error.response?.data?.field }] };
+    }
+    if (error instanceof Error) {
+      console.error('General error:', error.message);
+      return { errors: [{ message: error.message }] };
+    }
+
+    console.error('Unknown error:', error);
+    return { errors: [{ message: 'An unexpected error occurred.' }] };
+  }
+};
+
 // Auth
-export const logIn = (data: LogInData) => handleRequest<LogInData>(apiClient.post('/auth/login', data));
-export const register = (data: RegisterData) => handleRequest<RegisterData>(apiClient.post('/auth/register', data));
-export const resetPassword = (data: ResetPasswordData) => handleRequest<ResetPasswordData>(apiClient.post('/auth/reset-password', data));
-export const checkResetToken = (token: string) => handleRequest<AxiosResponse>(apiClient.get(`/auth/check-reset-token?token=${token}`));
-export const setNewPassword = (data: SetNewPasswordData) => handleRequest<SetNewPasswordData>(apiClient.post(`/auth/set-new-password`, data));
-export const refreshToken = (data: RefreshTokenData) => handleRequest(api.post('/auth/refresh-token', data));
+export const logIn = (data: LogInData) => handleResponse<LogInData>(apiClient.post('/auth/login', data));
+export const register = (data: RegisterData) => handleResponse<RegisterData>(apiClient.post('/auth/register', data));
+export const resetPassword = (data: ResetPasswordData) => handleResponse<ResetPasswordData>(apiClient.post('/auth/reset-password', data));
+export const checkResetToken = (token: string) => handleResponse<AxiosResponse>(apiClient.get(`/auth/check-reset-token?token=${token}`));
+export const setNewPassword = (data: SetNewPasswordData) => handleResponse<SetNewPasswordData>(apiClient.post(`/auth/set-new-password`, data));
+export const refreshToken = (data: RefreshTokenData) => handleResponse(api.post('/auth/refresh-token', data));
 
 //Catalog
 export const getCatalogList = (page: number, limit: number, type?: string) => handleRequest<ProdResponse>(api.get('/catalog/all-list', { params: { type, page, limit } }));
@@ -58,11 +77,11 @@ export const createOrder = (data: OrderData) => handleRequest(api.post('/catalog
 export const getRecommendations = (isMain: boolean) => handleRequest<ProdResponse>(api.get(`${isMain ? '/catalog/recommendations?is_main=true' : '/catalog/recommendations'}`));
 
 //Profile
-export const getProfileInfo = () => handleRequest<UserInfo | UserNotFoundInfo>(apiClient.get('/profile/info'));
-export const getOrderHistory = () => handleRequest<OrdersData>(apiClient.get('/profile/order-history'));
-export const updateProfile = (data: ProfileUpdateData) => handleRequest<ProfileUpdateData>(apiClient.put('/profile/update-profile', data));
-export const updateCardInfo = (data: CardInfoData) => handleRequest<CardInfoData>(apiClient.put('/profile/update-card-info', data));
-export const changePassword = (data: PasswordData) => handleRequest<PasswordData>(apiClient.put('/profile/change-password', data));
+export const getProfileInfo = () => handleResponse<UserInfo | UserNotFoundInfo>(apiClient.get('/profile/info'));
+export const getOrderHistory = () => handleResponse<OrdersData>(apiClient.get('/profile/order-history'));
+export const updateProfile = (data: ProfileUpdateData) => handleResponse<ProfileUpdateData>(apiClient.put('/profile/update-profile', data));
+export const updateCardInfo = (data: CardInfoData) => handleResponse<CardInfoData>(apiClient.put('/profile/update-card-info', data));
+export const changePassword = (data: PasswordData) => handleResponse<PasswordData>(apiClient.put('/profile/change-password', data));
 
 // Функция получения accessToken из куков
 const getAccessToken = (): string | null => {

@@ -1,9 +1,8 @@
 import IMask from 'imask';
 import JustValidate from 'just-validate';
 import validator from 'validator';
-import { paymentRequest } from './payment-request.ts';
+import { paymentData, paymentRequest } from './payment-request.ts';
 import { getElement } from '../../composables/use-call-dom.ts';
-import { paymentData } from '../../../typings/interfaces.ts';
 
 export let validate: any;
 
