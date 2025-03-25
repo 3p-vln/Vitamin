@@ -207,14 +207,15 @@ function removeProductFromLocalStorage(prodId: number) {
 
 export function getDiscountedPrice(price: string, discount: number, count: number): string {
   const originalPrice = parseFloat(price);
-
   if (isNaN(originalPrice)) {
     throw new Error('Invalid price format');
   }
 
-  const discountedPrice = originalPrice * (1 - discount / 100) * count;
+  const unitPrice = Math.round(originalPrice * (1 - discount / 100) * 100) / 100;
 
-  return discountedPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const totalPrice = Math.round(unitPrice * count * 100) / 100;
+
+  return totalPrice.toFixed(2);
 }
 
 export function getTotalPrice(price: string, count: number): string {

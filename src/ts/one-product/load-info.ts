@@ -227,8 +227,6 @@ function getDiscountedPrice(price: string, discount: number, count: number = 1):
 
   const unitPrice = Math.round(originalPrice * (1 - discount / 100) * 100) / 100;
 
-  console.log(Math.round(unitPrice * count * 100));
-
   const totalPrice = Math.round(unitPrice * count * 100) / 100;
 
   return totalPrice.toFixed(2);
