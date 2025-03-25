@@ -42,8 +42,12 @@
 
     @include media-breakpoint-down(xs) {
       font-size: 24px;
-      max-width: 270px;
+      max-width: 300px;
       margin-bottom: 16px;
+    }
+
+    @include media-breakpoint-down(xxs) {
+      max-width: 270px;
     }
   }
 
@@ -103,6 +107,7 @@
     white-space: nowrap;
     transition: transform 0.3s;
     font-size: 20px;
+    color: $font-color-white;
 
     @include media-breakpoint-down(sm) {
       padding: 15px 30px;

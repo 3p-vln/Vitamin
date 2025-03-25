@@ -61,7 +61,7 @@
   &__text {
     margin-bottom: 51px;
     max-width: 770px;
-    font-family: Effra, sans-serif;
+    font-family: OpenSans, sans-serif;
     font-weight: normal;
     line-height: 1.63;
     text-align: center;
@@ -69,12 +69,18 @@
     font-size: 20px;
     color: $fontColorText;
 
+
     &_width {
       max-width: 920px;
       margin-bottom: 48px;
     }
 
     @include media-breakpoint-down(xs) {
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    @include media-breakpoint-down(xxs) {
       font-size: 14px;
       margin-bottom: 18px;
     }
@@ -91,6 +97,7 @@
     white-space: nowrap;
     transition: transform 0.3s;
     font-size: 20px;
+    color: $font-color-white;
 
     &:hover {
       transform: scale(1.05);
@@ -102,6 +109,11 @@
     }
 
     @include media-breakpoint-down(xs) {
+      padding: 13px 30px;
+      font-size: 14px;
+    }
+
+    @include media-breakpoint-down(xxs) {
       padding: 13px 25px;
     }
   }

@@ -1,5 +1,6 @@
 import JustValidate from 'just-validate';
 import { changePasswordRequest } from './change-password-request.ts';
+import { getElement } from '../../composables/use-call-dom.ts';
 
 interface PasswordForm {
   old_password: string;
@@ -46,9 +47,11 @@ export function validateChangePassword() {
       {
         rule: 'custom',
         validator: (value: string) => {
-          const newPassword = document.getElementById('#new-password');
+          const newPassword = getElement<HTMLInputElement>('#new-password');
 
           if (!(newPassword instanceof HTMLInputElement)) return;
+          console.log(newPassword.value);
+          console.log(value);
           return value === newPassword.value;
         },
         errorMessage: 'Passwords do not match',
@@ -56,15 +59,15 @@ export function validateChangePassword() {
     ])
 
     .onSuccess(() => {
-      const newPassword = document.getElementById('#new-password');
-      const currentPassword = document.getElementById('#old_password');
-
+      const newPassword = getElement('#new-password');
+      const currentPassword = getElement('#repeat-new-password');
       if (newPassword instanceof HTMLInputElement && currentPassword instanceof HTMLInputElement) {
         if (newPassword.value && currentPassword.value) {
           const data: PasswordForm = {
             old_password: currentPassword.value,
             new_password: newPassword.value,
           };
+
           changePasswordRequest(data);
         }
       }

@@ -45,8 +45,10 @@
   }
 
   &__file-button {
-    border-radius: 12px;
-    padding: 10px 30px;
+    &:not(.no-effect) {
+      border-radius: 12px;
+      padding: 10px 30px;
+    }
 
     @include media-breakpoint-down(xs) {
       margin: 10px;
@@ -61,7 +63,7 @@
     margin-right: 26px;
     font-weight: normal;
     font-size: 18px;
-    color:$font-color-black;
+    color: $font-color-black;
     opacity: 0.3;
 
     @include media-breakpoint-down(xs) {

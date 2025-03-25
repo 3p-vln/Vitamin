@@ -16,8 +16,18 @@
         <div class="recover__description">Please enter your email:</div>
 
         <div class="recover__field field">
-          <input class="field__input" id="recover-email" placeholder=" " type="email" name="email">
+          <input class="field__input field__input_password" id="recover-email" placeholder=" " type="password" name="email">
           <label class="field__label" for="recover-email">Email</label>
+          <span class="field__password-icon show">
+
+            <svg class="field__password-icon-open">
+              <use href="#password-icon"></use>
+            </svg>
+
+            <svg class="field__password-icon-close">
+              <use href="#password-icon-alt"></use>
+            </svg>
+          </span>
         </div>
 
         <button class="btn btn_orange  recover__submit-btn" type="submit">
@@ -37,3 +47,4 @@
 
   </main>
 </div>
+<load ="/src/img/recover-sprite.html" />

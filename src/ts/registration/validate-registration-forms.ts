@@ -3,7 +3,9 @@ import { registrationRequest } from './registration-request.ts';
 import JustValidate from 'just-validate';
 
 export function validateWholesaleForm() {
-  const validator = new JustValidate('#wholesale-registration');
+  const validator = new JustValidate('#wholesale-registration', {
+    fallback: false,
+  });
 
   validator
     .addField('#wholesale-registration-email', [
@@ -98,11 +100,10 @@ export function validateWholesaleForm() {
     ])
     .onSuccess(async () => {
       const form = getElement<HTMLFormElement>('#wholesale-registration');
-      if (!form) return; // Проверяем, что форма существует
-
+      if (!form) return;
+      const submitBtn = getElement<HTMLButtonElement>('#wholesale-registration button[type="submit"]', form);
+      submitBtn?.removeAttribute('data-just-validate-fallback-disabled');
       const formData = new FormData(form);
-      const file = formData.get('file');
-      if (!(file instanceof File)) return; // Проверяем, что файл валиден
 
       const data = {
         role_type: 'whosale',
@@ -110,9 +111,7 @@ export function validateWholesaleForm() {
         first_name: formData.get('first_name')?.toString() ?? '',
         last_name: formData.get('last_name')?.toString() ?? '',
         password: formData.get('password')?.toString() ?? '',
-        file: file,
       };
-
       await registrationRequest(data);
     });
 }

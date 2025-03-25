@@ -7,6 +7,8 @@ export function logout() {
     logoutButton.addEventListener('click', () => {
       window.location.href = '/Vitamin';
       localStorage.removeItem('userInfo');
+      localStorage.removeItem('cartItems');
+      localStorage.removeItem('orderInfo');
       Cookies.remove('accessToken', { path: '/' });
       Cookies.remove('refreshToken', { path: '/' });
     });

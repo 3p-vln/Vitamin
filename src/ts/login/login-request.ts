@@ -11,6 +11,8 @@ export interface LoginData {
 
 export async function loginRequest(data: LoginData) {
   const res: any = await logIn(data);
+  console.log(data);
+  console.log(0);
   if (res.accessToken) {
     Cookies.set('refreshToken', res.refreshToken, { path: '/' });
     Cookies.set('accessToken', res.accessToken, { path: '/' });
@@ -24,17 +26,22 @@ export async function loginRequest(data: LoginData) {
   }
 
   if ('message' in res.errors[0]) {
+    console.log(1);
     const errorMessageContainer = getElement<HTMLElement>('.login-form__error-message');
 
     if (!errorMessageContainer) return;
+    console.log(2);
 
     switch (res.errors[0].message) {
+
       case 'Не правильний пароль':
         errorMessageContainer.innerHTML = 'Wrong password';
+        console.log(3);
         break;
 
       case 'Користувач не знайдений':
         errorMessageContainer.innerHTML = 'Wrong email';
+        console.log(4);
         break;
       default:
         errorMessageContainer.innerHTML = 'Error, try again later';

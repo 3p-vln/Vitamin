@@ -25,8 +25,17 @@
     @include media-breakpoint-down(xs) {
       margin-top: -100px;
       padding-top: 71px;
+      padding-bottom: 130px;
+    }
+    @include media-breakpoint-down(xxs) {
+      margin-top: -100px;
+      padding-top: 71px;
       padding-bottom: 115px;
     }
+  }
+
+  @include media-breakpoint-down(xxs) {
+    padding-bottom: 105px;
   }
 
   &__layer {
@@ -212,6 +221,11 @@
     @include media-breakpoint-down(xs) {
       font-size: 14px;
     }
+
+    @include media-breakpoint-down(xxs) {
+      position: relative;
+      top: -7px;
+    }
   }
 
   &__img-block {
@@ -250,6 +264,18 @@
       position: absolute;
       left: -18px;
       top: 7px;
+      width: 200px;
+      height: 171px;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    @include media-breakpoint-down(xxs) {
+      position: absolute;
+      left: -18px;
+      top: 7px;
       width: 170px;
       height: 171px;
 
@@ -259,7 +285,7 @@
     }
 
     @include media-breakpoint-down(xxs) {
-      height: 141px;
+      height: 135px;
     }
   }
 
@@ -284,8 +310,19 @@
     @include media-breakpoint-down(xs) {
       left: 15px;
       width: 100%;
-      top: 57px;
-      max-width: 255px;
+      top: 72px;
+      max-width: 288px;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    @include media-breakpoint-down(xxs) {
+      left: 18px;
+      width: 100%;
+      top: 48px;
+      max-width: 258px;
 
       img {
         height: 100%;
@@ -298,7 +335,14 @@
     height: 84px;
 
     @include media-breakpoint-down(xs) {
+      width: 56px;
+    }
+
+    @include media-breakpoint-down(xxs) {
       width: 68px;
+      position: relative;
+      top: -5px;
+      left: 3px;
     }
   }
 
@@ -307,16 +351,37 @@
     height: 97px;
 
     @include media-breakpoint-down(xs) {
-      width: 68px;
-      height: 73px;
+      width: 50px;
+      height: 78px;
+    }
+
+    @include media-breakpoint-down(xxs) {
+      width: 58px;
+      position: relative;
+      top: -6px;
+      left: 6px;
+      margin-right: 10px;
     }
   }
 
   &__shopping-orange {
     width: 85px;
     height: 107px;
+
     @include media-breakpoint-down(xs) {
-      width: 69px;
+      width: 44px;
+      position: relative;
+      top: -5px;
+      left: 3px;
+      margin-right: 6px;
+    }
+
+    @include media-breakpoint-down(xxs) {
+      width: 55px;
+      position: relative;
+      top: -11px;
+      left: 7px;
+      margin-right: 9px;
     }
   }
 }
