@@ -5,6 +5,7 @@ import { initDropdown } from '../dropdown.ts';
 import { getCatalogItem } from '../../composables/use-api.ts';
 
 const cartContainer = getElement('.cart__items');
+const cartBtn = getElement('.cart__btn');
 const storedUserInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
 
 let empty: boolean;
@@ -345,11 +346,12 @@ export function loadCartFromLocalStorage() {
 }
 
 export function emptyBag(isEmpty: boolean) {
-  if (!cartContainer) return;
+  if (!cartContainer || !cartBtn) return;
   if (!isEmpty) {
     classManipulator(cartContainer, 'remove', 'empty');
     const emptyText = getElements('.cart__empty');
     emptyText.forEach((el) => el.remove());
+    cartBtn.style.display = '';
   }
 
   if (isEmpty) {
@@ -357,6 +359,7 @@ export function emptyBag(isEmpty: boolean) {
     empty.innerText = 'Your cart is empty';
 
     classManipulator(cartContainer, 'add', 'empty');
+    cartBtn.style.display = 'none';
 
     cartContainer.appendChild(empty);
   }

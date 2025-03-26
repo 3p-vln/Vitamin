@@ -77,7 +77,9 @@ function scrollLock() {
     header.style.left = '0';
     header.style.backgroundColor = 'white';
 
-    header.style.paddingRight = `${getScrollbarWidthAlternative()}px`;
+    const scrollbarWidth = getScrollbarWidthAlternative();
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    header.style.paddingRight = `${scrollbarWidth}px`;
 
     return;
   }
@@ -86,6 +88,7 @@ function scrollLock() {
   document.body.style.top = '';
   document.body.style.left = '';
   document.body.style.width = '';
+  document.body.style.paddingRight = '';
 
   document.documentElement.style.scrollBehavior = 'auto';
   window.scrollTo({ top: scrollPosition, behavior: 'instant' });
