@@ -99,10 +99,9 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   }
 
   const autoship = renderElement('div', 'prod__autoship');
-
   autoship.innerHTML = `
     <div class="prod__checkbox">
-      <input type="checkbox" name="autoship" ${autoshipChecked ? 'checked' : ''}/>
+      <input type="checkbox" name="autoship" ${autoshipChecked ? 'checked' : ''} onclick="return ${prod.disabled_subscribe};"/>
       
       <span></span>
     </div>
@@ -158,6 +157,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   removeProd(prod.id);
 
   updateInfoInLocal(prod);
+  changeAutoship(prod);
 }
 
 function removeProd(prodId: number) {
@@ -446,4 +446,27 @@ export function blockBtn() {
 
   btn.style.backgroundColor = '';
   btn.style.pointerEvents = '';
+}
+
+function changeAutoship(prod: Product) {
+  const autoshipProd = getElement('.autoship__on-off');
+  const autoshipProdCircle = getElement('.autoship__circle');
+  const autoshipCheckbox = getElement(`.prod_${prod.id} .prod__checkbox`);
+  const autoshipCheckboxInput = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
+
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  const productIndex = cartItems.findIndex((item: Product) => item.id === Number(prod.id));
+
+  if (!autoshipProdCircle || !autoshipProd || !autoshipCheckbox || !autoshipCheckboxInput || !productIndex) return;
+
+  if (productIndex.autoshipChecked) {
+    autoshipProd.classList.add('autoship__on-off_active');
+    autoshipProdCircle.classList.add('autoship__circle_active');
+  }
+
+  autoshipCheckbox.addEventListener('click', () => {
+    autoshipProd.classList.toggle('autoship__on-off_active');
+    autoshipProdCircle.classList.toggle('autoship__circle_active');
+  });
 }

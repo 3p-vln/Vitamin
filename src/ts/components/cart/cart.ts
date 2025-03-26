@@ -1,5 +1,6 @@
 import { classManipulator, getElement, getElements, renderElement } from '../../composables/use-call-dom.ts';
 import { loadCartFromLocalStorage, totalCartPrice } from './render-cart.ts';
+import { Product } from '../../../typings/interfaces.ts';
 
 const cartBtn = getElement('.header__bag');
 const cart = getElement('.cart');
@@ -22,6 +23,8 @@ export function initCart() {
 
   cartCloseBtn.addEventListener('click', () => cartClose());
   cartBg.addEventListener('click', () => cartClose());
+
+  changeAutoship();
 }
 
 export function cartActive(event: Event) {
@@ -123,5 +126,23 @@ function getScrollbarWidthAlternative(): number {
 function changeAutoshipText(textEl: HTMLElement) {
   if (window.innerWidth < 768) {
     textEl.innerText = 'Deliver every';
+  }
+}
+
+function changeAutoship() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const prodId = urlParams.get('id');
+  const autoshipProd = getElement('.autoship__on-off');
+  const autoshipProdCircle = getElement('.autoship__circle');
+
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  const productIndex = cartItems.findIndex((item: Product) => item.id === Number(prodId));
+
+  if (!autoshipProdCircle || !autoshipProd || !productIndex) return;
+
+  if (cartItems[productIndex].autoshipChecked) {
+    autoshipProd.classList.add('autoship__on-off_active');
+    autoshipProdCircle.classList.add('autoship__circle_active');
   }
 }

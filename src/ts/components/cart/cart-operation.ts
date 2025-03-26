@@ -99,7 +99,7 @@ export function addProdToCart(prod: Product) {
 export function addAutoship(prod: Product) {
   if (!prod.disabled_subscribe) return;
 
-  const autoshipCheckbox = getElement(`.prod_${prod.id} .prod__checkbox input`) as HTMLInputElement;
+  const autoshipCheckbox = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
   const autoshipDays = getElement(`.prod_${prod.id} .dropdown__text`);
   const autoshipDaysAddEl = getElement('.autoship__dropdown .dropdown__text');
   if (!autoshipDaysAddEl) return;
