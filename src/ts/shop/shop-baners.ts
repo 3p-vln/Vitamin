@@ -64,7 +64,6 @@ function removeDuplicate() {
     swiperSlides.forEach((slide) => {
       const dubSlide = renderElement('div', ['shop-baners__swiper-slide', 'shop-baners__swiper-slide-duplicate', 'swiper-slide']);
       dubSlide.innerHTML = slide.innerHTML;
-      console.log(slide);
 
       swiperWrapper.appendChild(dubSlide);
     });

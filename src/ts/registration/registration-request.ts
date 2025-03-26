@@ -17,7 +17,6 @@ export async function registrationRequest(data: RegisterData) {
     return;
   }
 
-  console.log(res.errors[0].message);
   const errorMessageContainer: NodeListOf<HTMLSpanElement> = getElements('.registration-form__error-message');
   if (errorMessageContainer) {
     switch (res.errors[0].message) {

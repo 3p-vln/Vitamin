@@ -50,8 +50,6 @@ export function validateChangePassword() {
           const newPassword = getElement<HTMLInputElement>('#new-password');
 
           if (!(newPassword instanceof HTMLInputElement)) return;
-          console.log(newPassword.value);
-          console.log(value);
           return value === newPassword.value;
         },
         errorMessage: 'Passwords do not match',
