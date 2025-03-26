@@ -141,10 +141,23 @@ function changeAutoship() {
 
   const productIndex = cartItems.findIndex((item: Product) => item.id === Number(prodId));
 
-  if (!autoshipProdCircle || !autoshipProd || !productIndex || !cartItems[productIndex]) return;
-
   if (cartItems[productIndex].autoshipChecked) {
-    autoshipProd.classList.add('autoship__on-off_active');
-    autoshipProdCircle.classList.add('autoship__circle_active');
+    console.log(cartItems[productIndex].autoshipChecked);
+    autoshipProd?.classList.toggle('autoship__on-off_active');
+    autoshipProdCircle?.classList.toggle('autoship__circle_active');
   }
+
+  document.addEventListener('checkAutoship', () => {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    const productIndex = cartItems.findIndex((item: Product) => item.id === Number(prodId));
+
+    if (cartItems[productIndex].autoshipChecked == true) {
+      autoshipProd?.classList.add('autoship__on-off_active');
+      autoshipProdCircle?.classList.add('autoship__circle_active');
+      return;
+    }
+
+    autoshipProd?.classList.remove('autoship__on-off_active');
+    autoshipProdCircle?.classList.remove('autoship__circle_active');
+  });
 }

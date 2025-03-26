@@ -105,7 +105,7 @@ function showInfo(prodInfo: Product) {
   img.innerHTML = `
      <picture>
         <source srcset="${prodInfo.img.img_webp}" type="image/webp">
-        <img src="${prodInfo.img.img_default}" alt="prod" width="${prodInfo.img.img_width}" height="${prodInfo.img.img_height}" loading="lazy"/>
+        <img src="${prodInfo.img.img_default}" alt="prod" width="${prodInfo.img.img_width}" height="${prodInfo.img.img_height}"/>
      </picture>`;
 
   if (!catgory) return;
