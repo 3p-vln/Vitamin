@@ -1,14 +1,17 @@
 @import '../style';
 
-body {
+main {
   background: $cardBackground;
+  margin: 0 !important;
 }
 
 .recover-header {
   background: $cardBackground;
+  width: 100%;
   padding-top: 30px;
   padding-bottom: 209px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 
   svg {
     width: 42px;
@@ -40,7 +43,7 @@ body {
     justify-content: center;
     align-items: center;
     background: $background;
-    margin-bottom: 226px;
+    margin-bottom: 220px;
 
     &_new-password {
       display: none;
@@ -106,10 +109,17 @@ body {
   }
 
   &__submit-btn {
-    max-width: 270px;
-    width: 100%;
+
     display: flex;
     justify-content: center;
+
+    &:not(.no-effect){
+      max-width: 270px;
+      width: 100%;
+      padding: 22px 29px;
+      font-weight: 700;
+      font-size: 20px;
+    }
   }
 
   &__reg {
