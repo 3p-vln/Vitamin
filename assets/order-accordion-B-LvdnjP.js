@@ -1,0 +1,1 @@
+import{g as t}from"./use-call-dom-CaqOo_cc.js";const c=t(".accordion"),o=t(".accordion-content");function i(){!c||!o||c.addEventListener("click",()=>{c.classList.toggle("accordion_active"),o.classList.toggle("accordion-content_active")})}export{i as default};

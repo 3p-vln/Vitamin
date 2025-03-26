@@ -1,1 +1,0 @@
-function u(e,r=document){return r.querySelectorAll(e)}function c(e,r=document){return r.querySelector(e)}function n(e,r,t){e&&(r==="add"?e.classList.add(t):r==="remove"&&e.classList.remove(t))}function d(e,r){const t=document.createElement(e);if(r){if(Array.isArray(r))return r.forEach(o=>n(t,"add",o)),t;n(t,"add",r)}return t}export{u as a,n as c,c as g,d as r};
