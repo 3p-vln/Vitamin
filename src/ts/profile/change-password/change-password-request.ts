@@ -12,6 +12,7 @@ export async function changePasswordRequest(data: PasswordForm) {
   const formChangePassword = getElement('change-password');
 
   const res = await changePassword(data);
+  console.log(res);
 
   if (!('errors' in res)) {
     if (massageContainer) {

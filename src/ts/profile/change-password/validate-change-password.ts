@@ -60,7 +60,7 @@ export function validateChangePassword() {
 
     .onSuccess(() => {
       const newPassword = getElement('#new-password');
-      const currentPassword = getElement('#repeat-new-password');
+      const currentPassword = getElement('#old_password');
       if (newPassword instanceof HTMLInputElement && currentPassword instanceof HTMLInputElement) {
         if (newPassword.value && currentPassword.value) {
           const data: PasswordForm = {

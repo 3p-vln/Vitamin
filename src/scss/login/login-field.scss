@@ -8,6 +8,10 @@
 
 &:not(:last-child) {
   margin-bottom: 18px;
+
+  @include media-breakpoint-down(xs) {
+    margin-bottom: 9px;
+  }
 }
 
   &_file{
@@ -28,6 +32,16 @@
     font-size: 18px;
     background: transparent;
 
+    &_login-password{
+     @include media-breakpoint-down(xs) {
+       width: 184px;
+     }
+
+      @include media-breakpoint-down(xxs) {
+        width: 126px;
+      }
+    }
+
     &:-webkit-autofill,
     textarea:-webkit-autofill,
     select:-webkit-autofill {
@@ -38,6 +52,7 @@
 
 
   &__label {
+
     position: absolute;
     left: 9px;
     top: 52%;
@@ -47,6 +62,12 @@
     font-size: 18px;
     color: $font-color-black;
     opacity: 0.3;
+
+    @include media-breakpoint-down(xs) {
+      font-family: OpenSans, sans-serif;
+      top: 49%;
+      left: -1px;
+    }
   }
 
   &__file-button{

@@ -58,11 +58,23 @@ body {
         width: 100%;
         max-width: 576px;
         text-align: center;
+
+        @include media-breakpoint-down(xs) {
+          position: relative;
+          top: -5px;
+          left: -5px;
+        }
       }
 
       svg {
         width: 11px;
         height: 21px;
+
+        @include media-breakpoint-down(xs) {
+          position: relative;
+          top: -3px;
+          left: 13px;
+        }
       }
     }
   }
@@ -100,6 +112,10 @@ body {
     text-align: center;
     font-size: 26px;
     color: $font-color-black;
+
+    @include media-breakpoint-down(xs) {
+      font-size: 24px;
+    }
   }
 
   &__subtitle {
@@ -109,6 +125,10 @@ body {
     line-height: 1.75;
     text-align: center;
     font-size: 16px;
+
+    @include media-breakpoint-down(xs) {
+      font-size: 14px;
+    }
   }
 
   &__registration {
@@ -129,10 +149,16 @@ body {
   }
 
   &__log {
+    font-family: OpenSans, sans-serif;
     margin-top: 88px;
     margin-bottom: 80px;
     text-align: center;
     font-size: 17px;
+
+    @include media-breakpoint-down(xs) {
+      font-size: 14px;
+      margin-top: 53px;
+    }
   }
 }
 
@@ -152,6 +178,21 @@ body {
 
     &:not(.no-effect) {
       width: 270px;
+    }
+    @include media-breakpoint-down(xs) {
+      font-size: 16px;
+      margin-top: 6px;
+      &:not(.no-effect) {
+        width: 100%;
+        max-width: 330px;
+      }
+    }
+
+    @include media-breakpoint-down(xxs) {
+
+      &:not(.no-effect) {
+        width: 278px;
+      }
     }
   }
 
@@ -177,10 +218,12 @@ body {
   font-size: 14px;
   color: $font-color-black;
   opacity: 0.5;
-}
 
-#login-password {
-  @include media-breakpoint-down(xxs) {
-    width: 180px;
+  @include media-breakpoint-down(xs) {
+    right: 25px;
+  }
+
+  @include media-breakpoint-down(xs) {
+    right: 30px;
   }
 }

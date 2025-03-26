@@ -24,6 +24,13 @@ export async function overviewRequest(data: FormData) {
       massageContainer.style.background = 'green';
       massageContainer.classList.toggle('hidden');
     }
+
+    setTimeout(() => {
+      if (massageContainer) {
+        massageContainer.classList.add('hidden');
+        massageContainer.innerHTML = '';
+      }
+    }, 5000);
     return;
   }
   const field = `#${[res.errors[0].field!]}`;
@@ -31,10 +38,6 @@ export async function overviewRequest(data: FormData) {
 
   validation.showErrors(errorsObj);
 
-  setTimeout(() => {
-    if (massageContainer) {
-      massageContainer.classList.add('hidden');
-      massageContainer.innerHTML = '';
-    }
-  }, 5000);
+
 }
+
