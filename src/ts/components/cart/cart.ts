@@ -137,9 +137,11 @@ function changeAutoship() {
 
   let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
+  if (!prodId) return;
+
   const productIndex = cartItems.findIndex((item: Product) => item.id === Number(prodId));
 
-  if (!autoshipProdCircle || !autoshipProd || !productIndex) return;
+  if (!autoshipProdCircle || !autoshipProd || !productIndex || !cartItems[productIndex]) return;
 
   if (cartItems[productIndex].autoshipChecked) {
     autoshipProd.classList.add('autoship__on-off_active');
