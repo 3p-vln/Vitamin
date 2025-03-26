@@ -5,6 +5,7 @@ import { initDropdown } from '../dropdown.ts';
 import { getCatalogItem } from '../../composables/use-api.ts';
 
 const cartContainer = getElement('.cart__items');
+const cartBtn = getElement('.cart__btn');
 const storedUserInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
 
 let empty: boolean;
@@ -98,10 +99,9 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   }
 
   const autoship = renderElement('div', 'prod__autoship');
-
   autoship.innerHTML = `
     <div class="prod__checkbox">
-      <input type="checkbox" name="autoship" ${autoshipChecked ? 'checked' : ''}/>
+      <input type="checkbox" name="autoship" ${autoshipChecked ? 'checked' : ''} onclick="return ${prod.disabled_subscribe};"/>
       
       <span></span>
     </div>
@@ -157,6 +157,7 @@ export function renderProdCard(prod: Product, autoshipChecked: boolean = false, 
   removeProd(prod.id);
 
   updateInfoInLocal(prod);
+  changeAutoship(prod);
 }
 
 function removeProd(prodId: number) {
@@ -207,14 +208,15 @@ function removeProductFromLocalStorage(prodId: number) {
 
 export function getDiscountedPrice(price: string, discount: number, count: number): string {
   const originalPrice = parseFloat(price);
-
   if (isNaN(originalPrice)) {
     throw new Error('Invalid price format');
   }
 
-  const discountedPrice = originalPrice * (1 - discount / 100) * count;
+  const unitPrice = Math.round(originalPrice * (1 - discount / 100) * 100) / 100;
 
-  return discountedPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const totalPrice = Math.round(unitPrice * count * 100) / 100;
+
+  return totalPrice.toFixed(2);
 }
 
 export function getTotalPrice(price: string, count: number): string {
@@ -344,11 +346,12 @@ export function loadCartFromLocalStorage() {
 }
 
 export function emptyBag(isEmpty: boolean) {
-  if (!cartContainer) return;
+  if (!cartContainer || !cartBtn) return;
   if (!isEmpty) {
     classManipulator(cartContainer, 'remove', 'empty');
     const emptyText = getElements('.cart__empty');
     emptyText.forEach((el) => el.remove());
+    cartBtn.style.display = '';
   }
 
   if (isEmpty) {
@@ -356,6 +359,7 @@ export function emptyBag(isEmpty: boolean) {
     empty.innerText = 'Your cart is empty';
 
     classManipulator(cartContainer, 'add', 'empty');
+    cartBtn.style.display = 'none';
 
     cartContainer.appendChild(empty);
   }
@@ -442,4 +446,27 @@ export function blockBtn() {
 
   btn.style.backgroundColor = '';
   btn.style.pointerEvents = '';
+}
+
+function changeAutoship(prod: Product) {
+  const autoshipProd = getElement('.autoship__on-off');
+  const autoshipProdCircle = getElement('.autoship__circle');
+  const autoshipCheckbox = getElement(`.prod_${prod.id} .prod__checkbox`);
+  const autoshipCheckboxInput = getElement<HTMLInputElement>(`.prod_${prod.id} .prod__checkbox input`);
+
+  let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  const productIndex = cartItems.findIndex((item: Product) => item.id === Number(prod.id));
+
+  if (!autoshipProdCircle || !autoshipProd || !autoshipCheckbox || !autoshipCheckboxInput || !productIndex) return;
+
+  if (productIndex.autoshipChecked) {
+    autoshipProd.classList.add('autoship__on-off_active');
+    autoshipProdCircle.classList.add('autoship__circle_active');
+  }
+
+  autoshipCheckbox.addEventListener('click', () => {
+    autoshipProd.classList.toggle('autoship__on-off_active');
+    autoshipProdCircle.classList.toggle('autoship__circle_active');
+  });
 }
