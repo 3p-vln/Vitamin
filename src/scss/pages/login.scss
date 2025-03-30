@@ -150,10 +150,10 @@ body {
 
   &__log {
     font-family: OpenSans, sans-serif;
-    margin-top: 88px;
+    margin-top: 85px;
     margin-bottom: 80px;
     text-align: center;
-    font-size: 17px;
+    font-size: 16px;
 
     @include media-breakpoint-down(xs) {
       font-size: 14px;
@@ -169,6 +169,10 @@ body {
   align-items: center;
   padding-left: 30px;
 
+  @include media-breakpoint-down(xs) {
+    padding-left: 10px;
+  }
+
   &__submit {
     position: relative;
     right: 14px;
@@ -183,8 +187,9 @@ body {
       font-size: 16px;
       margin-top: 6px;
       &:not(.no-effect) {
+        margin-left: 15px;
         width: 100%;
-        max-width: 330px;
+        max-width: 335px;
       }
     }
 
@@ -208,6 +213,7 @@ body {
 }
 
 .forgot-password-link {
+
   position: absolute;
   right: 39px;
   top: 40%;

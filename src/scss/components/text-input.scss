@@ -37,6 +37,7 @@
 
 
   &__label {
+    font-family: OpenSans, sans-serif;
     position: absolute;
     left: 25px;
     top: 50%;
@@ -106,8 +107,8 @@
 
 .field__input:not(:placeholder-shown) + .field__label,
 .field__input:focus + .field__label {
-  left: 2px;
-  top: -17px;
+  left: -1px;
+  top: -13px;
   padding: 0 3px;
   color: #000;
   font-size: 14px;

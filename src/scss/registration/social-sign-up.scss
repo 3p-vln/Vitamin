@@ -66,6 +66,11 @@
 
     &_reg{
       margin-bottom: 44px;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 24px;
+        margin-bottom: 34px;
+      }
     }
   }
 
