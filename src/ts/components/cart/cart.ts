@@ -141,6 +141,8 @@ function changeAutoship() {
 
   const productIndex = cartItems.findIndex((item: Product) => item.id === Number(prodId));
 
+  if (!cartItems[productIndex]) return;
+
   if (cartItems[productIndex].autoshipChecked) {
     console.log(cartItems[productIndex].autoshipChecked);
     autoshipProd?.classList.toggle('autoship__on-off_active');

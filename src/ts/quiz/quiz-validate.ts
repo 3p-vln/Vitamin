@@ -39,6 +39,10 @@ export function validateNameForm(): Promise<boolean> {
       },
     ]);
 
+    const event = new Event('input', { bubbles: true });
+    firstNameInput.dispatchEvent(event);
+    firstNameInput.addEventListener('blur', () => validator.revalidateField('#firstName'));
+
     if (document.readyState === 'complete') {
       validator.revalidate().then((isValid: boolean) => {
         if (isValid) {
@@ -50,6 +54,7 @@ export function validateNameForm(): Promise<boolean> {
 
       return;
     }
+
     resolve(false);
   });
 }
@@ -82,6 +87,10 @@ export function validateEmailForm(): Promise<boolean> {
       },
     ]);
 
+    const event = new Event('input', { bubbles: true });
+    firstEmailInput.dispatchEvent(event);
+    firstEmailInput.addEventListener('blur', () => validator.revalidateField('#email'));
+
     if (document.readyState === 'complete') {
       validator.revalidate().then((isValid: boolean) => {
         resolve(isValid);
@@ -89,6 +98,7 @@ export function validateEmailForm(): Promise<boolean> {
 
       return;
     }
+
     resolve(false);
   });
 }

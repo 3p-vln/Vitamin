@@ -128,7 +128,7 @@ function applyCategoryClass(type: string, categoryElement: HTMLElement) {
   const categoryClasses: { [key: string]: string } = {
     'Vitamins & Dietary Supplements': 'info__category_purple',
     Minerals: 'info__category_green-mint',
-    'Prenatal Vitamins': 'info__category_purple',
+    'Prenatal Vitamins': 'info__category_pink',
     'Pain Relief': 'info__category_blue',
     Antioxidants: 'info__category_orange',
     'Weight Loss': 'info__category_dark-blue',

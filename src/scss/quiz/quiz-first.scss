@@ -288,7 +288,7 @@
     font-family: OpenSans;
     font-weight: 600;
     text-align: left;
-    font-size: 18px;
+    font-size: clamp(16px, 2.5vw, 18px);
     background-color: $fontColorTitleWjite;
     color: $fontColorTitleBlack;
 

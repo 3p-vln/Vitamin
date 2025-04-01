@@ -9,7 +9,7 @@
 
   @include media-breakpoint-down(sm) {
     margin-top: 60px;
-    margin-bottom: 100px;
+    margin-bottom: 10px;
     padding: 53px 0 50px;
   }
 
@@ -48,6 +48,13 @@
     padding: 23px 29px !important;
     max-width: 330px;
     width: 100% !important;
+    font-family: OpenSans !important;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 16px;
+      padding: 21px 29px !important;
+      max-width: 100%;
+    }
 
     &_fixed {
       position: fixed;

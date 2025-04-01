@@ -293,10 +293,14 @@
         }
 
         &__price {
+          font-family: OpenSans;
+          font-weight: 600;
+          font-size: clamp(16px, 2.5vw, 18px);
+
           &_sale {
             display: flex;
             align-items: end;
-            font-weight: 500;
+            font-weight: 600;
             font-size: clamp(16px, 2.5vw, 18px);
             gap: 10px;
             color: $redText;

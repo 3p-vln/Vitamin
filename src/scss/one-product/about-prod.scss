@@ -110,7 +110,7 @@
   }
 
   .info {
-    padding: 163px 136px 103px;
+    padding: 160px 136px 103px;
     max-width: 835px;
     background: white;
     overflow: hidden;
@@ -151,7 +151,6 @@
     }
 
     &__category {
-      margin-bottom: 16px;
       font-family: OpenSans;
       font-weight: 600;
       font-size: clamp(14px, 2.5vw, 16px);
@@ -189,6 +188,7 @@
       font-weight: 500;
       line-height: 1.2;
       font-size: clamp(24px, 2.5vw, 40px);
+      margin-top: 14px;
 
       @include media-breakpoint-down(sm) {
         margin-top: 13px;
@@ -339,8 +339,9 @@
           &__dropdown {
             display: flex;
             align-items: center;
-            font-size: 15px;
-            gap: 18px;
+            font-size: 14px;
+            gap: 17px;
+            font-family: OpenSans;
 
             @include media-breakpoint-down(sm) {
               gap: 6px;
@@ -510,7 +511,7 @@
           &__btn {
             padding: 21px 29px;
             width: 100%;
-            max-width: 330px;
+            max-width: 333px;
             font-size: clamp(16px, 2.5vw, 20px);
 
             @include media-breakpoint-down(md) {
