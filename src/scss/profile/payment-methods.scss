@@ -1,5 +1,7 @@
 .payment-methods {
-
+@include media-breakpoint-down(xs) {
+  padding-top: 12px;
+}
   &__title {
     font-family: Effra, sans-serif;
     font-weight: 500;
@@ -9,6 +11,7 @@
 
     @include media-breakpoint-down(xs) {
       font-size: 24px;
+      margin-bottom: 36px;
     }
   }
 
@@ -58,14 +61,20 @@
     @include media-breakpoint-down(md) {
       margin-bottom: 40px;
     }
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 29px;
+    }
   }
 
   &__label {
+    font-family: OpenSans, sans-serif;
     display: block;
     font-weight: 400;
     font-size: 14px;
     opacity: 0.5;
     margin-bottom: 8px;
+
+
   }
 
   &__input {
@@ -101,12 +110,21 @@
     width: 154px;
     background: $orangeMain;
 
+
+
     @include media-breakpoint-down(md) {
       margin-top: 30px;
     }
 
     @include media-breakpoint-down(sm) {
       margin-bottom: 30px;
+    }
+
+    @include media-breakpoint-down(xs) {
+      &:not(.no-effect) {
+        width: 100%;
+        margin-top: 5px;
+      }
     }
 
     &_disabled {
@@ -140,6 +158,10 @@
     bottom: 75px;
   }
 
+  @include media-breakpoint-down(xs) {
+    left: 188px;
+    bottom: 67px;
+  }
 
   &__magnetic-stripe {
     width: 100%;

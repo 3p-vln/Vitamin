@@ -35,7 +35,7 @@
 
   &__nav-btn {
     border-radius: 12px;
-    padding: 17px 49px 20px 85px;
+    padding: 17px 83px 20px 54px;
     font-family: Effra, sans-serif;
     font-weight: 500;
     text-align: center;
@@ -53,7 +53,7 @@
     &_active {
       padding: 17px 49px 20px 53px;
       width: 100%;
-      max-width: 330px;
+      max-width: 320px;
       background: $orangeMain;
       color: $font-color-white;
 
@@ -67,7 +67,7 @@
   &__text {
     position: relative;
     overflow: hidden;
-    margin-top: 48px;
+    margin-top: 45px;
     margin-bottom: 46px;
     font-weight: 500;
     text-align: center;
@@ -123,13 +123,17 @@
   max-width: 444px;
   transform: translateX(-50%);
 
+  @include media-breakpoint-down(xs) {
+    max-width: 335px;
+  }
+
 
   &__field {
     &:not(:last-child) {
       margin-bottom: 14px;
 
       @include media-breakpoint-down(xs) {
-        margin-bottom: 9px;
+        margin-bottom: 11px;
       }
     }
   }
@@ -153,6 +157,12 @@
       background: $disabled-btn;
       color: $font-color-white;
     }
+
+    @include media-breakpoint-down(xs) {
+      font-size: 16px;
+      padding: 17px 140px;
+      margin-top: 22px;
+    }
   }
 
   &__error-message {
@@ -162,15 +172,17 @@
   }
 
   &__login {
-    margin-top: 100px;
+    font-family: OpenSans, sans-serif;
+    font-weight: 400;
+    margin-top: 105px;
     margin-bottom: 50px;
-    font-weight: normal;
     text-align: center;
     font-size: 16px;
     color: $font-color-black;
 
     @include media-breakpoint-down(xs) {
-      margin-top: 80px;
+      margin-top: 85px;
+      font-size: 14px;
     }
   }
 

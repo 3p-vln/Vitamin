@@ -54,13 +54,14 @@
 
   &__icon {
     display: none;
-    width: 15px;
-    height: 9px;
     position: absolute;
     right: 0;
     top: 50%;
+
     @include media-breakpoint-down(xs) {
       display: block;
+      width: 15px;
+      height: 9px;
     }
   }
 

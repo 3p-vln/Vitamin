@@ -73,9 +73,6 @@
 }
 
 .overview-form {
-  @include media-breakpoint-down(xs) {
-    margin-bottom: 55px;
-  }
 
   &__wrapper {
     display: flex;
@@ -152,10 +149,18 @@
   &__submit-btn {
     margin-top: 40px;
     width: 154px;
+    font-family: Effra, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
 
     @include media-breakpoint-down(xs) {
       width: 100%;
       max-width: 333px;
+      margin-top: 37px;
+
+      &:not(.no-effect){
+        padding: 15px;
+      }
     }
 
 
