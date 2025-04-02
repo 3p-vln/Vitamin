@@ -31,7 +31,7 @@ function fixBtn(container: HTMLElement, button: HTMLElement) {
       } else {
         classManipulator(button, 'remove', 'your-pack__continue_fixed');
       }
-    }, 100);
+    }, 10);
 
     return;
   }

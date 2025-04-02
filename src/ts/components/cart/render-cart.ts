@@ -347,12 +347,18 @@ export function loadCartFromLocalStorage() {
 }
 
 export function emptyBag(isEmpty: boolean) {
-  if (!cartContainer || !cartBtn) return;
+  const headerBag = getElement('.header__bag svg');
+
+  if (!cartContainer || !cartBtn || !headerBag) return;
   if (!isEmpty) {
-    classManipulator(cartContainer, 'remove', 'empty');
     const emptyText = getElements('.cart__empty');
+
+    classManipulator(cartContainer, 'remove', 'empty');
     emptyText.forEach((el) => el.remove());
+
     cartBtn.style.display = '';
+
+    headerBag.innerHTML = `<use href="#bag-active"></use>`;
   }
 
   if (isEmpty) {
@@ -363,6 +369,8 @@ export function emptyBag(isEmpty: boolean) {
     cartBtn.style.display = 'none';
 
     cartContainer.appendChild(empty);
+
+    headerBag.innerHTML = `<use href="#bag-active"></use>`;
   }
 }
 
