@@ -14,7 +14,7 @@
     background: $background;
 
     @include media-breakpoint-down(md) {
-      padding: 41px 15px 60px 15px;
+      padding: 42px 15px 60px 15px;
     }
   }
 
@@ -29,7 +29,15 @@
     background-color: white;
 
     @include media-breakpoint-down(xs) {
-      margin-bottom: 38px;
+      margin-bottom: 42px;
+      margin-left: 5px;
+      max-width: 335px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    @include media-breakpoint-down(xs) {
+      margin-right: 5px;
     }
   }
 
@@ -45,9 +53,20 @@
     color: $font-color-black;
     background-color: transparent;
 
+    &_regular{
+      padding-left: 84px;
+    }
+
     @include media-breakpoint-down(xs) {
       padding: 14px 22px;
       font-size: 16px;
+    }
+
+    &.registration__nav-btn_active {
+      &.registration__nav-btn_who {
+
+        max-width: 330px;
+      }
     }
 
     &_active {
@@ -56,6 +75,9 @@
       max-width: 320px;
       background: $orangeMain;
       color: $font-color-white;
+      &:has(.registration__nav-btn_who){
+
+      }
 
       @include media-breakpoint-down(xs) {
         padding: 14px 30px 14px 30px;
@@ -127,6 +149,10 @@
     max-width: 335px;
   }
 
+  @include media-breakpoint-down(xxs) {
+    padding: 0 5px;
+  }
+
 
   &__field {
     &:not(:last-child) {
@@ -143,13 +169,14 @@
     justify-content: center;
     margin-top: 24px;
     padding: 17px 140px;
-
+    border-radius: 100px;
     max-width: 444px;
     font-weight: bold;
     white-space: nowrap;
     font-size: 20px;
+    color: $font-color-white;
 
-    &:not(.no-effect){
+    &:not(.no-effect) {
       width: 100%;
     }
 
@@ -162,6 +189,12 @@
       font-size: 16px;
       padding: 17px 140px;
       margin-top: 22px;
+      max-width: 335px;
+    }
+
+    @include media-breakpoint-down(xxs) {
+
+      max-width: 280px;
     }
   }
 

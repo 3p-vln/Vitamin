@@ -56,7 +56,7 @@
       height: 139px;
       animation: scale 10s linear infinite;
       z-index: 1;
-      background: $orange;
+      background: $orange-circle;
 
       @include media-breakpoint-down(md) {
         left: auto;

@@ -2,7 +2,7 @@
 @import '../registration/social-sign-up';
 @import '../login/login-field.scss';
 
-body {
+.body {
   visibility: hidden;
   background: $cardBackground;
 
@@ -19,6 +19,7 @@ body {
   width: 100%;
   background: $cardBackground;
 
+
   svg {
     width: 42px;
     height: 50px;
@@ -26,6 +27,8 @@ body {
 
   @include media-breakpoint-down(xs) {
     background: transparent;
+    padding-bottom: 18px;
+    border-bottom: 1px solid $border-color;
   }
 
   @include media-breakpoint-down(md) {
@@ -84,7 +87,7 @@ body {
   padding-top: 61px;
 
   @include media-breakpoint-down(xs) {
-    padding-top: 0;
+    padding-top: 12px;
   }
 
   &__container {
@@ -101,7 +104,7 @@ body {
     }
 
     @include media-breakpoint-down(md) {
-      padding: 40px 15px;
+      padding: 40px 15px 47px 15px;
     }
   }
 
@@ -145,7 +148,11 @@ body {
   }
 
   &__form {
-    margin-bottom: 45px;
+    margin-bottom: 51px;
+
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 45px;
+    }
   }
 
   &__log {
@@ -157,7 +164,9 @@ body {
 
     @include media-breakpoint-down(xs) {
       font-size: 14px;
-      margin-top: 53px;
+      margin-top: 0;
+      padding-top: 45px;
+      border-top: 1px solid $border-color;
     }
   }
 }
@@ -176,13 +185,14 @@ body {
   &__submit {
     position: relative;
     right: 14px;
-    top: 3px;
-    padding: 20px;
+    top: 6px;
     font-size: 20px;
 
     &:not(.no-effect) {
       width: 270px;
+      padding: 20px;
     }
+
     @include media-breakpoint-down(xs) {
       font-size: 16px;
       margin-top: 6px;
@@ -194,7 +204,6 @@ body {
     }
 
     @include media-breakpoint-down(xxs) {
-
       &:not(.no-effect) {
         width: 278px;
       }
@@ -215,7 +224,7 @@ body {
 .forgot-password-link {
 
   position: absolute;
-  right: 39px;
+  right: 27px;
   top: 40%;
   font-family: OpenSans, sans-serif;
   font-weight: normal;
@@ -226,10 +235,7 @@ body {
   opacity: 0.5;
 
   @include media-breakpoint-down(xs) {
-    right: 25px;
+    right: 22px;
   }
 
-  @include media-breakpoint-down(xs) {
-    right: 30px;
-  }
 }
