@@ -1,7 +1,5 @@
 import { classManipulator, getElement } from '../composables/use-call-dom.ts';
 
-let timeout: ReturnType<typeof setTimeout>;
-
 export function unfixBtn() {
   const container = getElement('.your-pack');
   const button = getElement('.your-pack__continue');
@@ -20,21 +18,35 @@ export function unfixBtn() {
 }
 
 function fixBtn(container: HTMLElement, button: HTMLElement) {
-  if (window.innerWidth <= 768) {
-    const rect = container.getBoundingClientRect();
-    const distanceToBottom = window.innerHeight - rect.bottom;
+  // if (window.innerWidth <= 768) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(() => {
+        updateButtonPosition(container, button);
+      });
+    },
+    { threshold: 0.1 }
+  );
 
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      if (distanceToBottom < -150) {
-        classManipulator(button, 'add', 'your-pack__continue_fixed');
-      } else {
-        classManipulator(button, 'remove', 'your-pack__continue_fixed');
-      }
-    }, 100);
+  observer.observe(container);
+  window.addEventListener('scroll', () => updateButtonPosition(container, button));
+  window.addEventListener('resize', () => updateButtonPosition(container, button));
 
+  return;
+  // }
+}
+
+function updateButtonPosition(container: HTMLElement, button: HTMLElement) {
+  const containerRect = container.getBoundingClientRect();
+
+  if (window.innerWidth > 768) {
+    classManipulator(button, 'remove', 'your-pack__continue_fixed');
     return;
   }
 
-  classManipulator(button, 'remove', 'your-pack__continue_fixed');
+  if (containerRect.bottom <= window.innerHeight) {
+    classManipulator(button, 'remove', 'your-pack__continue_fixed');
+  } else {
+    classManipulator(button, 'add', 'your-pack__continue_fixed');
+  }
 }
