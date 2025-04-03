@@ -1,8 +1,20 @@
 @import '../style';
 
-main {
+.body {
   background: $cardBackground;
-  margin: 0 !important;
+  margin: 0 ;
+
+  @include media-breakpoint-down(xs) {
+    background: $background;
+  }
+}
+.page{
+  @include media-breakpoint-down(xs) {
+   &:not(.no-effect){
+     margin-top: 11px;
+
+   }
+  }
 }
 
 .recover-header {
@@ -20,6 +32,8 @@ main {
 
   @include media-breakpoint-down(xs) {
     background: transparent;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 18px;
   }
 
   @include media-breakpoint-down(md) {
@@ -76,8 +90,7 @@ main {
 
 
 .recover {
-
-  margin: 0 auto;
+  margin: 100px auto 0 auto;
   font-family: Effra, sans-serif;
   width: 100%;
 

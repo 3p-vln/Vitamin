@@ -13,6 +13,7 @@
     @include media-breakpoint-down(xs) {
       flex-wrap: wrap;
       width: auto;
+      height: 56px;
     }
   }
 
@@ -52,7 +53,7 @@
     }
 
     @include media-breakpoint-down(xs) {
-      margin: 10px;
+
     }
 
   }
@@ -69,6 +70,7 @@
 
     @include media-breakpoint-down(xs) {
       display: flex;
+      padding-left: 17px;
     }
   }
 
@@ -77,6 +79,8 @@
     font-size: 18px;
     color: $font-color-black;
     opacity: 0.3;
+    font-family: OpenSans, sans-serif;
+    padding-left: 24px;
 
     &_mobile {
       display: none;
@@ -85,6 +89,7 @@
         position: relative;
         top: -10px;
         display: flex;
+        font-size: 13px;
       }
     }
 

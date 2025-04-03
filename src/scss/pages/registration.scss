@@ -5,8 +5,12 @@
 @import '../registration/registration-field.scss';
 
 
-body{
+.body{
   background-color: $cardBackground;
+
+  @include media-breakpoint-down(md) {
+    background: $background;
+  }
 }
 
 .page{
@@ -40,7 +44,6 @@ body{
   padding-top: 30px;
   padding-bottom: 30px;
   width: 100%;
-  background: $cardBackground;
 
   svg{
     position: relative;
