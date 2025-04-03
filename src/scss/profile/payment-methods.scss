@@ -7,7 +7,7 @@
     font-weight: 500;
     font-size: 36px;
     color: $font-color-black;
-    margin-bottom: 40px;
+    margin-bottom: 42px;
 
     @include media-breakpoint-down(xs) {
       font-size: 24px;
@@ -43,9 +43,9 @@
 }
 
 .card-front {
-  max-width: 490px;
-  background: $cardBackground;
-  padding: 50px 40px 40px 40px;
+  max-width: 491px;
+  background: $payCardBgFont;
+  padding: 55px 38px 42px 42px;
   border-radius: 16px;
   position: relative;
   z-index: 1;
@@ -73,8 +73,6 @@
     font-size: 14px;
     opacity: 0.5;
     margin-bottom: 8px;
-
-
   }
 
   &__input {
@@ -84,7 +82,8 @@
     width: 100%;
     line-height: 1.2;
     border-radius: 12px;
-    background: $cardBackground;
+    background: $font-color-white;
+    font-family: OpenSans;
 
     &_date {
       width: 104px;
@@ -94,7 +93,7 @@
   &__img-wrapper {
     display: flex;
     justify-content: right;
-    margin: 10px 0;
+    margin: 10px 0 3px;
 
     @include media-breakpoint-down(md) {
       display: none;
@@ -109,8 +108,6 @@
     margin-top: 88px;
     width: 154px;
     background: $orangeMain;
-
-
 
     @include media-breakpoint-down(md) {
       margin-top: 30px;
@@ -139,12 +136,12 @@
 
 .card-back {
   position: absolute;
-  bottom: 82px;
-  left: 184px;
+  bottom: 88px;
+  left: 185px;
   border-radius: 16px;
   width: 490px;
   height: 288px;
-  background: $cardBackground;
+  background: $payCardBgBack;
   z-index: 0;
 
   @include media-breakpoint-down(lg) {
@@ -166,7 +163,7 @@
   &__magnetic-stripe {
     width: 100%;
     height: 63px;
-    background: $cardBackground;
+    background: $payCardLine;
     margin-top: 40px;
 
     @include media-breakpoint-down(md) {
@@ -176,7 +173,7 @@
 
   &__input-wrapper {
     position: absolute;
-    bottom: 48px;
+    bottom: 49px;
     right: 40px;
   }
 
@@ -185,7 +182,7 @@
     font-weight: 400;
     font-size: 14px;
     opacity: 0.5;
-    margin-bottom: 8px;
+    margin-bottom: 11px;
   }
 
   &__input {
@@ -197,7 +194,7 @@
     border-radius: 12px;
 
     @include media-breakpoint-down(md) {
-      background: $cardBackground;
+      background: $font-color-white;
     }
   }
 }

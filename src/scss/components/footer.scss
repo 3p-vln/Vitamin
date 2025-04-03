@@ -29,7 +29,7 @@
   .logo {
     display: flex;
     flex-direction: column;
-    max-width: 124px;
+    max-width: 125px;
     font-weight: normal;
     line-height: 15px;
     letter-spacing: 0.3px;
@@ -54,6 +54,7 @@
 
     &__prod {
       opacity: 0.5;
+      font-family: OpenSans;
 
       @include media-breakpoint-down(sm) {
         display: none;
@@ -80,10 +81,10 @@
       flex-direction: column;
       max-width: 140px;
       line-height: 21px;
-      letter-spacing: 0.5px;
       opacity: 0.5;
       font-size: 14px;
       gap: 14px;
+      font-family: OpenSans;
 
       @include media-breakpoint-down(md) {
         max-width: 110px;

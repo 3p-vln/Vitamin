@@ -11,15 +11,15 @@
     &::before {
       content: '';
       position: absolute;
-      right: 30px;
-      top: -30px;
+      right: 17px;
+      top: -27px;
       display: block;
       border-radius: 50%;
       width: 60px;
       height: 60px;
       animation: scale 10s linear infinite;
       z-index: 1;
-      background: $orange;
+      background: $orange-circle;
     }
 
     @include media-breakpoint-down(xs) {

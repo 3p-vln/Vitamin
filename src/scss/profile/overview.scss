@@ -77,7 +77,7 @@
   &__wrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 53px 33px;
+    gap: 52px 33px;
 
     @include media-breakpoint-down(xs) {
       gap: 48px 33px;
@@ -148,10 +148,11 @@
 
   &__submit-btn {
     margin-top: 40px;
-    width: 154px;
+    width: 156px;
     font-family: Effra, sans-serif;
     font-size: 16px;
     font-weight: 700;
+    padding: 16px;
 
     @include media-breakpoint-down(xs) {
       width: 100%;
