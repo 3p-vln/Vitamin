@@ -1,14 +1,16 @@
 import JustValidate from 'just-validate';
 import { LoginData, loginRequest } from './login-request.ts';
 
+
+export let validator = new JustValidate('#login-form');
 export function validateLoginForm() {
 
 
 
-    const validator = new JustValidate('#login-form');
+
 
     validator
-      .addField('#regular-login-email', [
+      .addField('#login-email', [
         {
           rule: 'required',
           errorMessage: 'Email is required',

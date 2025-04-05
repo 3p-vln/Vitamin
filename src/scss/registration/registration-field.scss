@@ -17,6 +17,45 @@
     }
   }
 
+  &__password-icon {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+
+    @media(hover: hover) {
+      cursor: pointer;
+    }
+
+    svg {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__password-icon-open {
+    opacity: 0;
+  }
+  &__password-icon-reg {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+
+    @media(hover: hover) {
+      cursor: pointer;
+    }
+
+    svg {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__password-icon-open-reg {
+    opacity: 0;
+  }
+
   &__input {
     outline: none;
     border-radius: 4px;

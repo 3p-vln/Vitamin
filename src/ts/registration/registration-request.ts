@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { RegisterData } from '../../typings/interfaces.ts';
 import { getProfileInfo, register } from '../composables/use-api.ts';
-import { getElements } from '../composables/use-call-dom.ts';
+import { validator } from './validate-registration-form-regular.ts';
 
 export async function registrationRequest(data: RegisterData) {
   const res: any = await register(data);
@@ -17,20 +17,28 @@ export async function registrationRequest(data: RegisterData) {
     return;
   }
 
-  const errorMessageContainer: NodeListOf<HTMLSpanElement> = getElements('.registration-form__error-message');
-  if (errorMessageContainer) {
-    switch (res.errors[0].message) {
-      case 'Користувач вже зареєстрований':
-        errorMessageContainer.forEach((item: HTMLSpanElement) => {
-          item.innerHTML = 'The user is already registered';
-        });
-        break;
-      default:
-        errorMessageContainer.forEach((item: HTMLSpanElement) => {
-          item.innerHTML = 'Error, try again later';
-        });
-    }
-  }
+  const field = `#regular-registration-${[res.errors[0].field!]}`;
+  const errorsObj = { [field]: res.errors[0].message };
+  console.log(field);
+
+  validator.showErrors(errorsObj);
+
+
+  // const errorMessageContainer: NodeListOf<HTMLSpanElement> = getElements('.registration-form__error-message');
+
+  // if (errorMessageContainer) {
+  //   switch (res.errors[0].message) {
+  //     case 'Користувач вже зареєстрований':
+  //       errorMessageContainer.forEach((item: HTMLSpanElement) => {
+  //         item.innerHTML = 'The user is already registered';
+  //       });
+  //       break;
+  //     default:
+  //       errorMessageContainer.forEach((item: HTMLSpanElement) => {
+  //         item.innerHTML = 'Error, try again later';
+  //       });
+  //   }
+  // }
 
   return;
 }

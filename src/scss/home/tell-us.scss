@@ -3,7 +3,7 @@
   padding-bottom: 150px;
 
   @include media-breakpoint-down(xs) {
-    padding-bottom: 27px;
+    padding-bottom: 59px;
     overflow: hidden;
   }
 
@@ -202,6 +202,10 @@
     font-weight: 500;
     font-size: 20px;
     color: $orangeLink;
+
+    @include media-breakpoint-down(xs) {
+      font-size: 14px;
+    }
 
     svg {
       position: relative;

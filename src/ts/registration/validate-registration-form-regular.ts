@@ -1,9 +1,9 @@
 import JustValidate from 'just-validate';
 import { registrationRequest } from './registration-request.ts';
 import { getElement } from '../composables/use-call-dom.ts';
-
+export const validator = new JustValidate('#regular-registration');
 export function validateRegularForm() {
-  const validator = new JustValidate('#regular-registration');
+
 
   validator
     .addField('#regular-registration-email', [

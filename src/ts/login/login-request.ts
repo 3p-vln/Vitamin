@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie';
 import { getProfileInfo, logIn } from '../composables/use-api.ts';
 import { getElement } from '../composables/use-call-dom.ts';
+import {validator} from './validate-login-form.ts'
+
 
 export interface LoginData {
   email: string;
@@ -20,23 +22,30 @@ export async function loginRequest(data: LoginData) {
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
       window.location.href = '/Vitamin';
     }
+    return
   }
 
-  if ('message' in res.errors[0]) {
+
     const errorMessageContainer = getElement<HTMLElement>('.login-form__error-message');
 
     if (!errorMessageContainer) return;
 
-    switch (res.errors[0].message) {
-      case 'Не правильний пароль':
-        errorMessageContainer.innerHTML = 'Wrong password';
-        break;
+    const field = `#login-${[res.errors[0].field!]}`;
+    const errorsObj = { [field]: res.errors[0].message };
 
-      case 'Користувач не знайдений':
-        errorMessageContainer.innerHTML = 'Wrong email';
-        break;
-      default:
-        errorMessageContainer.innerHTML = 'Error, try again later';
-    }
-  }
+    validator.showErrors(errorsObj);
+
+
+    // switch (res.errors[0].message) {
+    //   case 'Не правильний пароль':
+    //     errorMessageContainer.innerHTML = 'Wrong password';
+    //     break;
+    //
+    //   case 'Користувач не знайдений':
+    //     errorMessageContainer.innerHTML = 'Wrong email';
+    //     break;
+    //   default:
+    //     errorMessageContainer.innerHTML = 'Error, try again later';
+    // }
+
 }

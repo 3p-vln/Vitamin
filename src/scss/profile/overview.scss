@@ -144,6 +144,10 @@
     position: relative;
     top: 1px;
     left: 14px;
+
+    @include media-breakpoint-down(xs) {
+      top: 7px;
+    }
   }
 
   &__submit-btn {

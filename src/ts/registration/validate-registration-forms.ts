@@ -1,11 +1,11 @@
 import { getElement } from '../composables/use-call-dom.ts';
 import { registrationRequest } from './registration-request.ts';
 import JustValidate from 'just-validate';
+const validator = new JustValidate('#wholesale-registration', {
+  fallback: false,
+});
 
 export function validateWholesaleForm() {
-  const validator = new JustValidate('#wholesale-registration', {
-    fallback: false,
-  });
 
   validator
     .addField('#wholesale-registration-email', [
@@ -92,10 +92,10 @@ export function validateWholesaleForm() {
           const fileInput = getElement<HTMLInputElement>('#wholesale-registration-file');
           if (!fileInput || !fileInput.files || fileInput.files.length === 0) return false;
 
-          const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+          const allowedTypes = ['image/jpeg', 'image/png', 'image/webp','application/pdf'];
           return allowedTypes.includes(fileInput.files[0].type);
         },
-        errorMessage: 'Only image (JPG, PNG, webp) are allowed',
+        errorMessage: 'Only image (JPG, PNG, webp, pdf) are allowed',
       },
     ])
     .onSuccess(async () => {

@@ -16,8 +16,18 @@
     </div>
 
     <div class="registration-form__field field">
-        <input class="field__input" id="regular-registration-password" type="password" placeholder=" " autoComplete="new-password" name="password">
+        <input class="field__input field__input_password-reg" id="regular-registration-password" type="password" placeholder=" " autoComplete="new-password" name="password">
         <label class="field__label" for="regular-registration-password">Password</label>
+        <span class="field__password-icon-reg show">
+
+            <svg class="field__password-icon-open-reg">
+              <use href="#password-icon"></use>
+            </svg>
+
+            <svg class="field__password-icon-close-reg">
+              <use href="#password-icon-alt"></use>
+            </svg>
+          </span>
     </div>
 
     <button class="btn_orange btn_registration registration-form__submit" type="submit">Create my account</button>

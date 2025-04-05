@@ -16,10 +16,20 @@
     <label class="field__label" for="wholesale-registration-last-name">Last Name</label>
   </div>
 
-  <div class="registration-form__field field">
-    <input class="field__input" id="wholesale-registration-password" type="password" placeholder=" "
+  <div class="registration-form__field field ">
+    <input class="field__input field__input_password" id="wholesale-registration-password" type="password" placeholder=" "
            autocomplete="new-password" name="password">
     <label class="field__label" for="wholesale-registration-password">Password</label>
+    <span class="field__password-icon show">
+
+            <svg class="field__password-icon-open">
+              <use href="#password-icon"></use>
+            </svg>
+
+            <svg class="field__password-icon-close">
+              <use href="#password-icon-alt"></use>
+            </svg>
+          </span>
   </div>
 
   <div class="registration-form__field field field_file">

@@ -1,8 +1,8 @@
 import JustValidate from 'just-validate';
 import { recoverRequest } from './recover-request.ts';
-
+export const validator = new JustValidate('#recover-form');
 export function validateRecoverForm() {
-  const validator = new JustValidate('#recover-form');
+
 
   validator
     .addField('#recover-email', [
